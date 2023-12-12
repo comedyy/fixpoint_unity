@@ -502,8 +502,8 @@ namespace Nt.Deterministics
         #region operator convert from/to long、float、int、double、decimal
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator float(number value) => (float)value.RawValue / ONE;
-        public static explicit operator number(int value) => new number((long)value << FRACTIONAL_PLACES);
-        public static explicit operator number(uint value) => new number((long)value << FRACTIONAL_PLACES);
+        public static implicit operator number(int value) => new number((long)value << FRACTIONAL_PLACES);
+        public static implicit operator number(uint value) => new number((long)value << FRACTIONAL_PLACES);
         #endregion
 
         #region IsPositiveInfinity、IsNegativeInfinity、IsInfinity、IsNaN

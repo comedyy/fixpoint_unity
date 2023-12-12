@@ -2147,7 +2147,7 @@ namespace Nt.Deterministics
         public static bool Approximately(float a, number num)
         {
             float b = num;
-            return Unity.Mathematics.math.abs(a - b) < 0.001f;
+            return Unity.Mathematics.math.abs(a - b) < 0.01f;
         }
 
         public static bool Approximately(number a, float b)

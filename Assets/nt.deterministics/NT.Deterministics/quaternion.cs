@@ -491,22 +491,6 @@ namespace Nt.Deterministics
         /// <summary>
         /// construct quaternion from euler angles.(ZXY)
         /// </summary>
-        /// <param name="euler">degree of euler angles. z as roll, x as pitch, y as yaw</param>
-        /// <returns>quaternion</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static quaternion Euler(float3 euler)
-        {
-            math.sincos(number.half * euler * number.Deg2Rad, out float3 s, out float3 c);
-            return new quaternion(
-                s.x * c.y * c.z + c.x * s.y * s.z,
-                c.x * s.y * c.z - s.x * c.y * s.z,
-                c.x * c.y * s.z - s.x * s.y * c.z,
-                c.x * c.y * c.z + s.x * s.y * s.z);
-        }
-
-        /// <summary>
-        /// construct quaternion from euler angles.(ZXY)
-        /// </summary>
         /// <param name="x">degree of pitch</param>
         /// <param name="y">degree of yaw</param>
         /// <param name="z">degree of roll</param>
