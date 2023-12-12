@@ -70,35 +70,34 @@ namespace Nt.Deterministics
         /// <param name="m">matrix</param>
         public quaternion(float3x3 m)
         {
-            // float3 u = m.c0;
-            // float3 v = m.c1;
-            // float3 w = m.c2;
-            // number s = new number(constant.sign64);
-            // number u_sign = u.x & s;
-            // number t = u_sign.RawValue == 0L ? (v.y + w.z) : (v.y - w.z);
-            // float4 u_mask = new float4(u_sign >> 63);
-            // float4 t_mask = new float4(t >> 63);
-            // number tr = number.one + number.Abs(u.x);
-            // float4 sign_flips = new float4(number.zero, s, s, s) ^ (u_mask & new float4(number.zero, s, number.zero, s)) 
-            //     ^ (t_mask & new float4(s, s, s, number.zero));
-            // bool bSign = sign_flips.x.RawValue == 0L;
-            // float4 value = new float4(tr, u.y, w.x, v.z) + new float4(
-            //     bSign ? t : -t,
-            //     bSign ? v.x : -v.x,
-            //     bSign ? u.z : -u.z,
-            //     bSign ? w.y : -w.y);
-            // value = (value & ~u_mask) | (value.zwxy & u_mask);
-            // value = (value.wzyx & ~t_mask) | (value & t_mask);
-            // value = math.normalize(value);
-            // this.x.RawValue = value.x.RawValue;
-            // this.y.RawValue = value.y.RawValue;
-            // this.z.RawValue = value.z.RawValue;
-            // this.w.RawValue = value.w.RawValue;
+            float3 u = m.c0;
+            float3 v = m.c1;
+            float3 w = m.c2;
+            number s = new number(constant.sign64);
+            number u_sign = u.x & s;
+            number t = u_sign.RawValue == 0L ? (v.y + w.z) : (v.y - w.z);
+            float4 u_mask = new float4(u_sign >> 63);
+            float4 t_mask = new float4(t >> 63);
+            number tr = number.one + number.Abs(u.x);
+            float4 sign_flips = new float4(number.zero, s, s, s) ^ (u_mask & new float4(number.zero, s, number.zero, s)) 
+                ^ (t_mask & new float4(s, s, s, number.zero));
+            bool bSign0 = sign_flips.x.RawValue == 0L;
+            bool bSign1 = sign_flips.y.RawValue == 0L;
+            bool bSign2 = sign_flips.z.RawValue == 0L;
+            bool bSign3 = sign_flips.w.RawValue == 0L;
+            float4 value = new float4(tr, u.y, w.x, v.z) + new float4(
+                bSign0 ? t : -t,
+                bSign1 ? v.x : -v.x,
+                bSign2 ? u.z : -u.z,
+                bSign3 ? w.y : -w.y);
 
-            this.x.RawValue = 0;//value.x.RawValue;
-            this.y.RawValue = 0;//value.y.RawValue;
-            this.z.RawValue = 0;//value.z.RawValue;
-            this.w.RawValue = 0;//value.w.RawValue;
+            value = (value & ~u_mask) | (value.zwxy & u_mask);
+            value = (value.wzyx & ~t_mask) | (value & t_mask);
+            value = math.normalize(value);
+            this.x.RawValue = value.x.RawValue;
+            this.y.RawValue = value.y.RawValue;
+            this.z.RawValue = value.z.RawValue;
+            this.w.RawValue = value.w.RawValue;
         }
 
         /// <summary>
@@ -964,22 +963,6 @@ namespace Nt.Deterministics
         }
 
         /// <summary>
-        /// convert this quaternion to euler angles.(ZXY)
-        /// </summary>
-        /// <returns>the euler angles in radians</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [Obsolete("Use quaternion.eulerAngles instead. This function was deprecated because it uses radians instead of degrees.")]
-        public float3 ToEuler() => quaternion.ToEulerAngles(this);
-
-        /// <summary>
-        /// convert this quaternion to euler angles. (ZXY)
-        /// </summary>
-        /// <returns>the euler angles in radians</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [Obsolete("Use quaternion.eulerAngles instead. This function was deprecated because it uses radians instead of degrees.")]
-        public float3 ToEulerAngles() => quaternion.ToEulerAngles(this);
-
-        /// <summary>
         /// get a formatted string of the quaternion.
         /// </summary>
         /// <param name="format">A numeric format string.</param>
@@ -1080,5 +1063,20 @@ namespace Nt.Deterministics
         /// <returns>true if dot value equals to 1 within the accuracy, otherwise false</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static bool IsEqualUsingDot(number dot) => dot.RawValue >= number.ONE - number.SMALL_SQRT;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator Unity.Mathematics.quaternion(quaternion v) { return new Unity.Mathematics.quaternion(v.x, v.y, v.z, v.w); }
+    }
+
+    public static partial class math
+    {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Approximately(quaternion num2, Unity.Mathematics.quaternion b)
+        {
+            return Approximately(num2.x, b.value.x) 
+                && Approximately(num2.y, b.value.y)
+                && Approximately(num2.z, b.value.z)
+                && Approximately(num2.w, b.value.w);
+        }
     }
 }

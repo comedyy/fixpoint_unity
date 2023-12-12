@@ -2143,5 +2143,16 @@ namespace Nt.Deterministics
             [FieldOffset(0)]
             public double doubleValue;
         }
+
+        public static bool Approximately(float a, number num)
+        {
+            float b = num;
+            return Unity.Mathematics.math.abs(a - b) < 0.001f;
+        }
+
+        public static bool Approximately(number a, float b)
+        {
+            return Approximately(b, a);
+        }
     }
 }

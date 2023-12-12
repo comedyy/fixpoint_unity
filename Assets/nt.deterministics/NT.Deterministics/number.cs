@@ -501,7 +501,7 @@ namespace Nt.Deterministics
 
         #region operator convert from/to long、float、int、double、decimal
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator float(number value) => (float)value.RawValue / ONE;
+        public static implicit operator float(number value) => (float)value.RawValue / ONE;
         public static explicit operator number(int value) => new number((long)value << FRACTIONAL_PLACES);
         public static explicit operator number(uint value) => new number((long)value << FRACTIONAL_PLACES);
         #endregion
@@ -537,7 +537,7 @@ namespace Nt.Deterministics
             if (RawValue == NaN.RawValue) return "NaN";
             if (RawValue == PositiveInfinity.RawValue) return "Infinity";
             if (RawValue == NegativeInfinity.RawValue) return "-Infinity";
-            return ((double)this).ToString();
+            return ((float)this).ToString("F3");
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string format, IFormatProvider formatProvider)
@@ -1447,5 +1447,53 @@ namespace Nt.Deterministics
         public static number Min(number x, number y) => x.RawValue < y.RawValue ? x : y;
         public static number Max(number x, number y) => x.RawValue > y.RawValue ? x : y;
         #endregion
+
+        // ------------------- 后面移除掉。
+        #region operator &、|、^、~
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static number operator &(number x, number y)
+        {
+            x.RawValue &= y.RawValue;
+            return x;
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static number operator |(number x, number y)
+        {
+            x.RawValue |= y.RawValue;
+            return x;
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static number operator ^(number x, number y)
+        {
+            x.RawValue ^= y.RawValue;
+            return x;
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static number operator ~(number x)
+        {
+            x.RawValue = ~x.RawValue;
+            return x;
+        }
+        #endregion
+
+        #region operator >>、<<
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static number operator >>(number x, int amount)
+        {
+            x.RawValue >>= amount;
+            return x;
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static number operator <<(number x, int amount)
+        {
+            x.RawValue <<= amount;
+            return x;
+        }
+        #endregion
+
+        public static number ConvertFrom(float f)
+        {
+            return new number(){RawValue = (long)(f * ONE)};
+        }
     }
 }

@@ -174,6 +174,12 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator Unity.Mathematics.int2(float2 v) { return new Unity.Mathematics.int2((int)v.x, (int)v.y); }
 
+        /// <summary>Explicitly converts a float2 vector to a Unity.Mathematics.int2 vector by componentwise conversion.</summary>
+        /// <param name="v">float2 to convert to Unity.Mathematics.int2</param>
+        /// <returns>Converted value.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator Unity.Mathematics.float2(float2 v) { return new Unity.Mathematics.float2(v.x, v.y); }
+
         /// <summary>Explicitly converts a single uint value to a float2 vector by converting it to number and assigning it to every component.</summary>
         /// <param name="v">uint to convert to float2</param>
         /// <returns>Converted value.</returns>
@@ -938,5 +944,11 @@ namespace Nt.Deterministics
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static bool Approximately(float2 num2, Unity.Mathematics.float2 b)
+        {
+            return Approximately(num2.x, b.x) 
+            && Approximately(num2.y, b.y);
+        }
     }
 }

@@ -3749,6 +3749,79 @@ namespace Nt.Deterministics
             }
         }
 
+        
+        /// <summary>Returns the result of a componentwise bitwise and operation on two float4 vectors.</summary>
+        /// <param name="lhs">Left hand side float4 to use to compute componentwise bitwise and.</param>
+        /// <param name="rhs">Right hand side float4 to use to compute componentwise bitwise and.</param>
+        /// <returns>float4 result of the componentwise bitwise and.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static float4 operator & (float4 lhs, float4 rhs) { return new float4 (lhs.x & rhs.x, lhs.y & rhs.y, lhs.z & rhs.z, lhs.w & rhs.w); }
+
+        /// <summary>Returns the result of a componentwise bitwise and operation on a float4 vector and a number value.</summary>
+        /// <param name="lhs">Left hand side float4 to use to compute componentwise bitwise and.</param>
+        /// <param name="rhs">Right hand side number to use to compute componentwise bitwise and.</param>
+        /// <returns>float4 result of the componentwise bitwise and.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static float4 operator & (float4 lhs, number rhs) { return new float4 (lhs.x & rhs, lhs.y & rhs, lhs.z & rhs, lhs.w & rhs); }
+
+        /// <summary>Returns the result of a componentwise bitwise and operation on a number value and a float4 vector.</summary>
+        /// <param name="lhs">Left hand side number to use to compute componentwise bitwise and.</param>
+        /// <param name="rhs">Right hand side float4 to use to compute componentwise bitwise and.</param>
+        /// <returns>float4 result of the componentwise bitwise and.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static float4 operator & (number lhs, float4 rhs) { return new float4 (lhs & rhs.x, lhs & rhs.y, lhs & rhs.z, lhs & rhs.w); }
+
+
+        /// <summary>Returns the result of a componentwise bitwise or operation on two float4 vectors.</summary>
+        /// <param name="lhs">Left hand side float4 to use to compute componentwise bitwise or.</param>
+        /// <param name="rhs">Right hand side float4 to use to compute componentwise bitwise or.</param>
+        /// <returns>float4 result of the componentwise bitwise or.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static float4 operator | (float4 lhs, float4 rhs) { return new float4 (lhs.x | rhs.x, lhs.y | rhs.y, lhs.z | rhs.z, lhs.w | rhs.w); }
+
+        /// <summary>Returns the result of a componentwise bitwise or operation on a float4 vector and a number value.</summary>
+        /// <param name="lhs">Left hand side float4 to use to compute componentwise bitwise or.</param>
+        /// <param name="rhs">Right hand side number to use to compute componentwise bitwise or.</param>
+        /// <returns>float4 result of the componentwise bitwise or.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static float4 operator | (float4 lhs, number rhs) { return new float4 (lhs.x | rhs, lhs.y | rhs, lhs.z | rhs, lhs.w | rhs); }
+
+        /// <summary>Returns the result of a componentwise bitwise or operation on a number value and a float4 vector.</summary>
+        /// <param name="lhs">Left hand side number to use to compute componentwise bitwise or.</param>
+        /// <param name="rhs">Right hand side float4 to use to compute componentwise bitwise or.</param>
+        /// <returns>float4 result of the componentwise bitwise or.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static float4 operator | (number lhs, float4 rhs) { return new float4 (lhs | rhs.x, lhs | rhs.y, lhs | rhs.z, lhs | rhs.w); }
+
+
+        /// <summary>Returns the result of a componentwise bitwise exclusive or operation on two float4 vectors.</summary>
+        /// <param name="lhs">Left hand side float4 to use to compute componentwise bitwise exclusive or.</param>
+        /// <param name="rhs">Right hand side float4 to use to compute componentwise bitwise exclusive or.</param>
+        /// <returns>float4 result of the componentwise bitwise exclusive or.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static float4 operator ^ (float4 lhs, float4 rhs) { return new float4 (lhs.x ^ rhs.x, lhs.y ^ rhs.y, lhs.z ^ rhs.z, lhs.w ^ rhs.w); }
+
+        /// <summary>Returns the result of a componentwise bitwise exclusive or operation on a float4 vector and a number value.</summary>
+        /// <param name="lhs">Left hand side float4 to use to compute componentwise bitwise exclusive or.</param>
+        /// <param name="rhs">Right hand side number to use to compute componentwise bitwise exclusive or.</param>
+        /// <returns>float4 result of the componentwise bitwise exclusive or.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static float4 operator ^ (float4 lhs, number rhs) { return new float4 (lhs.x ^ rhs, lhs.y ^ rhs, lhs.z ^ rhs, lhs.w ^ rhs); }
+
+        /// <summary>Returns the result of a componentwise bitwise exclusive or operation on a number value and a float4 vector.</summary>
+        /// <param name="lhs">Left hand side number to use to compute componentwise bitwise exclusive or.</param>
+        /// <param name="rhs">Right hand side float4 to use to compute componentwise bitwise exclusive or.</param>
+        /// <returns>float4 result of the componentwise bitwise exclusive or.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static float4 operator ^ (number lhs, float4 rhs) { return new float4 (lhs ^ rhs.x, lhs ^ rhs.y, lhs ^ rhs.z, lhs ^ rhs.w); }
+
+
+        /// <summary>Returns the result of a componentwise bitwise negation operation on a float4 vector.</summary>
+        /// <param name="value">the float4 value to bitwise negation operation.</param>
+        /// <returns>float4 result of the componentwise bitwise negation.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static float4 operator ~ (float4 value) { return new float4 (~value.x, ~value.y, ~value.z, ~value.w); }
+
     }
 
     public static partial class math

@@ -222,6 +222,12 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator Unity.Mathematics.int3(float3 v) { return new Unity.Mathematics.int3((int)v.x, (int)v.y, (int)v.z); }
 
+        /// <summary>Explicitly converts a float3 vector to a Unity.Mathematics.int3 vector by componentwise conversion.</summary>
+        /// <param name="v">float3 to convert to Unity.Mathematics.int3</param>
+        /// <returns>Converted value.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator Unity.Mathematics.float3(float3 v) { return new Unity.Mathematics.float3(v.x, v.y, v.z); }
+
         /// <summary>Explicitly converts a single uint value to a float3 vector by converting it to number and assigning it to every component.</summary>
         /// <param name="v">uint to convert to float3</param>
         /// <returns>Converted value.</returns>
@@ -233,12 +239,6 @@ namespace Nt.Deterministics
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator float3(Unity.Mathematics.uint3 v) { return new float3(v); }
-
-        /// <summary>Explicitly converts a float3 vector to a Unity.Mathematics.float3 vector by componentwise conversion.</summary>
-        /// <param name="v">float3 to convert to Unity.Mathematics.float3</param>
-        /// <returns>Converted value.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator Unity.Mathematics.float3(float3 v) { return new Unity.Mathematics.float3((float)v.x, (float)v.y, (float)v.z); }
 
         /// <summary>Returns the result of a componentwise multiplication operation on two float3 vectors.</summary>
         /// <param name="lhs">Left hand side float3 to use to compute componentwise multiplication.</param>
@@ -1834,5 +1834,12 @@ namespace Nt.Deterministics
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static bool Approximately(float3 num2, Unity.Mathematics.float3 b)
+        {
+            return Approximately(num2.x, b.x) 
+            && Approximately(num2.y, b.y)
+            && Approximately(num2.z, b.z);
+        }
     }
 }
