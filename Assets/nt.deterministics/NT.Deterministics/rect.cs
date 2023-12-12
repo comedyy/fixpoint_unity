@@ -314,10 +314,10 @@ namespace Nt.Deterministics
         {
             if (allowInverse)
             {
-                bool xAxis = (this.width < 0f && point.x <= this.xMin && point.x > this.xMax) 
-                    || (this.width >= 0f && point.x >= this.xMin && point.x < this.xMax);
-                bool yAxis = (this.height < 0f && point.y <= this.yMin && point.y > this.yMax) 
-                    || (this.height >= 0f && point.y >= this.yMin && point.y < this.yMax);
+                bool xAxis = (this.width < 0 && point.x <= this.xMin && point.x > this.xMax) 
+                    || (this.width >= 0 && point.x >= this.xMin && point.x < this.xMax);
+                bool yAxis = (this.height < 0 && point.y <= this.yMin && point.y > this.yMax) 
+                    || (this.height >= 0 && point.y >= this.yMin && point.y < this.yMax);
                 return (xAxis && yAxis);
             }
             return Contains(point);

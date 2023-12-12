@@ -56,15 +56,25 @@ namespace Nt.Deterministics
                 return *(number*)(&raw);
             }
         }
-        public unsafe static decimal Precision
+        public unsafe static number one
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
-                return (decimal)MinNormal;
+                long raw = ONE;
+                return *(number*)(&raw);
             }
         }
-        public unsafe static number one
+        public unsafe static number two
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get
+            {
+                long raw = ONE;
+                return *(number*)(&raw);
+            }
+        }
+        public unsafe static number three
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
@@ -248,6 +258,8 @@ namespace Nt.Deterministics
         public const long WaterShedSqrt = 4L << FRACTIONAL_PLACES;
         public const int INTEGER_PLACES = sizeof(long) - FRACTIONAL_PLACES;
         public const long ONE = 1L << FRACTIONAL_PLACES;
+        public const long TWO = ONE * 2;
+        public const long THREE = ONE * 3;
         public const long nMaxInteger = (long.MaxValue - 1L) & IntegerMask;
         public const long SMALL = ONE >> 6;
         public const long SMALL_SQRT = ONE >> 12;
@@ -270,25 +282,6 @@ namespace Nt.Deterministics
         public static number FromRaw(long rawValue) => new number(rawValue);
 
         #region operator +、-、*、/
-#if NT_STRICT_NUMBER
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator +(number x, number y) => StrictAdd(x, y);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator -(number x, number y) => StrictSubstract(x, y);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator *(number x, number y) => StrictMutiply(x, y);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator /(number x, number y) => StrictDivide(x, y);
-#elif NT_NUMBER_BY_FLOAT
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator +(number x, number y) => FloatAdd(x, y);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator -(number x, number y) => FloatSubstract(x, y);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator *(number x, number y) => FloatMutiply(x, y);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator /(number x, number y) => FloatDivide(x, y);
-#else
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static number operator +(number x, number y)
         {
@@ -313,412 +306,59 @@ namespace Nt.Deterministics
             x.RawValue = (x.RawValue << FRACTIONAL_PLACES) / y.RawValue;
             return x;
         }
-#endif
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FastAdd(number x, number y)
-        {
-            x.RawValue += y.RawValue;
-            return x;
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number StrictAdd(number x, number y)
-        {
-            if (x.RawValue == NaN.RawValue || y.RawValue == NaN.RawValue) return NaN;
-            bool bx = x.RawValue == PositiveInfinity.RawValue || x.RawValue == NegativeInfinity.RawValue;
-            bool by = y.RawValue == PositiveInfinity.RawValue || y.RawValue == NegativeInfinity.RawValue;
-            if (bx && by && x.RawValue > 0 && y.RawValue > 0) return PositiveInfinity;
-            if (bx && by && x.RawValue < 0 && y.RawValue < 0) return NegativeInfinity;
-            if (bx && by) return NaN;
-            if (bx && !by) return x;
-            if (!bx && by) return y;
-            if (x.RawValue > 0 && y.RawValue > 0 && x.RawValue > MaxValue.RawValue - y.RawValue) return PositiveInfinity;//处理向上越界的情况
-            if (x.RawValue < 0 && y.RawValue < 0 && x.RawValue < MinValue.RawValue - y.RawValue) return NegativeInfinity;//处理向下越界的情况
-            x.RawValue += y.RawValue;
-            return x;
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FloatAdd(number x, number y)
-        {
-            x.RawValue += y.RawValue;
-            return x;
-        }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static number operator +(number x, int y)
         {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x + (number)y;
-#else
             x.RawValue += (long)y << FRACTIONAL_PLACES;
             return x;
-#endif
         }
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static number operator +(int x, number y)
         {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return (number)x + y;
-#else
             y.RawValue += (long)x << FRACTIONAL_PLACES;
             return y;
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator +(number x, float y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x + (number)y;
-#else
-            x.RawValue += (long)(y * ONE);
-            return x;
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator +(float x, number y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return (number)x + y;
-#else
-            y.RawValue += (long)(x * ONE);
-            return y;
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator +(number x, double y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x + (number)y;
-#else
-            x.RawValue += (long)(y * ONE);
-            return x;
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator +(double x, number y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return (number)x + y;
-#else
-            y.RawValue += (long)(x * ONE);
-            return y;
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FastSubstract(number x, number y)
-        {
-            x.RawValue -= y.RawValue;
-            return x;
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number StrictSubstract(number x, number y)
-        {
-            if (x.RawValue == NaN.RawValue || y.RawValue == NaN.RawValue) return NaN;
-            bool bx = x.RawValue == PositiveInfinity.RawValue || x.RawValue == NegativeInfinity.RawValue;
-            bool by = y.RawValue == PositiveInfinity.RawValue || y.RawValue == NegativeInfinity.RawValue;
-            if (bx && by && x.RawValue > 0 && y.RawValue < 0) return PositiveInfinity;
-            if (bx && by && x.RawValue < 0 && y.RawValue > 0) return NegativeInfinity;
-            if (bx && by) return NaN;
-            if (bx && !by) return x;
-            if (!bx && by) return -y;
-            if (x.RawValue > 0 && y.RawValue < 0 && x.RawValue > MaxValue.RawValue + y.RawValue) return PositiveInfinity;//处理向上越界的情况
-            if (x.RawValue < 0 && y.RawValue > 0 && x.RawValue < MinValue.RawValue + y.RawValue) return NegativeInfinity;//处理向下越界的情况
-            x.RawValue -= y.RawValue;
-            return x;
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FloatSubstract(number x, number y)
-        {
-            x.RawValue -= y.RawValue;
-            return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static number operator -(number x, int y)
         {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x - (number)y;
-#else
             x.RawValue -= (long)y << FRACTIONAL_PLACES;
             return x;
-#endif
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static number operator -(int x, number y)
         {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return (number)x - y;
-#else
             y.RawValue = ((long)x << FRACTIONAL_PLACES) - y.RawValue;
             return y;
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator -(number x, float y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x - (number)y;
-#else
-            x.RawValue -= (long)(y * ONE);
-            return x;
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator -(float x, number y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return (number)x - y;
-#else
-            y.RawValue = (long)(x * ONE) - y.RawValue;
-            return y;
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator -(number x, double y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x - (number)y;
-#else
-            x.RawValue -= (long)(y * ONE);
-            return x;
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator -(double x, number y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return (number)x - y;
-#else
-            y.RawValue = (long)(x * ONE) - y.RawValue;
-            return y;
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static long StrictRawMutiply(long x, long y)
-        {
-            var lx = x >> FRACTIONAL_PLACES;
-            var fx = x & FracMask;
-            var ly = y >> FRACTIONAL_PLACES;
-            var fy = y & FracMask;
-            long v1 = (lx * ly) << FRACTIONAL_PLACES;
-            long v2 = lx * fy;
-            long v3 = fx * ly;
-            long v4 = (fx * fy) >> FRACTIONAL_PLACES;
-            return v1 + v2 + v3 + v4;
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FastMutiply(number x, number y)
-        {
-            x.RawValue = (x.RawValue * y.RawValue) >> FRACTIONAL_PLACES;
-            return x;
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number StrictMutiply(number x, number y)
-        {
-            if (x.RawValue == NaN.RawValue || y.RawValue == NaN.RawValue) return NaN;
-            bool bx = x.RawValue == PositiveInfinity.RawValue || x.RawValue == NegativeInfinity.RawValue;
-            bool by = y.RawValue == PositiveInfinity.RawValue || y.RawValue == NegativeInfinity.RawValue;
-            int signX = x.RawValue == 0 ? 0 : x.RawValue < 0 ? -1 : 1;
-            int signY = y.RawValue == 0 ? 0 : y.RawValue < 0 ? -1 : 1;
-            int sign = signX * signY;
-            if (bx && by) return sign > 0 ? PositiveInfinity : NegativeInfinity;
-            if (bx && !by || !bx && by) return sign == 0 ? NaN : sign > 0 ? PositiveInfinity : NegativeInfinity;
-            var absX = x.RawValue < 0 ? -x.RawValue : x.RawValue;
-            var absY = y.RawValue < 0 ? -y.RawValue : y.RawValue;
-            if (absX > ONE && absY > ONE && absX > StrictRawDivide(MaxValue.RawValue, absY))//越界情况
-                return sign > 0 ? PositiveInfinity : NegativeInfinity;
-            x.RawValue = StrictRawMutiply(x.RawValue, y.RawValue);
-            return x;
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FloatMutiply(number x, number y)
-        {
-            x.RawValue = (long)((float)x.RawValue * y.RawValue / ONE);
-            return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static number operator *(number x, int y)
         {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x * (number)y;
-#else
             x.RawValue *= y;
             return x;
-#endif
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static number operator *(int x, number y)
         {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return (number)x * y;
-#else
             y.RawValue *= x;
             return y;
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator *(number x, float y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x * (number)y;
-#else
-            x.RawValue = (long)(x.RawValue * y);
-            return x;
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator *(float x, number y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return (number)x * y;
-#else
-            y.RawValue = (long)(x * y.RawValue);
-            return y;
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator *(number x, double y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x * (number)y;
-#else
-            x.RawValue = (long)(x.RawValue * y);
-            return x;
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator *(double x, number y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return (number)x * y;
-#else
-            y.RawValue = (long)(x * y.RawValue);
-            return y;
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static long StrictRawDivide(long x, long y)
-        {
-            int signX = x == 0 ? 0 : x < 0 ? -1 : 1;
-            int signY = y == 0 ? 0 : y < 0 ? -1 : 1;
-            int sign = signX * signY;
-            var absX = x < 0 ? -x : x;
-            var absY = y < 0 ? -y : y;
-            long ulRet = (absX / absY) << FRACTIONAL_PLACES;
-            long ulMod = absX % absY;
-            if (absY < WaterShed)
-                ulRet += (ulMod << FRACTIONAL_PLACES) / absY;
-            else
-                ulRet += ulMod / (absY >> FRACTIONAL_PLACES);
-            return sign * ulRet;
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FastDivide(number x, number y)
-        {
-            x.RawValue = (x.RawValue << FRACTIONAL_PLACES) / y.RawValue;
-            return x;
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number StrictDivide(number x, number y)
-        {
-            if (x.RawValue == NaN.RawValue || y.RawValue == NaN.RawValue) return NaN;
-            if (x.RawValue == 0 && y.RawValue == 0) return NaN;
-            bool bx = x.RawValue == PositiveInfinity.RawValue || x.RawValue == NegativeInfinity.RawValue;
-            bool by = y.RawValue == PositiveInfinity.RawValue || y.RawValue == NegativeInfinity.RawValue;
-            if (bx && by) return NaN;
-            int signX = x.RawValue == 0 ? 0 : x.RawValue < 0 ? -1 : 1;
-            int signY = y.RawValue == 0 ? 0 : y.RawValue < 0 ? -1 : 1;
-            int sign = signX * signY;
-            if (bx && !by) return sign == 0 ? x : sign > 0 ? PositiveInfinity : NegativeInfinity;
-            if (!bx && by) return zero;
-            if (y.RawValue == 0) return x > 0 ? PositiveInfinity : NegativeInfinity;
-            var absX = x.RawValue < 0 ? -x.RawValue : x.RawValue;
-            var absY = y.RawValue < 0 ? -y.RawValue : y.RawValue;
-            if (absY < ONE && absX > StrictRawMutiply(MaxValue.RawValue, absY))//越界情况
-                return sign > 0 ? PositiveInfinity : NegativeInfinity;
-            x.RawValue = StrictRawDivide(x.RawValue, y.RawValue);
-            return x;
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FloatDivide(number x, number y)
-        {
-            x.RawValue = (long)((float)x.RawValue / y.RawValue * ONE);
-            return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static number operator /(number x, int y)
         {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x / (number)y;
-#else
             x.RawValue /= y;
             return x;
-#endif
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static number operator /(int x, number y)
         {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return (number)x / y;
-#else
-            long rawValue = ((long)x << FRACTIONAL_PLACES) << FRACTIONAL_PLACES;
+            long rawValue = (long)x << (FRACTIONAL_PLACES * 2);
             y.RawValue = rawValue / y.RawValue;
             return y;
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator /(number x, float y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x / (number)y;
-#else
-            x.RawValue = (x.RawValue << FRACTIONAL_PLACES) / (long)(y * ONE);
-            return x;
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator /(float x, number y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return (number)x / y;
-#else
-            long rawValue = (long)(x * ONE);
-            y.RawValue = (rawValue << FRACTIONAL_PLACES) / y.RawValue;
-            return y;
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator /(number x, double y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x / (number)y;
-#else
-            x.RawValue = (x.RawValue << FRACTIONAL_PLACES) / (long)(y * ONE);
-            return x;
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator /(double x, number y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return (number)x / y;
-#else
-            long rawValue = (long)(x * ONE);
-            y.RawValue = (rawValue << FRACTIONAL_PLACES) / y.RawValue;
-            return y;
-#endif
         }
         #endregion
 
-        #region operator ++、--
-#if NT_STRICT_NUMBER
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator ++(number x) => StrictSelfInc(x);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator --(number x) => StrictSelfSub(x);
-#elif NT_NUMBER_BY_FLOAT
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator ++(number x) => FloatSelfInc(x);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator --(number x) => FloatSelfSub(x);
-#else
+         #region operator ++、--
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static number operator ++(number x)
         {
@@ -731,138 +371,20 @@ namespace Nt.Deterministics
             x.RawValue -= ONE;
             return x;
         }
-#endif
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FastSelfInc(number x)
-        {
-            x.RawValue += ONE;
-            return x;
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number StrictSelfInc(number x)
-        {
-            if (x.RawValue == NaN.RawValue) return NaN;
-            if (x.RawValue == PositiveInfinity.RawValue || x.RawValue == NegativeInfinity.RawValue) return x;
-            if (x.RawValue == MaxValue.RawValue || x.RawValue == MinValue.RawValue) return x;
-            x.RawValue += ONE;
-            return x;
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FloatSelfInc(number x)
-        {
-            x.RawValue += ONE;
-            return x;
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FastSelfSub(number x)
-        {
-            x.RawValue -= ONE;
-            return x;
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number StrictSelfSub(number x)
-        {
-            if (x.RawValue == NaN.RawValue) return NaN;
-            if (x.RawValue == PositiveInfinity.RawValue || x.RawValue == NegativeInfinity.RawValue) return x;
-            if (x.RawValue == MaxValue.RawValue || x.RawValue == MinValue.RawValue) return x;
-            x.RawValue -= ONE;
-            return x;
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FloatSelfSub(number x)
-        {
-            x.RawValue -= ONE;
-            return x;
-        }
-        #endregion
-
-        #region operator &、|、^、~
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator &(number x, number y)
-        {
-            x.RawValue &= y.RawValue;
-            return x;
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator &(number x, long y)
-        {
-            x.RawValue &= y;
-            return x;
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator &(long x, number y)
-        {
-            y.RawValue &= x;
-            return y;
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator |(number x, number y)
-        {
-            x.RawValue |= y.RawValue;
-            return x;
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator |(number x, long y)
-        {
-            x.RawValue |= y;
-            return x;
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator |(long x, number y)
-        {
-            y.RawValue |= x;
-            return y;
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator ^(number x, number y)
-        {
-            x.RawValue ^= y.RawValue;
-            return x;
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator ^(number x, long y)
-        {
-            x.RawValue ^= y;
-            return x;
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator ^(long x, number y)
-        {
-            y.RawValue ^= x;
-            return y;
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator ~(number x)
-        {
-            x.RawValue = ~x.RawValue;
-            return x;
-        }
         #endregion
 
         #region operator 求余、取正、取反
-#if NT_STRICT_NUMBER
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator %(number x, number y) => StrictMod(x, y);
-#elif NT_NUMBER_BY_FLOAT
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator %(number x, number y) => FloatMod(x, y);
-#else
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static number operator %(number x, number y)
         {
             x.RawValue %= y.RawValue;
             return x;
         }
-#endif
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static number operator %(number x, int y)
         {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x % (number)y;
-#else
             x.RawValue %= (long)y << FRACTIONAL_PLACES;
             return x;
-#endif
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static number operator %(int x, number y)
@@ -875,67 +397,6 @@ namespace Nt.Deterministics
 #endif
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator %(number x, float y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x % (number)y;
-#else
-            x.RawValue %= (long)(y * ONE);
-            return x;
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator %(float x, number y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return (number)x % y;
-#else
-            y.RawValue = (long)(x * ONE) % y.RawValue;
-            return y;
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator %(number x, double y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x % (number)y;
-#else
-            x.RawValue %= (long)(y * ONE);
-            return x;
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator %(double x, number y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return (number)x % y;
-#else
-            y.RawValue = (long)(x * ONE) % y.RawValue;
-            return y;
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FastMod(number x, number y)
-        {
-            x.RawValue %= y.RawValue;
-            return x;
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number StrictMod(number x, number y)
-        {
-            if (x.RawValue == NaN.RawValue || y.RawValue == NaN.RawValue) return NaN;
-            if (x.RawValue == PositiveInfinity.RawValue || x.RawValue == NegativeInfinity.RawValue) return NaN;
-            if (y.RawValue == PositiveInfinity.RawValue || y.RawValue == NegativeInfinity.RawValue) return x;
-            x.RawValue %= y.RawValue;
-            return x;
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FloatMod(number x, number y)
-        {
-            x.RawValue %= y.RawValue;
-            return x;
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static number operator +(number x) => x;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static number operator -(number x)
@@ -946,638 +407,103 @@ namespace Nt.Deterministics
         #endregion
 
         #region operator ==、!=、>、<、>=、<=
-#if NT_STRICT_NUMBER
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(number x, number y) => StrictEqualTo(x, y);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(number x, number y) => StrictNEqualTo(x, y);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator >(number x, number y) => StrictGreatThan(x, y);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator >=(number x, number y) => StrictGreatEqualThan(x, y);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator <=(number x, number y) => StrictLessEqualThan(x, y);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator <(number x, number y) => StrictLessThan(x, y);
-#else
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(number x, number y) => x.RawValue == y.RawValue;
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(number x, number y) => x.RawValue != y.RawValue;
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator >(number x, number y) => x.RawValue > y.RawValue;
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator >=(number x, number y) => x.RawValue >= y.RawValue;
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator <=(number x, number y) => x.RawValue <= y.RawValue;
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator <(number x, number y) => x.RawValue < y.RawValue;
-#endif
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool FastEqualTo(number x, number y) => x.RawValue == y.RawValue;
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool StrictEqualTo(number x, number y)
+        public static bool operator ==(number x, number y)
         {
-            if (x.RawValue == NaN.RawValue || y.RawValue == NaN.RawValue) return false;
             return x.RawValue == y.RawValue;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator ==(number x, int y)
         {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x == (number)y;
-#else
             return x.RawValue == ((long)y << FRACTIONAL_PLACES);
-#endif
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator ==(int x, number y)
         {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return y == x;
-#else
             return y.RawValue == ((long)x << FRACTIONAL_PLACES);
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(number x, float y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x == (number)y;
-#else
-            return x.RawValue == (long)(y * ONE);
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(float x, number y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return y == x;
-#else
-            return y.RawValue == (long)(x * ONE);
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(number x, double y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x == (number)y;
-#else
-            return x.RawValue == (long)(y * ONE);
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(double x, number y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return y == x;
-#else
-            return y.RawValue == (long)(x * ONE);
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(number x, long y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x == (number)y;
-#else
-            return x.RawValue == (y << FRACTIONAL_PLACES);
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(long x, number y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return y == x;
-#else
-            return y.RawValue == (x << FRACTIONAL_PLACES);
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool FastNEqualTo(number x, number y) => x.RawValue != y.RawValue;
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool StrictNEqualTo(number x, number y)
-        {
-            if (x.RawValue == NaN.RawValue || y.RawValue == NaN.RawValue) return true;
-            return x.RawValue != y.RawValue;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(number x, int y)
         {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x != (number)y;
-#else
             return x.RawValue != ((long)y << FRACTIONAL_PLACES);
-#endif
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(int x, number y)
         {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return y != x;
-#else
             return y.RawValue != ((long)x << FRACTIONAL_PLACES);
-#endif
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(number x, float y)
+        public static bool operator !=(number x, number y)
         {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x != (number)y;
-#else
-            return x.RawValue != (long)(y * ONE);
-#endif
+            return x.RawValue != y.RawValue;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(float x, number y)
+        public static bool operator >(number x, number y)
         {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return y != x;
-#else
-            return y.RawValue != (long)(x * ONE);
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(number x, double y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x != (number)y;
-#else
-            return x.RawValue != (long)(y * ONE);
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(double x, number y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return y != x;
-#else
-            return y.RawValue != (long)(x * ONE);
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(number x, long y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x != (number)y;
-#else
-            return x.RawValue != (y << FRACTIONAL_PLACES);
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(long x, number y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return y != x;
-#else
-            return y.RawValue != (x << FRACTIONAL_PLACES);
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool FastGreatThan(number x, number y) => x.RawValue > y.RawValue;
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool StrictGreatThan(number x, number y)
-        {
-            if (x.RawValue == NaN.RawValue || y.RawValue == NaN.RawValue) return false;
             return x.RawValue > y.RawValue;
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator <(number x, number y)
+        {
+            return x.RawValue < y.RawValue;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator >(number x, int y)
         {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x > (number)y;
-#else
             return x.RawValue > ((long)y << FRACTIONAL_PLACES);
-#endif
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator >(int x, number y)
         {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return y < x;
-#else
             return y.RawValue < ((long)x << FRACTIONAL_PLACES);
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator >(number x, float y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x > (number)y;
-#else
-            return x.RawValue > (long)(y * ONE);
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator >(float x, number y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return y < x;
-#else
-            return y.RawValue < (long)(x * ONE);
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator >(number x, double y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x > (number)y;
-#else
-            return x.RawValue > (long)(y * ONE);
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator >(double x, number y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return y < x;
-#else
-            return y.RawValue < (long)(x * ONE);
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator >(number x, long y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x > (number)y;
-#else
-            return x.RawValue > (y << FRACTIONAL_PLACES);
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator >(long x, number y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return y < x;
-#else
-            return y.RawValue < (x << FRACTIONAL_PLACES);
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool FastGreatEqualThan(number x, number y) => x.RawValue >= y.RawValue;
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool StrictGreatEqualThan(number x, number y)
-        {
-            if (x.RawValue == NaN.RawValue || y.RawValue == NaN.RawValue) return false;
-            return x.RawValue >= y.RawValue;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator >=(number x, int y)
         {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x >= (number)y;
-#else
             return x.RawValue >= ((long)y << FRACTIONAL_PLACES);
-#endif
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator >=(int x, number y)
         {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return (number)x >= y;
-#else
             return ((long)x << FRACTIONAL_PLACES) >= y.RawValue;
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator >=(number x, float y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x >= (number)y;
-#else
-            return x.RawValue >= (long)(y * ONE);
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator >=(float x, number y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return (number)x >= y;
-#else
-            return (long)(x * ONE) >= y.RawValue;
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator >=(number x, double y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x >= (number)y;
-#else
-            return x.RawValue >= (long)(y * ONE);
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator >=(double x, number y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return (number)x >= y;
-#else
-            return (long)(x * ONE) >= y.RawValue;
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator >=(number x, long y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x >= (number)y;
-#else
-            return x.RawValue >= (y << FRACTIONAL_PLACES);
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator >=(long x, number y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return (number)x >= y;
-#else
-            return (x << FRACTIONAL_PLACES) >= y.RawValue;
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool FastLessEqualThan(number x, number y) => x.RawValue <= y.RawValue;
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool StrictLessEqualThan(number x, number y)
-        {
-            if (x.RawValue == NaN.RawValue || y.RawValue == NaN.RawValue) return false;
-            return x.RawValue <= y.RawValue;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator <=(number x, int y)
         {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x <= (number)y;
-#else
             return x.RawValue <= ((long)y << FRACTIONAL_PLACES);
-#endif
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator <=(int x, number y)
         {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return (number)x <= y;
-#else
             return ((long)x << FRACTIONAL_PLACES) <= y.RawValue;
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator <=(number x, float y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x <= (number)y;
-#else
-            return x.RawValue <= (long)(y * ONE);
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator <=(float x, number y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return (number)x <= y;
-#else
-            return (long)(x * ONE) <= y.RawValue;
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator <=(number x, double y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x <= (number)y;
-#else
-            return x.RawValue <= (long)(y * ONE);
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator <=(double x, number y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return (number)x <= y;
-#else
-            return (long)(x * ONE) <= y.RawValue;
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator <=(number x, long y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x <= (number)y;
-#else
-            return x.RawValue <= (y << FRACTIONAL_PLACES);
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator <=(long x, number y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return (number)x <= y;
-#else
-            return (x << FRACTIONAL_PLACES) <= y.RawValue;
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool FastLessThan(number x, number y) => x.RawValue < y.RawValue;
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool StrictLessThan(number x, number y)
-        {
-            if (x.RawValue == NaN.RawValue || y.RawValue == NaN.RawValue) return false;
-            return x.RawValue < y.RawValue;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator <(number x, int y)
         {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x < (number)y;
-#else
             return x.RawValue < ((long)y << FRACTIONAL_PLACES);
-#endif
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator <(int x, number y)
         {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return y > x;
-#else
             return ((long)x << FRACTIONAL_PLACES) < y.RawValue;
-#endif
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator <(number x, float y)
+        public static bool operator >=(number x, number y)
         {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x < (number)y;
-#else
-            return x.RawValue < (long)(y * ONE);
-#endif
+            return x.RawValue >= y.RawValue;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator <(float x, number y)
+        public static bool operator <=(number x, number y)
         {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return y > x;
-#else
-            return (long)(x * ONE) < y.RawValue;
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator <(number x, double y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x < (number)y;
-#else
-            return x.RawValue < (long)(y * ONE);
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator <(double x, number y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return y > x;
-#else
-            return (long)(x * ONE) < y.RawValue;
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator <(number x, long y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return x < (number)y;
-#else
-            return x.RawValue < (y << FRACTIONAL_PLACES);
-#endif
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator <(long x, number y)
-        {
-#if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
-            return y > x;
-#else
-            return (x << FRACTIONAL_PLACES) < y.RawValue;
-#endif
-        }
-        #endregion
-
-        #region operator >>、<<
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator >>(number x, int amount)
-        {
-            x.RawValue >>= amount;
-            return x;
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator <<(number x, int amount)
-        {
-            x.RawValue <<= amount;
-            return x;
+            return x.RawValue <= y.RawValue;
         }
         #endregion
 
         #region operator convert from/to long、float、int、double、decimal
-#if NT_STRICT_NUMBER
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator number(long value) => StrictAsNumber(value);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator long(number value) => StrictAsLong(value);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator number(int value) => StrictAsNumber(value);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator int(number value) => StrictAsInt(value);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator number(float value) => StrictAsNumber(value);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator float(number value) => StrictAsFloat(value);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator number(double value) => StrictAsNumber(value);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator double(number value) => StrictAsDouble(value);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator number(decimal value) => StrictAsNumber(value);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator decimal(number value) => StrictAsDecimal(value);
-#else
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator number(long value) => new number(value << FRACTIONAL_PLACES);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator long(number value) => value.RawValue >> FRACTIONAL_PLACES;
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator number(int value) => new number((long)value << FRACTIONAL_PLACES);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator int(number value) => (int)(value.RawValue >> FRACTIONAL_PLACES);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator number(float value) => new number((long)(value * ONE));
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator float(number value) => (float)value.RawValue / ONE;
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator number(double value) => new number((long)(value * ONE));
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator double(number value) => (double)value.RawValue / ONE;
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator number(decimal value) => new number((long)(value * ONE));
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator decimal(number value) => (decimal)value.RawValue / ONE;
-#endif
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FastAsNumber(long value) => new number(value << FRACTIONAL_PLACES);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number StrictAsNumber(long value) => new number(value << FRACTIONAL_PLACES);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static long FastAsLong(number value) => value.RawValue >> FRACTIONAL_PLACES;
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static long StrictAsLong(number value) => value.RawValue >> FRACTIONAL_PLACES;
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FastAsNumber(int value) => new number((long)value << FRACTIONAL_PLACES);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number StrictAsNumber(int value) => new number((long)value << FRACTIONAL_PLACES);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int FastAsInt(number value) => (int)(value.RawValue >> FRACTIONAL_PLACES);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int StrictAsInt(number value) => (int)(value.RawValue >> FRACTIONAL_PLACES);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FastAsNumber(float value) => new number((long)(value * ONE));
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number StrictAsNumber(float value)
-        {
-            if (float.IsNaN(value)) return NaN;
-            if (float.IsPositiveInfinity(value)) return PositiveInfinity;
-            if (float.IsNegativeInfinity(value)) return NegativeInfinity;
-            return new number((long)(value * ONE));
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float FastAsFloat(number value) => (float)value.RawValue / ONE;
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float StrictAsFloat(number value)
-        {
-            if (value.RawValue == NaN.RawValue) return float.NaN;
-            if (value.RawValue == PositiveInfinity.RawValue) return float.PositiveInfinity;
-            if (value.RawValue == NegativeInfinity.RawValue) return float.NegativeInfinity;
-            return (float)value.RawValue / ONE;
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FastAsNumber(double value) => new number((long)(value * ONE));
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number StrictAsNumber(double value)
-        {
-            if (double.IsNaN(value)) return NaN;
-            if (double.IsPositiveInfinity(value)) return PositiveInfinity;
-            if (double.IsNegativeInfinity(value)) return NegativeInfinity;
-            return new number((long)(value * ONE));
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double FastAsDouble(number value) => (double)value.RawValue / ONE;
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double StrictAsDouble(number value)
-        {
-            if (value.RawValue == NaN.RawValue) return double.NaN;
-            if (value.RawValue == PositiveInfinity.RawValue) return double.PositiveInfinity;
-            if (value.RawValue == NegativeInfinity.RawValue) return double.NegativeInfinity;
-            return (double)value.RawValue / ONE;
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FastAsNumber(decimal value) => new number((long)(value * ONE));
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number StrictAsNumber(decimal value) => new number((long)(value * ONE));
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static decimal FastAsDecimal(number value) => (decimal)value.RawValue / ONE;
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static decimal StrictAsDecimal(number value) => (decimal)value.RawValue / ONE;
+        public static explicit operator number(int value) => new number((long)value << FRACTIONAL_PLACES);
+        public static explicit operator number(uint value) => new number((long)value << FRACTIONAL_PLACES);
         #endregion
 
         #region IsPositiveInfinity、IsNegativeInfinity、IsInfinity、IsNaN
@@ -1650,25 +576,6 @@ namespace Nt.Deterministics
         #endregion
 
         #region Sign、Abs、Floor、Ceiling、Round、Truncate
-#if NT_STRICT_NUMBER
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Floor(number value) => StrictFloor(value);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Ceiling(number value) => StrictCeiling(value);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Round(number x) => StrictRound(x);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Truncate(number x) => StrictTruncate(x);
-#elif NT_NUMBER_BY_FLOAT
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Floor(number value) => FloatFloor(value);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Ceiling(number value) =>FloatCeiling(value);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Round(number x) => FloatRound(x);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Truncate(number x) => FloatTruncate(x);
-#else
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static number Floor(number value)
         {
@@ -1706,7 +613,6 @@ namespace Nt.Deterministics
             x.RawValue = sign * ((sign * x.RawValue) & IntegerMask);
             return x;
         }
-#endif
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Sign(number value) => value.RawValue.CompareTo(0L);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1830,37 +736,6 @@ namespace Nt.Deterministics
         #endregion
 
         #region Sqrt、Pow、Exp、Log、Log2、Log10
-#if NT_STRICT_NUMBER
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Sqrt(number x) => StrictSqrt(x);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Pow(number nbase, number x) => StrictPow(nbase, x);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Exp(number x) => StrictExp(x);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Log(number x, number nbase) => StrictLog(x, nbase);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Log(number x) => StrictLog(x, EXP);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Log2(number x) => StrictLog2(x);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Log10(number x) => StrictLog10(x);
-#elif NT_NUMBER_BY_FLOAT
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Sqrt(number x) => FloatSqrt(x);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Pow(number nbase, number x) => FloatPow(nbase, x);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Exp(number x) => FloatExp(x);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Log(number x, number nbase) => FloatLog(x, nbase);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Log(number x) => FloatLog(x, EXP);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Log2(number x) => FloatLog2(x);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Log10(number x) => FloatLog10(x);
-#else
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static number Sqrt(number x)
         {
@@ -1903,7 +778,6 @@ namespace Nt.Deterministics
             x.RawValue = LogRaw(x.RawValue, 10L << FRACTIONAL_PLACES);
             return x;
         }
-#endif
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static long SqrtRaw(long x)
         {
@@ -2114,37 +988,6 @@ namespace Nt.Deterministics
         #endregion
 
         #region Sin, Cos, Tan, Asin, Acos, Atan, Atan2
-#if NT_STRICT_NUMBER
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Sin(number i) => StrictSin(i);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Cos(number i) => StrictCos(i);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Tan(number i) => StrictTan(i);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Asin(number F) => StrictAsin(F);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Acos(number F) => StrictAcos(F);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Atan(number F) => StrictAtan(F);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Atan2(number F1, number F2) => StrictAtan2(F1, F2);
-#elif NT_NUMBER_BY_FLOAT
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Sin(number i) => FloatSin(i);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Cos(number i) => FloatCos(i);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Tan(number i) => FloatTan(i);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Asin(number F) => FloatAsin(F);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Acos(number F) => FloatAcos(F);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Atan(number F) => FloatAtan(F);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Atan2(number F1, number F2) => FloatAtan2(F1, F2);
-#else
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static number Sin(number rad)
         {
@@ -2223,7 +1066,6 @@ namespace Nt.Deterministics
             y.RawValue = Atan2Raw(y.RawValue, x.RawValue);
             return y;
         }
-#endif
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static number FastSin(number rad)
         {
@@ -2502,19 +1344,6 @@ namespace Nt.Deterministics
             //return y.RawValue > 0L ? PIDiv2 : -PIDiv2;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number StrictAtan2(number y, number x)
-        {
-            if (y.RawValue == NaN.RawValue || x.RawValue == NaN.RawValue) return NaN;
-            if (x.RawValue > 0L) return StrictAtan(StrictDivide(y, x));
-            if (x.RawValue < 0L)
-            {
-                y.RawValue = StrictAtan(StrictDivide(y, x)).RawValue + (y.RawValue >= 0L ? Pi : -Pi);
-                return y;
-            }
-            if (y.RawValue == 0L) return zero;
-            return y.RawValue > 0L ? PIDiv2 : -PIDiv2;
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static number FloatAtan2(number y, number x)
         {
             y.RawValue = (long)(ONE * Math.Atan2((double)y.RawValue / ONE, (double)x.RawValue / ONE));
@@ -2523,21 +1352,6 @@ namespace Nt.Deterministics
         #endregion
 
         #region Sinh, Cosh, Tanh
-#if NT_STRICT_NUMBER
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Sinh(number x) => StrictSinh(x);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Cosh(number x) => StrictCosh(x);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Tanh(number x) => StrictTanh(x);
-#elif NT_NUMBER_BY_FLOAT
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Sinh(number x) => FloatSinh(x);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Cosh(number x) => FloatCosh(x);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Tanh(number x) => FloatTanh(x);
-#else
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static number Sinh(number x)
         {
@@ -2561,7 +1375,6 @@ namespace Nt.Deterministics
             x.RawValue = ((x.RawValue - ONE) << FRACTIONAL_PLACES) / (x.RawValue + ONE);
             return x;
         }
-#endif
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static number FastSinh(number x)
         {

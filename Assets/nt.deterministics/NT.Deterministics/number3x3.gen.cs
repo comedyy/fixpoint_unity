@@ -133,47 +133,6 @@ namespace Nt.Deterministics
             this.c2 = (float3)v.c2;
         }
 
-        /// <summary>Constructs a float3x3 matrix from a single float value by converting it to number and assigning it to every component.</summary>
-        /// <param name="v">float to convert to float3x3</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float3x3(float v)
-        {
-            this.c0 = (float3)v;
-            this.c1 = (float3)v;
-            this.c2 = (float3)v;
-        }
-
-        /// <summary>Constructs a float3x3 matrix from a Unity.Mathematics.float3x3 matrix by componentwise conversion.</summary>
-        /// <param name="v">Unity.Mathematics.float3x3 to convert to float3x3</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float3x3(Unity.Mathematics.float3x3 v)
-        {
-            this.c0 = (float3)v.c0;
-            this.c1 = (float3)v.c1;
-            this.c2 = (float3)v.c2;
-        }
-
-        /// <summary>Constructs a float3x3 matrix from a single double value by converting it to number and assigning it to every component.</summary>
-        /// <param name="v">double to convert to float3x3</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float3x3(double v)
-        {
-            this.c0 = (float3)v;
-            this.c1 = (float3)v;
-            this.c2 = (float3)v;
-        }
-
-        /// <summary>Constructs a float3x3 matrix from a Unity.Mathematics.double3x3 matrix by componentwise conversion.</summary>
-        /// <param name="v">Unity.Mathematics.double3x3 to convert to float3x3</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float3x3(Unity.Mathematics.double3x3 v)
-        {
-            this.c0 = (float3)v.c0;
-            this.c1 = (float3)v.c1;
-            this.c2 = (float3)v.c2;
-        }
-
-
         /// <summary>Implicitly converts a single number value to a float3x3 matrix by assigning it to every component.</summary>
         /// <param name="v">number to convert to float3x3</param>
         /// <returns>Converted value.</returns>
@@ -221,43 +180,6 @@ namespace Nt.Deterministics
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator float3x3(Unity.Mathematics.uint3x3 v) { return new float3x3(v); }
-
-        /// <summary>Explicitly converts a single float value to a float3x3 matrix by converting it to number and assigning it to every component.</summary>
-        /// <param name="v">float to convert to float3x3</param>
-        /// <returns>Converted value.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator float3x3(float v) { return new float3x3(v); }
-
-        /// <summary>Explicitly converts a Unity.Mathematics.float3x3 matrix to a float3x3 matrix by componentwise conversion.</summary>
-        /// <param name="v">Unity.Mathematics.float3x3 to convert to float3x3</param>
-        /// <returns>Converted value.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator float3x3(Unity.Mathematics.float3x3 v) { return new float3x3(v); }
-
-        /// <summary>Explicitly converts a float3x3 matrix to a Unity.Mathematics.float3x3 matrix by componentwise conversion.</summary>
-        /// <param name="v">float3x3 to convert to Unity.Mathematics.float3x3</param>
-        /// <returns>Converted value.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator Unity.Mathematics.float3x3(float3x3 v) { return new Unity.Mathematics.float3x3((Unity.Mathematics.float3)v.c0, (Unity.Mathematics.float3)v.c1, (Unity.Mathematics.float3)v.c2); }
-
-        /// <summary>Explicitly converts a single double value to a float3x3 matrix by converting it to number and assigning it to every component.</summary>
-        /// <param name="v">double to convert to float3x3</param>
-        /// <returns>Converted value.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator float3x3(double v) { return new float3x3(v); }
-
-        /// <summary>Explicitly converts a Unity.Mathematics.double3x3 matrix to a float3x3 matrix by componentwise conversion.</summary>
-        /// <param name="v">Unity.Mathematics.double3x3 to convert to float3x3</param>
-        /// <returns>Converted value.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator float3x3(Unity.Mathematics.double3x3 v) { return new float3x3(v); }
-
-        /// <summary>Explicitly converts a float3x3 matrix to a Unity.Mathematics.double3x3 matrix by componentwise conversion.</summary>
-        /// <param name="v">float3x3 to convert to Unity.Mathematics.double3x3</param>
-        /// <returns>Converted value.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator Unity.Mathematics.double3x3(float3x3 v) { return new Unity.Mathematics.double3x3((Unity.Mathematics.double3)v.c0, (Unity.Mathematics.double3)v.c1, (Unity.Mathematics.double3)v.c2); }
-
 
         /// <summary>Returns the result of a componentwise multiplication operation on two float3x3 matrices.</summary>
         /// <param name="lhs">Left hand side float3x3 to use to compute componentwise multiplication.</param>
@@ -528,80 +450,6 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Unity.Mathematics.bool3x3 operator != (number lhs, float3x3 rhs) { return new Unity.Mathematics.bool3x3 (lhs != rhs.c0, lhs != rhs.c1, lhs != rhs.c2); }
 
-
-        /// <summary>Returns the result of a componentwise bitwise and operation on two float3x3 matrices.</summary>
-        /// <param name="lhs">Left hand side float3x3 to use to compute componentwise bitwise and.</param>
-        /// <param name="rhs">Right hand side float3x3 to use to compute componentwise bitwise and.</param>
-        /// <returns>float3x3 result of the componentwise bitwise and.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3x3 operator & (float3x3 lhs, float3x3 rhs) { return new float3x3 (lhs.c0 & rhs.c0, lhs.c1 & rhs.c1, lhs.c2 & rhs.c2); }
-
-        /// <summary>Returns the result of a componentwise bitwise and operation on a float3x3 matrix and a number value.</summary>
-        /// <param name="lhs">Left hand side float3x3 to use to compute componentwise bitwise and.</param>
-        /// <param name="rhs">Right hand side number to use to compute componentwise bitwise and.</param>
-        /// <returns>float3x3 result of the componentwise bitwise and.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3x3 operator & (float3x3 lhs, number rhs) { return new float3x3 (lhs.c0 & rhs, lhs.c1 & rhs, lhs.c2 & rhs); }
-
-        /// <summary>Returns the result of a componentwise bitwise and operation on a number value and a float3x3 matrix.</summary>
-        /// <param name="lhs">Left hand side number to use to compute componentwise bitwise and.</param>
-        /// <param name="rhs">Right hand side float3x3 to use to compute componentwise bitwise and.</param>
-        /// <returns>float3x3 result of the componentwise bitwise and.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3x3 operator & (number lhs, float3x3 rhs) { return new float3x3 (lhs & rhs.c0, lhs & rhs.c1, lhs & rhs.c2); }
-
-
-        /// <summary>Returns the result of a componentwise bitwise or operation on two float3x3 matrices.</summary>
-        /// <param name="lhs">Left hand side float3x3 to use to compute componentwise bitwise or.</param>
-        /// <param name="rhs">Right hand side float3x3 to use to compute componentwise bitwise or.</param>
-        /// <returns>float3x3 result of the componentwise bitwise or.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3x3 operator | (float3x3 lhs, float3x3 rhs) { return new float3x3 (lhs.c0 | rhs.c0, lhs.c1 | rhs.c1, lhs.c2 | rhs.c2); }
-
-        /// <summary>Returns the result of a componentwise bitwise or operation on a float3x3 matrix and a number value.</summary>
-        /// <param name="lhs">Left hand side float3x3 to use to compute componentwise bitwise or.</param>
-        /// <param name="rhs">Right hand side number to use to compute componentwise bitwise or.</param>
-        /// <returns>float3x3 result of the componentwise bitwise or.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3x3 operator | (float3x3 lhs, number rhs) { return new float3x3 (lhs.c0 | rhs, lhs.c1 | rhs, lhs.c2 | rhs); }
-
-        /// <summary>Returns the result of a componentwise bitwise or operation on a number value and a float3x3 matrix.</summary>
-        /// <param name="lhs">Left hand side number to use to compute componentwise bitwise or.</param>
-        /// <param name="rhs">Right hand side float3x3 to use to compute componentwise bitwise or.</param>
-        /// <returns>float3x3 result of the componentwise bitwise or.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3x3 operator | (number lhs, float3x3 rhs) { return new float3x3 (lhs | rhs.c0, lhs | rhs.c1, lhs | rhs.c2); }
-
-
-        /// <summary>Returns the result of a componentwise bitwise exclusive or operation on two float3x3 matrices.</summary>
-        /// <param name="lhs">Left hand side float3x3 to use to compute componentwise bitwise exclusive or.</param>
-        /// <param name="rhs">Right hand side float3x3 to use to compute componentwise bitwise exclusive or.</param>
-        /// <returns>float3x3 result of the componentwise bitwise exclusive or.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3x3 operator ^ (float3x3 lhs, float3x3 rhs) { return new float3x3 (lhs.c0 ^ rhs.c0, lhs.c1 ^ rhs.c1, lhs.c2 ^ rhs.c2); }
-
-        /// <summary>Returns the result of a componentwise bitwise exclusive or operation on a float3x3 matrix and a number value.</summary>
-        /// <param name="lhs">Left hand side float3x3 to use to compute componentwise bitwise exclusive or.</param>
-        /// <param name="rhs">Right hand side number to use to compute componentwise bitwise exclusive or.</param>
-        /// <returns>float3x3 result of the componentwise bitwise exclusive or.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3x3 operator ^ (float3x3 lhs, number rhs) { return new float3x3 (lhs.c0 ^ rhs, lhs.c1 ^ rhs, lhs.c2 ^ rhs); }
-
-        /// <summary>Returns the result of a componentwise bitwise exclusive or operation on a number value and a float3x3 matrix.</summary>
-        /// <param name="lhs">Left hand side number to use to compute componentwise bitwise exclusive or.</param>
-        /// <param name="rhs">Right hand side float3x3 to use to compute componentwise bitwise exclusive or.</param>
-        /// <returns>float3x3 result of the componentwise bitwise exclusive or.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3x3 operator ^ (number lhs, float3x3 rhs) { return new float3x3 (lhs ^ rhs.c0, lhs ^ rhs.c1, lhs ^ rhs.c2); }
-
-
-        /// <summary>Returns the result of a componentwise bitwise negation operation on a float3x3 matrix.</summary>
-        /// <param name="value">the float3x3 value to bitwise negation operation.</param>
-        /// <returns>float3x3 result of the componentwise bitwise negation.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3x3 operator ~ (float3x3 value) { return new float3x3 (~value.c0, ~value.c1, ~value.c2); }
-
-
         /// <summary>Returns the float3 element at a specified index.</summary>
         unsafe public ref float3 this[int index]
         {
@@ -725,30 +573,6 @@ namespace Nt.Deterministics
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float3x3 float3x3(Unity.Mathematics.uint3x3 v) { return new float3x3(v); }
-
-        /// <summary>Returns a float3x3 matrix constructed from a single float value by converting it to number and assigning it to every component.</summary>
-        /// <param name="v">float to convert to float3x3</param>
-        /// <returns>Converted value.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3x3 float3x3(float v) { return new float3x3(v); }
-
-        /// <summary>Return a float3x3 matrix constructed from a Unity.Mathematics.float3x3 matrix by componentwise conversion.</summary>
-        /// <param name="v">Unity.Mathematics.float3x3 to convert to float3x3</param>
-        /// <returns>Converted value.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3x3 float3x3(Unity.Mathematics.float3x3 v) { return new float3x3(v); }
-
-        /// <summary>Returns a float3x3 matrix constructed from a single double value by converting it to number and assigning it to every component.</summary>
-        /// <param name="v">double to convert to float3x3</param>
-        /// <returns>Converted value.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3x3 float3x3(double v) { return new float3x3(v); }
-
-        /// <summary>Return a float3x3 matrix constructed from a Unity.Mathematics.double3x3 matrix by componentwise conversion.</summary>
-        /// <param name="v">Unity.Mathematics.double3x3 to convert to float3x3</param>
-        /// <returns>Converted value.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3x3 float3x3(Unity.Mathematics.double3x3 v) { return new float3x3(v); }
 
         /// <summary>Return the float3x3 transpose of a float3x3 matrix.</summary>
         /// <param name="v">Value to transpose.</param>

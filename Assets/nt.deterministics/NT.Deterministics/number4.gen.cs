@@ -209,51 +209,6 @@ namespace Nt.Deterministics
             this.w = (number)v.w;
         }
 
-        /// <summary>Constructs a float4 vector from a single float value by converting it to number and assigning it to every component.</summary>
-        /// <param name="v">float to convert to float4</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float4(float v)
-        {
-            this.x = (number)v;
-            this.y = (number)v;
-            this.z = (number)v;
-            this.w = (number)v;
-        }
-
-        /// <summary>Constructs a float4 vector from a Unity.Mathematics.float4 vector by componentwise conversion.</summary>
-        /// <param name="v">Unity.Mathematics.float4 to convert to float4</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float4(Unity.Mathematics.float4 v)
-        {
-            this.x = (number)v.x;
-            this.y = (number)v.y;
-            this.z = (number)v.z;
-            this.w = (number)v.w;
-        }
-
-        /// <summary>Constructs a float4 vector from a single double value by converting it to number and assigning it to every component.</summary>
-        /// <param name="v">double to convert to float4</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float4(double v)
-        {
-            this.x = (number)v;
-            this.y = (number)v;
-            this.z = (number)v;
-            this.w = (number)v;
-        }
-
-        /// <summary>Constructs a float4 vector from a Unity.Mathematics.double4 vector by componentwise conversion.</summary>
-        /// <param name="v">Unity.Mathematics.double4 to convert to float4</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float4(Unity.Mathematics.double4 v)
-        {
-            this.x = (number)v.x;
-            this.y = (number)v.y;
-            this.z = (number)v.z;
-            this.w = (number)v.w;
-        }
-
-
         /// <summary>Implicitly converts a single number value to a float4 vector by assigning it to every component.</summary>
         /// <param name="v">number to convert to float4</param>
         /// <returns>Converted value.</returns>
@@ -302,42 +257,11 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator float4(Unity.Mathematics.uint4 v) { return new float4(v); }
 
-        /// <summary>Explicitly converts a single float value to a float4 vector by converting it to number and assigning it to every component.</summary>
-        /// <param name="v">float to convert to float4</param>
-        /// <returns>Converted value.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator float4(float v) { return new float4(v); }
-
-        /// <summary>Explicitly converts a Unity.Mathematics.float4 vector to a float4 vector by componentwise conversion.</summary>
-        /// <param name="v">Unity.Mathematics.float4 to convert to float4</param>
-        /// <returns>Converted value.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator float4(Unity.Mathematics.float4 v) { return new float4(v); }
-
         /// <summary>Explicitly converts a float4 vector to a Unity.Mathematics.float4 vector by componentwise conversion.</summary>
         /// <param name="v">float4 to convert to Unity.Mathematics.float4</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator Unity.Mathematics.float4(float4 v) { return new Unity.Mathematics.float4((float)v.x, (float)v.y, (float)v.z, (float)v.w); }
-
-        /// <summary>Explicitly converts a single double value to a float4 vector by converting it to number and assigning it to every component.</summary>
-        /// <param name="v">double to convert to float4</param>
-        /// <returns>Converted value.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator float4(double v) { return new float4(v); }
-
-        /// <summary>Explicitly converts a Unity.Mathematics.double4 vector to a float4 vector by componentwise conversion.</summary>
-        /// <param name="v">Unity.Mathematics.double4 to convert to float4</param>
-        /// <returns>Converted value.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator float4(Unity.Mathematics.double4 v) { return new float4(v); }
-
-        /// <summary>Explicitly converts a float4 vector to a Unity.Mathematics.double4 vector by componentwise conversion.</summary>
-        /// <param name="v">float4 to convert to Unity.Mathematics.double4</param>
-        /// <returns>Converted value.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator Unity.Mathematics.double4(float4 v) { return new Unity.Mathematics.double4((double)v.x, (double)v.y, (double)v.z, (double)v.w); }
-
 
         /// <summary>Returns the result of a componentwise multiplication operation on two float4 vectors.</summary>
         /// <param name="lhs">Left hand side float4 to use to compute componentwise multiplication.</param>
@@ -607,81 +531,6 @@ namespace Nt.Deterministics
         /// <returns>Unity.Mathematics.bool4 result of the componentwise not equal.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Unity.Mathematics.bool4 operator != (number lhs, float4 rhs) { return new Unity.Mathematics.bool4 (lhs != rhs.x, lhs != rhs.y, lhs != rhs.z, lhs != rhs.w); }
-
-
-        /// <summary>Returns the result of a componentwise bitwise and operation on two float4 vectors.</summary>
-        /// <param name="lhs">Left hand side float4 to use to compute componentwise bitwise and.</param>
-        /// <param name="rhs">Right hand side float4 to use to compute componentwise bitwise and.</param>
-        /// <returns>float4 result of the componentwise bitwise and.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 operator & (float4 lhs, float4 rhs) { return new float4 (lhs.x & rhs.x, lhs.y & rhs.y, lhs.z & rhs.z, lhs.w & rhs.w); }
-
-        /// <summary>Returns the result of a componentwise bitwise and operation on a float4 vector and a number value.</summary>
-        /// <param name="lhs">Left hand side float4 to use to compute componentwise bitwise and.</param>
-        /// <param name="rhs">Right hand side number to use to compute componentwise bitwise and.</param>
-        /// <returns>float4 result of the componentwise bitwise and.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 operator & (float4 lhs, number rhs) { return new float4 (lhs.x & rhs, lhs.y & rhs, lhs.z & rhs, lhs.w & rhs); }
-
-        /// <summary>Returns the result of a componentwise bitwise and operation on a number value and a float4 vector.</summary>
-        /// <param name="lhs">Left hand side number to use to compute componentwise bitwise and.</param>
-        /// <param name="rhs">Right hand side float4 to use to compute componentwise bitwise and.</param>
-        /// <returns>float4 result of the componentwise bitwise and.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 operator & (number lhs, float4 rhs) { return new float4 (lhs & rhs.x, lhs & rhs.y, lhs & rhs.z, lhs & rhs.w); }
-
-
-        /// <summary>Returns the result of a componentwise bitwise or operation on two float4 vectors.</summary>
-        /// <param name="lhs">Left hand side float4 to use to compute componentwise bitwise or.</param>
-        /// <param name="rhs">Right hand side float4 to use to compute componentwise bitwise or.</param>
-        /// <returns>float4 result of the componentwise bitwise or.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 operator | (float4 lhs, float4 rhs) { return new float4 (lhs.x | rhs.x, lhs.y | rhs.y, lhs.z | rhs.z, lhs.w | rhs.w); }
-
-        /// <summary>Returns the result of a componentwise bitwise or operation on a float4 vector and a number value.</summary>
-        /// <param name="lhs">Left hand side float4 to use to compute componentwise bitwise or.</param>
-        /// <param name="rhs">Right hand side number to use to compute componentwise bitwise or.</param>
-        /// <returns>float4 result of the componentwise bitwise or.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 operator | (float4 lhs, number rhs) { return new float4 (lhs.x | rhs, lhs.y | rhs, lhs.z | rhs, lhs.w | rhs); }
-
-        /// <summary>Returns the result of a componentwise bitwise or operation on a number value and a float4 vector.</summary>
-        /// <param name="lhs">Left hand side number to use to compute componentwise bitwise or.</param>
-        /// <param name="rhs">Right hand side float4 to use to compute componentwise bitwise or.</param>
-        /// <returns>float4 result of the componentwise bitwise or.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 operator | (number lhs, float4 rhs) { return new float4 (lhs | rhs.x, lhs | rhs.y, lhs | rhs.z, lhs | rhs.w); }
-
-
-        /// <summary>Returns the result of a componentwise bitwise exclusive or operation on two float4 vectors.</summary>
-        /// <param name="lhs">Left hand side float4 to use to compute componentwise bitwise exclusive or.</param>
-        /// <param name="rhs">Right hand side float4 to use to compute componentwise bitwise exclusive or.</param>
-        /// <returns>float4 result of the componentwise bitwise exclusive or.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 operator ^ (float4 lhs, float4 rhs) { return new float4 (lhs.x ^ rhs.x, lhs.y ^ rhs.y, lhs.z ^ rhs.z, lhs.w ^ rhs.w); }
-
-        /// <summary>Returns the result of a componentwise bitwise exclusive or operation on a float4 vector and a number value.</summary>
-        /// <param name="lhs">Left hand side float4 to use to compute componentwise bitwise exclusive or.</param>
-        /// <param name="rhs">Right hand side number to use to compute componentwise bitwise exclusive or.</param>
-        /// <returns>float4 result of the componentwise bitwise exclusive or.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 operator ^ (float4 lhs, number rhs) { return new float4 (lhs.x ^ rhs, lhs.y ^ rhs, lhs.z ^ rhs, lhs.w ^ rhs); }
-
-        /// <summary>Returns the result of a componentwise bitwise exclusive or operation on a number value and a float4 vector.</summary>
-        /// <param name="lhs">Left hand side number to use to compute componentwise bitwise exclusive or.</param>
-        /// <param name="rhs">Right hand side float4 to use to compute componentwise bitwise exclusive or.</param>
-        /// <returns>float4 result of the componentwise bitwise exclusive or.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 operator ^ (number lhs, float4 rhs) { return new float4 (lhs ^ rhs.x, lhs ^ rhs.y, lhs ^ rhs.z, lhs ^ rhs.w); }
-
-
-        /// <summary>Returns the result of a componentwise bitwise negation operation on a float4 vector.</summary>
-        /// <param name="value">the float4 value to bitwise negation operation.</param>
-        /// <returns>float4 result of the componentwise bitwise negation.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 operator ~ (float4 value) { return new float4 (~value.x, ~value.y, ~value.z, ~value.w); }
-
-
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
@@ -4005,30 +3854,6 @@ namespace Nt.Deterministics
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float4 float4(Unity.Mathematics.uint4 v) { return new float4(v); }
-
-        /// <summary>Returns a float4 vector constructed from a single float value by converting it to number and assigning it to every component.</summary>
-        /// <param name="v">float to convert to float4</param>
-        /// <returns>Converted value.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 float4(float v) { return new float4(v); }
-
-        /// <summary>Return a float4 vector constructed from a Unity.Mathematics.float4 vector by componentwise conversion.</summary>
-        /// <param name="v">Unity.Mathematics.float4 to convert to float4</param>
-        /// <returns>Converted value.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 float4(Unity.Mathematics.float4 v) { return new float4(v); }
-
-        /// <summary>Returns a float4 vector constructed from a single double value by converting it to number and assigning it to every component.</summary>
-        /// <param name="v">double to convert to float4</param>
-        /// <returns>Converted value.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 float4(double v) { return new float4(v); }
-
-        /// <summary>Return a float4 vector constructed from a Unity.Mathematics.double4 vector by componentwise conversion.</summary>
-        /// <param name="v">Unity.Mathematics.double4 to convert to float4</param>
-        /// <returns>Converted value.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 float4(Unity.Mathematics.double4 v) { return new float4(v); }
 
         /// <summary>Returns a uint hash code of a float4 vector.</summary>
         /// <param name="v">Vector value to hash.</param>

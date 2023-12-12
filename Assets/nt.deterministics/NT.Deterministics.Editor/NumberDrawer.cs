@@ -104,54 +104,54 @@ namespace Nt.Deterministics.Editor
         }
     }
 
-    [CustomPropertyDrawer(typeof(number))]
-    public class NumberDrawer : PropertyDrawer
-    {
-        // Draw the property inside the given rect
-        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
-        {
-            using (new EditorGUI.PropertyScope(position, label, property))
-            {
-                BaseDrawer.ResetLabelText(this, label);
-                List<fieldData> lstFieldData = new List<fieldData>();
-                var parent = BaseDrawer.GetParentObjectOfProperty(property.propertyPath, property.serializedObject.targetObject, lstFieldData);
-                var type = parent.GetType();
-                number value;
-                number last;
-                if (type.Equals(typeof(number)))
-                {
-                    value = last = (number)parent;
-                    value = (number)EditorGUI.FloatField(position, label, (float)value);
-                    parent = value;
-                }
-                else
-                {
-                    var f = type.GetField(property.name, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-                    var o = f.GetValue(parent);
-                    value = last = (number)o;
-                    value = (number)EditorGUI.FloatField(position, label, (float)value);
-                    f.SetValue(parent, value);
-                }
-                if (!value.Equals(last))
-                {
-                    //Debug.LogErrorFormat("path={0}, name={1}, value : {2} => {3}", property.propertyPath, property.name, o.ToString(), value.ToString());
-                    object lastValue = parent;
-                    for (int k = lstFieldData.Count - 1; k >= 0; --k)
-                    {
-                        fieldData fd = lstFieldData[k];
-                        if (fd.idx > -1 && fd.parent is System.Collections.IList lstParent)
-                        {
-                            lstParent[fd.idx] = lastValue;
-                        }
-                        else
-                            fd.field.SetValue(fd.parent, lastValue);
-                        lastValue = fd.parent;
-                    }
-                    EditorUtility.SetDirty(property.serializedObject.targetObject);
-                }
-            }
-        }
-    }
+    // [CustomPropertyDrawer(typeof(number))]
+    // public class NumberDrawer : PropertyDrawer
+    // {
+    //     // Draw the property inside the given rect
+    //     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+    //     {
+    //         using (new EditorGUI.PropertyScope(position, label, property))
+    //         {
+    //             BaseDrawer.ResetLabelText(this, label);
+    //             List<fieldData> lstFieldData = new List<fieldData>();
+    //             var parent = BaseDrawer.GetParentObjectOfProperty(property.propertyPath, property.serializedObject.targetObject, lstFieldData);
+    //             var type = parent.GetType();
+    //             number value;
+    //             number last;
+    //             if (type.Equals(typeof(number)))
+    //             {
+    //                 value = last = (number)parent;
+    //                 value = (number)EditorGUI.FloatField(position, label, (float)value);
+    //                 parent = value;
+    //             }
+    //             else
+    //             {
+    //                 var f = type.GetField(property.name, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+    //                 var o = f.GetValue(parent);
+    //                 value = last = (number)o;
+    //                 value = (number)EditorGUI.FloatField(position, label, (float)value);
+    //                 f.SetValue(parent, value);
+    //             }
+    //             if (!value.Equals(last))
+    //             {
+    //                 //Debug.LogErrorFormat("path={0}, name={1}, value : {2} => {3}", property.propertyPath, property.name, o.ToString(), value.ToString());
+    //                 object lastValue = parent;
+    //                 for (int k = lstFieldData.Count - 1; k >= 0; --k)
+    //                 {
+    //                     fieldData fd = lstFieldData[k];
+    //                     if (fd.idx > -1 && fd.parent is System.Collections.IList lstParent)
+    //                     {
+    //                         lstParent[fd.idx] = lastValue;
+    //                     }
+    //                     else
+    //                         fd.field.SetValue(fd.parent, lastValue);
+    //                     lastValue = fd.parent;
+    //                 }
+    //                 EditorUtility.SetDirty(property.serializedObject.targetObject);
+    //             }
+    //         }
+    //     }
+    // }
 
     [CustomPropertyDrawer(typeof(float2)), CustomPropertyDrawer(typeof(float3)), CustomPropertyDrawer(typeof(float4)), CustomPropertyDrawer(typeof(quaternion))]
     [CustomPropertyDrawer(typeof(DoNotNormalizeAttribute))]

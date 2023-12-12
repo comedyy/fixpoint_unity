@@ -186,47 +186,6 @@ namespace Nt.Deterministics
             this.z = (number)v.z;
         }
 
-        /// <summary>Constructs a float3 vector from a single float value by converting it to number and assigning it to every component.</summary>
-        /// <param name="v">float to convert to float3</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float3(float v)
-        {
-            this.x = (number)v;
-            this.y = (number)v;
-            this.z = (number)v;
-        }
-
-        /// <summary>Constructs a float3 vector from a Unity.Mathematics.float3 vector by componentwise conversion.</summary>
-        /// <param name="v">Unity.Mathematics.float3 to convert to float3</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float3(Unity.Mathematics.float3 v)
-        {
-            this.x = (number)v.x;
-            this.y = (number)v.y;
-            this.z = (number)v.z;
-        }
-
-        /// <summary>Constructs a float3 vector from a single double value by converting it to number and assigning it to every component.</summary>
-        /// <param name="v">double to convert to float3</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float3(double v)
-        {
-            this.x = (number)v;
-            this.y = (number)v;
-            this.z = (number)v;
-        }
-
-        /// <summary>Constructs a float3 vector from a Unity.Mathematics.double3 vector by componentwise conversion.</summary>
-        /// <param name="v">Unity.Mathematics.double3 to convert to float3</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float3(Unity.Mathematics.double3 v)
-        {
-            this.x = (number)v.x;
-            this.y = (number)v.y;
-            this.z = (number)v.z;
-        }
-
-
         /// <summary>Implicitly converts a single number value to a float3 vector by assigning it to every component.</summary>
         /// <param name="v">number to convert to float3</param>
         /// <returns>Converted value.</returns>
@@ -275,42 +234,11 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator float3(Unity.Mathematics.uint3 v) { return new float3(v); }
 
-        /// <summary>Explicitly converts a single float value to a float3 vector by converting it to number and assigning it to every component.</summary>
-        /// <param name="v">float to convert to float3</param>
-        /// <returns>Converted value.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator float3(float v) { return new float3(v); }
-
-        /// <summary>Explicitly converts a Unity.Mathematics.float3 vector to a float3 vector by componentwise conversion.</summary>
-        /// <param name="v">Unity.Mathematics.float3 to convert to float3</param>
-        /// <returns>Converted value.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator float3(Unity.Mathematics.float3 v) { return new float3(v); }
-
         /// <summary>Explicitly converts a float3 vector to a Unity.Mathematics.float3 vector by componentwise conversion.</summary>
         /// <param name="v">float3 to convert to Unity.Mathematics.float3</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator Unity.Mathematics.float3(float3 v) { return new Unity.Mathematics.float3((float)v.x, (float)v.y, (float)v.z); }
-
-        /// <summary>Explicitly converts a single double value to a float3 vector by converting it to number and assigning it to every component.</summary>
-        /// <param name="v">double to convert to float3</param>
-        /// <returns>Converted value.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator float3(double v) { return new float3(v); }
-
-        /// <summary>Explicitly converts a Unity.Mathematics.double3 vector to a float3 vector by componentwise conversion.</summary>
-        /// <param name="v">Unity.Mathematics.double3 to convert to float3</param>
-        /// <returns>Converted value.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator float3(Unity.Mathematics.double3 v) { return new float3(v); }
-
-        /// <summary>Explicitly converts a float3 vector to a Unity.Mathematics.double3 vector by componentwise conversion.</summary>
-        /// <param name="v">float3 to convert to Unity.Mathematics.double3</param>
-        /// <returns>Converted value.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator Unity.Mathematics.double3(float3 v) { return new Unity.Mathematics.double3((double)v.x, (double)v.y, (double)v.z); }
-
 
         /// <summary>Returns the result of a componentwise multiplication operation on two float3 vectors.</summary>
         /// <param name="lhs">Left hand side float3 to use to compute componentwise multiplication.</param>
@@ -580,81 +508,6 @@ namespace Nt.Deterministics
         /// <returns>Unity.Mathematics.bool3 result of the componentwise not equal.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Unity.Mathematics.bool3 operator != (number lhs, float3 rhs) { return new Unity.Mathematics.bool3 (lhs != rhs.x, lhs != rhs.y, lhs != rhs.z); }
-
-
-        /// <summary>Returns the result of a componentwise bitwise and operation on two float3 vectors.</summary>
-        /// <param name="lhs">Left hand side float3 to use to compute componentwise bitwise and.</param>
-        /// <param name="rhs">Right hand side float3 to use to compute componentwise bitwise and.</param>
-        /// <returns>float3 result of the componentwise bitwise and.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 operator & (float3 lhs, float3 rhs) { return new float3 (lhs.x & rhs.x, lhs.y & rhs.y, lhs.z & rhs.z); }
-
-        /// <summary>Returns the result of a componentwise bitwise and operation on a float3 vector and a number value.</summary>
-        /// <param name="lhs">Left hand side float3 to use to compute componentwise bitwise and.</param>
-        /// <param name="rhs">Right hand side number to use to compute componentwise bitwise and.</param>
-        /// <returns>float3 result of the componentwise bitwise and.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 operator & (float3 lhs, number rhs) { return new float3 (lhs.x & rhs, lhs.y & rhs, lhs.z & rhs); }
-
-        /// <summary>Returns the result of a componentwise bitwise and operation on a number value and a float3 vector.</summary>
-        /// <param name="lhs">Left hand side number to use to compute componentwise bitwise and.</param>
-        /// <param name="rhs">Right hand side float3 to use to compute componentwise bitwise and.</param>
-        /// <returns>float3 result of the componentwise bitwise and.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 operator & (number lhs, float3 rhs) { return new float3 (lhs & rhs.x, lhs & rhs.y, lhs & rhs.z); }
-
-
-        /// <summary>Returns the result of a componentwise bitwise or operation on two float3 vectors.</summary>
-        /// <param name="lhs">Left hand side float3 to use to compute componentwise bitwise or.</param>
-        /// <param name="rhs">Right hand side float3 to use to compute componentwise bitwise or.</param>
-        /// <returns>float3 result of the componentwise bitwise or.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 operator | (float3 lhs, float3 rhs) { return new float3 (lhs.x | rhs.x, lhs.y | rhs.y, lhs.z | rhs.z); }
-
-        /// <summary>Returns the result of a componentwise bitwise or operation on a float3 vector and a number value.</summary>
-        /// <param name="lhs">Left hand side float3 to use to compute componentwise bitwise or.</param>
-        /// <param name="rhs">Right hand side number to use to compute componentwise bitwise or.</param>
-        /// <returns>float3 result of the componentwise bitwise or.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 operator | (float3 lhs, number rhs) { return new float3 (lhs.x | rhs, lhs.y | rhs, lhs.z | rhs); }
-
-        /// <summary>Returns the result of a componentwise bitwise or operation on a number value and a float3 vector.</summary>
-        /// <param name="lhs">Left hand side number to use to compute componentwise bitwise or.</param>
-        /// <param name="rhs">Right hand side float3 to use to compute componentwise bitwise or.</param>
-        /// <returns>float3 result of the componentwise bitwise or.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 operator | (number lhs, float3 rhs) { return new float3 (lhs | rhs.x, lhs | rhs.y, lhs | rhs.z); }
-
-
-        /// <summary>Returns the result of a componentwise bitwise exclusive or operation on two float3 vectors.</summary>
-        /// <param name="lhs">Left hand side float3 to use to compute componentwise bitwise exclusive or.</param>
-        /// <param name="rhs">Right hand side float3 to use to compute componentwise bitwise exclusive or.</param>
-        /// <returns>float3 result of the componentwise bitwise exclusive or.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 operator ^ (float3 lhs, float3 rhs) { return new float3 (lhs.x ^ rhs.x, lhs.y ^ rhs.y, lhs.z ^ rhs.z); }
-
-        /// <summary>Returns the result of a componentwise bitwise exclusive or operation on a float3 vector and a number value.</summary>
-        /// <param name="lhs">Left hand side float3 to use to compute componentwise bitwise exclusive or.</param>
-        /// <param name="rhs">Right hand side number to use to compute componentwise bitwise exclusive or.</param>
-        /// <returns>float3 result of the componentwise bitwise exclusive or.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 operator ^ (float3 lhs, number rhs) { return new float3 (lhs.x ^ rhs, lhs.y ^ rhs, lhs.z ^ rhs); }
-
-        /// <summary>Returns the result of a componentwise bitwise exclusive or operation on a number value and a float3 vector.</summary>
-        /// <param name="lhs">Left hand side number to use to compute componentwise bitwise exclusive or.</param>
-        /// <param name="rhs">Right hand side float3 to use to compute componentwise bitwise exclusive or.</param>
-        /// <returns>float3 result of the componentwise bitwise exclusive or.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 operator ^ (number lhs, float3 rhs) { return new float3 (lhs ^ rhs.x, lhs ^ rhs.y, lhs ^ rhs.z); }
-
-
-        /// <summary>Returns the result of a componentwise bitwise negation operation on a float3 vector.</summary>
-        /// <param name="value">the float3 value to bitwise negation operation.</param>
-        /// <returns>float3 result of the componentwise bitwise negation.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 operator ~ (float3 value) { return new float3 (~value.x, ~value.y, ~value.z); }
-
-
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
@@ -1877,30 +1730,6 @@ namespace Nt.Deterministics
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float3 float3(Unity.Mathematics.uint3 v) { return new float3(v); }
-
-        /// <summary>Returns a float3 vector constructed from a single float value by converting it to number and assigning it to every component.</summary>
-        /// <param name="v">float to convert to float3</param>
-        /// <returns>Converted value.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 float3(float v) { return new float3(v); }
-
-        /// <summary>Return a float3 vector constructed from a Unity.Mathematics.float3 vector by componentwise conversion.</summary>
-        /// <param name="v">Unity.Mathematics.float3 to convert to float3</param>
-        /// <returns>Converted value.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 float3(Unity.Mathematics.float3 v) { return new float3(v); }
-
-        /// <summary>Returns a float3 vector constructed from a single double value by converting it to number and assigning it to every component.</summary>
-        /// <param name="v">double to convert to float3</param>
-        /// <returns>Converted value.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 float3(double v) { return new float3(v); }
-
-        /// <summary>Return a float3 vector constructed from a Unity.Mathematics.double3 vector by componentwise conversion.</summary>
-        /// <param name="v">Unity.Mathematics.double3 to convert to float3</param>
-        /// <returns>Converted value.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 float3(Unity.Mathematics.double3 v) { return new float3(v); }
 
         /// <summary>Returns a uint hash code of a float3 vector.</summary>
         /// <param name="v">Vector value to hash.</param>

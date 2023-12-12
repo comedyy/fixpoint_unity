@@ -35,36 +35,6 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static uint4 asuint(float4 x) { return new uint4(asuint(x.x), asuint(x.y), asuint(x.z), asuint(x.w)); }
 
-        /// <summary>Returns the bit pattern of a double as a number.</summary>
-        /// <param name="x">The double bits to copy.</param>
-        /// <returns>The long with the same bit pattern as the input.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number asnumber(double x)
-        {
-            LongDoubleUnion u;
-            u.longValue = 0;
-            u.doubleValue = x;
-            return (number)u.longValue;
-        }
-
-        /// <summary>Returns the bit pattern of a double2 as a float2.</summary>
-        /// <param name="x">The double bits to copy.</param>
-        /// <returns>The long with the same bit pattern as the input.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 asnumber(double2 x) { return float2(asnumber(x.x), asnumber(x.y)); }
-
-        /// <summary>Returns the bit pattern of a double3 as a float3.</summary>
-        /// <param name="x">The double bits to copy.</param>
-        /// <returns>The long with the same bit pattern as the input.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 asnumber(double3 x) { return float3(asnumber(x.x), asnumber(x.y), asnumber(x.z)); }
-
-        /// <summary>Returns the bit pattern of a double4 as a float4.</summary>
-        /// <param name="x">The double bits to copy.</param>
-        /// <returns>The long with the same bit pattern as the input.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 asnumber(double4 x) { return float4(asnumber(x.x), asnumber(x.y), asnumber(x.z), asnumber(x.w)); }
-
         /// <summary>Returns the bit pattern of a number as a double.</summary>
         /// <param name="x">The long bits to copy.</param>
         /// <returns>The double with the same bit pattern as the input.</returns>
@@ -426,19 +396,19 @@ namespace Nt.Deterministics
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise clamping of the input into the interval [0, 1].</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 saturate(float2 x) { return clamp(x, new float2(0.0f), new float2(1.0f)); }
+        public static float2 saturate(float2 x) { return clamp(x, new float2(0), new float2(1)); }
 
         /// <summary>Returns the result of a componentwise clamping of the float3 vector x into the interval [0, 1].</summary>
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise clamping of the input into the interval [0, 1].</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 saturate(float3 x) { return clamp(x, new float3(0.0f), new float3(1.0f)); }
+        public static float3 saturate(float3 x) { return clamp(x, new float3(0), new float3(1)); }
 
         /// <summary>Returns the result of a componentwise clamping of the float4 vector x into the interval [0, 1].</summary>
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise clamping of the input into the interval [0, 1].</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 saturate(float4 x) { return clamp(x, new float4(0.0f), new float4(1.0f)); }
+        public static float4 saturate(float4 x) { return clamp(x, new float4(0), new float4(1)); }
 
 
         /// <summary>Returns the absolute value of a number value.</summary>
@@ -1481,7 +1451,7 @@ namespace Nt.Deterministics
         public static number smoothstep(number a, number b, number x)
         {
             var t = saturate((x - a) / (b - a));
-            return t * t * (3.0f - (2.0f * t));
+            return t * t * (number.three - (number.two * t));
         }
 
         /// <summary>Returns a componentwise smooth Hermite interpolation between 0.0f and 1.0f when x is in [a, b].</summary>
@@ -1493,7 +1463,7 @@ namespace Nt.Deterministics
         public static float2 smoothstep(float2 a, float2 b, float2 x)
         {
             var t = saturate((x - a) / (b - a));
-            return t * t * ((number)3.0f - ((number)2.0f * t));
+            return t * t * (number.three - (number.two * t));
         }
 
         /// <summary>Returns a componentwise smooth Hermite interpolation between 0.0f and 1.0f when x is in [a, b].</summary>
@@ -1505,7 +1475,7 @@ namespace Nt.Deterministics
         public static float3 smoothstep(float3 a, float3 b, float3 x)
         {
             var t = saturate((x - a) / (b - a));
-            return t * t * ((number)3.0f - ((number)2.0f * t));
+            return t * t * (number.three - (number.two * t));
         }
 
         /// <summary>Returns a componentwise smooth Hermite interpolation between 0.0f and 1.0f when x is in [a, b].</summary>
@@ -1517,7 +1487,7 @@ namespace Nt.Deterministics
         public static float4 smoothstep(float4 a, float4 b, float4 x)
         {
             var t = saturate((x - a) / (b - a));
-            return t * t * ((number)3.0f - ((number)2.0f * t));
+            return t * t * (number.three - (number.two * t));
         }
 
 
@@ -1525,19 +1495,19 @@ namespace Nt.Deterministics
         /// <param name="x">Vector of values to compare.</param>
         /// <returns>True if any the components of x are non-zero, false otherwise.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool any(float2 x) { return x.x != 0.0f || x.y != 0.0f; }
+        public static bool any(float2 x) { return x.x != 0 || x.y != 0; }
 
         /// <summary>Returns true if any component of the input float3 vector is non-zero, false otherwise.</summary>
         /// <param name="x">Vector of values to compare.</param>
         /// <returns>True if any the components of x are non-zero, false otherwise.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool any(float3 x) { return x.x != 0.0f || x.y != 0.0f || x.z != 0.0f; }
+        public static bool any(float3 x) { return x.x != 0 || x.y != 0 || x.z != 0; }
 
         /// <summary>Returns true if any component of the input float4 vector is non-zero, false otherwise.</summary>
         /// <param name="x">Vector of values to compare.</param>
         /// <returns>True if any the components of x are non-zero, false otherwise.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool any(float4 x) { return x.x != 0.0f || x.y != 0.0f || x.z != 0.0f || x.w != 0.0f; }
+        public static bool any(float4 x) { return x.x != 0 || x.y != 0 || x.z != 0 || x.w != 0; }
 
 
         /// <summary>Returns true if any component of the input float2 vector is NaN, false otherwise.</summary>
@@ -1563,19 +1533,19 @@ namespace Nt.Deterministics
         /// <param name="x">Vector of values to compare.</param>
         /// <returns>True if all the components of x are non-zero, false otherwise.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool all(float2 x) { return x.x != 0.0f && x.y != 0.0f; }
+        public static bool all(float2 x) { return x.x != 0 && x.y != 0; }
 
         /// <summary>Returns true if all components of the input float3 vector are non-zero, false otherwise.</summary>
         /// <param name="x">Vector of values to compare.</param>
         /// <returns>True if all the components of x are non-zero, false otherwise.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool all(float3 x) { return x.x != 0.0f && x.y != 0.0f && x.z != 0.0f; }
+        public static bool all(float3 x) { return x.x != 0 && x.y != 0 && x.z != 0; }
 
         /// <summary>Returns true if all components of the input float4 vector are non-zero, false otherwise.</summary>
         /// <param name="x">Vector of values to compare.</param>
         /// <returns>True if all the components of x are non-zero, false otherwise.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool all(float4 x) { return x.x != 0.0f && x.y != 0.0f && x.z != 0.0f && x.w != 0.0f; }
+        public static bool all(float4 x) { return x.x != 0 && x.y != 0 && x.z != 0 && x.w != 0; }
 
 
         /// <summary>Returns b if c is true, a otherwise.</summary>
@@ -1657,21 +1627,21 @@ namespace Nt.Deterministics
         /// <param name="x">Vector of values to compare against threshold y.</param>
         /// <returns>1 if the componentwise comparison x &gt;= y is true, otherwise 0.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 step(float2 y, float2 x) { return select(float2(0.0f), float2(1.0f), x >= y); }
+        public static float2 step(float2 y, float2 x) { return select(float2(0), float2(1), x >= y); }
 
         /// <summary>Returns the result of a componentwise step function where each component is 1.0f when x &gt;= y and 0.0f otherwise.</summary>
         /// <param name="y">Vector of values to be used as a threshold for returning 1.</param>
         /// <param name="x">Vector of values to compare against threshold y.</param>
         /// <returns>1 if the componentwise comparison x &gt;= y is true, otherwise 0.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 step(float3 y, float3 x) { return select(float3(0.0f), float3(1.0f), x >= y); }
+        public static float3 step(float3 y, float3 x) { return select(float3(0), float3(1), x >= y); }
 
-        /// <summary>Returns the result of a componentwise step function where each component is 1.0f when x &gt;= y and 0.0f otherwise.</summary>
+        /// <summary>Returns the result of a componentwise step function where each component is 1 when x &gt;= y and 0 otherwise.</summary>
         /// <param name="y">Vector of values to be used as a threshold for returning 1.</param>
         /// <param name="x">Vector of values to compare against threshold y.</param>
         /// <returns>1 if the componentwise comparison x &gt;= y is true, otherwise 0.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 step(float4 y, float4 x) { return select(float4(0.0f), float4(1.0f), x >= y); }
+        public static float4 step(float4 y, float4 x) { return select(float4(0), float4(1), x >= y); }
 
 
         /// <summary>Given an incident vector i and a normal vector n, returns the reflection vector r = i - 2.0f * dot(i, n) * n.</summary>
@@ -1679,21 +1649,21 @@ namespace Nt.Deterministics
         /// <param name="n">Normal vector.</param>
         /// <returns>Reflection vector.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 reflect(float2 i, float2 n) { return i - (number)2f * n * dot(i, n); }
+        public static float2 reflect(float2 i, float2 n) { return i - number.two * n * dot(i, n); }
 
         /// <summary>Given an incident vector i and a normal vector n, returns the reflection vector r = i - 2.0f * dot(i, n) * n.</summary>
         /// <param name="i">Incident vector.</param>
         /// <param name="n">Normal vector.</param>
         /// <returns>Reflection vector.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 reflect(float3 i, float3 n) { return i - (number)2f * n * dot(i, n); }
+        public static float3 reflect(float3 i, float3 n) { return i - number.two * n * dot(i, n); }
 
         /// <summary>Given an incident vector i and a normal vector n, returns the reflection vector r = i - 2.0f * dot(i, n) * n.</summary>
         /// <param name="i">Incident vector.</param>
         /// <param name="n">Normal vector.</param>
         /// <returns>Reflection vector.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 reflect(float4 i, float4 n) { return i - (number)2f * n * dot(i, n); }
+        public static float4 reflect(float4 i, float4 n) { return i - number.two * n * dot(i, n); }
 
 
         /// <summary>Returns the refraction vector given the incident vector i, the normal vector n and the refraction index eta.</summary>
@@ -1858,7 +1828,7 @@ namespace Nt.Deterministics
         /// <param name="ng">Second vector in direction comparison.</param>
         /// <returns>-n if i and ng point in the same direction; otherwise return n unchanged.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 faceforward(float2 n, float2 i, float2 ng) { return select(n, -n, dot(ng, i) >= 0.0f); }
+        public static float2 faceforward(float2 n, float2 i, float2 ng) { return select(n, -n, dot(ng, i) >= 0); }
 
         /// <summary>Conditionally flips a vector n if two vectors i and ng are pointing in the same direction. Returns n if dot(i, ng) &lt; 0, -n otherwise.</summary>
         /// <param name="n">Vector to conditionally flip.</param>
@@ -1866,7 +1836,7 @@ namespace Nt.Deterministics
         /// <param name="ng">Second vector in direction comparison.</param>
         /// <returns>-n if i and ng point in the same direction; otherwise return n unchanged.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 faceforward(float3 n, float3 i, float3 ng) { return select(n, -n, dot(ng, i) >= 0.0f); }
+        public static float3 faceforward(float3 n, float3 i, float3 ng) { return select(n, -n, dot(ng, i) >= 0); }
 
         /// <summary>Conditionally flips a vector n if two vectors i and ng are pointing in the same direction. Returns n if dot(i, ng) &lt; 0, -n otherwise.</summary>
         /// <param name="n">Vector to conditionally flip.</param>
@@ -1874,7 +1844,7 @@ namespace Nt.Deterministics
         /// <param name="ng">Second vector in direction comparison.</param>
         /// <returns>-n if i and ng point in the same direction; otherwise return n unchanged.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 faceforward(float4 n, float4 i, float4 ng) { return select(n, -n, dot(ng, i) >= 0.0f); }
+        public static float4 faceforward(float4 n, float4 i, float4 ng) { return select(n, -n, dot(ng, i) >= 0); }
 
 
         /// <summary>Returns the sine and cosine of the input number value x through the out parameters s and c.</summary>
@@ -2079,29 +2049,29 @@ namespace Nt.Deterministics
             return Unity.Mathematics.math.compress((int*)output, index, *(int4*)&val, mask);
         }
 
-        /// <summary>
-        /// Generate an orthonormal basis given a single unit length normal vector.
-        /// </summary>
-        /// <remarks>
-        /// This implementation is from "Building an Orthonormal Basis, Revisited"
-        /// https://graphics.pixar.com/library/OrthonormalB/paper.pdf
-        /// </remarks>
-        /// <param name="normal">Unit length normal vector.</param>
-        /// <param name="basis1">Output unit length vector, orthogonal to normal vector.</param>
-        /// <param name="basis2">Output unit length vector, orthogonal to normal vector and basis1.</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void orthonormal_basis(float3 normal, out float3 basis1, out float3 basis2)
-        {
-            var sign = normal.z >= 0.0f ? 1.0f : -1.0f;
-            var a = -1.0f / (sign + normal.z);
-            var b = normal.x * normal.y * a;
-            basis1.x = 1.0f + sign * normal.x * normal.x * a;
-            basis1.y = sign * b;
-            basis1.z = -sign * normal.x;
-            basis2.x = b;
-            basis2.y = sign + normal.y * normal.y * a;
-            basis2.z = -normal.y;
-        }
+        // /// <summary>
+        // /// Generate an orthonormal basis given a single unit length normal vector.
+        // /// </summary>
+        // /// <remarks>
+        // /// This implementation is from "Building an Orthonormal Basis, Revisited"
+        // /// https://graphics.pixar.com/library/OrthonormalB/paper.pdf
+        // /// </remarks>
+        // /// <param name="normal">Unit length normal vector.</param>
+        // /// <param name="basis1">Output unit length vector, orthogonal to normal vector.</param>
+        // /// <param name="basis2">Output unit length vector, orthogonal to normal vector and basis1.</param>
+        // [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        // public static void orthonormal_basis(float3 normal, out float3 basis1, out float3 basis2)
+        // {
+        //     var sign = normal.z >= 0.0f ? 1.0f : -1.0f;
+        //     var a = -1.0f / (sign + normal.z);
+        //     var b = normal.x * normal.y * a;
+        //     basis1.x = 1.0f + sign * normal.x * normal.x * a;
+        //     basis1.y = sign * b;
+        //     basis1.z = -sign * normal.x;
+        //     basis2.x = b;
+        //     basis2.y = sign + normal.y * normal.y * a;
+        //     basis2.z = -normal.y;
+        // }
 
         /// <summary>
         /// angle(Radian, not degree) between x and y

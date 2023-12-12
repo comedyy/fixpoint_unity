@@ -402,28 +402,30 @@ public class TestNumberOriginalOps : MonoBehaviour, IStatistics
 
     float testLeftShift()
     {
-        int bits = number.FRACTIONAL_PLACES;
-        number num;
-        var time0 = DateTime.Now;
-        for (int k = 0; k < 10; ++k)
-            for (int m = 0; m < _random_count; ++m)
-                for (int n = 0; n < _random_count; ++n)
-                    num = _randoms[n] << bits;
-        double deltatime = (DateTime.Now - time0).TotalSeconds;
-        return (float)(10 * loop_count / deltatime / 1000000.0f);
+        return default;
+        // int bits = number.FRACTIONAL_PLACES;
+        // number num;
+        // var time0 = DateTime.Now;
+        // for (int k = 0; k < 10; ++k)
+        //     for (int m = 0; m < _random_count; ++m)
+        //         for (int n = 0; n < _random_count; ++n)
+        //             num = _randoms[n] << bits;
+        // double deltatime = (DateTime.Now - time0).TotalSeconds;
+        // return (float)(10 * loop_count / deltatime / 1000000.0f);
     }
 
     float testRightShift()
     {
-        int bits = number.FRACTIONAL_PLACES;
-        number num;
-        var time0 = DateTime.Now;
-        for (int k = 0; k < 10; ++k)
-            for (int m = 0; m < _random_count; ++m)
-                for (int n = 0; n < _random_count; ++n)
-                    num = _randoms[n] >> bits;
-        double deltatime = (DateTime.Now - time0).TotalSeconds;
-        return (float)(10 * loop_count / deltatime / 1000000.0f);
+        return default;
+        // int bits = number.FRACTIONAL_PLACES;
+        // number num;
+        // var time0 = DateTime.Now;
+        // for (int k = 0; k < 10; ++k)
+        //     for (int m = 0; m < _random_count; ++m)
+        //         for (int n = 0; n < _random_count; ++n)
+        //             num = _randoms[n] >> bits;
+        // double deltatime = (DateTime.Now - time0).TotalSeconds;
+        // return (float)(10 * loop_count / deltatime / 1000000.0f);
     }
 
     float testAsLong()
@@ -476,14 +478,15 @@ public class TestNumberOriginalOps : MonoBehaviour, IStatistics
 
     float testAsDecimal()
     {
-        decimal tmp;
-        var time0 = DateTime.Now;
-        for (int k = 0; k < 10; ++k)
-            for (int m = 0; m < _random_count; ++m)
-                for (int n = 0; n < _random_count; ++n)
-                    tmp = (decimal)(_randoms[n]);
-        double deltatime = (DateTime.Now - time0).TotalSeconds;
-        return (float)(10 * loop_count / deltatime / 1000000.0f);
+        return default;
+        // decimal tmp;
+        // var time0 = DateTime.Now;
+        // for (int k = 0; k < 10; ++k)
+        //     for (int m = 0; m < _random_count; ++m)
+        //         for (int n = 0; n < _random_count; ++n)
+        //             tmp = (decimal)(_randoms[n]);
+        // double deltatime = (DateTime.Now - time0).TotalSeconds;
+        // return (float)(10 * loop_count / deltatime / 1000000.0f);
     }
 
     float testIsPositiveInfinity()
