@@ -26,71 +26,71 @@ public class TestQuaternion : MonoBehaviour
 
 #if UNITY_EDITOR
     // [Button("TestMatrix2Quaternion")]
-    public static void TestMatrix2Quaternion(float step = 5f)
-    {
-        AutoLoadLut.AutoLoad();
-        float range = 360f;
-        Quaternion q1, q2, q3;
-        Vector3 axis;
-        UnityEngine.Matrix4x4 m;
-        for (float a = 0f; a < range; a += step)
-        {
-            q1 = Quaternion.AngleAxis(a, Vector3.up);
-            for (float b = 0f; b < range; b += step)
-            {
-                q2 = Quaternion.AngleAxis(b, Vector3.right);
-                axis = q2 * q1 * Vector3.forward;
-                for (float angle = 0f; angle < range; angle += step)
-                {
-                    q3 = Quaternion.AngleAxis(angle, axis);
+    // public static void TestMatrix2Quaternion(float step = 5f)
+    // {
+    //     AutoLoadLut.AutoLoad();
+    //     float range = 360f;
+    //     Quaternion q1, q2, q3;
+    //     Vector3 axis;
+    //     UnityEngine.Matrix4x4 m;
+    //     for (float a = 0f; a < range; a += step)
+    //     {
+    //         q1 = Quaternion.AngleAxis(a, Vector3.up);
+    //         for (float b = 0f; b < range; b += step)
+    //         {
+    //             q2 = Quaternion.AngleAxis(b, Vector3.right);
+    //             axis = q2 * q1 * Vector3.forward;
+    //             for (float angle = 0f; angle < range; angle += step)
+    //             {
+    //                 q3 = Quaternion.AngleAxis(angle, axis);
 
-                    m = Matrix4x4.Rotate(q3);
+    //                 m = Matrix4x4.Rotate(q3);
 
-                    //Nt.Deterministics.float3x3 tmpM = new Nt.Deterministics.float3x3(
-                    //    new float3((number)m.m00, (number)m.m01, (number)m.m02),
-                    //    new float3((number)m.m10, (number)m.m11, (number)m.m12),
-                    //    new float3((number)m.m20, (number)m.m21, (number)m.m22));
-                    Nt.Deterministics.float4x4 tmpM = new Nt.Deterministics.float4x4(
-                        new float4((number)m.m00, (number)m.m01, (number)m.m02, (number)m.m03),
-                        new float4((number)m.m10, (number)m.m11, (number)m.m12, (number)m.m13),
-                        new float4((number)m.m20, (number)m.m21, (number)m.m22, (number)m.m23),
-                        new float4((number)m.m30, (number)m.m31, (number)m.m32, (number)m.m33));
-                    Unity.Mathematics.float3x3 tmpM1 = new Unity.Mathematics.float3x3(
-                        new Unity.Mathematics.float3(m.m00, m.m01, m.m02),
-                        new Unity.Mathematics.float3(m.m10, m.m11, m.m12),
-                        new Unity.Mathematics.float3(m.m20, m.m21, m.m22));
+    //                 //Nt.Deterministics.float3x3 tmpM = new Nt.Deterministics.float3x3(
+    //                 //    new float3((number)m.m00, (number)m.m01, (number)m.m02),
+    //                 //    new float3((number)m.m10, (number)m.m11, (number)m.m12),
+    //                 //    new float3((number)m.m20, (number)m.m21, (number)m.m22));
+    //                 Nt.Deterministics.float4x4 tmpM = new Nt.Deterministics.float4x4(
+    //                     new float4((number)m.m00, (number)m.m01, (number)m.m02, (number)m.m03),
+    //                     new float4((number)m.m10, (number)m.m11, (number)m.m12, (number)m.m13),
+    //                     new float4((number)m.m20, (number)m.m21, (number)m.m22, (number)m.m23),
+    //                     new float4((number)m.m30, (number)m.m31, (number)m.m32, (number)m.m33));
+    //                 Unity.Mathematics.float3x3 tmpM1 = new Unity.Mathematics.float3x3(
+    //                     new Unity.Mathematics.float3(m.m00, m.m01, m.m02),
+    //                     new Unity.Mathematics.float3(m.m10, m.m11, m.m12),
+    //                     new Unity.Mathematics.float3(m.m20, m.m21, m.m22));
 
-                    Nt.Deterministics.quaternion myQ = new Nt.Deterministics.quaternion(tmpM);
-                    Unity.Mathematics.quaternion UQ = new Unity.Mathematics.quaternion(tmpM1);
-                    float4 value_multa_delta = new float4(
-                        math.abs(myQ.x - UQ.value.x),
-                        math.abs(myQ.y - UQ.value.y),
-                        math.abs(myQ.z - UQ.value.z),
-                        math.abs(myQ.w - UQ.value.w));
-                    float4 value_multa_delta1 = new float4(
-                        math.abs(myQ.x + UQ.value.x),
-                        math.abs(myQ.y + UQ.value.y),
-                        math.abs(myQ.z + UQ.value.z),
-                        math.abs(myQ.w + UQ.value.w));
-                    var bLess1 = value_multa_delta < new float4((number)0.0001f);//������
-                    var bLess2 = value_multa_delta1 < new float4((number)0.0001f);//��������෴
-                    if (bLess1.x && bLess1.y && bLess1.z && bLess1.w || bLess2.x && bLess2.y && bLess2.z && bLess2.w)
-                    {
-                        //Debug.Log("��������ȷ");
-                    }
-                    else
-                    {
-                        float v1 = (float)math.max(math.max(value_multa_delta.x, value_multa_delta.y),
-                            math.max(value_multa_delta.z, value_multa_delta.w));
-                        float v2 = (float)math.max(math.max(value_multa_delta1.x, value_multa_delta1.y),
-                            math.max(value_multa_delta1.z, value_multa_delta1.w));
-                        float tmp_max = Mathf.Min(v1, v2);
-                        Debug.LogError($"delta:{tmp_max}, {a}, {b}, {angle}, {value_multa_delta}, {value_multa_delta1}");
-                    }
-                }
-            }
-        }
-    }
+    //                 Nt.Deterministics.quaternion myQ = new Nt.Deterministics.quaternion(tmpM);
+    //                 Unity.Mathematics.quaternion UQ = new Unity.Mathematics.quaternion(tmpM1);
+    //                 float4 value_multa_delta = new float4(
+    //                     math.abs(myQ.x - UQ.value.x),
+    //                     math.abs(myQ.y - UQ.value.y),
+    //                     math.abs(myQ.z - UQ.value.z),
+    //                     math.abs(myQ.w - UQ.value.w));
+    //                 float4 value_multa_delta1 = new float4(
+    //                     math.abs(myQ.x + UQ.value.x),
+    //                     math.abs(myQ.y + UQ.value.y),
+    //                     math.abs(myQ.z + UQ.value.z),
+    //                     math.abs(myQ.w + UQ.value.w));
+    //                 var bLess1 = value_multa_delta < new float4((number)0.0001f);//������
+    //                 var bLess2 = value_multa_delta1 < new float4((number)0.0001f);//��������෴
+    //                 if (bLess1.x && bLess1.y && bLess1.z && bLess1.w || bLess2.x && bLess2.y && bLess2.z && bLess2.w)
+    //                 {
+    //                     //Debug.Log("��������ȷ");
+    //                 }
+    //                 else
+    //                 {
+    //                     float v1 = (float)math.max(math.max(value_multa_delta.x, value_multa_delta.y),
+    //                         math.max(value_multa_delta.z, value_multa_delta.w));
+    //                     float v2 = (float)math.max(math.max(value_multa_delta1.x, value_multa_delta1.y),
+    //                         math.max(value_multa_delta1.z, value_multa_delta1.w));
+    //                     float tmp_max = Mathf.Min(v1, v2);
+    //                     Debug.LogError($"delta:{tmp_max}, {a}, {b}, {angle}, {value_multa_delta}, {value_multa_delta1}");
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
     // [Button("TestQuaternionEulerAngles")]
     public static void TestQuaternionEulerAngles(float step = 5f)
     {

@@ -97,38 +97,6 @@ namespace Nt.Deterministics
         }
 
         /// <summary>
-        /// ctor. from matrix 4x4
-        /// </summary>
-        /// <param name="m">matrix</param>
-        public quaternion(float4x4 m)
-        {
-            float4 u = m.c0;
-            float4 v = m.c1;
-            float4 w = m.c2;
-            number s = new number(constant.sign64);
-            number u_sign = u.x & s;
-            number t = u_sign.RawValue == 0L ? (v.y + w.z) : (v.y - w.z);
-            float4 u_mask = new float4(u_sign >> 63);
-            float4 t_mask = new float4(t >> 63);
-            number tr = number.one + number.Abs(u.x);
-            float4 sign_flips = new float4(number.zero, s, s, s) ^ (u_mask & new float4(number.zero, s, number.zero, s))
-                ^ (t_mask & new float4(s, s, s, number.zero));
-            bool bSign = sign_flips.x.RawValue == 0L;
-            float4 value = new float4(tr, u.y, w.x, v.z) + new float4(
-                bSign ? t : -t,
-                bSign ? v.x : -v.x,
-                bSign ? u.z : -u.z,
-                bSign ? w.y : -w.y);
-            value = (value & ~u_mask) | (value.zwxy & u_mask);
-            value = (value.wzyx & ~t_mask) | (value & t_mask);
-            value = math.normalize(value);
-            this.x.RawValue = value.x.RawValue;
-            this.y.RawValue = value.y.RawValue;
-            this.z.RawValue = value.z.RawValue;
-            this.w.RawValue = value.w.RawValue;
-        }
-
-        /// <summary>
         /// get or set value of x/y/z/w by index
         /// </summary>
         /// <param name="index">index</param>
