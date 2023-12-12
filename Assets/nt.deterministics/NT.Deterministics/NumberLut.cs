@@ -3,6 +3,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 #if !NO_NUMBER_SUPPORT_BURST
 using Unity.Burst;
+using UnityEngine;
 #endif
 
 namespace Nt.Deterministics

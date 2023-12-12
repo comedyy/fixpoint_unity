@@ -103,7 +103,7 @@ public class StatisticsManager
             if (null == finfo)
                 finfo = stat.stat.GetType().GetField(fieldname, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
             if (null == finfo) break;
-            object obj = finfo.GetValue(stat);
+            object obj = finfo.GetValue(stat.stat);
             str.Append(obj.ToString() + ",");
         }
         str.Append("\n");
@@ -513,13 +513,14 @@ public class StatisticsManager
                     foreach (var item in items)
                         data += item.ELKString();
                     postData = System.Text.Encoding.UTF8.GetBytes(data);
-                    if (SendDataToElk(s_ELKURL, postData, out result))
-                        Debug.Log(result);
-                    else
-                    {
-                        Debug.LogError(result);
-                        StatisticsManager.Instance.AppendLog(result);
-                    }
+                    Debug.LogError(data);
+                    // if (SendDataToElk(s_ELKURL, postData, out result))
+                    //     Debug.Log(result);
+                    // else
+                    // {
+                    //     Debug.LogError(result);
+                    //     StatisticsManager.Instance.AppendLog(result);
+                    // }
                 }
             }
             catch (Exception e)

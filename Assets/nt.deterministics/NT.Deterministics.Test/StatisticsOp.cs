@@ -25,7 +25,6 @@ public class StatisticsOp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -73,7 +72,7 @@ public class StatisticsOp : MonoBehaviour
     public void OnBtnOutputCSV()
     {
         EnableButtons(false);
-        StatisticsManager.Instance.exportCSV(Application.dataPath + "/../csvdata/performance.csv");
+        StatisticsManager.Instance.exportCSV("D://performance.csv");
         EnableButtons(true);
     }
 

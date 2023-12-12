@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Nt.Deterministics;
 using Unity.Burst;
+using System.IO;
 
 public static class BaseTest 
 {
@@ -67,6 +68,10 @@ public class TestNumber : MonoBehaviour, IStatistics
         //    ops_atan2 = 41.29f,
         //}, true);
         InitRandoms();
+        NumberLut.Init((path)=>{
+            return Resources.Load<TextAsset>(Path.Combine("NTLut", path)).bytes;
+        });
+        Play();
     }
 
     // Update is called once per frame
@@ -74,7 +79,7 @@ public class TestNumber : MonoBehaviour, IStatistics
     {
         if (_cur_state == 0)
             return;
-        StatState state = (StatState)_cur_state;
+         StatState state = (StatState)_cur_state;
         StatisticsManager.Instance.AddELKOpsItem(this, state);
         switch (state)
         {
