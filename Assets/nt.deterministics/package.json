@@ -1,0 +1,17 @@
+{
+    "name": "deterministics",
+    "displayName": "NT Deterministics",
+    "version": "1.2.1",
+    "unity": "2018.3",
+    "description": "Unity's C# SIMD math library providing vector types and math functions with a shader like syntax.",
+    "keywords": [
+        "unity"
+    ],
+    "dependencies": {
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://lab.skyunion.net/pmo-nt/packages/Nt.Deterministics.git",
+        "revision":""
+    }
+}

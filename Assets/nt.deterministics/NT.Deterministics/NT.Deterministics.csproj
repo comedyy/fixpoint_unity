@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AEA566F7-F459-4838-8611-196CC68FA456}</ProjectGuid>
+    <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Unity</RootNamespace>
+    <AssemblyName>NT.Deterministics</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\build\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\build\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\build\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\build\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="double2x2_cvrt_number.gen.cs" />
+    <Compile Include="double2x3_cvrt_number.gen.cs" />
+    <Compile Include="double2x4_cvrt_number.gen.cs" />
+    <Compile Include="double2_cvrt_number.gen.cs" />
+    <Compile Include="double3x2_cvrt_number.gen.cs" />
+    <Compile Include="double3x3_cvrt_number.gen.cs" />
+    <Compile Include="double3x4_cvrt_number.gen.cs" />
+    <Compile Include="double3_cvrt_number.gen.cs" />
+    <Compile Include="double4x2_cvrt_number.gen.cs" />
+    <Compile Include="double4x3_cvrt_number.gen.cs" />
+    <Compile Include="double4x4_cvrt_number.gen.cs" />
+    <Compile Include="double4_cvrt_number.gen.cs" />
+    <Compile Include="float2x2_cvrt_number.gen.cs" />
+    <Compile Include="float2x3_cvrt_number.gen.cs" />
+    <Compile Include="float2x4_cvrt_number.gen.cs" />
+    <Compile Include="float2_cvrt_number.gen.cs" />
+    <Compile Include="float3x2_cvrt_number.gen.cs" />
+    <Compile Include="float3x3_cvrt_number.gen.cs" />
+    <Compile Include="float3x4_cvrt_number.gen.cs" />
+    <Compile Include="float3_cvrt_number.gen.cs" />
+    <Compile Include="float4x2_cvrt_number.gen.cs" />
+    <Compile Include="float4x3_cvrt_number.gen.cs" />
+    <Compile Include="float4x4_cvrt_number.gen.cs" />
+    <Compile Include="float4_cvrt_number.gen.cs" />
+    <Compile Include="int2x2_cvrt_number.gen.cs" />
+    <Compile Include="int2x3_cvrt_number.gen.cs" />
+    <Compile Include="int2x4_cvrt_number.gen.cs" />
+    <Compile Include="int2_cvrt_number.gen.cs" />
+    <Compile Include="int3x2_cvrt_number.gen.cs" />
+    <Compile Include="int3x3_cvrt_number.gen.cs" />
+    <Compile Include="int3x4_cvrt_number.gen.cs" />
+    <Compile Include="int3_cvrt_number.gen.cs" />
+    <Compile Include="int4x2_cvrt_number.gen.cs" />
+    <Compile Include="int4x3_cvrt_number.gen.cs" />
+    <Compile Include="int4x4_cvrt_number.gen.cs" />
+    <Compile Include="int4_cvrt_number.gen.cs" />
+    <Compile Include="math.cs" />
+    <Compile Include="matrix.cs" />
+    <Compile Include="matrix.gen.cs" />
+    <Compile Include="number.cs" />
+    <Compile Include="number2.gen.cs" />
+    <Compile Include="number2x2.gen.cs" />
+    <Compile Include="number2x3.gen.cs" />
+    <Compile Include="number2x4.gen.cs" />
+    <Compile Include="number3.gen.cs" />
+    <Compile Include="number3x2.gen.cs" />
+    <Compile Include="number3x3.gen.cs" />
+    <Compile Include="number3x4.gen.cs" />
+    <Compile Include="number4.gen.cs" />
+    <Compile Include="number4x2.gen.cs" />
+    <Compile Include="number4x3.gen.cs" />
+    <Compile Include="number4x4.gen.cs" />
+    <Compile Include="NumberLut.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Unity.Mathematics\Unity.Mathematics.csproj">
+      <Project>{19810344-7387-4155-935f-bdd5cc61f0bf}</Project>
+      <Name>Unity.Mathematics</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

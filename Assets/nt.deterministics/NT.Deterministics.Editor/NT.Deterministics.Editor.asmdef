@@ -1,0 +1,19 @@
+{
+    "name": "Nt.Deterministics.Editor",
+    "rootNamespace": "",
+    "references": [
+        "Nt.Deterministics",
+        "Unity.Mathematics"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
