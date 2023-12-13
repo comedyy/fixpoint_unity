@@ -282,21 +282,21 @@ namespace Nt.Deterministics
             y = NextNumber(minValue, maxValue)
         };
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float3 NextNumber3() => new float3()
+        public fp3 NextNumber3() => new fp3()
         {
             x = NextNumber(),
             y = NextNumber(),
             z = NextNumber()
         };
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float3 NextNumber3(fp maxValue) => new float3()
+        public fp3 NextNumber3(fp maxValue) => new fp3()
         {
             x = NextNumber(maxValue),
             y = NextNumber(maxValue),
             z = NextNumber(maxValue)
         };
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float3 NextNumber3(fp minValue, fp maxValue) => new float3()
+        public fp3 NextNumber3(fp minValue, fp maxValue) => new fp3()
         {
             x = NextNumber(minValue, maxValue),
             y = NextNumber(minValue, maxValue),

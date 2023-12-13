@@ -76,7 +76,7 @@ namespace Nt.Deterministics
         /// <param name="x">The constructed vector's x component will be set to this value.</param>
         /// <param name="yzw">The constructed vector's yzw components will be set to this value.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float4(fp x, float3 yzw)
+        public float4(fp x, fp3 yzw)
         {
             this.x = x;
             this.y = yzw.x;
@@ -113,7 +113,7 @@ namespace Nt.Deterministics
         /// <param name="xyz">The constructed vector's xyz components will be set to this value.</param>
         /// <param name="w">The constructed vector's w component will be set to this value.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float4(float3 xyz, fp w)
+        public float4(fp3 xyz, fp w)
         {
             this.x = xyz.x;
             this.y = xyz.y;
@@ -2886,64 +2886,64 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 xxx
+        public fp3 xxx
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(x, x, x); }
+            get { return new fp3(x, x, x); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 xxy
+        public fp3 xxy
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(x, x, y); }
+            get { return new fp3(x, x, y); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 xxz
+        public fp3 xxz
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(x, x, z); }
+            get { return new fp3(x, x, z); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 xxw
+        public fp3 xxw
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(x, x, w); }
+            get { return new fp3(x, x, w); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 xyx
+        public fp3 xyx
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(x, y, x); }
+            get { return new fp3(x, y, x); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 xyy
+        public fp3 xyy
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(x, y, y); }
+            get { return new fp3(x, y, y); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 xyz
+        public fp3 xyz
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(x, y, z); }
+            get { return new fp3(x, y, z); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { x = value.x; y = value.y; z = value.z; }
         }
@@ -2951,10 +2951,10 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 xyw
+        public fp3 xyw
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(x, y, w); }
+            get { return new fp3(x, y, w); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { x = value.x; y = value.y; w = value.z; }
         }
@@ -2962,19 +2962,19 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 xzx
+        public fp3 xzx
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(x, z, x); }
+            get { return new fp3(x, z, x); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 xzy
+        public fp3 xzy
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(x, z, y); }
+            get { return new fp3(x, z, y); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { x = value.x; z = value.y; y = value.z; }
         }
@@ -2982,19 +2982,19 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 xzz
+        public fp3 xzz
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(x, z, z); }
+            get { return new fp3(x, z, z); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 xzw
+        public fp3 xzw
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(x, z, w); }
+            get { return new fp3(x, z, w); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { x = value.x; z = value.y; w = value.z; }
         }
@@ -3002,19 +3002,19 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 xwx
+        public fp3 xwx
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(x, w, x); }
+            get { return new fp3(x, w, x); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 xwy
+        public fp3 xwy
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(x, w, y); }
+            get { return new fp3(x, w, y); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { x = value.x; w = value.y; y = value.z; }
         }
@@ -3022,10 +3022,10 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 xwz
+        public fp3 xwz
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(x, w, z); }
+            get { return new fp3(x, w, z); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { x = value.x; w = value.y; z = value.z; }
         }
@@ -3033,37 +3033,37 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 xww
+        public fp3 xww
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(x, w, w); }
+            get { return new fp3(x, w, w); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 yxx
+        public fp3 yxx
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(y, x, x); }
+            get { return new fp3(y, x, x); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 yxy
+        public fp3 yxy
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(y, x, y); }
+            get { return new fp3(y, x, y); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 yxz
+        public fp3 yxz
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(y, x, z); }
+            get { return new fp3(y, x, z); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { y = value.x; x = value.y; z = value.z; }
         }
@@ -3071,10 +3071,10 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 yxw
+        public fp3 yxw
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(y, x, w); }
+            get { return new fp3(y, x, w); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { y = value.x; x = value.y; w = value.z; }
         }
@@ -3082,46 +3082,46 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 yyx
+        public fp3 yyx
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(y, y, x); }
+            get { return new fp3(y, y, x); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 yyy
+        public fp3 yyy
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(y, y, y); }
+            get { return new fp3(y, y, y); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 yyz
+        public fp3 yyz
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(y, y, z); }
+            get { return new fp3(y, y, z); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 yyw
+        public fp3 yyw
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(y, y, w); }
+            get { return new fp3(y, y, w); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 yzx
+        public fp3 yzx
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(y, z, x); }
+            get { return new fp3(y, z, x); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { y = value.x; z = value.y; x = value.z; }
         }
@@ -3129,28 +3129,28 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 yzy
+        public fp3 yzy
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(y, z, y); }
+            get { return new fp3(y, z, y); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 yzz
+        public fp3 yzz
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(y, z, z); }
+            get { return new fp3(y, z, z); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 yzw
+        public fp3 yzw
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(y, z, w); }
+            get { return new fp3(y, z, w); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { y = value.x; z = value.y; w = value.z; }
         }
@@ -3158,10 +3158,10 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 ywx
+        public fp3 ywx
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(y, w, x); }
+            get { return new fp3(y, w, x); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { y = value.x; w = value.y; x = value.z; }
         }
@@ -3169,19 +3169,19 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 ywy
+        public fp3 ywy
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(y, w, y); }
+            get { return new fp3(y, w, y); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 ywz
+        public fp3 ywz
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(y, w, z); }
+            get { return new fp3(y, w, z); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { y = value.x; w = value.y; z = value.z; }
         }
@@ -3189,28 +3189,28 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 yww
+        public fp3 yww
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(y, w, w); }
+            get { return new fp3(y, w, w); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 zxx
+        public fp3 zxx
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(z, x, x); }
+            get { return new fp3(z, x, x); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 zxy
+        public fp3 zxy
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(z, x, y); }
+            get { return new fp3(z, x, y); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { z = value.x; x = value.y; y = value.z; }
         }
@@ -3218,19 +3218,19 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 zxz
+        public fp3 zxz
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(z, x, z); }
+            get { return new fp3(z, x, z); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 zxw
+        public fp3 zxw
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(z, x, w); }
+            get { return new fp3(z, x, w); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { z = value.x; x = value.y; w = value.z; }
         }
@@ -3238,10 +3238,10 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 zyx
+        public fp3 zyx
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(z, y, x); }
+            get { return new fp3(z, y, x); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { z = value.x; y = value.y; x = value.z; }
         }
@@ -3249,28 +3249,28 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 zyy
+        public fp3 zyy
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(z, y, y); }
+            get { return new fp3(z, y, y); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 zyz
+        public fp3 zyz
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(z, y, z); }
+            get { return new fp3(z, y, z); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 zyw
+        public fp3 zyw
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(z, y, w); }
+            get { return new fp3(z, y, w); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { z = value.x; y = value.y; w = value.z; }
         }
@@ -3278,46 +3278,46 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 zzx
+        public fp3 zzx
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(z, z, x); }
+            get { return new fp3(z, z, x); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 zzy
+        public fp3 zzy
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(z, z, y); }
+            get { return new fp3(z, z, y); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 zzz
+        public fp3 zzz
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(z, z, z); }
+            get { return new fp3(z, z, z); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 zzw
+        public fp3 zzw
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(z, z, w); }
+            get { return new fp3(z, z, w); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 zwx
+        public fp3 zwx
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(z, w, x); }
+            get { return new fp3(z, w, x); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { z = value.x; w = value.y; x = value.z; }
         }
@@ -3325,10 +3325,10 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 zwy
+        public fp3 zwy
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(z, w, y); }
+            get { return new fp3(z, w, y); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { z = value.x; w = value.y; y = value.z; }
         }
@@ -3336,37 +3336,37 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 zwz
+        public fp3 zwz
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(z, w, z); }
+            get { return new fp3(z, w, z); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 zww
+        public fp3 zww
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(z, w, w); }
+            get { return new fp3(z, w, w); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 wxx
+        public fp3 wxx
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(w, x, x); }
+            get { return new fp3(w, x, x); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 wxy
+        public fp3 wxy
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(w, x, y); }
+            get { return new fp3(w, x, y); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { w = value.x; x = value.y; y = value.z; }
         }
@@ -3374,10 +3374,10 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 wxz
+        public fp3 wxz
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(w, x, z); }
+            get { return new fp3(w, x, z); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { w = value.x; x = value.y; z = value.z; }
         }
@@ -3385,19 +3385,19 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 wxw
+        public fp3 wxw
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(w, x, w); }
+            get { return new fp3(w, x, w); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 wyx
+        public fp3 wyx
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(w, y, x); }
+            get { return new fp3(w, y, x); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { w = value.x; y = value.y; x = value.z; }
         }
@@ -3405,19 +3405,19 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 wyy
+        public fp3 wyy
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(w, y, y); }
+            get { return new fp3(w, y, y); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 wyz
+        public fp3 wyz
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(w, y, z); }
+            get { return new fp3(w, y, z); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { w = value.x; y = value.y; z = value.z; }
         }
@@ -3425,19 +3425,19 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 wyw
+        public fp3 wyw
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(w, y, w); }
+            get { return new fp3(w, y, w); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 wzx
+        public fp3 wzx
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(w, z, x); }
+            get { return new fp3(w, z, x); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { w = value.x; z = value.y; x = value.z; }
         }
@@ -3445,10 +3445,10 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 wzy
+        public fp3 wzy
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(w, z, y); }
+            get { return new fp3(w, z, y); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { w = value.x; z = value.y; y = value.z; }
         }
@@ -3456,55 +3456,55 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 wzz
+        public fp3 wzz
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(w, z, z); }
+            get { return new fp3(w, z, z); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 wzw
+        public fp3 wzw
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(w, z, w); }
+            get { return new fp3(w, z, w); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 wwx
+        public fp3 wwx
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(w, w, x); }
+            get { return new fp3(w, w, x); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 wwy
+        public fp3 wwy
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(w, w, y); }
+            get { return new fp3(w, w, y); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 wwz
+        public fp3 wwz
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(w, w, z); }
+            get { return new fp3(w, w, z); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 www
+        public fp3 www
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(w, w, w); }
+            get { return new fp3(w, w, w); }
         }
 
 
@@ -3856,7 +3856,7 @@ namespace Nt.Deterministics
         /// <param name="yzw">The constructed vector's yzw components will be set to this value.</param>
         /// <returns>float4 constructed from arguments.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 float4(fp x, float3 yzw) { return new float4(x, yzw); }
+        public static float4 float4(fp x, fp3 yzw) { return new float4(x, yzw); }
 
         /// <summary>Returns a float4 vector constructed from a float2 vector and two number values.</summary>
         /// <param name="xy">The constructed vector's xy components will be set to this value.</param>
@@ -3878,7 +3878,7 @@ namespace Nt.Deterministics
         /// <param name="w">The constructed vector's w component will be set to this value.</param>
         /// <returns>float4 constructed from arguments.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 float4(float3 xyz, fp w) { return new float4(xyz, w); }
+        public static float4 float4(fp3 xyz, fp w) { return new float4(xyz, w); }
 
         /// <summary>Returns a float4 vector constructed from a float4 vector.</summary>
         /// <param name="xyzw">The constructed vector's xyzw components will be set to this value.</param>
@@ -3983,7 +3983,7 @@ namespace Nt.Deterministics
         /// <param name="z">The ShuffleComponent to use when setting the resulting float3 z component.</param>
         /// <returns>float3 result of the shuffle operation.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 shuffle(float4 left, float4 right, ShuffleComponent x, ShuffleComponent y, ShuffleComponent z)
+        public static fp3 shuffle(float4 left, float4 right, ShuffleComponent x, ShuffleComponent y, ShuffleComponent z)
         {
             return float3(
                 select_shuffle_component(left, right, x),

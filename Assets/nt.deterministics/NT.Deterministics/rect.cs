@@ -310,7 +310,7 @@ namespace Nt.Deterministics
         /// <param name="allowInverse">Does the test allow the Rect's width and height to be negative?</param>
         /// <returns>true if the point lies within the specified rectangle.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Contains(float3 point, bool allowInverse)
+        public bool Contains(fp3 point, bool allowInverse)
         {
             if (allowInverse)
             {
@@ -332,7 +332,7 @@ namespace Nt.Deterministics
         /// <param name="point">Point to test.</param>
         /// <returns>true if the point lies within the specified rectangle.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Contains(float3 point) => point.x >= this.xMin && point.x< this.xMax && point.y >= this.yMin && point.y< this.yMax;
+        public bool Contains(fp3 point) => point.x >= this.xMin && point.x< this.xMax && point.y >= this.yMin && point.y< this.yMax;
 
         /// <summary>
         /// Returns true if the x and y components of point is a point inside this rectangle.

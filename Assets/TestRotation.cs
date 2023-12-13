@@ -16,8 +16,8 @@ public class TestRotation : MonoBehaviour
         {
             var f1 = Random.insideUnitSphere.normalized;
             var f2 = Random.insideUnitSphere.normalized;
-            Nt.Deterministics.float3 f11 = new Nt.Deterministics.float3(Nt.Deterministics.fp.ConvertFrom(f1.x), Nt.Deterministics.fp.ConvertFrom(f1.y), Nt.Deterministics.fp.ConvertFrom(f1.z));
-            Nt.Deterministics.float3 f12 = new Nt.Deterministics.float3(Nt.Deterministics.fp.ConvertFrom(f2.x), Nt.Deterministics.fp.ConvertFrom(f2.y), Nt.Deterministics.fp.ConvertFrom(f2.z));
+            Nt.Deterministics.fp3 f11 = new Nt.Deterministics.fp3(Nt.Deterministics.fp.ConvertFrom(f1.x), Nt.Deterministics.fp.ConvertFrom(f1.y), Nt.Deterministics.fp.ConvertFrom(f1.z));
+            Nt.Deterministics.fp3 f12 = new Nt.Deterministics.fp3(Nt.Deterministics.fp.ConvertFrom(f2.x), Nt.Deterministics.fp.ConvertFrom(f2.y), Nt.Deterministics.fp.ConvertFrom(f2.z));
 
             var q1 = Nt.Deterministics.quaternion.LookRotation(f11, f12);
             var q2 = Unity.Mathematics.quaternion.LookRotation(f1, f2);

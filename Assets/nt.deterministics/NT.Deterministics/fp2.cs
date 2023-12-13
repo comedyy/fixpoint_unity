@@ -607,73 +607,73 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 xxx
+        public fp3 xxx
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(x, x, x); }
+            get { return new fp3(x, x, x); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 xxy
+        public fp3 xxy
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(x, x, y); }
+            get { return new fp3(x, x, y); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 xyx
+        public fp3 xyx
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(x, y, x); }
+            get { return new fp3(x, y, x); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 xyy
+        public fp3 xyy
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(x, y, y); }
+            get { return new fp3(x, y, y); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 yxx
+        public fp3 yxx
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(y, x, x); }
+            get { return new fp3(y, x, x); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 yxy
+        public fp3 yxy
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(y, x, y); }
+            get { return new fp3(y, x, y); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 yyx
+        public fp3 yyx
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(y, y, x); }
+            get { return new fp3(y, y, x); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 yyy
+        public fp3 yyy
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(y, y, y); }
+            get { return new fp3(y, y, y); }
         }
 
 
@@ -900,7 +900,7 @@ namespace Nt.Deterministics
         /// <param name="z">The ShuffleComponent to use when setting the resulting float3 z component.</param>
         /// <returns>float3 result of the shuffle operation.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 shuffle(fp2 left, fp2 right, ShuffleComponent x, ShuffleComponent y, ShuffleComponent z)
+        public static fp3 shuffle(fp2 left, fp2 right, ShuffleComponent x, ShuffleComponent y, ShuffleComponent z)
         {
             return float3(
                 select_shuffle_component(left, right, x),

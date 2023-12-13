@@ -70,9 +70,9 @@ namespace Nt.Deterministics
         /// <param name="m">matrix</param>
         public quaternion(float3x3 m)
         {
-            float3 u = m.c0;
-            float3 v = m.c1;
-            float3 w = m.c2;
+            fp3 u = m.c0;
+            fp3 v = m.c1;
+            fp3 w = m.c2;
             fp s = new fp(constant.sign64);
             fp u_sign = u.x & s;
             fp t = u_sign.RawValue == 0L ? (v.y + w.z) : (v.y - w.z);
@@ -237,7 +237,7 @@ namespace Nt.Deterministics
         /// <returns>quaternion</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Obsolete("Use quaternion.AngleAxis instead. This function was deprecated because it uses radians instead of degrees")]
-        public static quaternion AxisAngle(float3 axis, fp angle)
+        public static quaternion AxisAngle(fp3 axis, fp angle)
         {
             math.sincos(fp.half * angle, out fp sina, out fp cosa);
             return new quaternion(math.float4(axis * sina, cosa));
@@ -259,9 +259,9 @@ namespace Nt.Deterministics
         /// <param name="euler">euler angles in radians</param>
         /// <returns>quaternion</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static quaternion EulerXYZ(float3 xyz)
+        public static quaternion EulerXYZ(fp3 xyz)
         {
-            math.sincos(fp.half * xyz, out float3 s, out float3 c);
+            math.sincos(fp.half * xyz, out fp3 s, out fp3 c);
             return new quaternion(s.x * c.y * c.z - c.x * s.y * s.z,
                 c.x * s.y * c.z + s.x * c.y * s.z,
                 c.x * c.y * s.z - s.x * s.y * c.z,
@@ -274,9 +274,9 @@ namespace Nt.Deterministics
         /// <param name="euler">euler angles in radians</param>
         /// <returns>quaternion</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static quaternion EulerXZY(float3 xyz)
+        public static quaternion EulerXZY(fp3 xyz)
         {
-            math.sincos(fp.half * xyz, out float3 s, out float3 c);
+            math.sincos(fp.half * xyz, out fp3 s, out fp3 c);
             return new quaternion(s.x * c.y * c.z + c.x * s.y * s.z,
                 c.x * s.y * c.z + s.x * c.y * s.z,
                 c.x * c.y * s.z - s.x * s.y * c.z,
@@ -289,9 +289,9 @@ namespace Nt.Deterministics
         /// <param name="euler">euler angles in radians</param>
         /// <returns>quaternion</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static quaternion EulerYXZ(float3 xyz)
+        public static quaternion EulerYXZ(fp3 xyz)
         {
-            math.sincos(fp.half * xyz, out float3 s, out float3 c);
+            math.sincos(fp.half * xyz, out fp3 s, out fp3 c);
             return new quaternion(s.x * c.y * c.z - c.x * s.y * s.z,
                 c.x * s.y * c.z + s.x * c.y * s.z,
                 c.x * c.y * s.z + s.x * s.y * c.z,
@@ -304,9 +304,9 @@ namespace Nt.Deterministics
         /// <param name="euler">euler angles in radians</param>
         /// <returns>quaternion</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static quaternion EulerYZX(float3 xyz)
+        public static quaternion EulerYZX(fp3 xyz)
         {
-            math.sincos(fp.half * xyz, out float3 s, out float3 c);
+            math.sincos(fp.half * xyz, out fp3 s, out fp3 c);
             return new quaternion(s.x * c.y * c.z - c.x * s.y * s.z,
                 c.x * s.y * c.z - s.x * c.y * s.z,
                 c.x * c.y * s.z + s.x * s.y * c.z,
@@ -319,9 +319,9 @@ namespace Nt.Deterministics
         /// <param name="euler">euler angles in radians</param>
         /// <returns>quaternion</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static quaternion EulerZXY(float3 xyz)
+        public static quaternion EulerZXY(fp3 xyz)
         {
-            math.sincos(fp.half * xyz, out float3 s, out float3 c);
+            math.sincos(fp.half * xyz, out fp3 s, out fp3 c);
             return new quaternion(s.x * c.y * c.z + c.x * s.y * s.z,
                 c.x * s.y * c.z - s.x * c.y * s.z,
                 c.x * c.y * s.z - s.x * s.y * c.z,
@@ -334,9 +334,9 @@ namespace Nt.Deterministics
         /// <param name="euler">euler angles in radians</param>
         /// <returns>quaternion</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static quaternion EulerZYX(float3 xyz)
+        public static quaternion EulerZYX(fp3 xyz)
         {
-            math.sincos(fp.half * xyz, out float3 s, out float3 c);
+            math.sincos(fp.half * xyz, out fp3 s, out fp3 c);
             return new quaternion(s.x * c.y * c.z + c.x * s.y * s.z,
                 c.x * s.y * c.z - s.x * c.y * s.z,
                 c.x * c.y * s.z + s.x * s.y * c.z,
@@ -353,7 +353,7 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static quaternion EulerXYZ(fp x, fp y, fp z)
         {
-            math.sincos(fp.half * new float3(x, y, z), out float3 s, out float3 c);
+            math.sincos(fp.half * new fp3(x, y, z), out fp3 s, out fp3 c);
             return new quaternion(s.x * c.y * c.z - c.x * s.y * s.z,
                 c.x * s.y * c.z + s.x * c.y * s.z,
                 c.x * c.y * s.z - s.x * s.y * c.z,
@@ -370,7 +370,7 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static quaternion EulerXZY(fp x, fp y, fp z)
         {
-            math.sincos(fp.half * new float3(x, y, z), out float3 s, out float3 c);
+            math.sincos(fp.half * new fp3(x, y, z), out fp3 s, out fp3 c);
             return new quaternion(s.x * c.y * c.z + c.x * s.y * s.z,
                 c.x * s.y * c.z + s.x * c.y * s.z,
                 c.x * c.y * s.z - s.x * s.y * c.z,
@@ -387,7 +387,7 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static quaternion EulerYXZ(fp x, fp y, fp z)
         {
-            math.sincos(fp.half * new float3(x, y, z), out float3 s, out float3 c);
+            math.sincos(fp.half * new fp3(x, y, z), out fp3 s, out fp3 c);
             return new quaternion(s.x * c.y * c.z - c.x * s.y * s.z,
                 c.x * s.y * c.z + s.x * c.y * s.z,
                 c.x * c.y * s.z + s.x * s.y * c.z,
@@ -404,7 +404,7 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static quaternion EulerYZX(fp x, fp y, fp z)
         {
-            math.sincos(fp.half * new float3(x, y, z), out float3 s, out float3 c);
+            math.sincos(fp.half * new fp3(x, y, z), out fp3 s, out fp3 c);
             return new quaternion(s.x * c.y * c.z - c.x * s.y * s.z,
                 c.x * s.y * c.z - s.x * c.y * s.z,
                 c.x * c.y * s.z + s.x * s.y * c.z,
@@ -421,7 +421,7 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static quaternion EulerZXY(fp x, fp y, fp z)
         {
-            math.sincos(fp.half * new float3(x, y, z), out float3 s, out float3 c);
+            math.sincos(fp.half * new fp3(x, y, z), out fp3 s, out fp3 c);
             return new quaternion(s.x * c.y * c.z + c.x * s.y * s.z,
                 c.x * s.y * c.z - s.x * c.y * s.z,
                 c.x * c.y * s.z - s.x * s.y * c.z,
@@ -438,7 +438,7 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static quaternion EulerZYX(fp x, fp y, fp z)
         {
-            math.sincos(fp.half * new float3(x, y, z), out float3 s, out float3 c);
+            math.sincos(fp.half * new fp3(x, y, z), out fp3 s, out fp3 c);
             return new quaternion(s.x * c.y * c.z + c.x * s.y * s.z,
                 c.x * s.y * c.z - s.x * c.y * s.z,
                 c.x * c.y * s.z + s.x * s.y * c.z,
@@ -452,7 +452,7 @@ namespace Nt.Deterministics
         /// <param name="order">rotate order</param>
         /// <returns>quaternion</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static quaternion Euler(float3 xyz, RotationOrder order = RotationOrder.ZXY)
+        public static quaternion Euler(fp3 xyz, RotationOrder order = RotationOrder.ZXY)
         {
             switch(order)
             {
@@ -477,7 +477,7 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static quaternion Euler(fp x, fp y, fp z, RotationOrder order = RotationOrder.ZXY)
         {
-            return Euler(new float3(x, y, z), order);
+            return Euler(new fp3(x, y, z), order);
         }
 
 #endregion
@@ -663,7 +663,7 @@ namespace Nt.Deterministics
         /// <param name="forward">forward vector</param>
         /// <returns>quaternion</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static quaternion LookRotation(float3 forward) => quaternion.LookRotation(forward, float3.up);
+        public static quaternion LookRotation(fp3 forward) => quaternion.LookRotation(forward, fp3.up);
 
         /// <summary>
         /// construct quaternion from forward vector and upwards vector
@@ -672,9 +672,9 @@ namespace Nt.Deterministics
         /// <param name="upwards">upwards vector</param>
         /// <returns>quaternion</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static quaternion LookRotation(float3 forward, float3 upwards)
+        public static quaternion LookRotation(fp3 forward, fp3 upwards)
         {
-            float3 t = math.normalize(math.cross(upwards, forward));
+            fp3 t = math.normalize(math.cross(upwards, forward));
             return new quaternion(math.float3x3(t, math.cross(forward, t), forward));
         }
 
@@ -685,13 +685,13 @@ namespace Nt.Deterministics
         /// <param name="upwards">upwards vector</param>
         /// <returns>quaternion</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static quaternion LookRotationSafe(float3 forward, float3 upwards)
+        public static quaternion LookRotationSafe(fp3 forward, fp3 upwards)
         {
             fp forwardLengthSq = math.dot(forward, forward);
             fp upLengthSq = math.dot(upwards, upwards);
             forward *= math.rsqrt(forwardLengthSq);
             upwards *= math.rsqrt(upLengthSq);
-            float3 t = math.cross(upwards, forward);
+            fp3 t = math.cross(upwards, forward);
             fp tLengthSq = math.dot(t, t);
             t *= math.rsqrt(tLengthSq);
             fp mn = math.min(math.min(forwardLengthSq, upLengthSq), tLengthSq);
@@ -913,7 +913,7 @@ namespace Nt.Deterministics
         /// </summary>
         /// <param name="view">forward vector</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void SetLookRotation(float3 view) => this = quaternion.LookRotation(view);
+        public void SetLookRotation(fp3 view) => this = quaternion.LookRotation(view);
 
         /// <summary>
         /// construct quaternion from forward vector and upwards vector, and set to this
@@ -921,7 +921,7 @@ namespace Nt.Deterministics
         /// <param name="view">forward vector</param>
         /// <param name="up">upwards vector</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void SetLookRotation(float3 view, float3 up) => this = quaternion.LookRotation(view, up);
+        public void SetLookRotation(fp3 view, fp3 up) => this = quaternion.LookRotation(view, up);
 
         /// <summary>
         /// get the axis and angle of this quaternion
@@ -929,15 +929,15 @@ namespace Nt.Deterministics
         /// <param name="angle">the angle in degrees</param>
         /// <param name="axis">the axis</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void ToAngleAxis(out fp angle, out float3 axis)
+        public void ToAngleAxis(out fp angle, out fp3 axis)
         {
-            axis = float3.right;
+            axis = fp3.right;
             angle = fp.zero;
             fp dot = x * x + y * y + z * z;
             if (fp.Abs(dot).RawValue > fp.SMALL_SQRT)
             {
                 angle = fp.Acos(math.clamp(w, -fp.one, fp.one));
-                axis = new float3(x, y, z) / fp.Sin(angle);
+                axis = new fp3(x, y, z) / fp.Sin(angle);
                 angle *= (fp.Rad2Deg * 2);//�Ƕ�
             }
         }
@@ -949,15 +949,15 @@ namespace Nt.Deterministics
         /// <param name="angle">the angle in radians</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Obsolete("Use quaternion.ToAngleAxis instead. This function was deprecated because it uses radians instead of degrees.")]
-        public void ToAxisAngle(out float3 axis, out fp angle)
+        public void ToAxisAngle(out fp3 axis, out fp angle)
         {
-            axis = float3.right;
+            axis = fp3.right;
             angle = fp.zero;
             fp dot = x * x + y * y + z * z;
             if (fp.Abs(dot).RawValue > fp.SMALL_SQRT)
             {
                 angle = fp.Acos(math.clamp(w, -fp.one, fp.one));
-                axis = new float3(x, y, z) / fp.Sin(angle);
+                axis = new fp3(x, y, z) / fp.Sin(angle);
                 angle *= 2;//����
             }
         }
@@ -1004,7 +1004,7 @@ namespace Nt.Deterministics
         /// <param name="point">the original point</param>
         /// <returns>the point rotated</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 operator *(quaternion rotation, float3 point)
+        public static fp3 operator *(quaternion rotation, fp3 point)
         {
             fp x = rotation.x * 2;
             fp y = rotation.y * 2;
@@ -1018,7 +1018,7 @@ namespace Nt.Deterministics
             fp wx = rotation.w * x;
             fp wy = rotation.w * y;
             fp wz = rotation.w * z;
-            float3 res;
+            fp3 res;
             res.x = (fp.one - (yy + zz)) * point.x + (xy - wz) * point.y + (xz + wy) * point.z;
             res.y = (xy + wz) * point.x + (fp.one - (xx + zz)) * point.y + (yz - wx) * point.z;
             res.z = (xz - wy) * point.x + (yz + wx) * point.y + (fp.one - (xx + yy)) * point.z;
@@ -1123,21 +1123,21 @@ namespace Nt.Deterministics
 
         /// <summary>Returns the result of transforming a vector by a quaternion.</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 mul(quaternion q, float3 v)
+        public static fp3 mul(quaternion q, fp3 v)
         {
-            float3 t = 2 * math.cross(new float3(q.x, q.y, q.z), v);
-            return v + q.w * t + cross(new float3(q.x, q.y, q.z), t);
+            fp3 t = 2 * math.cross(new fp3(q.x, q.y, q.z), v);
+            return v + q.w * t + cross(new fp3(q.x, q.y, q.z), t);
         }
 
         /// <summary>Returns the result of rotating a vector by a unit quaternion.</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 rotate(quaternion q, float3 v)
+        public static fp3 rotate(quaternion q, fp3 v)
         {
-            float3 t = 2 * cross(new float3(q.x, q.y, q.z), v);
-            return v + q.w * t + cross(new float3(q.x, q.y, q.z), t);
+            fp3 t = 2 * cross(new fp3(q.x, q.y, q.z), v);
+            return v + q.w * t + cross(new fp3(q.x, q.y, q.z), t);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 forward(quaternion q) { return mul(q, float3(0, 0, 1)); }  // for compatibility
+        public static fp3 forward(quaternion q) { return mul(q, float3(0, 0, 1)); }  // for compatibility
     }
 }

@@ -16,9 +16,9 @@ using ShuffleComponent = Unity.Mathematics.math.ShuffleComponent;
 namespace Nt.Deterministics
 {
     /// <summary>A 3 component vector of numbers.</summary>
-    [DebuggerTypeProxy(typeof(float3.DebuggerProxy))]
+    [DebuggerTypeProxy(typeof(fp3.DebuggerProxy))]
     [System.Serializable]
-    public partial struct float3 : System.IEquatable<float3>, IFormattable
+    public partial struct fp3 : System.IEquatable<fp3>, IFormattable
     {
         /// <summary>x component of the vector.</summary>
         public fp x;
@@ -28,48 +28,48 @@ namespace Nt.Deterministics
         public fp z;
 
         /// <summary>float3 zero value.</summary>
-        public static readonly float3 zero;
+        public static readonly fp3 zero;
 
         /// <summary>Shorthand for writing float3(1, 0, 0).</summary>
-        public static float3 right
+        public static fp3 right
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => new float3(fp.one, fp.zero, fp.zero);
+            get => new fp3(fp.one, fp.zero, fp.zero);
         }
 
         /// <summary>Shorthand for writing float3(-1, 0, 0).</summary>
-        public static float3 left
+        public static fp3 left
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => new float3(-fp.one, fp.zero, fp.zero);
+            get => new fp3(-fp.one, fp.zero, fp.zero);
         }
 
         /// <summary>Shorthand for writing float3(0, 1, 0).</summary>
-        public static float3 up
+        public static fp3 up
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => new float3(fp.zero, fp.one, fp.zero);
+            get => new fp3(fp.zero, fp.one, fp.zero);
         }
 
         /// <summary>Shorthand for writing float3(0, -1, 0).</summary>
-        public static float3 down
+        public static fp3 down
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => new float3(fp.zero, -fp.one, fp.zero);
+            get => new fp3(fp.zero, -fp.one, fp.zero);
         }
 
         /// <summary>Shorthand for writing float3(0, 0, 1).</summary>
-        public static float3 forward
+        public static fp3 forward
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => new float3(fp.zero, fp.zero, fp.one);
+            get => new fp3(fp.zero, fp.zero, fp.one);
         }
 
         /// <summary>Shorthand for writing float3(0, 0, -1).</summary>
-        public static float3 back
+        public static fp3 back
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => new float3(fp.zero, fp.zero, -fp.one);
+            get => new fp3(fp.zero, fp.zero, -fp.one);
         }
 
         /// <summary>Constructs a float3 vector from three number values.</summary>
@@ -77,7 +77,7 @@ namespace Nt.Deterministics
         /// <param name="y">The constructed vector's y component will be set to this value.</param>
         /// <param name="z">The constructed vector's z component will be set to this value.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float3(fp x, fp y, fp z)
+        public fp3(fp x, fp y, fp z)
         {
             this.x = x;
             this.y = y;
@@ -88,7 +88,7 @@ namespace Nt.Deterministics
         /// <param name="x">The constructed vector's x component will be set to this value.</param>
         /// <param name="yz">The constructed vector's yz components will be set to this value.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float3(fp x, fp2 yz)
+        public fp3(fp x, fp2 yz)
         {
             this.x = x;
             this.y = yz.x;
@@ -99,7 +99,7 @@ namespace Nt.Deterministics
         /// <param name="xy">The constructed vector's xy components will be set to this value.</param>
         /// <param name="z">The constructed vector's z component will be set to this value.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float3(fp2 xy, fp z)
+        public fp3(fp2 xy, fp z)
         {
             this.x = xy.x;
             this.y = xy.y;
@@ -109,7 +109,7 @@ namespace Nt.Deterministics
         /// <summary>Constructs a float3 vector from a float3 vector.</summary>
         /// <param name="xyz">The constructed vector's xyz components will be set to this value.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float3(float3 xyz)
+        public fp3(fp3 xyz)
         {
             this.x = xyz.x;
             this.y = xyz.y;
@@ -119,7 +119,7 @@ namespace Nt.Deterministics
         /// <summary>Constructs a float3 vector from a single number value by assigning it to every component.</summary>
         /// <param name="v">number to convert to float3</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float3(fp v)
+        public fp3(fp v)
         {
             this.x = v;
             this.y = v;
@@ -129,7 +129,7 @@ namespace Nt.Deterministics
         /// <summary>Constructs a float3 vector from a single bool value by converting it to number and assigning it to every component.</summary>
         /// <param name="v">bool to convert to float3</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float3(bool v)
+        public fp3(bool v)
         {
             this.x = v ? (fp)(1) : (fp)(0);
             this.y = v ? (fp)(1) : (fp)(0);
@@ -139,7 +139,7 @@ namespace Nt.Deterministics
         /// <summary>Constructs a float3 vector from a Unity.Mathematics.bool3 vector by componentwise conversion.</summary>
         /// <param name="v">Unity.Mathematics.bool3 to convert to float3</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float3(Unity.Mathematics.bool3 v)
+        public fp3(Unity.Mathematics.bool3 v)
         {
             this.x = v.x ? (fp)(1) : (fp)(0);
             this.y = v.y ? (fp)(1) : (fp)(0);
@@ -149,7 +149,7 @@ namespace Nt.Deterministics
         /// <summary>Constructs a float3 vector from a single int value by converting it to number and assigning it to every component.</summary>
         /// <param name="v">int to convert to float3</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float3(int v)
+        public fp3(int v)
         {
             this.x = (fp)v;
             this.y = (fp)v;
@@ -159,7 +159,7 @@ namespace Nt.Deterministics
         /// <summary>Constructs a float3 vector from a Unity.Mathematics.int3 vector by componentwise conversion.</summary>
         /// <param name="v">Unity.Mathematics.int3 to convert to float3</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float3(Unity.Mathematics.int3 v)
+        public fp3(Unity.Mathematics.int3 v)
         {
             this.x = (fp)v.x;
             this.y = (fp)v.y;
@@ -169,7 +169,7 @@ namespace Nt.Deterministics
         /// <summary>Constructs a float3 vector from a single uint value by converting it to number and assigning it to every component.</summary>
         /// <param name="v">uint to convert to float3</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float3(uint v)
+        public fp3(uint v)
         {
             this.x = (fp)v;
             this.y = (fp)v;
@@ -179,7 +179,7 @@ namespace Nt.Deterministics
         /// <summary>Constructs a float3 vector from a Unity.Mathematics.uint3 vector by componentwise conversion.</summary>
         /// <param name="v">Unity.Mathematics.uint3 to convert to float3</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float3(Unity.Mathematics.uint3 v)
+        public fp3(Unity.Mathematics.uint3 v)
         {
             this.x = (fp)v.x;
             this.y = (fp)v.y;
@@ -190,76 +190,76 @@ namespace Nt.Deterministics
         /// <param name="v">number to convert to float3</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator float3(fp v) { return new float3(v); }
+        public static implicit operator fp3(fp v) { return new fp3(v); }
 
         /// <summary>Explicitly converts a single bool value to a float3 vector by converting it to number and assigning it to every component.</summary>
         /// <param name="v">bool to convert to float3</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator float3(bool v) { return new float3(v); }
+        public static explicit operator fp3(bool v) { return new fp3(v); }
 
         /// <summary>Explicitly converts a Unity.Mathematics.bool3 vector to a float3 vector by componentwise conversion.</summary>
         /// <param name="v">Unity.Mathematics.bool3 to convert to float3</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator float3(Unity.Mathematics.bool3 v) { return new float3(v); }
+        public static explicit operator fp3(Unity.Mathematics.bool3 v) { return new fp3(v); }
 
         /// <summary>Explicitly converts a single int value to a float3 vector by converting it to number and assigning it to every component.</summary>
         /// <param name="v">int to convert to float3</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator float3(int v) { return new float3(v); }
+        public static explicit operator fp3(int v) { return new fp3(v); }
 
         /// <summary>Explicitly converts a Unity.Mathematics.int3 vector to a float3 vector by componentwise conversion.</summary>
         /// <param name="v">Unity.Mathematics.int3 to convert to float3</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator float3(Unity.Mathematics.int3 v) { return new float3(v); }
+        public static explicit operator fp3(Unity.Mathematics.int3 v) { return new fp3(v); }
 
         /// <summary>Explicitly converts a float3 vector to a Unity.Mathematics.int3 vector by componentwise conversion.</summary>
         /// <param name="v">float3 to convert to Unity.Mathematics.int3</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator Unity.Mathematics.int3(float3 v) { return new Unity.Mathematics.int3((int)v.x, (int)v.y, (int)v.z); }
+        public static explicit operator Unity.Mathematics.int3(fp3 v) { return new Unity.Mathematics.int3((int)v.x, (int)v.y, (int)v.z); }
 
         /// <summary>Explicitly converts a float3 vector to a Unity.Mathematics.int3 vector by componentwise conversion.</summary>
         /// <param name="v">float3 to convert to Unity.Mathematics.int3</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Unity.Mathematics.float3(float3 v) { return new Unity.Mathematics.float3(v.x, v.y, v.z); }
+        public static implicit operator Unity.Mathematics.float3(fp3 v) { return new Unity.Mathematics.float3(v.x, v.y, v.z); }
 
         /// <summary>Explicitly converts a single uint value to a float3 vector by converting it to number and assigning it to every component.</summary>
         /// <param name="v">uint to convert to float3</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator float3(uint v) { return new float3(v); }
+        public static explicit operator fp3(uint v) { return new fp3(v); }
 
         /// <summary>Explicitly converts a Unity.Mathematics.uint3 vector to a float3 vector by componentwise conversion.</summary>
         /// <param name="v">Unity.Mathematics.uint3 to convert to float3</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator float3(Unity.Mathematics.uint3 v) { return new float3(v); }
+        public static explicit operator fp3(Unity.Mathematics.uint3 v) { return new fp3(v); }
 
         /// <summary>Returns the result of a componentwise multiplication operation on two float3 vectors.</summary>
         /// <param name="lhs">Left hand side float3 to use to compute componentwise multiplication.</param>
         /// <param name="rhs">Right hand side float3 to use to compute componentwise multiplication.</param>
         /// <returns>float3 result of the componentwise multiplication.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 operator * (float3 lhs, float3 rhs) { return new float3 (lhs.x * rhs.x, lhs.y * rhs.y, lhs.z * rhs.z); }
+        public static fp3 operator * (fp3 lhs, fp3 rhs) { return new fp3 (lhs.x * rhs.x, lhs.y * rhs.y, lhs.z * rhs.z); }
 
         /// <summary>Returns the result of a componentwise multiplication operation on a float3 vector and a number value.</summary>
         /// <param name="lhs">Left hand side float3 to use to compute componentwise multiplication.</param>
         /// <param name="rhs">Right hand side number to use to compute componentwise multiplication.</param>
         /// <returns>float3 result of the componentwise multiplication.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 operator * (float3 lhs, fp rhs) { return new float3 (lhs.x * rhs, lhs.y * rhs, lhs.z * rhs); }
+        public static fp3 operator * (fp3 lhs, fp rhs) { return new fp3 (lhs.x * rhs, lhs.y * rhs, lhs.z * rhs); }
 
         /// <summary>Returns the result of a componentwise multiplication operation on a number value and a float3 vector.</summary>
         /// <param name="lhs">Left hand side number to use to compute componentwise multiplication.</param>
         /// <param name="rhs">Right hand side float3 to use to compute componentwise multiplication.</param>
         /// <returns>float3 result of the componentwise multiplication.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 operator * (fp lhs, float3 rhs) { return new float3 (lhs * rhs.x, lhs * rhs.y, lhs * rhs.z); }
+        public static fp3 operator * (fp lhs, fp3 rhs) { return new fp3 (lhs * rhs.x, lhs * rhs.y, lhs * rhs.z); }
 
 
         /// <summary>Returns the result of a componentwise addition operation on two float3 vectors.</summary>
@@ -267,21 +267,21 @@ namespace Nt.Deterministics
         /// <param name="rhs">Right hand side float3 to use to compute componentwise addition.</param>
         /// <returns>float3 result of the componentwise addition.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 operator + (float3 lhs, float3 rhs) { return new float3 (lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z); }
+        public static fp3 operator + (fp3 lhs, fp3 rhs) { return new fp3 (lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z); }
 
         /// <summary>Returns the result of a componentwise addition operation on a float3 vector and a number value.</summary>
         /// <param name="lhs">Left hand side float3 to use to compute componentwise addition.</param>
         /// <param name="rhs">Right hand side number to use to compute componentwise addition.</param>
         /// <returns>float3 result of the componentwise addition.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 operator + (float3 lhs, fp rhs) { return new float3 (lhs.x + rhs, lhs.y + rhs, lhs.z + rhs); }
+        public static fp3 operator + (fp3 lhs, fp rhs) { return new fp3 (lhs.x + rhs, lhs.y + rhs, lhs.z + rhs); }
 
         /// <summary>Returns the result of a componentwise addition operation on a number value and a float3 vector.</summary>
         /// <param name="lhs">Left hand side number to use to compute componentwise addition.</param>
         /// <param name="rhs">Right hand side float3 to use to compute componentwise addition.</param>
         /// <returns>float3 result of the componentwise addition.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 operator + (fp lhs, float3 rhs) { return new float3 (lhs + rhs.x, lhs + rhs.y, lhs + rhs.z); }
+        public static fp3 operator + (fp lhs, fp3 rhs) { return new fp3 (lhs + rhs.x, lhs + rhs.y, lhs + rhs.z); }
 
 
         /// <summary>Returns the result of a componentwise subtraction operation on two float3 vectors.</summary>
@@ -289,21 +289,21 @@ namespace Nt.Deterministics
         /// <param name="rhs">Right hand side float3 to use to compute componentwise subtraction.</param>
         /// <returns>float3 result of the componentwise subtraction.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 operator - (float3 lhs, float3 rhs) { return new float3 (lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z); }
+        public static fp3 operator - (fp3 lhs, fp3 rhs) { return new fp3 (lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z); }
 
         /// <summary>Returns the result of a componentwise subtraction operation on a float3 vector and a number value.</summary>
         /// <param name="lhs">Left hand side float3 to use to compute componentwise subtraction.</param>
         /// <param name="rhs">Right hand side number to use to compute componentwise subtraction.</param>
         /// <returns>float3 result of the componentwise subtraction.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 operator - (float3 lhs, fp rhs) { return new float3 (lhs.x - rhs, lhs.y - rhs, lhs.z - rhs); }
+        public static fp3 operator - (fp3 lhs, fp rhs) { return new fp3 (lhs.x - rhs, lhs.y - rhs, lhs.z - rhs); }
 
         /// <summary>Returns the result of a componentwise subtraction operation on a number value and a float3 vector.</summary>
         /// <param name="lhs">Left hand side number to use to compute componentwise subtraction.</param>
         /// <param name="rhs">Right hand side float3 to use to compute componentwise subtraction.</param>
         /// <returns>float3 result of the componentwise subtraction.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 operator - (fp lhs, float3 rhs) { return new float3 (lhs - rhs.x, lhs - rhs.y, lhs - rhs.z); }
+        public static fp3 operator - (fp lhs, fp3 rhs) { return new fp3 (lhs - rhs.x, lhs - rhs.y, lhs - rhs.z); }
 
 
         /// <summary>Returns the result of a componentwise division operation on two float3 vectors.</summary>
@@ -311,21 +311,21 @@ namespace Nt.Deterministics
         /// <param name="rhs">Right hand side float3 to use to compute componentwise division.</param>
         /// <returns>float3 result of the componentwise division.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 operator / (float3 lhs, float3 rhs) { return new float3 (lhs.x / rhs.x, lhs.y / rhs.y, lhs.z / rhs.z); }
+        public static fp3 operator / (fp3 lhs, fp3 rhs) { return new fp3 (lhs.x / rhs.x, lhs.y / rhs.y, lhs.z / rhs.z); }
 
         /// <summary>Returns the result of a componentwise division operation on a float3 vector and a number value.</summary>
         /// <param name="lhs">Left hand side float3 to use to compute componentwise division.</param>
         /// <param name="rhs">Right hand side number to use to compute componentwise division.</param>
         /// <returns>float3 result of the componentwise division.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 operator / (float3 lhs, fp rhs) { return new float3 (lhs.x / rhs, lhs.y / rhs, lhs.z / rhs); }
+        public static fp3 operator / (fp3 lhs, fp rhs) { return new fp3 (lhs.x / rhs, lhs.y / rhs, lhs.z / rhs); }
 
         /// <summary>Returns the result of a componentwise division operation on a number value and a float3 vector.</summary>
         /// <param name="lhs">Left hand side number to use to compute componentwise division.</param>
         /// <param name="rhs">Right hand side float3 to use to compute componentwise division.</param>
         /// <returns>float3 result of the componentwise division.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 operator / (fp lhs, float3 rhs) { return new float3 (lhs / rhs.x, lhs / rhs.y, lhs / rhs.z); }
+        public static fp3 operator / (fp lhs, fp3 rhs) { return new fp3 (lhs / rhs.x, lhs / rhs.y, lhs / rhs.z); }
 
 
         /// <summary>Returns the result of a componentwise modulus operation on two float3 vectors.</summary>
@@ -333,35 +333,35 @@ namespace Nt.Deterministics
         /// <param name="rhs">Right hand side float3 to use to compute componentwise modulus.</param>
         /// <returns>float3 result of the componentwise modulus.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 operator % (float3 lhs, float3 rhs) { return new float3 (lhs.x % rhs.x, lhs.y % rhs.y, lhs.z % rhs.z); }
+        public static fp3 operator % (fp3 lhs, fp3 rhs) { return new fp3 (lhs.x % rhs.x, lhs.y % rhs.y, lhs.z % rhs.z); }
 
         /// <summary>Returns the result of a componentwise modulus operation on a float3 vector and a number value.</summary>
         /// <param name="lhs">Left hand side float3 to use to compute componentwise modulus.</param>
         /// <param name="rhs">Right hand side number to use to compute componentwise modulus.</param>
         /// <returns>float3 result of the componentwise modulus.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 operator % (float3 lhs, fp rhs) { return new float3 (lhs.x % rhs, lhs.y % rhs, lhs.z % rhs); }
+        public static fp3 operator % (fp3 lhs, fp rhs) { return new fp3 (lhs.x % rhs, lhs.y % rhs, lhs.z % rhs); }
 
         /// <summary>Returns the result of a componentwise modulus operation on a number value and a float3 vector.</summary>
         /// <param name="lhs">Left hand side number to use to compute componentwise modulus.</param>
         /// <param name="rhs">Right hand side float3 to use to compute componentwise modulus.</param>
         /// <returns>float3 result of the componentwise modulus.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 operator % (fp lhs, float3 rhs) { return new float3 (lhs % rhs.x, lhs % rhs.y, lhs % rhs.z); }
+        public static fp3 operator % (fp lhs, fp3 rhs) { return new fp3 (lhs % rhs.x, lhs % rhs.y, lhs % rhs.z); }
 
 
         /// <summary>Returns the result of a componentwise increment operation on a float3 vector.</summary>
         /// <param name="val">Value to use when computing the componentwise increment.</param>
         /// <returns>float3 result of the componentwise increment.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 operator ++ (float3 val) { return new float3 (++val.x, ++val.y, ++val.z); }
+        public static fp3 operator ++ (fp3 val) { return new fp3 (++val.x, ++val.y, ++val.z); }
 
 
         /// <summary>Returns the result of a componentwise decrement operation on a float3 vector.</summary>
         /// <param name="val">Value to use when computing the componentwise decrement.</param>
         /// <returns>float3 result of the componentwise decrement.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 operator -- (float3 val) { return new float3 (--val.x, --val.y, --val.z); }
+        public static fp3 operator -- (fp3 val) { return new fp3 (--val.x, --val.y, --val.z); }
 
 
         /// <summary>Returns the result of a componentwise less than operation on two float3 vectors.</summary>
@@ -369,21 +369,21 @@ namespace Nt.Deterministics
         /// <param name="rhs">Right hand side float3 to use to compute componentwise less than.</param>
         /// <returns>Unity.Mathematics.bool3 result of the componentwise less than.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool3 operator < (float3 lhs, float3 rhs) { return new Unity.Mathematics.bool3 (lhs.x < rhs.x, lhs.y < rhs.y, lhs.z < rhs.z); }
+        public static Unity.Mathematics.bool3 operator < (fp3 lhs, fp3 rhs) { return new Unity.Mathematics.bool3 (lhs.x < rhs.x, lhs.y < rhs.y, lhs.z < rhs.z); }
 
         /// <summary>Returns the result of a componentwise less than operation on a float3 vector and a number value.</summary>
         /// <param name="lhs">Left hand side float3 to use to compute componentwise less than.</param>
         /// <param name="rhs">Right hand side number to use to compute componentwise less than.</param>
         /// <returns>Unity.Mathematics.bool3 result of the componentwise less than.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool3 operator < (float3 lhs, fp rhs) { return new Unity.Mathematics.bool3 (lhs.x < rhs, lhs.y < rhs, lhs.z < rhs); }
+        public static Unity.Mathematics.bool3 operator < (fp3 lhs, fp rhs) { return new Unity.Mathematics.bool3 (lhs.x < rhs, lhs.y < rhs, lhs.z < rhs); }
 
         /// <summary>Returns the result of a componentwise less than operation on a number value and a float3 vector.</summary>
         /// <param name="lhs">Left hand side number to use to compute componentwise less than.</param>
         /// <param name="rhs">Right hand side float3 to use to compute componentwise less than.</param>
         /// <returns>Unity.Mathematics.bool3 result of the componentwise less than.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool3 operator < (fp lhs, float3 rhs) { return new Unity.Mathematics.bool3 (lhs < rhs.x, lhs < rhs.y, lhs < rhs.z); }
+        public static Unity.Mathematics.bool3 operator < (fp lhs, fp3 rhs) { return new Unity.Mathematics.bool3 (lhs < rhs.x, lhs < rhs.y, lhs < rhs.z); }
 
 
         /// <summary>Returns the result of a componentwise less or equal operation on two float3 vectors.</summary>
@@ -391,21 +391,21 @@ namespace Nt.Deterministics
         /// <param name="rhs">Right hand side float3 to use to compute componentwise less or equal.</param>
         /// <returns>Unity.Mathematics.bool3 result of the componentwise less or equal.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool3 operator <= (float3 lhs, float3 rhs) { return new Unity.Mathematics.bool3 (lhs.x <= rhs.x, lhs.y <= rhs.y, lhs.z <= rhs.z); }
+        public static Unity.Mathematics.bool3 operator <= (fp3 lhs, fp3 rhs) { return new Unity.Mathematics.bool3 (lhs.x <= rhs.x, lhs.y <= rhs.y, lhs.z <= rhs.z); }
 
         /// <summary>Returns the result of a componentwise less or equal operation on a float3 vector and a number value.</summary>
         /// <param name="lhs">Left hand side float3 to use to compute componentwise less or equal.</param>
         /// <param name="rhs">Right hand side number to use to compute componentwise less or equal.</param>
         /// <returns>Unity.Mathematics.bool3 result of the componentwise less or equal.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool3 operator <= (float3 lhs, fp rhs) { return new Unity.Mathematics.bool3 (lhs.x <= rhs, lhs.y <= rhs, lhs.z <= rhs); }
+        public static Unity.Mathematics.bool3 operator <= (fp3 lhs, fp rhs) { return new Unity.Mathematics.bool3 (lhs.x <= rhs, lhs.y <= rhs, lhs.z <= rhs); }
 
         /// <summary>Returns the result of a componentwise less or equal operation on a number value and a float3 vector.</summary>
         /// <param name="lhs">Left hand side number to use to compute componentwise less or equal.</param>
         /// <param name="rhs">Right hand side float3 to use to compute componentwise less or equal.</param>
         /// <returns>Unity.Mathematics.bool3 result of the componentwise less or equal.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool3 operator <= (fp lhs, float3 rhs) { return new Unity.Mathematics.bool3 (lhs <= rhs.x, lhs <= rhs.y, lhs <= rhs.z); }
+        public static Unity.Mathematics.bool3 operator <= (fp lhs, fp3 rhs) { return new Unity.Mathematics.bool3 (lhs <= rhs.x, lhs <= rhs.y, lhs <= rhs.z); }
 
 
         /// <summary>Returns the result of a componentwise greater than operation on two float3 vectors.</summary>
@@ -413,21 +413,21 @@ namespace Nt.Deterministics
         /// <param name="rhs">Right hand side float3 to use to compute componentwise greater than.</param>
         /// <returns>Unity.Mathematics.bool3 result of the componentwise greater than.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool3 operator > (float3 lhs, float3 rhs) { return new Unity.Mathematics.bool3 (lhs.x > rhs.x, lhs.y > rhs.y, lhs.z > rhs.z); }
+        public static Unity.Mathematics.bool3 operator > (fp3 lhs, fp3 rhs) { return new Unity.Mathematics.bool3 (lhs.x > rhs.x, lhs.y > rhs.y, lhs.z > rhs.z); }
 
         /// <summary>Returns the result of a componentwise greater than operation on a float3 vector and a number value.</summary>
         /// <param name="lhs">Left hand side float3 to use to compute componentwise greater than.</param>
         /// <param name="rhs">Right hand side number to use to compute componentwise greater than.</param>
         /// <returns>Unity.Mathematics.bool3 result of the componentwise greater than.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool3 operator > (float3 lhs, fp rhs) { return new Unity.Mathematics.bool3 (lhs.x > rhs, lhs.y > rhs, lhs.z > rhs); }
+        public static Unity.Mathematics.bool3 operator > (fp3 lhs, fp rhs) { return new Unity.Mathematics.bool3 (lhs.x > rhs, lhs.y > rhs, lhs.z > rhs); }
 
         /// <summary>Returns the result of a componentwise greater than operation on a number value and a float3 vector.</summary>
         /// <param name="lhs">Left hand side number to use to compute componentwise greater than.</param>
         /// <param name="rhs">Right hand side float3 to use to compute componentwise greater than.</param>
         /// <returns>Unity.Mathematics.bool3 result of the componentwise greater than.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool3 operator > (fp lhs, float3 rhs) { return new Unity.Mathematics.bool3 (lhs > rhs.x, lhs > rhs.y, lhs > rhs.z); }
+        public static Unity.Mathematics.bool3 operator > (fp lhs, fp3 rhs) { return new Unity.Mathematics.bool3 (lhs > rhs.x, lhs > rhs.y, lhs > rhs.z); }
 
 
         /// <summary>Returns the result of a componentwise greater or equal operation on two float3 vectors.</summary>
@@ -435,35 +435,35 @@ namespace Nt.Deterministics
         /// <param name="rhs">Right hand side float3 to use to compute componentwise greater or equal.</param>
         /// <returns>Unity.Mathematics.bool3 result of the componentwise greater or equal.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool3 operator >= (float3 lhs, float3 rhs) { return new Unity.Mathematics.bool3 (lhs.x >= rhs.x, lhs.y >= rhs.y, lhs.z >= rhs.z); }
+        public static Unity.Mathematics.bool3 operator >= (fp3 lhs, fp3 rhs) { return new Unity.Mathematics.bool3 (lhs.x >= rhs.x, lhs.y >= rhs.y, lhs.z >= rhs.z); }
 
         /// <summary>Returns the result of a componentwise greater or equal operation on a float3 vector and a number value.</summary>
         /// <param name="lhs">Left hand side float3 to use to compute componentwise greater or equal.</param>
         /// <param name="rhs">Right hand side number to use to compute componentwise greater or equal.</param>
         /// <returns>Unity.Mathematics.bool3 result of the componentwise greater or equal.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool3 operator >= (float3 lhs, fp rhs) { return new Unity.Mathematics.bool3 (lhs.x >= rhs, lhs.y >= rhs, lhs.z >= rhs); }
+        public static Unity.Mathematics.bool3 operator >= (fp3 lhs, fp rhs) { return new Unity.Mathematics.bool3 (lhs.x >= rhs, lhs.y >= rhs, lhs.z >= rhs); }
 
         /// <summary>Returns the result of a componentwise greater or equal operation on a number value and a float3 vector.</summary>
         /// <param name="lhs">Left hand side number to use to compute componentwise greater or equal.</param>
         /// <param name="rhs">Right hand side float3 to use to compute componentwise greater or equal.</param>
         /// <returns>Unity.Mathematics.bool3 result of the componentwise greater or equal.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool3 operator >= (fp lhs, float3 rhs) { return new Unity.Mathematics.bool3 (lhs >= rhs.x, lhs >= rhs.y, lhs >= rhs.z); }
+        public static Unity.Mathematics.bool3 operator >= (fp lhs, fp3 rhs) { return new Unity.Mathematics.bool3 (lhs >= rhs.x, lhs >= rhs.y, lhs >= rhs.z); }
 
 
         /// <summary>Returns the result of a componentwise unary minus operation on a float3 vector.</summary>
         /// <param name="val">Value to use when computing the componentwise unary minus.</param>
         /// <returns>float3 result of the componentwise unary minus.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 operator - (float3 val) { return new float3 (-val.x, -val.y, -val.z); }
+        public static fp3 operator - (fp3 val) { return new fp3 (-val.x, -val.y, -val.z); }
 
 
         /// <summary>Returns the result of a componentwise unary plus operation on a float3 vector.</summary>
         /// <param name="val">Value to use when computing the componentwise unary plus.</param>
         /// <returns>float3 result of the componentwise unary plus.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 operator + (float3 val) { return new float3 (+val.x, +val.y, +val.z); }
+        public static fp3 operator + (fp3 val) { return new fp3 (+val.x, +val.y, +val.z); }
 
 
         /// <summary>Returns the result of a componentwise equality operation on two float3 vectors.</summary>
@@ -471,21 +471,21 @@ namespace Nt.Deterministics
         /// <param name="rhs">Right hand side float3 to use to compute componentwise equality.</param>
         /// <returns>Unity.Mathematics.bool3 result of the componentwise equality.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool3 operator == (float3 lhs, float3 rhs) { return new Unity.Mathematics.bool3 (lhs.x == rhs.x, lhs.y == rhs.y, lhs.z == rhs.z); }
+        public static Unity.Mathematics.bool3 operator == (fp3 lhs, fp3 rhs) { return new Unity.Mathematics.bool3 (lhs.x == rhs.x, lhs.y == rhs.y, lhs.z == rhs.z); }
 
         /// <summary>Returns the result of a componentwise equality operation on a float3 vector and a number value.</summary>
         /// <param name="lhs">Left hand side float3 to use to compute componentwise equality.</param>
         /// <param name="rhs">Right hand side number to use to compute componentwise equality.</param>
         /// <returns>Unity.Mathematics.bool3 result of the componentwise equality.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool3 operator == (float3 lhs, fp rhs) { return new Unity.Mathematics.bool3 (lhs.x == rhs, lhs.y == rhs, lhs.z == rhs); }
+        public static Unity.Mathematics.bool3 operator == (fp3 lhs, fp rhs) { return new Unity.Mathematics.bool3 (lhs.x == rhs, lhs.y == rhs, lhs.z == rhs); }
 
         /// <summary>Returns the result of a componentwise equality operation on a number value and a float3 vector.</summary>
         /// <param name="lhs">Left hand side number to use to compute componentwise equality.</param>
         /// <param name="rhs">Right hand side float3 to use to compute componentwise equality.</param>
         /// <returns>Unity.Mathematics.bool3 result of the componentwise equality.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool3 operator == (fp lhs, float3 rhs) { return new Unity.Mathematics.bool3 (lhs == rhs.x, lhs == rhs.y, lhs == rhs.z); }
+        public static Unity.Mathematics.bool3 operator == (fp lhs, fp3 rhs) { return new Unity.Mathematics.bool3 (lhs == rhs.x, lhs == rhs.y, lhs == rhs.z); }
 
 
         /// <summary>Returns the result of a componentwise not equal operation on two float3 vectors.</summary>
@@ -493,21 +493,21 @@ namespace Nt.Deterministics
         /// <param name="rhs">Right hand side float3 to use to compute componentwise not equal.</param>
         /// <returns>Unity.Mathematics.bool3 result of the componentwise not equal.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool3 operator != (float3 lhs, float3 rhs) { return new Unity.Mathematics.bool3 (lhs.x != rhs.x, lhs.y != rhs.y, lhs.z != rhs.z); }
+        public static Unity.Mathematics.bool3 operator != (fp3 lhs, fp3 rhs) { return new Unity.Mathematics.bool3 (lhs.x != rhs.x, lhs.y != rhs.y, lhs.z != rhs.z); }
 
         /// <summary>Returns the result of a componentwise not equal operation on a float3 vector and a number value.</summary>
         /// <param name="lhs">Left hand side float3 to use to compute componentwise not equal.</param>
         /// <param name="rhs">Right hand side number to use to compute componentwise not equal.</param>
         /// <returns>Unity.Mathematics.bool3 result of the componentwise not equal.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool3 operator != (float3 lhs, fp rhs) { return new Unity.Mathematics.bool3 (lhs.x != rhs, lhs.y != rhs, lhs.z != rhs); }
+        public static Unity.Mathematics.bool3 operator != (fp3 lhs, fp rhs) { return new Unity.Mathematics.bool3 (lhs.x != rhs, lhs.y != rhs, lhs.z != rhs); }
 
         /// <summary>Returns the result of a componentwise not equal operation on a number value and a float3 vector.</summary>
         /// <param name="lhs">Left hand side number to use to compute componentwise not equal.</param>
         /// <param name="rhs">Right hand side float3 to use to compute componentwise not equal.</param>
         /// <returns>Unity.Mathematics.bool3 result of the componentwise not equal.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool3 operator != (fp lhs, float3 rhs) { return new Unity.Mathematics.bool3 (lhs != rhs.x, lhs != rhs.y, lhs != rhs.z); }
+        public static Unity.Mathematics.bool3 operator != (fp lhs, fp3 rhs) { return new Unity.Mathematics.bool3 (lhs != rhs.x, lhs != rhs.y, lhs != rhs.z); }
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
@@ -1240,55 +1240,55 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 xxx
+        public fp3 xxx
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(x, x, x); }
+            get { return new fp3(x, x, x); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 xxy
+        public fp3 xxy
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(x, x, y); }
+            get { return new fp3(x, x, y); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 xxz
+        public fp3 xxz
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(x, x, z); }
+            get { return new fp3(x, x, z); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 xyx
+        public fp3 xyx
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(x, y, x); }
+            get { return new fp3(x, y, x); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 xyy
+        public fp3 xyy
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(x, y, y); }
+            get { return new fp3(x, y, y); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 xyz
+        public fp3 xyz
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(x, y, z); }
+            get { return new fp3(x, y, z); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { x = value.x; y = value.y; z = value.z; }
         }
@@ -1296,19 +1296,19 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 xzx
+        public fp3 xzx
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(x, z, x); }
+            get { return new fp3(x, z, x); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 xzy
+        public fp3 xzy
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(x, z, y); }
+            get { return new fp3(x, z, y); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { x = value.x; z = value.y; y = value.z; }
         }
@@ -1316,37 +1316,37 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 xzz
+        public fp3 xzz
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(x, z, z); }
+            get { return new fp3(x, z, z); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 yxx
+        public fp3 yxx
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(y, x, x); }
+            get { return new fp3(y, x, x); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 yxy
+        public fp3 yxy
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(y, x, y); }
+            get { return new fp3(y, x, y); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 yxz
+        public fp3 yxz
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(y, x, z); }
+            get { return new fp3(y, x, z); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { y = value.x; x = value.y; z = value.z; }
         }
@@ -1354,37 +1354,37 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 yyx
+        public fp3 yyx
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(y, y, x); }
+            get { return new fp3(y, y, x); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 yyy
+        public fp3 yyy
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(y, y, y); }
+            get { return new fp3(y, y, y); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 yyz
+        public fp3 yyz
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(y, y, z); }
+            get { return new fp3(y, y, z); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 yzx
+        public fp3 yzx
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(y, z, x); }
+            get { return new fp3(y, z, x); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { y = value.x; z = value.y; x = value.z; }
         }
@@ -1392,37 +1392,37 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 yzy
+        public fp3 yzy
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(y, z, y); }
+            get { return new fp3(y, z, y); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 yzz
+        public fp3 yzz
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(y, z, z); }
+            get { return new fp3(y, z, z); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 zxx
+        public fp3 zxx
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(z, x, x); }
+            get { return new fp3(z, x, x); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 zxy
+        public fp3 zxy
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(z, x, y); }
+            get { return new fp3(z, x, y); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { z = value.x; x = value.y; y = value.z; }
         }
@@ -1430,19 +1430,19 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 zxz
+        public fp3 zxz
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(z, x, z); }
+            get { return new fp3(z, x, z); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 zyx
+        public fp3 zyx
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(z, y, x); }
+            get { return new fp3(z, y, x); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { z = value.x; y = value.y; x = value.z; }
         }
@@ -1450,46 +1450,46 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 zyy
+        public fp3 zyy
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(z, y, y); }
+            get { return new fp3(z, y, y); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 zyz
+        public fp3 zyz
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(z, y, z); }
+            get { return new fp3(z, y, z); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 zzx
+        public fp3 zzx
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(z, z, x); }
+            get { return new fp3(z, z, x); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 zzy
+        public fp3 zzy
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(z, z, y); }
+            get { return new fp3(z, z, y); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float3 zzz
+        public fp3 zzz
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float3(z, z, z); }
+            get { return new fp3(z, z, z); }
         }
 
 
@@ -1596,7 +1596,7 @@ namespace Nt.Deterministics
                 if ((uint)index >= 3)
                     throw new System.ArgumentException("index must be between[0...2]");
 #endif
-                fixed (float3* array = &this) { return ((fp*)array)[index]; }
+                fixed (fp3* array = &this) { return ((fp*)array)[index]; }
             }
             set
             {
@@ -1612,12 +1612,12 @@ namespace Nt.Deterministics
         /// <param name="rhs">Right hand side argument to compare equality with.</param>
         /// <returns>The result of the equality comparison.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(float3 rhs) { return x == rhs.x && y == rhs.y && z == rhs.z; }
+        public bool Equals(fp3 rhs) { return x == rhs.x && y == rhs.y && z == rhs.z; }
 
         /// <summary>Returns true if the float3 is equal to a given float3, false otherwise.</summary>
         /// <param name="o">Right hand side argument to compare equality with.</param>
         /// <returns>The result of the equality comparison.</returns>
-        public override bool Equals(object o) { return o is float3 converted && Equals(converted); }
+        public override bool Equals(object o) { return o is fp3 converted && Equals(converted); }
 
 
         /// <summary>Returns a hash code for the float3.</summary>
@@ -1649,7 +1649,7 @@ namespace Nt.Deterministics
             public fp x;
             public fp y;
             public fp z;
-            public DebuggerProxy(float3 v)
+            public DebuggerProxy(fp3 v)
             {
                 x = v.x;
                 y = v.y;
@@ -1667,75 +1667,75 @@ namespace Nt.Deterministics
         /// <param name="z">The constructed vector's z component will be set to this value.</param>
         /// <returns>float3 constructed from arguments.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 float3(fp x, fp y, fp z) { return new float3(x, y, z); }
+        public static fp3 float3(fp x, fp y, fp z) { return new fp3(x, y, z); }
 
         /// <summary>Returns a float3 vector constructed from a number value and a float2 vector.</summary>
         /// <param name="x">The constructed vector's x component will be set to this value.</param>
         /// <param name="yz">The constructed vector's yz components will be set to this value.</param>
         /// <returns>float3 constructed from arguments.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 float3(fp x, fp2 yz) { return new float3(x, yz); }
+        public static fp3 float3(fp x, fp2 yz) { return new fp3(x, yz); }
 
         /// <summary>Returns a float3 vector constructed from a float2 vector and a number value.</summary>
         /// <param name="xy">The constructed vector's xy components will be set to this value.</param>
         /// <param name="z">The constructed vector's z component will be set to this value.</param>
         /// <returns>float3 constructed from arguments.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 float3(fp2 xy, fp z) { return new float3(xy, z); }
+        public static fp3 float3(fp2 xy, fp z) { return new fp3(xy, z); }
 
         /// <summary>Returns a float3 vector constructed from a float3 vector.</summary>
         /// <param name="xyz">The constructed vector's xyz components will be set to this value.</param>
         /// <returns>float3 constructed from arguments.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 float3(float3 xyz) { return new float3(xyz); }
+        public static fp3 float3(fp3 xyz) { return new fp3(xyz); }
 
         /// <summary>Returns a float3 vector constructed from a single number value by assigning it to every component.</summary>
         /// <param name="v">number to convert to float3</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 float3(fp v) { return new float3(v); }
+        public static fp3 float3(fp v) { return new fp3(v); }
 
         /// <summary>Returns a float3 vector constructed from a single bool value by converting it to number and assigning it to every component.</summary>
         /// <param name="v">bool to convert to float3</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 float3(bool v) { return new float3(v); }
+        public static fp3 float3(bool v) { return new fp3(v); }
 
         /// <summary>Return a float3 vector constructed from a Unity.Mathematics.bool3 vector by componentwise conversion.</summary>
         /// <param name="v">Unity.Mathematics.bool3 to convert to float3</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 float3(Unity.Mathematics.bool3 v) { return new float3(v); }
+        public static fp3 float3(Unity.Mathematics.bool3 v) { return new fp3(v); }
 
         /// <summary>Returns a float3 vector constructed from a single int value by converting it to number and assigning it to every component.</summary>
         /// <param name="v">int to convert to float3</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 float3(int v) { return new float3(v); }
+        public static fp3 float3(int v) { return new fp3(v); }
 
         /// <summary>Return a float3 vector constructed from a Unity.Mathematics.int3 vector by componentwise conversion.</summary>
         /// <param name="v">Unity.Mathematics.int3 to convert to float3</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 float3(Unity.Mathematics.int3 v) { return new float3(v); }
+        public static fp3 float3(Unity.Mathematics.int3 v) { return new fp3(v); }
 
         /// <summary>Returns a float3 vector constructed from a single uint value by converting it to number and assigning it to every component.</summary>
         /// <param name="v">uint to convert to float3</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 float3(uint v) { return new float3(v); }
+        public static fp3 float3(uint v) { return new fp3(v); }
 
         /// <summary>Return a float3 vector constructed from a Unity.Mathematics.uint3 vector by componentwise conversion.</summary>
         /// <param name="v">Unity.Mathematics.uint3 to convert to float3</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 float3(Unity.Mathematics.uint3 v) { return new float3(v); }
+        public static fp3 float3(Unity.Mathematics.uint3 v) { return new fp3(v); }
 
         /// <summary>Returns a uint hash code of a float3 vector.</summary>
         /// <param name="v">Vector value to hash.</param>
         /// <returns>uint hash of the argument.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static uint hash(float3 v)
+        public static uint hash(fp3 v)
         {
             return Unity.Mathematics.math.csum(asuint(v) * new Unity.Mathematics.uint3(0x509B84C9u, 0x91D13847u, 0x52F7230Fu)) + 0xCF286E83u;
         }
@@ -1748,7 +1748,7 @@ namespace Nt.Deterministics
         /// <param name="v">Vector value to hash.</param>
         /// <returns>Unity.Mathematics.uint3 hash of the argument.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.uint3 hashwide(float3 v)
+        public static Unity.Mathematics.uint3 hashwide(fp3 v)
         {
             return (asuint(v) * new Unity.Mathematics.uint3(0xE121E6ADu, 0xC9CA1249u, 0x69B60C81u)) + 0xE0EB6C25u;
         }
@@ -1759,7 +1759,7 @@ namespace Nt.Deterministics
         /// <param name="x">The ShuffleComponent to use when setting the resulting number.</param>
         /// <returns>number result of the shuffle operation.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp shuffle(float3 left, float3 right, ShuffleComponent x)
+        public static fp shuffle(fp3 left, fp3 right, ShuffleComponent x)
         {
             return select_shuffle_component(left, right, x);
         }
@@ -1771,7 +1771,7 @@ namespace Nt.Deterministics
         /// <param name="y">The ShuffleComponent to use when setting the resulting float2 y component.</param>
         /// <returns>float2 result of the shuffle operation.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 shuffle(float3 left, float3 right, ShuffleComponent x, ShuffleComponent y)
+        public static fp2 shuffle(fp3 left, fp3 right, ShuffleComponent x, ShuffleComponent y)
         {
             return float2(
                 select_shuffle_component(left, right, x),
@@ -1786,7 +1786,7 @@ namespace Nt.Deterministics
         /// <param name="z">The ShuffleComponent to use when setting the resulting float3 z component.</param>
         /// <returns>float3 result of the shuffle operation.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 shuffle(float3 left, float3 right, ShuffleComponent x, ShuffleComponent y, ShuffleComponent z)
+        public static fp3 shuffle(fp3 left, fp3 right, ShuffleComponent x, ShuffleComponent y, ShuffleComponent z)
         {
             return float3(
                 select_shuffle_component(left, right, x),
@@ -1803,7 +1803,7 @@ namespace Nt.Deterministics
         /// <param name="w">The ShuffleComponent to use when setting the resulting float4 w component.</param>
         /// <returns>float4 result of the shuffle operation.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 shuffle(float3 left, float3 right, ShuffleComponent x, ShuffleComponent y, ShuffleComponent z, ShuffleComponent w)
+        public static float4 shuffle(fp3 left, fp3 right, ShuffleComponent x, ShuffleComponent y, ShuffleComponent z, ShuffleComponent w)
         {
             return float4(
                 select_shuffle_component(left, right, x),
@@ -1813,7 +1813,7 @@ namespace Nt.Deterministics
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static fp select_shuffle_component(float3 a, float3 b, ShuffleComponent component)
+        internal static fp select_shuffle_component(fp3 a, fp3 b, ShuffleComponent component)
         {
             switch(component)
             {
@@ -1835,7 +1835,7 @@ namespace Nt.Deterministics
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Approximately(float3 num2, Unity.Mathematics.float3 b)
+        public static bool Approximately(fp3 num2, Unity.Mathematics.float3 b)
         {
             return Approximately(num2.x, b.x) 
             && Approximately(num2.y, b.y)

@@ -30,7 +30,7 @@ namespace Nt.Deterministics.Editor
     {
         private static Type TypeNumber = typeof(fp);
         private static Type TypeNumber2 = typeof(fp2);
-        private static Type TypeNumber3 = typeof(float3);
+        private static Type TypeNumber3 = typeof(fp3);
         private static Type TypeNumber4 = typeof(float4);
         private static Type TypeNumber2x2 = typeof(float2x2);
         private static Type TypeNumber3x2 = typeof(float3x2);
@@ -153,7 +153,7 @@ namespace Nt.Deterministics.Editor
     //     }
     // }
 
-    [CustomPropertyDrawer(typeof(fp2)), CustomPropertyDrawer(typeof(float3)), CustomPropertyDrawer(typeof(float4)), CustomPropertyDrawer(typeof(quaternion))]
+    [CustomPropertyDrawer(typeof(fp2)), CustomPropertyDrawer(typeof(fp3)), CustomPropertyDrawer(typeof(float4)), CustomPropertyDrawer(typeof(quaternion))]
     [CustomPropertyDrawer(typeof(DoNotNormalizeAttribute))]
     class PrimitiveVectorDrawer : PropertyDrawer
     {

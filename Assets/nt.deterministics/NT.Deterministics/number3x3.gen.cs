@@ -19,11 +19,11 @@ namespace Nt.Deterministics
     public partial struct float3x3 : System.IEquatable<float3x3>, IFormattable
     {
         /// <summary>Column 0 of the matrix.</summary>
-        public float3 c0;
+        public fp3 c0;
         /// <summary>Column 1 of the matrix.</summary>
-        public float3 c1;
+        public fp3 c1;
         /// <summary>Column 2 of the matrix.</summary>
-        public float3 c2;
+        public fp3 c2;
 
         /// <summary>float3x3 identity transform.</summary>
         public static readonly float3x3 identity = new float3x3((fp)(1), (fp)(0), (fp)(0),   (fp)(0), (fp)(1), (fp)(0),   (fp)(0), (fp)(0), (fp)(1));
@@ -36,7 +36,7 @@ namespace Nt.Deterministics
         /// <param name="c1">The matrix column c1 will be set to this value.</param>
         /// <param name="c2">The matrix column c2 will be set to this value.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float3x3(float3 c0, float3 c1, float3 c2)
+        public float3x3(fp3 c0, fp3 c1, fp3 c2)
         {
             this.c0 = c0;
             this.c1 = c1;
@@ -58,9 +58,9 @@ namespace Nt.Deterministics
                         fp m10, fp m11, fp m12,
                         fp m20, fp m21, fp m22)
         {
-            this.c0 = new float3(m00, m10, m20);
-            this.c1 = new float3(m01, m11, m21);
-            this.c2 = new float3(m02, m12, m22);
+            this.c0 = new fp3(m00, m10, m20);
+            this.c1 = new fp3(m01, m11, m21);
+            this.c2 = new fp3(m02, m12, m22);
         }
 
         /// <summary>Constructs a float3x3 matrix from a single number value by assigning it to every component.</summary>
@@ -78,9 +78,9 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public float3x3(bool v)
         {
-            this.c0 = math.select(new float3((fp)(0)), new float3((fp)(1)), v);
-            this.c1 = math.select(new float3((fp)(0)), new float3((fp)(1)), v);
-            this.c2 = math.select(new float3((fp)(0)), new float3((fp)(1)), v);
+            this.c0 = math.select(new fp3((fp)(0)), new fp3((fp)(1)), v);
+            this.c1 = math.select(new fp3((fp)(0)), new fp3((fp)(1)), v);
+            this.c2 = math.select(new fp3((fp)(0)), new fp3((fp)(1)), v);
         }
 
         /// <summary>Constructs a float3x3 matrix from a Unity.Mathematics.bool3x3 matrix by componentwise conversion.</summary>
@@ -88,9 +88,9 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public float3x3(Unity.Mathematics.bool3x3 v)
         {
-            this.c0 = math.select(new float3((fp)(0)), new float3((fp)(1)), v.c0);
-            this.c1 = math.select(new float3((fp)(0)), new float3((fp)(1)), v.c1);
-            this.c2 = math.select(new float3((fp)(0)), new float3((fp)(1)), v.c2);
+            this.c0 = math.select(new fp3((fp)(0)), new fp3((fp)(1)), v.c0);
+            this.c1 = math.select(new fp3((fp)(0)), new fp3((fp)(1)), v.c1);
+            this.c2 = math.select(new fp3((fp)(0)), new fp3((fp)(1)), v.c2);
         }
 
         /// <summary>Constructs a float3x3 matrix from a single int value by converting it to number and assigning it to every component.</summary>
@@ -98,9 +98,9 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public float3x3(int v)
         {
-            this.c0 = (float3)v;
-            this.c1 = (float3)v;
-            this.c2 = (float3)v;
+            this.c0 = (fp3)v;
+            this.c1 = (fp3)v;
+            this.c2 = (fp3)v;
         }
 
         /// <summary>Constructs a float3x3 matrix from a Unity.Mathematics.int3x3 matrix by componentwise conversion.</summary>
@@ -108,9 +108,9 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public float3x3(Unity.Mathematics.int3x3 v)
         {
-            this.c0 = (float3)v.c0;
-            this.c1 = (float3)v.c1;
-            this.c2 = (float3)v.c2;
+            this.c0 = (fp3)v.c0;
+            this.c1 = (fp3)v.c1;
+            this.c2 = (fp3)v.c2;
         }
 
         /// <summary>Constructs a float3x3 matrix from a single uint value by converting it to number and assigning it to every component.</summary>
@@ -118,9 +118,9 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public float3x3(uint v)
         {
-            this.c0 = (float3)v;
-            this.c1 = (float3)v;
-            this.c2 = (float3)v;
+            this.c0 = (fp3)v;
+            this.c1 = (fp3)v;
+            this.c2 = (fp3)v;
         }
 
         /// <summary>Constructs a float3x3 matrix from a Unity.Mathematics.uint3x3 matrix by componentwise conversion.</summary>
@@ -128,9 +128,9 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public float3x3(Unity.Mathematics.uint3x3 v)
         {
-            this.c0 = (float3)v.c0;
-            this.c1 = (float3)v.c1;
-            this.c2 = (float3)v.c2;
+            this.c0 = (fp3)v.c0;
+            this.c1 = (fp3)v.c1;
+            this.c2 = (fp3)v.c2;
         }
 
         /// <summary>Implicitly converts a single number value to a float3x3 matrix by assigning it to every component.</summary>
@@ -451,7 +451,7 @@ namespace Nt.Deterministics
         public static Unity.Mathematics.bool3x3 operator != (fp lhs, float3x3 rhs) { return new Unity.Mathematics.bool3x3 (lhs != rhs.c0, lhs != rhs.c1, lhs != rhs.c2); }
 
         /// <summary>Returns the float3 element at a specified index.</summary>
-        unsafe public ref float3 this[int index]
+        unsafe public ref fp3 this[int index]
         {
             get
             {
@@ -459,7 +459,7 @@ namespace Nt.Deterministics
                 if ((uint)index >= 3)
                     throw new System.ArgumentException("index must be between[0...2]");
 #endif
-                fixed (float3x3* array = &this) { return ref ((float3*)array)[index]; }
+                fixed (float3x3* array = &this) { return ref ((fp3*)array)[index]; }
             }
         }
 
@@ -509,7 +509,7 @@ namespace Nt.Deterministics
         /// <param name="c2">The matrix column c2 will be set to this value.</param>
         /// <returns>float3x3 constructed from arguments.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3x3 float3x3(float3 c0, float3 c1, float3 c2) { return new float3x3(c0, c1, c2); }
+        public static float3x3 float3x3(fp3 c0, fp3 c1, fp3 c2) { return new float3x3(c0, c1, c2); }
 
         /// <summary>Returns a float3x3 matrix constructed from from 9 number values given in row-major order.</summary>
         /// <param name="m00">The matrix at row 0, column 0 will be set to this value.</param>
