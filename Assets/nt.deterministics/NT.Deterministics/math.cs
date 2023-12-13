@@ -1985,70 +1985,6 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static number csum(float4 x) { return (x.x + x.y) + (x.z + x.w); }
 
-        /// <summary>
-        /// Computes the square (x * x) of the input argument x.
-        /// </summary>
-        /// <param name="x">Value to square.</param>
-        /// <returns>Returns the square of the input.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number square(number x)
-        {
-            return x * x;
-        }
-
-        /// <summary>
-        /// Computes the component-wise square (x * x) of the input argument x.
-        /// </summary>
-        /// <param name="x">Value to square.</param>
-        /// <returns>Returns the square of the input.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 square(float2 x)
-        {
-            return x * x;
-        }
-
-        /// <summary>
-        /// Computes the component-wise square (x * x) of the input argument x.
-        /// </summary>
-        /// <param name="x">Value to square.</param>
-        /// <returns>Returns the square of the input.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 square(float3 x)
-        {
-            return x * x;
-        }
-
-        /// <summary>
-        /// Computes the component-wise square (x * x) of the input argument x.
-        /// </summary>
-        /// <param name="x">Value to square.</param>
-        /// <returns>Returns the square of the input.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 square(float4 x)
-        {
-            return x * x;
-        }
-
-        /// <summary>
-        /// Packs components with an enabled mask to the left.
-        /// </summary>
-        /// <remarks>
-        /// This function is also known as left packing. The effect of this function is to filter out components that
-        /// are not enabled and leave an output buffer tightly packed with only the enabled components. A common use
-        /// case is if you perform intersection tests on arrays of data in structure of arrays (SoA) form and need to
-        /// produce an output array of the things that intersected.
-        /// </remarks>
-        /// <param name="output">Pointer to packed output array where enabled components should be stored to.</param>
-        /// <param name="index">Index into output array where first enabled component should be stored to.</param>
-        /// <param name="val">The value to to compress.</param>
-        /// <param name="mask">Mask indicating which components are enabled.</param>
-        /// <returns>Index to element after the last one stored.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe int compress(number* output, int index, float4 val, bool4 mask)
-        {
-            return Unity.Mathematics.math.compress((int*)output, index, *(int4*)&val, mask);
-        }
-
         // /// <summary>
         // /// Generate an orthonormal basis given a single unit length normal vector.
         // /// </summary>
@@ -2089,14 +2025,14 @@ namespace Nt.Deterministics
             return x.y;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number angle(float3 x, float3 y)
-        {
-            if (anyNaN(x) || anyNaN(y)) return number.NaN;
-            var num = length(x) * length(y);
-            if (num <= number.MinNormal) return number.zero;
-            return number.Acos(dot(x, y) / num);
-        }
+        // [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        // public static number angle(float3 x, float3 y)
+        // {
+        //     if (anyNaN(x) || anyNaN(y)) return number.NaN;
+        //     var num = length(x) * length(y);
+        //     if (num <= number.MinNormal) return number.zero;
+        //     var ret = number.Acos(dot(x, y) / num);
+        // }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static number angle(float3 x, float3 y, float3 axis)
@@ -2147,7 +2083,11 @@ namespace Nt.Deterministics
         public static bool Approximately(float a, number num)
         {
             float b = num;
-            return Unity.Mathematics.math.abs(a - b) < 0.01f;
+            var x = 0.01f;
+            var max = Unity.Mathematics.math.max(Unity.Mathematics.math.abs(a), Unity.Mathematics.math.abs(b)) / 1000f;
+            x = Unity.Mathematics.math.max(max, x);
+
+            return Unity.Mathematics.math.abs(a - b) < x;
         }
 
         public static bool Approximately(number a, float b)
