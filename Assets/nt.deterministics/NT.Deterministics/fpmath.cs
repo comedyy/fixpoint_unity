@@ -11,6 +11,8 @@ namespace Nt.Deterministics
     /// </summary>
     public static partial class fpMath
     {
+        public readonly static fp PI = fp.PI;
+
         /// <summary>Returns the bit pattern of a number as a uint.</summary>
         /// <param name="x">The number bits to copy.</param>
         /// <returns>The uint with the same bit pattern as the input.</returns>
@@ -2021,7 +2023,7 @@ namespace Nt.Deterministics
             long angle1 = fp.Atan2Raw(x.y.RawValue, x.x.RawValue);
             long angle2 = fp.Atan2Raw(y.y.RawValue, y.x.RawValue);
             x.x.RawValue = angle1 > angle2 ? angle1 - angle2 : angle2 - angle1;
-            x.y.RawValue = x.x.RawValue > fp.Pi ? fp.PiTimes2 - x.x.RawValue : x.x.RawValue;
+            x.y.RawValue = x.x.RawValue > fp.RawPiLong ? fp.RawPiTimes2Long - x.x.RawValue : x.x.RawValue;
             return x.y;
         }
 

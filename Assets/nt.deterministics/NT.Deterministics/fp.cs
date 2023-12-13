@@ -101,48 +101,22 @@ namespace Nt.Deterministics
                 return *(fp*)(&raw);
             }
         }
-        public unsafe static fp PIDiv2
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get
-            {
-                long raw = PiDiv2;
-                return *(fp*)(&raw);
-            }
-        }
         public unsafe static fp PI
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
-                long raw = Pi;
+                long raw = RawPiLong;
                 return *(fp*)(&raw);
             }
         }
-        public unsafe static fp PI3Div2
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get
-            {
-                long raw = Pi3Div2;
-                return *(fp*)(&raw);
-            }
-        }
+      
         public unsafe static fp PITimes2
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
-                long raw = PiTimes2;
-                return *(fp*)(&raw);
-            }
-        }
-        public unsafe static fp PIOver180
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get
-            {
-                long raw = 72L;
+                long raw = RawPiTimes2Long;
                 return *(fp*)(&raw);
             }
         }
@@ -227,48 +201,22 @@ namespace Nt.Deterministics
                 return *(fp*)(&raw);
             }
         }
-        public unsafe static fp Small
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get
-            {
-                long small = SMALL;
-                return *(fp*)(&small);
-            }
-        }
-        public unsafe static fp SmallSqr
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get
-            {
-                long small_sqrt = SMALL_SQRT;
-                return *(fp*)(&small_sqrt);
-            }
-        }
         #endregion
-        public const long PiDiv2 = (long)(Math.PI * ONE / 2 + 0.5);
-        public const long Pi = (long)(Math.PI * ONE + 0.5);
-        public const long Pi3Div2 = (long)(3 * Math.PI * ONE / 2 + 0.5);
-        public const long PiTimes2 = (long)(2 * Math.PI * ONE + 0.5);
-        public const long nRad2Deg = (long)(ONE * 180.0 / Math.PI + 0.5);
-        public const long nDeg2Rad = (long)(ONE * Math.PI / 180.0 + 0.5);
+        const long PiDiv2 = (long)(Math.PI * ONE / 2 + 0.5);
+        public const long RawPiLong = (long)(Math.PI * ONE + 0.5);
+        public const long RawPiTimes2Long = (long)(2 * Math.PI * ONE + 0.5);
+        const long nRad2Deg = (long)(ONE * 180.0 / Math.PI + 0.5);
+        const long nDeg2Rad = (long)(ONE * Math.PI / 180.0 + 0.5);
         const long lExp = (long)(Math.E * ONE + 0.5);
         public const int FRACTIONAL_PLACES = 16;
         public const int FRACTIONAL_PLACES_SQRT = 8;
-        public const long WaterShedSqrt = 4L << FRACTIONAL_PLACES;
-        public const int INTEGER_PLACES = sizeof(long) - FRACTIONAL_PLACES;
+        const long WaterShedSqrt = 4L << FRACTIONAL_PLACES;
         public const long ONE = 1L << FRACTIONAL_PLACES;
-        public const long TWO = ONE * 2;
-        public const long THREE = ONE * 3;
         public const long nMaxInteger = (long.MaxValue - 1L) & IntegerMask;
-        public const long SMALL = ONE >> 6;
         public const long SMALL_SQRT = ONE >> 12;
         const long HALF = ONE >> 1;
         const long FracMask = ONE - 1L;//小数部分
         const long IntegerMask = ~FracMask;//整数部分
-        const long HighPlaceMask = long.MinValue >> (FRACTIONAL_PLACES - 1);
-        const long LowPlaceMask = ~HighPlaceMask;
-        const long WaterShed = 1L << (sizeof(long) - FRACTIONAL_PLACES - 2);//用于判断左移是否越界
 
         internal fp(long rawValue)
         {
@@ -991,13 +939,13 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp Sin(fp rad)
         {
-            rad.RawValue %= PiTimes2;
-            if (rad.RawValue < -Pi)
-                rad.RawValue = -Pi - rad.RawValue;
-            else if (rad.RawValue > Pi)
-                rad.RawValue = Pi - rad.RawValue;
+            rad.RawValue %= RawPiTimes2Long;
+            if (rad.RawValue < -RawPiLong)
+                rad.RawValue = -RawPiLong - rad.RawValue;
+            else if (rad.RawValue > RawPiLong)
+                rad.RawValue = RawPiLong - rad.RawValue;
 #if !NO_NUMBER_SUPPORT_BURST
-            rad.RawValue = NumberLut.sin_lut.Data[(int)(rad.RawValue + Pi)];
+            rad.RawValue = NumberLut.sin_lut.Data[(int)(rad.RawValue + RawPiLong)];
 #else
             rad.RawValue = NumberLut.sin_lut[rad.RawValue + Pi];
 #endif
@@ -1006,13 +954,13 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp Cos(fp rad)
         {
-            rad.RawValue %= PiTimes2;
-            if (rad.RawValue < -Pi)
-                rad.RawValue = PiTimes2 + rad.RawValue;
-            else if (rad.RawValue > Pi)
-                rad.RawValue = PiTimes2 - rad.RawValue;
+            rad.RawValue %= RawPiTimes2Long;
+            if (rad.RawValue < -RawPiLong)
+                rad.RawValue = RawPiTimes2Long + rad.RawValue;
+            else if (rad.RawValue > RawPiLong)
+                rad.RawValue = RawPiTimes2Long - rad.RawValue;
 #if !NO_NUMBER_SUPPORT_BURST
-            rad.RawValue = NumberLut.cos_lut.Data[(int)(rad.RawValue + Pi)];
+            rad.RawValue = NumberLut.cos_lut.Data[(int)(rad.RawValue + RawPiLong)];
 #else
             rad.RawValue = NumberLut.cos_lut[rad.RawValue + Pi];
 #endif
@@ -1021,12 +969,12 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp Tan(fp rad)
         {
-            if (rad.RawValue < -Pi)
-                rad.RawValue %= -Pi;
-            if (rad.RawValue > Pi)
-                rad.RawValue %= Pi;
+            if (rad.RawValue < -RawPiLong)
+                rad.RawValue %= -RawPiLong;
+            if (rad.RawValue > RawPiLong)
+                rad.RawValue %= RawPiLong;
 #if !NO_NUMBER_SUPPORT_BURST
-            rad.RawValue = NumberLut.tan_lut.Data[(int)(rad.RawValue + Pi)];
+            rad.RawValue = NumberLut.tan_lut.Data[(int)(rad.RawValue + RawPiLong)];
 #else
             rad.RawValue = NumberLut.tan_lut[rad.RawValue + Pi];
 #endif
@@ -1069,13 +1017,13 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp FastSin(fp rad)
         {
-            rad.RawValue %= PiTimes2;
-            if (rad.RawValue < -Pi)
-                rad.RawValue = -Pi - rad.RawValue;
-            else if (rad.RawValue > Pi)
-                rad.RawValue = Pi - rad.RawValue;
+            rad.RawValue %= RawPiTimes2Long;
+            if (rad.RawValue < -RawPiLong)
+                rad.RawValue = -RawPiLong - rad.RawValue;
+            else if (rad.RawValue > RawPiLong)
+                rad.RawValue = RawPiLong - rad.RawValue;
 #if !NO_NUMBER_SUPPORT_BURST
-            rad.RawValue = NumberLut.sin_lut.Data[(int)(rad.RawValue + Pi)];
+            rad.RawValue = NumberLut.sin_lut.Data[(int)(rad.RawValue + RawPiLong)];
 #else
             rad.RawValue = NumberLut.sin_lut[rad.RawValue + Pi];
 #endif
@@ -1087,13 +1035,13 @@ namespace Nt.Deterministics
             if (rad.RawValue == NaN.RawValue) return NaN;
             if (rad.RawValue == PositiveInfinity.RawValue || rad.RawValue == NegativeInfinity.RawValue) return NaN;
             if (rad.RawValue == MaxValue.RawValue || rad.RawValue == MinValue.RawValue) return rad;
-            rad.RawValue %= PiTimes2;
-            if (rad.RawValue < -Pi)
-                rad.RawValue = -Pi - rad.RawValue;
-            else if (rad.RawValue > Pi)
-                rad.RawValue = Pi - rad.RawValue;
+            rad.RawValue %= RawPiTimes2Long;
+            if (rad.RawValue < -RawPiLong)
+                rad.RawValue = -RawPiLong - rad.RawValue;
+            else if (rad.RawValue > RawPiLong)
+                rad.RawValue = RawPiLong - rad.RawValue;
 #if !NO_NUMBER_SUPPORT_BURST
-            rad.RawValue = NumberLut.sin_lut.Data[(int)(rad.RawValue + Pi)];
+            rad.RawValue = NumberLut.sin_lut.Data[(int)(rad.RawValue + RawPiLong)];
 #else
             rad.RawValue = NumberLut.sin_lut[rad.RawValue + Pi];
 #endif
@@ -1108,13 +1056,13 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp FastCos(fp rad)
         {
-            rad.RawValue %= PiTimes2;
-            if (rad.RawValue < -Pi)
-                rad.RawValue = PiTimes2 + rad.RawValue;
-            else if (rad.RawValue > Pi)
-                rad.RawValue = PiTimes2 - rad.RawValue;
+            rad.RawValue %= RawPiTimes2Long;
+            if (rad.RawValue < -RawPiLong)
+                rad.RawValue = RawPiTimes2Long + rad.RawValue;
+            else if (rad.RawValue > RawPiLong)
+                rad.RawValue = RawPiTimes2Long - rad.RawValue;
 #if !NO_NUMBER_SUPPORT_BURST
-            rad.RawValue = NumberLut.cos_lut.Data[(int)(rad.RawValue + Pi)];
+            rad.RawValue = NumberLut.cos_lut.Data[(int)(rad.RawValue + RawPiLong)];
 #else
             rad.RawValue = NumberLut.cos_lut[rad.RawValue + Pi];
 #endif
@@ -1126,13 +1074,13 @@ namespace Nt.Deterministics
             if (rad.RawValue == NaN.RawValue) return NaN;
             if (rad.RawValue == PositiveInfinity.RawValue || rad.RawValue == NegativeInfinity.RawValue) return NaN;
             if (rad.RawValue == MaxValue.RawValue || rad.RawValue == MinValue.RawValue) return rad;
-            rad.RawValue %= PiTimes2;
-            if (rad.RawValue < -Pi)
-                rad.RawValue = PiTimes2 + rad.RawValue;
-            else if (rad.RawValue > Pi)
-                rad.RawValue = PiTimes2 - rad.RawValue;
+            rad.RawValue %= RawPiTimes2Long;
+            if (rad.RawValue < -RawPiLong)
+                rad.RawValue = RawPiTimes2Long + rad.RawValue;
+            else if (rad.RawValue > RawPiLong)
+                rad.RawValue = RawPiTimes2Long - rad.RawValue;
 #if !NO_NUMBER_SUPPORT_BURST
-            rad.RawValue = NumberLut.cos_lut.Data[(int)(rad.RawValue + Pi)];
+            rad.RawValue = NumberLut.cos_lut.Data[(int)(rad.RawValue + RawPiLong)];
 #else
             rad.RawValue = NumberLut.cos_lut[rad.RawValue + Pi];
 #endif
@@ -1148,12 +1096,12 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp FastTan(fp rad)
         {
-            if (rad.RawValue < -Pi)
-                rad.RawValue %= -Pi;
-            if (rad.RawValue > Pi)
-                rad.RawValue %= Pi;
+            if (rad.RawValue < -RawPiLong)
+                rad.RawValue %= -RawPiLong;
+            if (rad.RawValue > RawPiLong)
+                rad.RawValue %= RawPiLong;
 #if !NO_NUMBER_SUPPORT_BURST
-            rad.RawValue = NumberLut.tan_lut.Data[(int)(rad.RawValue + Pi)];
+            rad.RawValue = NumberLut.tan_lut.Data[(int)(rad.RawValue + RawPiLong)];
 #else
             rad.RawValue = NumberLut.tan_lut[rad.RawValue + Pi];
 #endif
@@ -1165,12 +1113,12 @@ namespace Nt.Deterministics
             if (rad.RawValue == NaN.RawValue) return NaN;
             if (rad.RawValue == PositiveInfinity.RawValue || rad.RawValue == NegativeInfinity.RawValue) return NaN;
             if (rad.RawValue == MaxValue.RawValue || rad.RawValue == MinValue.RawValue) return rad;
-            if (rad.RawValue < -Pi)
-                rad.RawValue %= -Pi;
-            if (rad.RawValue > Pi)
-                rad.RawValue %= Pi;
+            if (rad.RawValue < -RawPiLong)
+                rad.RawValue %= -RawPiLong;
+            if (rad.RawValue > RawPiLong)
+                rad.RawValue %= RawPiLong;
 #if !NO_NUMBER_SUPPORT_BURST
-            rad.RawValue = NumberLut.tan_lut.Data[(int)(rad.RawValue + Pi)];
+            rad.RawValue = NumberLut.tan_lut.Data[(int)(rad.RawValue + RawPiLong)];
 #else
             rad.RawValue = NumberLut.tan_lut[rad.RawValue + Pi];
 #endif
@@ -1320,7 +1268,7 @@ namespace Nt.Deterministics
 #else
             long ret = bHighArea ? number.PiDiv2 - NumberLut.atan2_lut[idx] : NumberLut.atan2_lut[idx];
 #endif
-            ret = isnegX ? fp.Pi - ret : ret;
+            ret = isnegX ? fp.RawPiLong - ret : ret;
             return isnegY ? -ret : ret;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

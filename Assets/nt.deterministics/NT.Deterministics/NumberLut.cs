@@ -248,7 +248,7 @@ namespace Nt.Deterministics
                 File.Delete(file);
             using (FileStream fs = File.OpenWrite(file))
             {
-                for (long i = -fp.Pi; i <= fp.Pi; i += 1L)
+                for (long i = -fp.RawPiLong; i <= fp.RawPiLong; i += 1L)
                 {
                     long value = (long)(op((double)fp.FromRaw(i)) * fp.ONE);
                     fs.Write(BitConverter.GetBytes(value), 0, 8);
@@ -335,7 +335,7 @@ namespace Nt.Deterministics
         {
             LutGenerator.GenerateForPiOver2Space(new Func<double, double>(Math.Sin), Path.Combine(directoryPath, TABLE_NAME_SIN));
             LutGenerator.GenerateForPiOver2Space(new Func<double, double>(Math.Cos), Path.Combine(directoryPath, TABLE_NAME_COS));
-            LutGenerator.Generate(new Func<double, double>(Math.Tan), Path.Combine(directoryPath, TABLE_NAME_TAN), -fp.Pi, fp.Pi);
+            LutGenerator.Generate(new Func<double, double>(Math.Tan), Path.Combine(directoryPath, TABLE_NAME_TAN), -fp.RawPiLong, fp.RawPiLong);
             LutGenerator.Generate(new Func<double, double>(Math.Asin), Path.Combine(directoryPath, TABLE_NAME_ASIN), -fp.ONE, fp.ONE);
             LutGenerator.Generate(new Func<double, double>(Math.Acos), Path.Combine(directoryPath, TABLE_NAME_ACOS), -fp.ONE, fp.ONE);
             LutGenerator.GenerateAtan(Path.Combine(directoryPath, TABLE_NAME_ATAN));
