@@ -239,8 +239,8 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp2 NormalizedToPoint(fpRect rectangle, fp2 normalizedRectCoordinates)
         {
-            return new fp2(fpmath.lerp(rectangle.x, rectangle.xMax, normalizedRectCoordinates.x), 
-                fpmath.lerp(rectangle.y, rectangle.yMax, normalizedRectCoordinates.y));
+            return new fp2(fpMath.lerp(rectangle.x, rectangle.xMax, normalizedRectCoordinates.x), 
+                fpMath.lerp(rectangle.y, rectangle.yMax, normalizedRectCoordinates.y));
         }
 
         /// <summary>
@@ -254,9 +254,9 @@ namespace Nt.Deterministics
         {
             var result = new fp2();
             if (rectangle.width.RawValue != 0L)
-                result.x = fpmath.clamp(fpmath.unlerp(rectangle.x, rectangle.xMax, point.x), fp.zero, fp.one);
+                result.x = fpMath.clamp(fpMath.unlerp(rectangle.x, rectangle.xMax, point.x), fp.zero, fp.one);
             if (rectangle.height.RawValue != 0L)
-                result.y = fpmath.clamp(fpmath.unlerp(rectangle.y, rectangle.yMax, point.y), fp.zero, fp.one);
+                result.y = fpMath.clamp(fpMath.unlerp(rectangle.y, rectangle.yMax, point.y), fp.zero, fp.one);
             return result;
         }
 

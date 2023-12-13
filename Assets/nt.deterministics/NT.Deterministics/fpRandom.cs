@@ -143,16 +143,16 @@ namespace Deterministic.FixedPoint {
         /// <summary>Returns a normalized 2D direction</summary>
         public fp2 NextDirection2D() {
             var angle = NextFp() * fp.PI * fp.two;
-            fpmath.sincos(angle, out var sin, out var cos);
+            fpMath.sincos(angle, out var sin, out var cos);
             return new fp2(sin,cos);
         }
         
         /// <summary>Returns a normalized 3D direction</summary>
         public fp3 NextDirection3D() {
             var z = NextFp(fp.two) - fp.one;
-            var r = fpmath.sqrt(fpmath.max(fp.one - z * z, fp.zero));
+            var r = fpMath.sqrt(fpMath.max(fp.one - z * z, fp.zero));
             var angle = NextFp(fp.PITimes2);
-            fpmath.sincos(angle, out var sin, out var cos);
+            fpMath.sincos(angle, out var sin, out var cos);
             return new fp3(cos * r, sin * r, z);
         }
     }

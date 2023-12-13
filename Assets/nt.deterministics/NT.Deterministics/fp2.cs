@@ -754,7 +754,7 @@ namespace Nt.Deterministics
         /// <summary>Returns a hash code for the float2.</summary>
         /// <returns>The computed hash code.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode() { return (int)fpmath.hash(this); }
+        public override int GetHashCode() { return (int)fpMath.hash(this); }
 
 
         /// <summary>Returns a string representation of the float2.</summary>
@@ -788,7 +788,7 @@ namespace Nt.Deterministics
 
     }
 
-    public static partial class fpmath
+    public static partial class fpMath
     {
         /// <summary>Returns a float2 vector constructed from two number values.</summary>
         /// <param name="x">The constructed vector's x component will be set to this value.</param>

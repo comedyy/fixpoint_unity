@@ -9,7 +9,7 @@ namespace Nt.Deterministics
     /// <summary>
     /// A static class to contain various math functions and constants.
     /// </summary>
-    public static partial class fpmath
+    public static partial class fpMath
     {
         /// <summary>Returns the bit pattern of a number as a uint.</summary>
         /// <param name="x">The number bits to copy.</param>
@@ -1288,8 +1288,8 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         static public fp3 normalizesafe(fp3 x, fp3 defaultvalue = new fp3())
         {
-            fp len = fpmath.dot(x, x);
-            return len > fp.MinNormal ? x * fpmath.rsqrt(len) : defaultvalue;
+            fp len = fpMath.dot(x, x);
+            return len > fp.MinNormal ? x * fpMath.rsqrt(len) : defaultvalue;
         }
 
         /// <summary>
@@ -1302,8 +1302,8 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         static public fp4 normalizesafe(fp4 x, fp4 defaultvalue = new fp4())
         {
-            fp len = fpmath.dot(x, x);
-            return len > fp.MinNormal ? x * fpmath.rsqrt(len) : defaultvalue;
+            fp len = fpMath.dot(x, x);
+            return len > fp.MinNormal ? x * fpMath.rsqrt(len) : defaultvalue;
         }
 
 
