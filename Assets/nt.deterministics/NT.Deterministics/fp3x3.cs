@@ -78,9 +78,9 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public fp3x3(bool v)
         {
-            this.c0 = math.select(new fp3((fp)(0)), new fp3((fp)(1)), v);
-            this.c1 = math.select(new fp3((fp)(0)), new fp3((fp)(1)), v);
-            this.c2 = math.select(new fp3((fp)(0)), new fp3((fp)(1)), v);
+            this.c0 = fpmath.select(new fp3((fp)(0)), new fp3((fp)(1)), v);
+            this.c1 = fpmath.select(new fp3((fp)(0)), new fp3((fp)(1)), v);
+            this.c2 = fpmath.select(new fp3((fp)(0)), new fp3((fp)(1)), v);
         }
 
         /// <summary>Constructs a float3x3 matrix from a Unity.Mathematics.bool3x3 matrix by componentwise conversion.</summary>
@@ -88,9 +88,9 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public fp3x3(Unity.Mathematics.bool3x3 v)
         {
-            this.c0 = math.select(new fp3((fp)(0)), new fp3((fp)(1)), v.c0);
-            this.c1 = math.select(new fp3((fp)(0)), new fp3((fp)(1)), v.c1);
-            this.c2 = math.select(new fp3((fp)(0)), new fp3((fp)(1)), v.c2);
+            this.c0 = fpmath.select(new fp3((fp)(0)), new fp3((fp)(1)), v.c0);
+            this.c1 = fpmath.select(new fp3((fp)(0)), new fp3((fp)(1)), v.c1);
+            this.c2 = fpmath.select(new fp3((fp)(0)), new fp3((fp)(1)), v.c2);
         }
 
         /// <summary>Constructs a float3x3 matrix from a single int value by converting it to number and assigning it to every component.</summary>
@@ -478,7 +478,7 @@ namespace Nt.Deterministics
         /// <summary>Returns a hash code for the float3x3.</summary>
         /// <returns>The computed hash code.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode() { return (int)math.hash(this); }
+        public override int GetHashCode() { return (int)fpmath.hash(this); }
 
 
         /// <summary>Returns a string representation of the float3x3.</summary>
@@ -501,7 +501,7 @@ namespace Nt.Deterministics
 
     }
 
-    public static partial class math
+    public static partial class fpmath
     {
         /// <summary>Returns a float3x3 matrix constructed from three float3 vectors.</summary>
         /// <param name="c0">The matrix column c0 will be set to this value.</param>

@@ -220,46 +220,6 @@ namespace Nt.Deterministics
         }
 
         /// <summary>
-        /// get the minimum x coordinate of the rectangle. 
-        /// </summary>
-        [Obsolete("use xMin")]
-        public fp left
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => x;
-        }
-
-        /// <summary>
-        /// get the maximum x coordinate of the rectangle.
-        /// </summary>
-        [Obsolete("use xMax")]
-        public fp right
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => new fp(x.RawValue + width.RawValue);
-        }
-
-        /// <summary>
-        /// get the minimum y coordinate of the rectangle.
-        /// </summary>
-        [Obsolete("use yMin")]
-        public fp top
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => y;
-        }
-
-        /// <summary>
-        /// get the maximum y coordinate of the rectangle.
-        /// </summary>
-        [Obsolete("use yMax")]
-        public fp bottom
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => new fp(y.RawValue + height.RawValue);
-        }
-
-        /// <summary>
         /// construct a rectangle from min/max coordinate values.
         /// </summary>
         /// <param name="xmin">the minimum x coordinate.</param>
@@ -279,8 +239,8 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp2 NormalizedToPoint(rect rectangle, fp2 normalizedRectCoordinates)
         {
-            return new fp2(math.lerp(rectangle.x, rectangle.xMax, normalizedRectCoordinates.x), 
-                math.lerp(rectangle.y, rectangle.yMax, normalizedRectCoordinates.y));
+            return new fp2(fpmath.lerp(rectangle.x, rectangle.xMax, normalizedRectCoordinates.x), 
+                fpmath.lerp(rectangle.y, rectangle.yMax, normalizedRectCoordinates.y));
         }
 
         /// <summary>
@@ -294,9 +254,9 @@ namespace Nt.Deterministics
         {
             var result = new fp2();
             if (rectangle.width.RawValue != 0L)
-                result.x = math.clamp(math.unlerp(rectangle.x, rectangle.xMax, point.x), fp.zero, fp.one);
+                result.x = fpmath.clamp(fpmath.unlerp(rectangle.x, rectangle.xMax, point.x), fp.zero, fp.one);
             if (rectangle.height.RawValue != 0L)
-                result.y = math.clamp(math.unlerp(rectangle.y, rectangle.yMax, point.y), fp.zero, fp.one);
+                result.y = fpmath.clamp(fpmath.unlerp(rectangle.y, rectangle.yMax, point.y), fp.zero, fp.one);
             return result;
         }
 

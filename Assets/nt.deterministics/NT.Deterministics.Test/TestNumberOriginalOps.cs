@@ -824,7 +824,7 @@ public class TestNumberOriginalOps : MonoBehaviour, IStatistics
         var time0 = DateTime.Now;
         for (int m = 0; m < _random_count; ++m)
             for (int n = 0; n < _random_count; ++n)
-                tmp = math.length(_randomVectors[n]);
+                tmp = fpmath.length(_randomVectors[n]);
         double deltatime = (DateTime.Now - time0).TotalSeconds;
         return (float)(loop_count / deltatime / 1000000.0f);
     }
@@ -836,7 +836,7 @@ public class TestNumberOriginalOps : MonoBehaviour, IStatistics
         var time0 = DateTime.Now;
         for (int m = 0; m < _random_count; ++m)
             for (int n = 0; n < _random_count; ++n)
-                tmp = math.normalize(_randomVectors[n]);
+                tmp = fpmath.normalize(_randomVectors[n]);
         double deltatime = (DateTime.Now - time0).TotalSeconds;
         return (float)(loop_count / deltatime / 1000000.0f);
     }
@@ -847,7 +847,7 @@ public class TestNumberOriginalOps : MonoBehaviour, IStatistics
         var time0 = DateTime.Now;
         for (int m = 0; m < _random_count; ++m)
             for (int n = 0; n < _random_count; ++n)
-                tmp = math.angle(_randomVectors[m], _randomVectors[n]);
+                tmp = fpmath.angle(_randomVectors[m], _randomVectors[n]);
         double deltatime = (DateTime.Now - time0).TotalSeconds;
         return (float)(loop_count / deltatime / 1000000.0f);
     }
