@@ -11,7 +11,7 @@ namespace Tests
 {
     public class TestMath
     {
-        (fp, float) GetRandom1(float min = -99.0f, float max = 99.0f)
+        public static (fp, float) GetRandom1(float min = -99.0f, float max = 99.0f)
         {
             var r = Random.Range(min,max);
             var num = fp.ConvertFrom(r);
@@ -19,7 +19,7 @@ namespace Tests
             return (num, r);
         }
 
-        (fp2, Unity.Mathematics.float2) GetRandom2(float min = -99.0f, float max = 99.0f)
+        public static (fp2, Unity.Mathematics.float2) GetRandom2(float min = -99.0f, float max = 99.0f)
         {
             (var n, var f) = GetRandom1(min, max);
             (var n1, var f1) = GetRandom1(min, max);
@@ -27,7 +27,7 @@ namespace Tests
             return (new fp2(n, n1), new Unity.Mathematics.float2(f, f1));
         }
 
-        (fp3, Unity.Mathematics.float3) GetRandom3()
+        public static (fp3, Unity.Mathematics.float3) GetRandom3()
         {
             (var n, var f) = GetRandom1();
             (var n1, var f1) = GetRandom1();
@@ -36,7 +36,7 @@ namespace Tests
             return (new fp3(n, n1, n2), new Unity.Mathematics.float3(f, f1, f2));
         }
 
-        (fp4, Unity.Mathematics.float4) GetRandom4()
+        public static (fp4, Unity.Mathematics.float4) GetRandom4()
         {
             (var n, var f) = GetRandom1();
             (var n1, var f1) = GetRandom1();
