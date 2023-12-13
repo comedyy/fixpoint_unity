@@ -41,7 +41,7 @@ namespace Nt.Deterministics
         /// <param name="y">the y value of position</param>
         /// <param name="width">the width of size</param>
         /// <param name="height">the height of size</param>
-        public rect(number x, number y, number width, number height)
+        public rect(fp x, fp y, fp width, fp height)
         {
             this.x.RawValue = x.RawValue;
             this.y.RawValue = y.RawValue;
@@ -55,33 +55,33 @@ namespace Nt.Deterministics
         public static rect zero
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => new rect(number.zero, number.zero, number.zero, number.zero);
+            get => new rect(fp.zero, fp.zero, fp.zero, fp.zero);
         }
 
         /// <summary>
         /// the x value of position
         /// </summary>
-        public number x;
+        public fp x;
 
         /// <summary>
         /// the y value of position
         /// </summary>
-        public number y;
+        public fp y;
 
         /// <summary>
         /// the width of size
         /// </summary>
-        public number width;
+        public fp width;
 
         /// <summary>
         /// the height of size
         /// </summary>
-        public number height;
+        public fp height;
 
         /// <summary>
         /// get/set the minimum x coordinate of the rectangle.
         /// </summary>
-        public number xMin
+        public fp xMin
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => x;
@@ -99,7 +99,7 @@ namespace Nt.Deterministics
         /// <summary>
         /// get/set the minimum y coordinate of the rectangle.
         /// </summary>
-        public number yMin
+        public fp yMin
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => y;
@@ -117,10 +117,10 @@ namespace Nt.Deterministics
         /// <summary>
         /// get/set the maximum x coordinate of the rectangle.
         /// </summary>
-        public number xMax
+        public fp xMax
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => new number(x.RawValue + width.RawValue);
+            get => new fp(x.RawValue + width.RawValue);
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set
             {
@@ -132,10 +132,10 @@ namespace Nt.Deterministics
         /// <summary>
         /// get/set the maximum y coordinate of the rectangle.
         /// </summary>
-        public number yMax
+        public fp yMax
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => new number(y.RawValue + height.RawValue);
+            get => new fp(y.RawValue + height.RawValue);
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set
             {
@@ -223,7 +223,7 @@ namespace Nt.Deterministics
         /// get the minimum x coordinate of the rectangle. 
         /// </summary>
         [Obsolete("use xMin")]
-        public number left
+        public fp left
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => x;
@@ -233,17 +233,17 @@ namespace Nt.Deterministics
         /// get the maximum x coordinate of the rectangle.
         /// </summary>
         [Obsolete("use xMax")]
-        public number right
+        public fp right
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => new number(x.RawValue + width.RawValue);
+            get => new fp(x.RawValue + width.RawValue);
         }
 
         /// <summary>
         /// get the minimum y coordinate of the rectangle.
         /// </summary>
         [Obsolete("use yMin")]
-        public number top
+        public fp top
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => y;
@@ -253,10 +253,10 @@ namespace Nt.Deterministics
         /// get the maximum y coordinate of the rectangle.
         /// </summary>
         [Obsolete("use yMax")]
-        public number bottom
+        public fp bottom
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => new number(y.RawValue + height.RawValue);
+            get => new fp(y.RawValue + height.RawValue);
         }
 
         /// <summary>
@@ -268,7 +268,7 @@ namespace Nt.Deterministics
         /// <param name="ymax">the maximum y coordinate.</param>
         /// <returns>A rectangle matching the specified coordinates.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static rect MinMaxRect(number xmin, number ymin, number xmax, number ymax) => new rect(xmin, ymin, xmax - xmin, ymax - ymin);
+        public static rect MinMaxRect(fp xmin, fp ymin, fp xmax, fp ymax) => new rect(xmin, ymin, xmax - xmin, ymax - ymin);
 
         /// <summary>
         /// get a point inside a rectangle, given normalized coordinates.
@@ -294,9 +294,9 @@ namespace Nt.Deterministics
         {
             var result = new float2();
             if (rectangle.width.RawValue != 0L)
-                result.x = math.clamp(math.unlerp(rectangle.x, rectangle.xMax, point.x), number.zero, number.one);
+                result.x = math.clamp(math.unlerp(rectangle.x, rectangle.xMax, point.x), fp.zero, fp.one);
             if (rectangle.height.RawValue != 0L)
-                result.y = math.clamp(math.unlerp(rectangle.y, rectangle.yMax, point.y), number.zero, number.one);
+                result.y = math.clamp(math.unlerp(rectangle.y, rectangle.yMax, point.y), fp.zero, fp.one);
             return result;
         }
 
@@ -408,7 +408,7 @@ namespace Nt.Deterministics
         /// <param name="width">the width of size</param>
         /// <param name="height">the height of size</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Set(number x, number y, number width, number height)
+        public void Set(fp x, fp y, fp width, fp height)
         {
             this.x.RawValue = x.RawValue;
             this.y.RawValue = y.RawValue;

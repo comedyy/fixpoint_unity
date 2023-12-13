@@ -52,7 +52,7 @@ public class StatisticsManager
         randoms = new long[randomCount];
         for (int k = 0; k < randomCount; ++k)
         {
-            randoms[k] = random.NextNumber(100000 * number.one).RawValue;
+            randoms[k] = random.NextNumber(100000 * fp.one).RawValue;
         }
     }
 

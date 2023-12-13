@@ -216,7 +216,7 @@ public class TestFloat : MonoBehaviour, IStatistics
         _randomVectors = new Unity.Mathematics.float2[_random_count];
         for (int k = 0; k < _random_count; ++k)
         {
-            _randoms[k] = (float)tmp_randoms[k] / number.ONE;
+            _randoms[k] = (float)tmp_randoms[k] / fp.ONE;
         }
         for (int k = 0; k < _random_count; ++k)
         {

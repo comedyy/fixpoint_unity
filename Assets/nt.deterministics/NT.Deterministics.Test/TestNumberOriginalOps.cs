@@ -6,7 +6,7 @@ using Nt.Deterministics;
 
 public class TestNumberOriginalOps : MonoBehaviour, IStatistics
 {
-    number[] _randoms;
+    fp[] _randoms;
     float2[] _randomVectors;
     int _random_count = 1000;
     int _cur_state = 0;
@@ -213,12 +213,12 @@ public class TestNumberOriginalOps : MonoBehaviour, IStatistics
         _random_count = StatisticsManager.Instance.randomCount;
         loop_count = _random_count * _random_count;
         var tmp_randoms = StatisticsManager.Instance.randoms;
-        _randoms = new number[_random_count];
+        _randoms = new fp[_random_count];
         _randomVectors = new float2[_random_count];
         long UsableMax = 1L << 31;
         for (int k = 0; k < _random_count; ++k)
         {
-            _randoms[k] = number.FromRaw(tmp_randoms[k] % UsableMax);
+            _randoms[k] = fp.FromRaw(tmp_randoms[k] % UsableMax);
         }
         for (int k = 0; k < _random_count; ++k)
         {
@@ -234,7 +234,7 @@ public class TestNumberOriginalOps : MonoBehaviour, IStatistics
 
     float testIdx()
     {
-        number num;
+        fp num;
         var time0 = DateTime.Now;
         for (int k = 0; k < 10; ++k)
             for (int m = 0; m < _random_count; ++m)
@@ -246,7 +246,7 @@ public class TestNumberOriginalOps : MonoBehaviour, IStatistics
 
     float testAdd()
     {
-        number num;
+        fp num;
         var time0 = DateTime.Now;
         for (int k = 0; k < 10; ++k)
             for (int m = 0; m < _random_count; ++m)
@@ -258,7 +258,7 @@ public class TestNumberOriginalOps : MonoBehaviour, IStatistics
 
     float testSub()
     {
-        number num;
+        fp num;
         var time0 = DateTime.Now;
         for (int k = 0; k < 10; ++k)
             for (int m = 0; m < _random_count; ++m)
@@ -270,7 +270,7 @@ public class TestNumberOriginalOps : MonoBehaviour, IStatistics
 
     float testMul()
     {
-        number num;
+        fp num;
         var time0 = DateTime.Now;
         for (int k = 0; k < 10; ++k)
             for (int m = 0; m < _random_count; ++m)
@@ -282,7 +282,7 @@ public class TestNumberOriginalOps : MonoBehaviour, IStatistics
 
     float testDiv()
     {
-        number num;
+        fp num;
         var time0 = DateTime.Now;
         for (int k = 0; k < 10; ++k)
             for (int m = 0; m < _random_count; ++m)
@@ -294,7 +294,7 @@ public class TestNumberOriginalOps : MonoBehaviour, IStatistics
 
     float testSelfInc()
     {
-        number num;
+        fp num;
         var time0 = DateTime.Now;
         for (int k = 0; k < 10; ++k)
             for (int m = 0; m < _random_count; ++m)
@@ -306,7 +306,7 @@ public class TestNumberOriginalOps : MonoBehaviour, IStatistics
 
     float testSelfSub()
     {
-        number num;
+        fp num;
         var time0 = DateTime.Now;
         for (int k = 0; k < 10; ++k)
             for (int m = 0; m < _random_count; ++m)
@@ -318,7 +318,7 @@ public class TestNumberOriginalOps : MonoBehaviour, IStatistics
 
     float testMod()
     {
-        number tmp;
+        fp tmp;
         var time0 = DateTime.Now;
         for (int k = 0; k < 10; ++k)
             for (int m = 0; m < _random_count; ++m)
@@ -496,7 +496,7 @@ public class TestNumberOriginalOps : MonoBehaviour, IStatistics
         for (int k = 0; k < 10; ++k)
             for (int m = 0; m < _random_count; ++m)
                 for (int n = 0; n < _random_count; ++n)
-                    tmp = number.IsPositiveInfinity(_randoms[n]);
+                    tmp = fp.IsPositiveInfinity(_randoms[n]);
         double deltatime = (DateTime.Now - time0).TotalSeconds;
         return (float)(10 * loop_count / deltatime / 1000000.0f);
     }
@@ -508,7 +508,7 @@ public class TestNumberOriginalOps : MonoBehaviour, IStatistics
         for (int k = 0; k < 10; ++k)
             for (int m = 0; m < _random_count; ++m)
                 for (int n = 0; n < _random_count; ++n)
-                    tmp = number.IsNegativeInfinity(_randoms[n]);
+                    tmp = fp.IsNegativeInfinity(_randoms[n]);
         double deltatime = (DateTime.Now - time0).TotalSeconds;
         return (float)(10 * loop_count / deltatime / 1000000.0f);
     }
@@ -520,7 +520,7 @@ public class TestNumberOriginalOps : MonoBehaviour, IStatistics
         for (int k = 0; k < 10; ++k)
             for (int m = 0; m < _random_count; ++m)
                 for (int n = 0; n < _random_count; ++n)
-                    tmp = number.IsInfinity(_randoms[n]);
+                    tmp = fp.IsInfinity(_randoms[n]);
         double deltatime = (DateTime.Now - time0).TotalSeconds;
         return (float)(10 * loop_count / deltatime / 1000000.0f);
     }
@@ -532,7 +532,7 @@ public class TestNumberOriginalOps : MonoBehaviour, IStatistics
         for (int k = 0; k < 10; ++k)
             for (int m = 0; m < _random_count; ++m)
                 for (int n = 0; n < _random_count; ++n)
-                    tmp = number.IsNaN(_randoms[n]);
+                    tmp = fp.IsNaN(_randoms[n]);
         double deltatime = (DateTime.Now - time0).TotalSeconds;
         return (float)(10 * loop_count / deltatime / 1000000.0f);
     }
@@ -555,272 +555,272 @@ public class TestNumberOriginalOps : MonoBehaviour, IStatistics
         for (int k = 0; k < 10; ++k)
             for (int m = 0; m < _random_count; ++m)
                 for (int n = 0; n < _random_count; ++n)
-                    tmp = number.Sign(_randoms[n]);
+                    tmp = fp.Sign(_randoms[n]);
         double deltatime = (DateTime.Now - time0).TotalSeconds;
         return (float)(10 * loop_count / deltatime / 1000000.0f);
     }
 
     float testAbs()
     {
-        number tmp;
+        fp tmp;
         var time0 = DateTime.Now;
         for (int k = 0; k < 10; ++k)
             for (int m = 0; m < _random_count; ++m)
                 for (int n = 0; n < _random_count; ++n)
-                    tmp = number.Abs(_randoms[n]);
+                    tmp = fp.Abs(_randoms[n]);
         double deltatime = (DateTime.Now - time0).TotalSeconds;
         return (float)(10 * loop_count / deltatime / 1000000.0f);
     }
 
     float testFloor()
     {
-        number tmp;
+        fp tmp;
         var time0 = DateTime.Now;
         for (int k = 0; k < 10; ++k)
             for (int m = 0; m < _random_count; ++m)
                 for (int n = 0; n < _random_count; ++n)
-                    tmp = number.Floor(_randoms[n]);
+                    tmp = fp.Floor(_randoms[n]);
         double deltatime = (DateTime.Now - time0).TotalSeconds;
         return (float)(10 * loop_count / deltatime / 1000000.0f);
     }
 
     float testCeiling()
     {
-        number tmp;
+        fp tmp;
         var time0 = DateTime.Now;
         for (int k = 0; k < 10; ++k)
             for (int m = 0; m < _random_count; ++m)
                 for (int n = 0; n < _random_count; ++n)
-                    tmp = number.Ceiling(_randoms[n]);
+                    tmp = fp.Ceiling(_randoms[n]);
         double deltatime = (DateTime.Now - time0).TotalSeconds;
         return (float)(10 * loop_count / deltatime / 1000000.0f);
     }
 
     float testRound()
     {
-        number tmp;
+        fp tmp;
         var time0 = DateTime.Now;
         for (int k = 0; k < 10; ++k)
             for (int m = 0; m < _random_count; ++m)
                 for (int n = 0; n < _random_count; ++n)
-                    tmp = number.Round(_randoms[n]);
+                    tmp = fp.Round(_randoms[n]);
         double deltatime = (DateTime.Now - time0).TotalSeconds;
         return (float)(10 * loop_count / deltatime / 1000000.0f);
     }
 
     float testTrunc()
     {
-        number tmp;
+        fp tmp;
         var time0 = DateTime.Now;
         for (int k = 0; k < 10; ++k)
             for (int m = 0; m < _random_count; ++m)
                 for (int n = 0; n < _random_count; ++n)
-                    tmp = number.Truncate(_randoms[n]);
+                    tmp = fp.Truncate(_randoms[n]);
         double deltatime = (DateTime.Now - time0).TotalSeconds;
         return (float)(10 * loop_count / deltatime / 1000000.0f);
     }
 
     float testPow()
     {
-        number tmp;
+        fp tmp;
         var time0 = DateTime.Now;
         for (int m = 0; m < _random_count; ++m)
             for (int n = 0; n < _random_count; ++n)
-                tmp = number.Pow(_randoms[m], _randoms[n]);
+                tmp = fp.Pow(_randoms[m], _randoms[n]);
         double deltatime = (DateTime.Now - time0).TotalSeconds;
         return (float)(loop_count / deltatime / 1000000.0f);
     }
 
     float testSqrt()
     {
-        number tmp;
+        fp tmp;
         var time0 = DateTime.Now;
         for (int m = 0; m < _random_count; ++m)
             for (int n = 0; n < _random_count; ++n)
-                tmp = number.Sqrt(_randoms[n]);
+                tmp = fp.Sqrt(_randoms[n]);
         double deltatime = (DateTime.Now - time0).TotalSeconds;
         return (float)(loop_count / deltatime / 1000000.0f);
     }
 
     float testExp()
     {
-        number tmp;
+        fp tmp;
         var time0 = DateTime.Now;
         for (int m = 0; m < _random_count; ++m)
             for (int n = 0; n < _random_count; ++n)
-                tmp = number.Exp(_randoms[n]);
+                tmp = fp.Exp(_randoms[n]);
         double deltatime = (DateTime.Now - time0).TotalSeconds;
         return (float)(loop_count / deltatime / 1000000.0f);
     }
 
     float testLog()
     {
-        number tmp;
+        fp tmp;
         var time0 = DateTime.Now;
         for (int m = 0; m < _random_count; ++m)
             for (int n = 0; n < _random_count; ++n)
-                tmp = number.Log(_randoms[m], _randoms[n]);
+                tmp = fp.Log(_randoms[m], _randoms[n]);
         double deltatime = (DateTime.Now - time0).TotalSeconds;
         return (float)(loop_count / deltatime / 1000000.0f);
     }
 
     float testLog2()
     {
-        number tmp;
+        fp tmp;
         var time0 = DateTime.Now;
         for (int m = 0; m < _random_count; ++m)
             for (int n = 0; n < _random_count; ++n)
-                tmp = number.Log2(_randoms[n]);
+                tmp = fp.Log2(_randoms[n]);
         double deltatime = (DateTime.Now - time0).TotalSeconds;
         return (float)(loop_count / deltatime / 1000000.0f);
     }
 
     float testLog10()
     {
-        number tmp;
+        fp tmp;
         var time0 = DateTime.Now;
         for (int m = 0; m < _random_count; ++m)
             for (int n = 0; n < _random_count; ++n)
-                tmp = number.Log10(_randoms[n]);
+                tmp = fp.Log10(_randoms[n]);
         double deltatime = (DateTime.Now - time0).TotalSeconds;
         return (float)(loop_count / deltatime / 1000000.0f);
     }
 
     float testSin()
     {
-        number tmp;
+        fp tmp;
         var time0 = DateTime.Now;
         for (int m = 0; m < _random_count; ++m)
             for (int n = 0; n < _random_count; ++n)
-                tmp = number.Sin(_randoms[n]);
+                tmp = fp.Sin(_randoms[n]);
         double deltatime = (DateTime.Now - time0).TotalSeconds;
         return (float)(loop_count / deltatime / 1000000.0f);
     }
 
     float testCos()
     {
-        number tmp;
+        fp tmp;
         var time0 = DateTime.Now;
         for (int m = 0; m < _random_count; ++m)
             for (int n = 0; n < _random_count; ++n)
-                tmp = number.Cos(_randoms[n]);
+                tmp = fp.Cos(_randoms[n]);
         double deltatime = (DateTime.Now - time0).TotalSeconds;
         return (float)(loop_count / deltatime / 1000000.0f);
     }
 
     float testTan()
     {
-        number tmp;
+        fp tmp;
         var time0 = DateTime.Now;
         for (int m = 0; m < _random_count; ++m)
             for (int n = 0; n < _random_count; ++n)
-                tmp = number.Tan(_randoms[n]);
+                tmp = fp.Tan(_randoms[n]);
         double deltatime = (DateTime.Now - time0).TotalSeconds;
         return (float)(loop_count / deltatime / 1000000.0f);
     }
 
     float testAsin()
     {
-        number tmp;
+        fp tmp;
         var time0 = DateTime.Now;
         for (int m = 0; m < _random_count; ++m)
             for (int n = 0; n < _random_count; ++n)
-                tmp = number.Asin(_randoms[n]);
+                tmp = fp.Asin(_randoms[n]);
         double deltatime = (DateTime.Now - time0).TotalSeconds;
         return (float)(loop_count / deltatime / 1000000.0f);
     }
 
     float testACos()
     {
-        number tmp;
+        fp tmp;
         var time0 = DateTime.Now;
         for (int m = 0; m < _random_count; ++m)
             for (int n = 0; n < _random_count; ++n)
-                tmp = number.Acos(_randoms[n]);
+                tmp = fp.Acos(_randoms[n]);
         double deltatime = (DateTime.Now - time0).TotalSeconds;
         return (float)(loop_count / deltatime / 1000000.0f);
     }
 
     float testAtan()
     {
-        number tmp;
+        fp tmp;
         var time0 = DateTime.Now;
         for (int m = 0; m < _random_count; ++m)
             for (int n = 0; n < _random_count; ++n)
-                tmp = number.Atan(_randoms[n]);
+                tmp = fp.Atan(_randoms[n]);
         double deltatime = (DateTime.Now - time0).TotalSeconds;
         return (float)(loop_count / deltatime / 1000000.0f);
     }
 
     float testAtan2()
     {
-        number tmp;
+        fp tmp;
         var time0 = DateTime.Now;
         for (int m = 0; m < _random_count; ++m)
             for (int n = 0; n < _random_count; ++n)
-                tmp = number.Atan2(_randoms[m], _randoms[n]);
+                tmp = fp.Atan2(_randoms[m], _randoms[n]);
         double deltatime = (DateTime.Now - time0).TotalSeconds;
         return (float)(loop_count / deltatime / 1000000.0f);
     }
 
     float testSinh()
     {
-        number tmp;
+        fp tmp;
         var time0 = DateTime.Now;
         for (int m = 0; m < _random_count; ++m)
             for (int n = 0; n < _random_count; ++n)
-                tmp = number.Sinh(_randoms[n]);
+                tmp = fp.Sinh(_randoms[n]);
         double deltatime = (DateTime.Now - time0).TotalSeconds;
         return (float)(loop_count / deltatime / 1000000.0f);
     }
 
     float testCosh()
     {
-        number tmp;
+        fp tmp;
         var time0 = DateTime.Now;
         for (int m = 0; m < _random_count; ++m)
             for (int n = 0; n < _random_count; ++n)
-                tmp = number.Cosh(_randoms[n]);
+                tmp = fp.Cosh(_randoms[n]);
         double deltatime = (DateTime.Now - time0).TotalSeconds;
         return (float)(loop_count / deltatime / 1000000.0f);
     }
 
     float testTanh()
     {
-        number tmp;
+        fp tmp;
         var time0 = DateTime.Now;
         for (int m = 0; m < _random_count; ++m)
             for (int n = 0; n < _random_count; ++n)
-                tmp = number.Tanh(_randoms[n]);
+                tmp = fp.Tanh(_randoms[n]);
         double deltatime = (DateTime.Now - time0).TotalSeconds;
         return (float)(loop_count / deltatime / 1000000.0f);
     }
 
     float testMin()
     {
-        number tmp;
+        fp tmp;
         var time0 = DateTime.Now;
         for (int m = 0; m < _random_count; ++m)
             for (int n = 0; n < _random_count; ++n)
-                tmp = number.Min(_randoms[m], _randoms[n]);
+                tmp = fp.Min(_randoms[m], _randoms[n]);
         double deltatime = (DateTime.Now - time0).TotalSeconds;
         return (float)(loop_count / deltatime / 1000000.0f);
     }
 
     float testMax()
     {
-        number tmp;
+        fp tmp;
         var time0 = DateTime.Now;
         for (int m = 0; m < _random_count; ++m)
             for (int n = 0; n < _random_count; ++n)
-                tmp = number.Max(_randoms[m], _randoms[n]);
+                tmp = fp.Max(_randoms[m], _randoms[n]);
         double deltatime = (DateTime.Now - time0).TotalSeconds;
         return (float)(loop_count / deltatime / 1000000.0f);
     }
 
     float testLength()
     {
-        number tmp;
+        fp tmp;
         var time0 = DateTime.Now;
         for (int m = 0; m < _random_count; ++m)
             for (int n = 0; n < _random_count; ++n)
@@ -843,7 +843,7 @@ public class TestNumberOriginalOps : MonoBehaviour, IStatistics
 
     float testAngle()
     {
-        number tmp;
+        fp tmp;
         var time0 = DateTime.Now;
         for (int m = 0; m < _random_count; ++m)
             for (int n = 0; n < _random_count; ++n)

@@ -11,10 +11,10 @@ namespace Tests
 {
     public class TestMath
     {
-        (number, float) GetRandom1(float min = -99.0f, float max = 99.0f)
+        (fp, float) GetRandom1(float min = -99.0f, float max = 99.0f)
         {
             var r = Random.Range(min,max);
-            var num = number.ConvertFrom(r);
+            var num = fp.ConvertFrom(r);
 
             return (num, r);
         }
@@ -51,7 +51,7 @@ namespace Tests
         {
             TestRotation.InitLookupTable();
             // (var r1, var r2) = (number.ConvertFrom(-351.501f), -351.501f);
-            (var r1, var r2) = (number.ConvertFrom(1.5f), 1.5f);
+            (var r1, var r2) = (fp.ConvertFrom(1.5f), 1.5f);
             Assert.IsTrue(math.Approximately(math.tan(r1), Unity.Mathematics.math.tan(r2)), $"{math.tan(r1)} {Unity.Mathematics.math.tan(r2)} {r1} {r2}");
             Debug.LogError(math.tan(r1));
             Debug.LogError(Unity.Mathematics.math.tan(r2));

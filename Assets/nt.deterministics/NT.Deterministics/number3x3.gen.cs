@@ -26,7 +26,7 @@ namespace Nt.Deterministics
         public float3 c2;
 
         /// <summary>float3x3 identity transform.</summary>
-        public static readonly float3x3 identity = new float3x3((number)(1), (number)(0), (number)(0),   (number)(0), (number)(1), (number)(0),   (number)(0), (number)(0), (number)(1));
+        public static readonly float3x3 identity = new float3x3((fp)(1), (fp)(0), (fp)(0),   (fp)(0), (fp)(1), (fp)(0),   (fp)(0), (fp)(0), (fp)(1));
 
         /// <summary>float3x3 zero value.</summary>
         public static readonly float3x3 zero;
@@ -54,9 +54,9 @@ namespace Nt.Deterministics
         /// <param name="m21">The matrix at row 2, column 1 will be set to this value.</param>
         /// <param name="m22">The matrix at row 2, column 2 will be set to this value.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float3x3(number m00, number m01, number m02,
-                        number m10, number m11, number m12,
-                        number m20, number m21, number m22)
+        public float3x3(fp m00, fp m01, fp m02,
+                        fp m10, fp m11, fp m12,
+                        fp m20, fp m21, fp m22)
         {
             this.c0 = new float3(m00, m10, m20);
             this.c1 = new float3(m01, m11, m21);
@@ -66,7 +66,7 @@ namespace Nt.Deterministics
         /// <summary>Constructs a float3x3 matrix from a single number value by assigning it to every component.</summary>
         /// <param name="v">number to convert to float3x3</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float3x3(number v)
+        public float3x3(fp v)
         {
             this.c0 = v;
             this.c1 = v;
@@ -78,9 +78,9 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public float3x3(bool v)
         {
-            this.c0 = math.select(new float3((number)(0)), new float3((number)(1)), v);
-            this.c1 = math.select(new float3((number)(0)), new float3((number)(1)), v);
-            this.c2 = math.select(new float3((number)(0)), new float3((number)(1)), v);
+            this.c0 = math.select(new float3((fp)(0)), new float3((fp)(1)), v);
+            this.c1 = math.select(new float3((fp)(0)), new float3((fp)(1)), v);
+            this.c2 = math.select(new float3((fp)(0)), new float3((fp)(1)), v);
         }
 
         /// <summary>Constructs a float3x3 matrix from a Unity.Mathematics.bool3x3 matrix by componentwise conversion.</summary>
@@ -88,9 +88,9 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public float3x3(Unity.Mathematics.bool3x3 v)
         {
-            this.c0 = math.select(new float3((number)(0)), new float3((number)(1)), v.c0);
-            this.c1 = math.select(new float3((number)(0)), new float3((number)(1)), v.c1);
-            this.c2 = math.select(new float3((number)(0)), new float3((number)(1)), v.c2);
+            this.c0 = math.select(new float3((fp)(0)), new float3((fp)(1)), v.c0);
+            this.c1 = math.select(new float3((fp)(0)), new float3((fp)(1)), v.c1);
+            this.c2 = math.select(new float3((fp)(0)), new float3((fp)(1)), v.c2);
         }
 
         /// <summary>Constructs a float3x3 matrix from a single int value by converting it to number and assigning it to every component.</summary>
@@ -137,7 +137,7 @@ namespace Nt.Deterministics
         /// <param name="v">number to convert to float3x3</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator float3x3(number v) { return new float3x3(v); }
+        public static implicit operator float3x3(fp v) { return new float3x3(v); }
 
         /// <summary>Explicitly converts a single bool value to a float3x3 matrix by converting it to number and assigning it to every component.</summary>
         /// <param name="v">bool to convert to float3x3</param>
@@ -193,14 +193,14 @@ namespace Nt.Deterministics
         /// <param name="rhs">Right hand side number to use to compute componentwise multiplication.</param>
         /// <returns>float3x3 result of the componentwise multiplication.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3x3 operator * (float3x3 lhs, number rhs) { return new float3x3 (lhs.c0 * rhs, lhs.c1 * rhs, lhs.c2 * rhs); }
+        public static float3x3 operator * (float3x3 lhs, fp rhs) { return new float3x3 (lhs.c0 * rhs, lhs.c1 * rhs, lhs.c2 * rhs); }
 
         /// <summary>Returns the result of a componentwise multiplication operation on a number value and a float3x3 matrix.</summary>
         /// <param name="lhs">Left hand side number to use to compute componentwise multiplication.</param>
         /// <param name="rhs">Right hand side float3x3 to use to compute componentwise multiplication.</param>
         /// <returns>float3x3 result of the componentwise multiplication.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3x3 operator * (number lhs, float3x3 rhs) { return new float3x3 (lhs * rhs.c0, lhs * rhs.c1, lhs * rhs.c2); }
+        public static float3x3 operator * (fp lhs, float3x3 rhs) { return new float3x3 (lhs * rhs.c0, lhs * rhs.c1, lhs * rhs.c2); }
 
 
         /// <summary>Returns the result of a componentwise addition operation on two float3x3 matrices.</summary>
@@ -215,14 +215,14 @@ namespace Nt.Deterministics
         /// <param name="rhs">Right hand side number to use to compute componentwise addition.</param>
         /// <returns>float3x3 result of the componentwise addition.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3x3 operator + (float3x3 lhs, number rhs) { return new float3x3 (lhs.c0 + rhs, lhs.c1 + rhs, lhs.c2 + rhs); }
+        public static float3x3 operator + (float3x3 lhs, fp rhs) { return new float3x3 (lhs.c0 + rhs, lhs.c1 + rhs, lhs.c2 + rhs); }
 
         /// <summary>Returns the result of a componentwise addition operation on a number value and a float3x3 matrix.</summary>
         /// <param name="lhs">Left hand side number to use to compute componentwise addition.</param>
         /// <param name="rhs">Right hand side float3x3 to use to compute componentwise addition.</param>
         /// <returns>float3x3 result of the componentwise addition.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3x3 operator + (number lhs, float3x3 rhs) { return new float3x3 (lhs + rhs.c0, lhs + rhs.c1, lhs + rhs.c2); }
+        public static float3x3 operator + (fp lhs, float3x3 rhs) { return new float3x3 (lhs + rhs.c0, lhs + rhs.c1, lhs + rhs.c2); }
 
 
         /// <summary>Returns the result of a componentwise subtraction operation on two float3x3 matrices.</summary>
@@ -237,14 +237,14 @@ namespace Nt.Deterministics
         /// <param name="rhs">Right hand side number to use to compute componentwise subtraction.</param>
         /// <returns>float3x3 result of the componentwise subtraction.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3x3 operator - (float3x3 lhs, number rhs) { return new float3x3 (lhs.c0 - rhs, lhs.c1 - rhs, lhs.c2 - rhs); }
+        public static float3x3 operator - (float3x3 lhs, fp rhs) { return new float3x3 (lhs.c0 - rhs, lhs.c1 - rhs, lhs.c2 - rhs); }
 
         /// <summary>Returns the result of a componentwise subtraction operation on a number value and a float3x3 matrix.</summary>
         /// <param name="lhs">Left hand side number to use to compute componentwise subtraction.</param>
         /// <param name="rhs">Right hand side float3x3 to use to compute componentwise subtraction.</param>
         /// <returns>float3x3 result of the componentwise subtraction.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3x3 operator - (number lhs, float3x3 rhs) { return new float3x3 (lhs - rhs.c0, lhs - rhs.c1, lhs - rhs.c2); }
+        public static float3x3 operator - (fp lhs, float3x3 rhs) { return new float3x3 (lhs - rhs.c0, lhs - rhs.c1, lhs - rhs.c2); }
 
 
         /// <summary>Returns the result of a componentwise division operation on two float3x3 matrices.</summary>
@@ -259,14 +259,14 @@ namespace Nt.Deterministics
         /// <param name="rhs">Right hand side number to use to compute componentwise division.</param>
         /// <returns>float3x3 result of the componentwise division.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3x3 operator / (float3x3 lhs, number rhs) { return new float3x3 (lhs.c0 / rhs, lhs.c1 / rhs, lhs.c2 / rhs); }
+        public static float3x3 operator / (float3x3 lhs, fp rhs) { return new float3x3 (lhs.c0 / rhs, lhs.c1 / rhs, lhs.c2 / rhs); }
 
         /// <summary>Returns the result of a componentwise division operation on a number value and a float3x3 matrix.</summary>
         /// <param name="lhs">Left hand side number to use to compute componentwise division.</param>
         /// <param name="rhs">Right hand side float3x3 to use to compute componentwise division.</param>
         /// <returns>float3x3 result of the componentwise division.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3x3 operator / (number lhs, float3x3 rhs) { return new float3x3 (lhs / rhs.c0, lhs / rhs.c1, lhs / rhs.c2); }
+        public static float3x3 operator / (fp lhs, float3x3 rhs) { return new float3x3 (lhs / rhs.c0, lhs / rhs.c1, lhs / rhs.c2); }
 
 
         /// <summary>Returns the result of a componentwise modulus operation on two float3x3 matrices.</summary>
@@ -281,14 +281,14 @@ namespace Nt.Deterministics
         /// <param name="rhs">Right hand side number to use to compute componentwise modulus.</param>
         /// <returns>float3x3 result of the componentwise modulus.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3x3 operator % (float3x3 lhs, number rhs) { return new float3x3 (lhs.c0 % rhs, lhs.c1 % rhs, lhs.c2 % rhs); }
+        public static float3x3 operator % (float3x3 lhs, fp rhs) { return new float3x3 (lhs.c0 % rhs, lhs.c1 % rhs, lhs.c2 % rhs); }
 
         /// <summary>Returns the result of a componentwise modulus operation on a number value and a float3x3 matrix.</summary>
         /// <param name="lhs">Left hand side number to use to compute componentwise modulus.</param>
         /// <param name="rhs">Right hand side float3x3 to use to compute componentwise modulus.</param>
         /// <returns>float3x3 result of the componentwise modulus.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3x3 operator % (number lhs, float3x3 rhs) { return new float3x3 (lhs % rhs.c0, lhs % rhs.c1, lhs % rhs.c2); }
+        public static float3x3 operator % (fp lhs, float3x3 rhs) { return new float3x3 (lhs % rhs.c0, lhs % rhs.c1, lhs % rhs.c2); }
 
 
         /// <summary>Returns the result of a componentwise increment operation on a float3x3 matrix.</summary>
@@ -317,14 +317,14 @@ namespace Nt.Deterministics
         /// <param name="rhs">Right hand side number to use to compute componentwise less than.</param>
         /// <returns>Unity.Mathematics.bool3x3 result of the componentwise less than.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool3x3 operator < (float3x3 lhs, number rhs) { return new Unity.Mathematics.bool3x3 (lhs.c0 < rhs, lhs.c1 < rhs, lhs.c2 < rhs); }
+        public static Unity.Mathematics.bool3x3 operator < (float3x3 lhs, fp rhs) { return new Unity.Mathematics.bool3x3 (lhs.c0 < rhs, lhs.c1 < rhs, lhs.c2 < rhs); }
 
         /// <summary>Returns the result of a componentwise less than operation on a number value and a float3x3 matrix.</summary>
         /// <param name="lhs">Left hand side number to use to compute componentwise less than.</param>
         /// <param name="rhs">Right hand side float3x3 to use to compute componentwise less than.</param>
         /// <returns>Unity.Mathematics.bool3x3 result of the componentwise less than.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool3x3 operator < (number lhs, float3x3 rhs) { return new Unity.Mathematics.bool3x3 (lhs < rhs.c0, lhs < rhs.c1, lhs < rhs.c2); }
+        public static Unity.Mathematics.bool3x3 operator < (fp lhs, float3x3 rhs) { return new Unity.Mathematics.bool3x3 (lhs < rhs.c0, lhs < rhs.c1, lhs < rhs.c2); }
 
 
         /// <summary>Returns the result of a componentwise less or equal operation on two float3x3 matrices.</summary>
@@ -339,14 +339,14 @@ namespace Nt.Deterministics
         /// <param name="rhs">Right hand side number to use to compute componentwise less or equal.</param>
         /// <returns>Unity.Mathematics.bool3x3 result of the componentwise less or equal.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool3x3 operator <= (float3x3 lhs, number rhs) { return new Unity.Mathematics.bool3x3 (lhs.c0 <= rhs, lhs.c1 <= rhs, lhs.c2 <= rhs); }
+        public static Unity.Mathematics.bool3x3 operator <= (float3x3 lhs, fp rhs) { return new Unity.Mathematics.bool3x3 (lhs.c0 <= rhs, lhs.c1 <= rhs, lhs.c2 <= rhs); }
 
         /// <summary>Returns the result of a componentwise less or equal operation on a number value and a float3x3 matrix.</summary>
         /// <param name="lhs">Left hand side number to use to compute componentwise less or equal.</param>
         /// <param name="rhs">Right hand side float3x3 to use to compute componentwise less or equal.</param>
         /// <returns>Unity.Mathematics.bool3x3 result of the componentwise less or equal.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool3x3 operator <= (number lhs, float3x3 rhs) { return new Unity.Mathematics.bool3x3 (lhs <= rhs.c0, lhs <= rhs.c1, lhs <= rhs.c2); }
+        public static Unity.Mathematics.bool3x3 operator <= (fp lhs, float3x3 rhs) { return new Unity.Mathematics.bool3x3 (lhs <= rhs.c0, lhs <= rhs.c1, lhs <= rhs.c2); }
 
 
         /// <summary>Returns the result of a componentwise greater than operation on two float3x3 matrices.</summary>
@@ -361,14 +361,14 @@ namespace Nt.Deterministics
         /// <param name="rhs">Right hand side number to use to compute componentwise greater than.</param>
         /// <returns>Unity.Mathematics.bool3x3 result of the componentwise greater than.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool3x3 operator > (float3x3 lhs, number rhs) { return new Unity.Mathematics.bool3x3 (lhs.c0 > rhs, lhs.c1 > rhs, lhs.c2 > rhs); }
+        public static Unity.Mathematics.bool3x3 operator > (float3x3 lhs, fp rhs) { return new Unity.Mathematics.bool3x3 (lhs.c0 > rhs, lhs.c1 > rhs, lhs.c2 > rhs); }
 
         /// <summary>Returns the result of a componentwise greater than operation on a number value and a float3x3 matrix.</summary>
         /// <param name="lhs">Left hand side number to use to compute componentwise greater than.</param>
         /// <param name="rhs">Right hand side float3x3 to use to compute componentwise greater than.</param>
         /// <returns>Unity.Mathematics.bool3x3 result of the componentwise greater than.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool3x3 operator > (number lhs, float3x3 rhs) { return new Unity.Mathematics.bool3x3 (lhs > rhs.c0, lhs > rhs.c1, lhs > rhs.c2); }
+        public static Unity.Mathematics.bool3x3 operator > (fp lhs, float3x3 rhs) { return new Unity.Mathematics.bool3x3 (lhs > rhs.c0, lhs > rhs.c1, lhs > rhs.c2); }
 
 
         /// <summary>Returns the result of a componentwise greater or equal operation on two float3x3 matrices.</summary>
@@ -383,14 +383,14 @@ namespace Nt.Deterministics
         /// <param name="rhs">Right hand side number to use to compute componentwise greater or equal.</param>
         /// <returns>Unity.Mathematics.bool3x3 result of the componentwise greater or equal.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool3x3 operator >= (float3x3 lhs, number rhs) { return new Unity.Mathematics.bool3x3 (lhs.c0 >= rhs, lhs.c1 >= rhs, lhs.c2 >= rhs); }
+        public static Unity.Mathematics.bool3x3 operator >= (float3x3 lhs, fp rhs) { return new Unity.Mathematics.bool3x3 (lhs.c0 >= rhs, lhs.c1 >= rhs, lhs.c2 >= rhs); }
 
         /// <summary>Returns the result of a componentwise greater or equal operation on a number value and a float3x3 matrix.</summary>
         /// <param name="lhs">Left hand side number to use to compute componentwise greater or equal.</param>
         /// <param name="rhs">Right hand side float3x3 to use to compute componentwise greater or equal.</param>
         /// <returns>Unity.Mathematics.bool3x3 result of the componentwise greater or equal.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool3x3 operator >= (number lhs, float3x3 rhs) { return new Unity.Mathematics.bool3x3 (lhs >= rhs.c0, lhs >= rhs.c1, lhs >= rhs.c2); }
+        public static Unity.Mathematics.bool3x3 operator >= (fp lhs, float3x3 rhs) { return new Unity.Mathematics.bool3x3 (lhs >= rhs.c0, lhs >= rhs.c1, lhs >= rhs.c2); }
 
 
         /// <summary>Returns the result of a componentwise unary minus operation on a float3x3 matrix.</summary>
@@ -419,14 +419,14 @@ namespace Nt.Deterministics
         /// <param name="rhs">Right hand side number to use to compute componentwise equality.</param>
         /// <returns>Unity.Mathematics.bool3x3 result of the componentwise equality.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool3x3 operator == (float3x3 lhs, number rhs) { return new Unity.Mathematics.bool3x3 (lhs.c0 == rhs, lhs.c1 == rhs, lhs.c2 == rhs); }
+        public static Unity.Mathematics.bool3x3 operator == (float3x3 lhs, fp rhs) { return new Unity.Mathematics.bool3x3 (lhs.c0 == rhs, lhs.c1 == rhs, lhs.c2 == rhs); }
 
         /// <summary>Returns the result of a componentwise equality operation on a number value and a float3x3 matrix.</summary>
         /// <param name="lhs">Left hand side number to use to compute componentwise equality.</param>
         /// <param name="rhs">Right hand side float3x3 to use to compute componentwise equality.</param>
         /// <returns>Unity.Mathematics.bool3x3 result of the componentwise equality.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool3x3 operator == (number lhs, float3x3 rhs) { return new Unity.Mathematics.bool3x3 (lhs == rhs.c0, lhs == rhs.c1, lhs == rhs.c2); }
+        public static Unity.Mathematics.bool3x3 operator == (fp lhs, float3x3 rhs) { return new Unity.Mathematics.bool3x3 (lhs == rhs.c0, lhs == rhs.c1, lhs == rhs.c2); }
 
 
         /// <summary>Returns the result of a componentwise not equal operation on two float3x3 matrices.</summary>
@@ -441,14 +441,14 @@ namespace Nt.Deterministics
         /// <param name="rhs">Right hand side number to use to compute componentwise not equal.</param>
         /// <returns>Unity.Mathematics.bool3x3 result of the componentwise not equal.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool3x3 operator != (float3x3 lhs, number rhs) { return new Unity.Mathematics.bool3x3 (lhs.c0 != rhs, lhs.c1 != rhs, lhs.c2 != rhs); }
+        public static Unity.Mathematics.bool3x3 operator != (float3x3 lhs, fp rhs) { return new Unity.Mathematics.bool3x3 (lhs.c0 != rhs, lhs.c1 != rhs, lhs.c2 != rhs); }
 
         /// <summary>Returns the result of a componentwise not equal operation on a number value and a float3x3 matrix.</summary>
         /// <param name="lhs">Left hand side number to use to compute componentwise not equal.</param>
         /// <param name="rhs">Right hand side float3x3 to use to compute componentwise not equal.</param>
         /// <returns>Unity.Mathematics.bool3x3 result of the componentwise not equal.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool3x3 operator != (number lhs, float3x3 rhs) { return new Unity.Mathematics.bool3x3 (lhs != rhs.c0, lhs != rhs.c1, lhs != rhs.c2); }
+        public static Unity.Mathematics.bool3x3 operator != (fp lhs, float3x3 rhs) { return new Unity.Mathematics.bool3x3 (lhs != rhs.c0, lhs != rhs.c1, lhs != rhs.c2); }
 
         /// <summary>Returns the float3 element at a specified index.</summary>
         unsafe public ref float3 this[int index]
@@ -523,9 +523,9 @@ namespace Nt.Deterministics
         /// <param name="m22">The matrix at row 2, column 2 will be set to this value.</param>
         /// <returns>float3x3 constructed from arguments.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3x3 float3x3(number m00, number m01, number m02,
-                                        number m10, number m11, number m12,
-                                        number m20, number m21, number m22)
+        public static float3x3 float3x3(fp m00, fp m01, fp m02,
+                                        fp m10, fp m11, fp m12,
+                                        fp m20, fp m21, fp m22)
         {
             return new float3x3(m00, m01, m02,
                                 m10, m11, m12,
@@ -536,7 +536,7 @@ namespace Nt.Deterministics
         /// <param name="v">number to convert to float3x3</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3x3 float3x3(number v) { return new float3x3(v); }
+        public static float3x3 float3x3(fp v) { return new float3x3(v); }
 
         /// <summary>Returns a float3x3 matrix constructed from a single bool value by converting it to number and assigning it to every component.</summary>
         /// <param name="v">bool to convert to float3x3</param>

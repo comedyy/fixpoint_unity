@@ -22,12 +22,12 @@ namespace Nt.Deterministics
 #endif
     [System.Serializable]
     [StructLayout(LayoutKind.Explicit)]
-    public struct number : IEquatable<number>, IComparable<number>
+    public struct fp : IEquatable<fp>, IComparable<fp>
     {
         [FieldOffset(0)]
         public long RawValue;
         #region 静态常量
-        public static readonly number _0_9995 = Create(0, 9995);
+        public static readonly fp _0_9995 = Create(0, 9995);
         //public static readonly decimal Precision = (decimal)MinNormal;
         //public static readonly number one = new number(ONE);
         //public static readonly number zero = new number();
@@ -47,202 +47,202 @@ namespace Nt.Deterministics
         //public static readonly number MaxInteger = new number(MaxValue.RawValue & IntegerMask);
 
         //以上写法在导出IL2CPP代码时会导出IL2CPP_RUNTIME_CLASS_INIT运行时代理，导致性能下降；因而改用以下写法
-        public unsafe static number MinNormal
+        public unsafe static fp MinNormal
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
                 long raw = 1L;
-                return *(number*)(&raw);
+                return *(fp*)(&raw);
             }
         }
-        public unsafe static number one
+        public unsafe static fp one
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
                 long raw = ONE;
-                return *(number*)(&raw);
+                return *(fp*)(&raw);
             }
         }
-        public unsafe static number two
+        public unsafe static fp two
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
                 long raw = ONE;
-                return *(number*)(&raw);
+                return *(fp*)(&raw);
             }
         }
-        public unsafe static number three
+        public unsafe static fp three
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
                 long raw = ONE;
-                return *(number*)(&raw);
+                return *(fp*)(&raw);
             }
         }
-        public unsafe static number half
+        public unsafe static fp half
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
                 long raw = HALF;
-                return *(number*)(&raw);
+                return *(fp*)(&raw);
             }
         }
-        public unsafe static number zero
+        public unsafe static fp zero
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
                 long raw = 0L;
-                return *(number*)(&raw);
+                return *(fp*)(&raw);
             }
         }
-        public unsafe static number PIDiv2
+        public unsafe static fp PIDiv2
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
                 long raw = PiDiv2;
-                return *(number*)(&raw);
+                return *(fp*)(&raw);
             }
         }
-        public unsafe static number PI
+        public unsafe static fp PI
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
                 long raw = Pi;
-                return *(number*)(&raw);
+                return *(fp*)(&raw);
             }
         }
-        public unsafe static number PI3Div2
+        public unsafe static fp PI3Div2
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
                 long raw = Pi3Div2;
-                return *(number*)(&raw);
+                return *(fp*)(&raw);
             }
         }
-        public unsafe static number PITimes2
+        public unsafe static fp PITimes2
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
                 long raw = PiTimes2;
-                return *(number*)(&raw);
+                return *(fp*)(&raw);
             }
         }
-        public unsafe static number PIOver180
+        public unsafe static fp PIOver180
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
                 long raw = 72L;
-                return *(number*)(&raw);
+                return *(fp*)(&raw);
             }
         }
-        public unsafe static number Rad2Deg
+        public unsafe static fp Rad2Deg
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
                 long raw = nRad2Deg;
-                return *(number*)(&raw);
+                return *(fp*)(&raw);
             }
         }
-        public unsafe static number Deg2Rad
+        public unsafe static fp Deg2Rad
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
                 long raw = nDeg2Rad;
-                return *(number*)(&raw);
+                return *(fp*)(&raw);
             }
         }
-        public unsafe static number EXP
+        public unsafe static fp EXP
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
                 long raw = lExp;
-                return *(number*)(&raw);
+                return *(fp*)(&raw);
             }
         }
-        public unsafe static number NaN
+        public unsafe static fp NaN
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
                 long raw = long.MinValue;
-                return *(number*)(&raw);
+                return *(fp*)(&raw);
             }
         }
-        public unsafe static number PositiveInfinity
+        public unsafe static fp PositiveInfinity
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
                 long raw = long.MaxValue;
-                return *(number*)(&raw);
+                return *(fp*)(&raw);
             }
         }
-        public unsafe static number MaxValue
+        public unsafe static fp MaxValue
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
                 long raw = long.MaxValue - 1L;
-                return *(number*)(&raw);
+                return *(fp*)(&raw);
             }
         }
-        public unsafe static number NegativeInfinity
+        public unsafe static fp NegativeInfinity
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
                 long raw = long.MinValue + 1L;
-                return *(number*)(&raw);
+                return *(fp*)(&raw);
             }
         }
-        public unsafe static number MinValue
+        public unsafe static fp MinValue
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
                 long raw = long.MinValue + 2L;
-                return *(number*)(&raw);
+                return *(fp*)(&raw);
             }
         }
-        public unsafe static number MaxInteger
+        public unsafe static fp MaxInteger
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
                 long raw = nMaxInteger;
-                return *(number*)(&raw);
+                return *(fp*)(&raw);
             }
         }
-        public unsafe static number Small
+        public unsafe static fp Small
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
                 long small = SMALL;
-                return *(number*)(&small);
+                return *(fp*)(&small);
             }
         }
-        public unsafe static number SmallSqr
+        public unsafe static fp SmallSqr
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
                 long small_sqrt = SMALL_SQRT;
-                return *(number*)(&small_sqrt);
+                return *(fp*)(&small_sqrt);
             }
         }
         #endregion
@@ -270,87 +270,87 @@ namespace Nt.Deterministics
         const long LowPlaceMask = ~HighPlaceMask;
         const long WaterShed = 1L << (sizeof(long) - FRACTIONAL_PLACES - 2);//用于判断左移是否越界
 
-        internal number(long rawValue)
+        internal fp(long rawValue)
         {
             RawValue = rawValue;
         }
-        public number(int value)
+        public fp(int value)
         {
             RawValue = (long)value << FRACTIONAL_PLACES;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FromRaw(long rawValue) => new number(rawValue);
+        public static fp FromRaw(long rawValue) => new fp(rawValue);
 
         #region operator +、-、*、/
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator +(number x, number y)
+        public static fp operator +(fp x, fp y)
         {
             x.RawValue += y.RawValue;
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator -(number x, number y)
+        public static fp operator -(fp x, fp y)
         {
             x.RawValue -= y.RawValue;
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator *(number x, number y)
+        public static fp operator *(fp x, fp y)
         {
             x.RawValue = (x.RawValue * y.RawValue) >> FRACTIONAL_PLACES;
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator /(number x, number y)
+        public static fp operator /(fp x, fp y)
         {
             x.RawValue = (x.RawValue << FRACTIONAL_PLACES) / y.RawValue;
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator +(number x, int y)
+        public static fp operator +(fp x, int y)
         {
             x.RawValue += (long)y << FRACTIONAL_PLACES;
             return x;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator +(int x, number y)
+        public static fp operator +(int x, fp y)
         {
             y.RawValue += (long)x << FRACTIONAL_PLACES;
             return y;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator -(number x, int y)
+        public static fp operator -(fp x, int y)
         {
             x.RawValue -= (long)y << FRACTIONAL_PLACES;
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator -(int x, number y)
+        public static fp operator -(int x, fp y)
         {
             y.RawValue = ((long)x << FRACTIONAL_PLACES) - y.RawValue;
             return y;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator *(number x, int y)
+        public static fp operator *(fp x, int y)
         {
             x.RawValue *= y;
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator *(int x, number y)
+        public static fp operator *(int x, fp y)
         {
             y.RawValue *= x;
             return y;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator /(number x, int y)
+        public static fp operator /(fp x, int y)
         {
             x.RawValue /= y;
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator /(int x, number y)
+        public static fp operator /(int x, fp y)
         {
             long rawValue = (long)x << (FRACTIONAL_PLACES * 2);
             y.RawValue = rawValue / y.RawValue;
@@ -360,13 +360,13 @@ namespace Nt.Deterministics
 
          #region operator ++、--
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator ++(number x)
+        public static fp operator ++(fp x)
         {
             x.RawValue += ONE;
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator --(number x)
+        public static fp operator --(fp x)
         {
             x.RawValue -= ONE;
             return x;
@@ -375,19 +375,19 @@ namespace Nt.Deterministics
 
         #region operator 求余、取正、取反
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator %(number x, number y)
+        public static fp operator %(fp x, fp y)
         {
             x.RawValue %= y.RawValue;
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator %(number x, int y)
+        public static fp operator %(fp x, int y)
         {
             x.RawValue %= (long)y << FRACTIONAL_PLACES;
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator %(int x, number y)
+        public static fp operator %(int x, fp y)
         {
 #if NT_STRICT_NUMBER || NT_NUMBER_BY_FLOAT
             return (number)x % y;
@@ -397,9 +397,9 @@ namespace Nt.Deterministics
 #endif
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator +(number x) => x;
+        public static fp operator +(fp x) => x;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator -(number x)
+        public static fp operator -(fp x)
         {
             x.RawValue = -x.RawValue;
             return x;
@@ -408,92 +408,92 @@ namespace Nt.Deterministics
 
         #region operator ==、!=、>、<、>=、<=
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(number x, number y)
+        public static bool operator ==(fp x, fp y)
         {
             return x.RawValue == y.RawValue;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(number x, int y)
+        public static bool operator ==(fp x, int y)
         {
             return x.RawValue == ((long)y << FRACTIONAL_PLACES);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(int x, number y)
+        public static bool operator ==(int x, fp y)
         {
             return y.RawValue == ((long)x << FRACTIONAL_PLACES);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(number x, int y)
+        public static bool operator !=(fp x, int y)
         {
             return x.RawValue != ((long)y << FRACTIONAL_PLACES);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(int x, number y)
+        public static bool operator !=(int x, fp y)
         {
             return y.RawValue != ((long)x << FRACTIONAL_PLACES);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(number x, number y)
+        public static bool operator !=(fp x, fp y)
         {
             return x.RawValue != y.RawValue;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator >(number x, number y)
+        public static bool operator >(fp x, fp y)
         {
             return x.RawValue > y.RawValue;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator <(number x, number y)
+        public static bool operator <(fp x, fp y)
         {
             return x.RawValue < y.RawValue;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator >(number x, int y)
+        public static bool operator >(fp x, int y)
         {
             return x.RawValue > ((long)y << FRACTIONAL_PLACES);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator >(int x, number y)
+        public static bool operator >(int x, fp y)
         {
             return y.RawValue < ((long)x << FRACTIONAL_PLACES);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator >=(number x, int y)
+        public static bool operator >=(fp x, int y)
         {
             return x.RawValue >= ((long)y << FRACTIONAL_PLACES);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator >=(int x, number y)
+        public static bool operator >=(int x, fp y)
         {
             return ((long)x << FRACTIONAL_PLACES) >= y.RawValue;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator <=(number x, int y)
+        public static bool operator <=(fp x, int y)
         {
             return x.RawValue <= ((long)y << FRACTIONAL_PLACES);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator <=(int x, number y)
+        public static bool operator <=(int x, fp y)
         {
             return ((long)x << FRACTIONAL_PLACES) <= y.RawValue;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator <(number x, int y)
+        public static bool operator <(fp x, int y)
         {
             return x.RawValue < ((long)y << FRACTIONAL_PLACES);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator <(int x, number y)
+        public static bool operator <(int x, fp y)
         {
             return ((long)x << FRACTIONAL_PLACES) < y.RawValue;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator >=(number x, number y)
+        public static bool operator >=(fp x, fp y)
         {
             return x.RawValue >= y.RawValue;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator <=(number x, number y)
+        public static bool operator <=(fp x, fp y)
         {
             return x.RawValue <= y.RawValue;
         }
@@ -501,31 +501,31 @@ namespace Nt.Deterministics
 
         #region operator convert from/to long、float、int、double、decimal
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator float(number value) => (float)value.RawValue / ONE;
-        public static implicit operator number(int value) => new number((long)value << FRACTIONAL_PLACES);
-        public static implicit operator number(uint value) => new number((long)value << FRACTIONAL_PLACES);
+        public static implicit operator float(fp value) => (float)value.RawValue / ONE;
+        public static implicit operator fp(int value) => new fp((long)value << FRACTIONAL_PLACES);
+        public static implicit operator fp(uint value) => new fp((long)value << FRACTIONAL_PLACES);
         #endregion
 
         #region IsPositiveInfinity、IsNegativeInfinity、IsInfinity、IsNaN
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsPositiveInfinity(number x) => x.RawValue == PositiveInfinity.RawValue;
+        public static bool IsPositiveInfinity(fp x) => x.RawValue == PositiveInfinity.RawValue;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsNegativeInfinity(number x) => x.RawValue == NegativeInfinity.RawValue;
+        public static bool IsNegativeInfinity(fp x) => x.RawValue == NegativeInfinity.RawValue;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsInfinity(number x) => x.RawValue == PositiveInfinity.RawValue || x.RawValue == NegativeInfinity.RawValue;
+        public static bool IsInfinity(fp x) => x.RawValue == PositiveInfinity.RawValue || x.RawValue == NegativeInfinity.RawValue;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsNaN(number x) => x.RawValue == NaN.RawValue;
+        public static bool IsNaN(fp x) => x.RawValue == NaN.RawValue;
         #endregion
 
         #region Equals、CompareTo、GetHashCode
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj) => obj is number && RawValue == ((number)obj).RawValue;
+        public override bool Equals(object obj) => obj is fp && RawValue == ((fp)obj).RawValue;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(number other) => RawValue == other.RawValue;
+        public bool Equals(fp other) => RawValue == other.RawValue;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public int CompareTo(number other) => RawValue.CompareTo(other.RawValue);
+        public int CompareTo(fp other) => RawValue.CompareTo(other.RawValue);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public int CompareTo(object obj) => obj is number f ? RawValue.CompareTo(((number)obj).RawValue) : throw new ArgumentException("obj");
+        public int CompareTo(object obj) => obj is fp f ? RawValue.CompareTo(((fp)obj).RawValue) : throw new ArgumentException("obj");
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode() => RawValue.GetHashCode();
         #endregion
@@ -577,20 +577,20 @@ namespace Nt.Deterministics
 
         #region Sign、Abs、Floor、Ceiling、Round、Truncate
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Floor(number value)
+        public static fp Floor(fp value)
         {
             value.RawValue &= IntegerMask;
             return value;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Ceiling(number value)
+        public static fp Ceiling(fp value)
         {
             if ((value.RawValue & FracMask) != 0L)
                 value.RawValue = (value.RawValue + ONE) & IntegerMask;
             return value;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Round(number x)
+        public static fp Round(fp x)
         {
             int sign = x.RawValue < 0 ? -1 : 1;
             if (sign < 0)
@@ -607,29 +607,29 @@ namespace Nt.Deterministics
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Truncate(number x)
+        public static fp Truncate(fp x)
         {
             int sign = x.RawValue < 0 ? -1 : 1;
             x.RawValue = sign * ((sign * x.RawValue) & IntegerMask);
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int Sign(number value) => value.RawValue.CompareTo(0L);
+        public static int Sign(fp value) => value.RawValue.CompareTo(0L);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Abs(number value)
+        public static fp Abs(fp value)
         {
             if (value.RawValue < 0L)
                 value.RawValue = -value.RawValue;
             return value;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FastFloor(number value)
+        public static fp FastFloor(fp value)
         {
             value.RawValue &= IntegerMask;
             return value;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number StrictFloor(number value)
+        public static fp StrictFloor(fp value)
         {
             if (value.RawValue == NaN.RawValue) return value;
             if (value.RawValue == PositiveInfinity.RawValue || value.RawValue == NegativeInfinity.RawValue) return value;
@@ -638,20 +638,20 @@ namespace Nt.Deterministics
             return value;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FloatFloor(number value)
+        public static fp FloatFloor(fp value)
         {
             value.RawValue = ONE * (long)Math.Floor((double)value.RawValue / ONE);
             return value;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FastCeiling(number value)
+        public static fp FastCeiling(fp value)
         {
             if ((value.RawValue & FracMask) != 0L)
                 value.RawValue = (value.RawValue + ONE) & IntegerMask;
             return value;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number StrictCeiling(number value)
+        public static fp StrictCeiling(fp value)
         {
             if (value.RawValue == NaN.RawValue) return value;
             if (value.RawValue == PositiveInfinity.RawValue || value.RawValue == NegativeInfinity.RawValue) return value;
@@ -662,13 +662,13 @@ namespace Nt.Deterministics
             return value;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FloatCeiling(number value)
+        public static fp FloatCeiling(fp value)
         {
             value.RawValue = ONE * (long)Math.Ceiling((double)value.RawValue / ONE);
             return value;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FastRound(number x)
+        public static fp FastRound(fp x)
         {
             int sign = x.RawValue < 0 ? -1 : 1;
             if (sign < 0)
@@ -685,7 +685,7 @@ namespace Nt.Deterministics
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number StrictRound(number x)
+        public static fp StrictRound(fp x)
         {
             if (x.RawValue == NaN.RawValue) return x;
             if (x.RawValue == PositiveInfinity.RawValue || x.RawValue == NegativeInfinity.RawValue) return x;
@@ -706,20 +706,20 @@ namespace Nt.Deterministics
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FloatRound(number x)
+        public static fp FloatRound(fp x)
         {
             x.RawValue = ONE * (long)Math.Round((double)x.RawValue / ONE);
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FastTruncate(number x)
+        public static fp FastTruncate(fp x)
         {
             int sign = x.RawValue < 0 ? -1 : 1;
             x.RawValue = sign * ((sign * x.RawValue) & IntegerMask);
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number StrictTruncate(number x)
+        public static fp StrictTruncate(fp x)
         {
             if (x.RawValue == NaN.RawValue) return x;
             if (x.RawValue == PositiveInfinity.RawValue || x.RawValue == NegativeInfinity.RawValue) return x;
@@ -728,7 +728,7 @@ namespace Nt.Deterministics
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FloatTruncate(number x)
+        public static fp FloatTruncate(fp x)
         {
             x.RawValue = ONE * (long)Math.Truncate((double)x.RawValue / ONE);
             return x;
@@ -737,43 +737,43 @@ namespace Nt.Deterministics
 
         #region Sqrt、Pow、Exp、Log、Log2、Log10
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Sqrt(number x)
+        public static fp Sqrt(fp x)
         {
             x.RawValue = SqrtRaw(x.RawValue);
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Pow(number nbase, number x)
+        public static fp Pow(fp nbase, fp x)
         {
             nbase.RawValue = PowRaw(nbase.RawValue, x.RawValue);
             return nbase;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Exp(number x)
+        public static fp Exp(fp x)
         {
             x.RawValue = PowRaw(EXP.RawValue, x.RawValue);
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Log(number x, number nbase)
+        public static fp Log(fp x, fp nbase)
         {
             x.RawValue = LogRaw(x.RawValue, nbase.RawValue);
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Log(number x)
+        public static fp Log(fp x)
         {
             x.RawValue = LogRaw(x.RawValue, EXP.RawValue);
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Log2(number x)
+        public static fp Log2(fp x)
         {
             x.RawValue = LogRaw(x.RawValue, 2L << FRACTIONAL_PLACES);
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Log10(number x)
+        public static fp Log10(fp x)
         {
             x.RawValue = LogRaw(x.RawValue, 10L << FRACTIONAL_PLACES);
             return x;
@@ -802,13 +802,13 @@ namespace Nt.Deterministics
             return sValue;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FastSqrt(number value)
+        public static fp FastSqrt(fp value)
         {
             value.RawValue = SqrtRaw(value.RawValue);
             return value;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number StrictSqrt(number value)
+        public static fp StrictSqrt(fp value)
         {
             if (value.RawValue == NaN.RawValue || value.RawValue < 0) return NaN;
             if (value.RawValue == PositiveInfinity.RawValue || value.RawValue == NegativeInfinity.RawValue) return value;
@@ -816,7 +816,7 @@ namespace Nt.Deterministics
             return value;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FloatSqrt(number x)
+        public static fp FloatSqrt(fp x)
         {
             x.RawValue = (long)(ONE * Math.Sqrt((double)x.RawValue / ONE));
             return x;
@@ -856,13 +856,13 @@ namespace Nt.Deterministics
             return isneg ? (ONE << FRACTIONAL_PLACES) / ret : ret;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FastPow(number nbase, number x)
+        public static fp FastPow(fp nbase, fp x)
         {
             nbase.RawValue = PowRaw(nbase.RawValue, x.RawValue);
             return nbase;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number StrictPow(number nbase, number x)
+        public static fp StrictPow(fp nbase, fp x)
         {
             if (nbase.RawValue == NaN.RawValue || x.RawValue == NaN.RawValue) return NaN;
             if (nbase.RawValue == ONE) return one;
@@ -881,21 +881,21 @@ namespace Nt.Deterministics
             return nbase;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FloatPow(number nbase, number x)
+        public static fp FloatPow(fp nbase, fp x)
         {
             nbase.RawValue = (long)(ONE * Math.Pow((double)nbase.RawValue / ONE, (double)x.RawValue / ONE));
             return nbase;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FastExp(number x)
+        public static fp FastExp(fp x)
         {
             x.RawValue = PowRaw(EXP.RawValue, x.RawValue);
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number StrictExp(number x) => StrictPow(EXP, x);
+        public static fp StrictExp(fp x) => StrictPow(EXP, x);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FloatExp(number x)
+        public static fp FloatExp(fp x)
         {
             x.RawValue = (long)(ONE * Math.Exp((double)x.RawValue / ONE));
             return x;
@@ -933,13 +933,13 @@ namespace Nt.Deterministics
 
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FastLog(number x, number nbase)
+        public static fp FastLog(fp x, fp nbase)
         {
             x.RawValue = LogRaw(x.RawValue, nbase.RawValue);
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number StrictLog(number x, number nbase)
+        public static fp StrictLog(fp x, fp nbase)
         {
             if (x.RawValue <= 0L || nbase.RawValue < 0L) return NaN;
             if (nbase.RawValue == 0L) return x.RawValue == 0L ? one : NaN;
@@ -952,35 +952,35 @@ namespace Nt.Deterministics
             return nbase;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FloatLog(number x, number nbase)
+        public static fp FloatLog(fp x, fp nbase)
         {
             x.RawValue = (long)(ONE * Math.Log((double)x.RawValue / ONE, (double)nbase.RawValue / ONE));
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FastLog2(number x)
+        public static fp FastLog2(fp x)
         {
             x.RawValue = LogRaw(x.RawValue, 2L << FRACTIONAL_PLACES);
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number StrictLog2(number x) => StrictLog(x, (number)2);
+        public static fp StrictLog2(fp x) => StrictLog(x, (fp)2);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FloatLog2(number x)
+        public static fp FloatLog2(fp x)
         {
             x.RawValue = (long)(ONE * Math.Log((double)x.RawValue / ONE, 2.0));
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FastLog10(number x)
+        public static fp FastLog10(fp x)
         {
             x.RawValue = LogRaw(x.RawValue, 10L << FRACTIONAL_PLACES);
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number StrictLog10(number x) => StrictLog(x, (number)10);
+        public static fp StrictLog10(fp x) => StrictLog(x, (fp)10);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FloatLog10(number x)
+        public static fp FloatLog10(fp x)
         {
             x.RawValue = (long)(ONE * Math.Log10((double)x.RawValue / ONE));
             return x;
@@ -989,7 +989,7 @@ namespace Nt.Deterministics
 
         #region Sin, Cos, Tan, Asin, Acos, Atan, Atan2
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Sin(number rad)
+        public static fp Sin(fp rad)
         {
             rad.RawValue %= PiTimes2;
             if (rad.RawValue < -Pi)
@@ -1004,7 +1004,7 @@ namespace Nt.Deterministics
             return rad;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Cos(number rad)
+        public static fp Cos(fp rad)
         {
             rad.RawValue %= PiTimes2;
             if (rad.RawValue < -Pi)
@@ -1019,7 +1019,7 @@ namespace Nt.Deterministics
             return rad;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Tan(number rad)
+        public static fp Tan(fp rad)
         {
             if (rad.RawValue < -Pi)
                 rad.RawValue %= -Pi;
@@ -1033,7 +1033,7 @@ namespace Nt.Deterministics
             return rad;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Asin(number value)
+        public static fp Asin(fp value)
         {
             if (value.RawValue < -ONE || value.RawValue > ONE) return NaN;
 #if !NO_NUMBER_SUPPORT_BURST
@@ -1044,7 +1044,7 @@ namespace Nt.Deterministics
             return value;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Acos(number value)
+        public static fp Acos(fp value)
         {
             if (value.RawValue < -ONE || value.RawValue > ONE) return NaN;
 #if !NO_NUMBER_SUPPORT_BURST
@@ -1055,19 +1055,19 @@ namespace Nt.Deterministics
             return value;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Atan(number value)
+        public static fp Atan(fp value)
         {
             value.RawValue = AtanRaw(value.RawValue);
             return value;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Atan2(number y, number x)
+        public static fp Atan2(fp y, fp x)
         {
             y.RawValue = Atan2Raw(y.RawValue, x.RawValue);
             return y;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FastSin(number rad)
+        public static fp FastSin(fp rad)
         {
             rad.RawValue %= PiTimes2;
             if (rad.RawValue < -Pi)
@@ -1082,7 +1082,7 @@ namespace Nt.Deterministics
             return rad;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number StrictSin(number rad)
+        public static fp StrictSin(fp rad)
         {
             if (rad.RawValue == NaN.RawValue) return NaN;
             if (rad.RawValue == PositiveInfinity.RawValue || rad.RawValue == NegativeInfinity.RawValue) return NaN;
@@ -1100,13 +1100,13 @@ namespace Nt.Deterministics
             return rad;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FloatSin(number rad)
+        public static fp FloatSin(fp rad)
         {
             rad.RawValue = (long)(ONE * Math.Sin((double)rad.RawValue / ONE));
             return rad;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FastCos(number rad)
+        public static fp FastCos(fp rad)
         {
             rad.RawValue %= PiTimes2;
             if (rad.RawValue < -Pi)
@@ -1121,7 +1121,7 @@ namespace Nt.Deterministics
             return rad;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number StrictCos(number rad)
+        public static fp StrictCos(fp rad)
         {
             if (rad.RawValue == NaN.RawValue) return NaN;
             if (rad.RawValue == PositiveInfinity.RawValue || rad.RawValue == NegativeInfinity.RawValue) return NaN;
@@ -1140,13 +1140,13 @@ namespace Nt.Deterministics
 
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FloatCos(number rad)
+        public static fp FloatCos(fp rad)
         {
             rad.RawValue = (long)(ONE * Math.Sin(((double)rad.RawValue + PiDiv2) / ONE));
             return rad;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FastTan(number rad)
+        public static fp FastTan(fp rad)
         {
             if (rad.RawValue < -Pi)
                 rad.RawValue %= -Pi;
@@ -1160,7 +1160,7 @@ namespace Nt.Deterministics
             return rad;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number StrictTan(number rad)
+        public static fp StrictTan(fp rad)
         {
             if (rad.RawValue == NaN.RawValue) return NaN;
             if (rad.RawValue == PositiveInfinity.RawValue || rad.RawValue == NegativeInfinity.RawValue) return NaN;
@@ -1177,13 +1177,13 @@ namespace Nt.Deterministics
             return rad;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FloatTan(number rad)
+        public static fp FloatTan(fp rad)
         {
             rad.RawValue = (long)(ONE * Math.Tan(((double)rad.RawValue + PiDiv2) / ONE));
             return rad;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FastAsin(number value)
+        public static fp FastAsin(fp value)
         {
             if (value.RawValue < -ONE || value.RawValue > ONE) return NaN;
 #if !NO_NUMBER_SUPPORT_BURST
@@ -1194,7 +1194,7 @@ namespace Nt.Deterministics
             return value;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number StrictAsin(number value)
+        public static fp StrictAsin(fp value)
         {
             if (value.RawValue == NaN.RawValue) return NaN;
             if (value.RawValue < -ONE || value.RawValue > ONE) return NaN;
@@ -1206,13 +1206,13 @@ namespace Nt.Deterministics
             return value;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FloatAsin(number value)
+        public static fp FloatAsin(fp value)
         {
             value.RawValue = (long)(ONE * Math.Asin((double)value.RawValue / ONE));
             return value;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FastAcos(number value)
+        public static fp FastAcos(fp value)
         {
             if (value.RawValue < -ONE || value.RawValue > ONE) return NaN;
 #if !NO_NUMBER_SUPPORT_BURST
@@ -1223,7 +1223,7 @@ namespace Nt.Deterministics
             return value;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number StrictAcos(number value)
+        public static fp StrictAcos(fp value)
         {
             if (value.RawValue == NaN.RawValue) return NaN;
             if (value.RawValue < -ONE || value.RawValue > ONE) return NaN;
@@ -1235,7 +1235,7 @@ namespace Nt.Deterministics
             return value;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FloatAcos(number value)
+        public static fp FloatAcos(fp value)
         {
             value.RawValue = (long)(ONE * Math.Acos((double)value.RawValue / ONE));
             return value;
@@ -1286,20 +1286,20 @@ namespace Nt.Deterministics
             return value;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FastAtan(number value)
+        public static fp FastAtan(fp value)
         {
             value.RawValue = AtanRaw(value.RawValue);
             return value;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number StrictAtan(number value)
+        public static fp StrictAtan(fp value)
         {
             if (value.RawValue == NaN.RawValue) return NaN;
             value.RawValue = AtanRaw(value.RawValue);
             return value;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FloatAtan(number value)
+        public static fp FloatAtan(fp value)
         {
             value.RawValue = (long)(ONE * Math.Atan((double)value.RawValue / ONE));
             return value;
@@ -1314,17 +1314,17 @@ namespace Nt.Deterministics
             long idx = bHighArea ? xRawValue : yRawValue;
             xRawValue = bHighArea ? yRawValue : xRawValue;
             yRawValue = idx;
-            idx = (yRawValue << number.FRACTIONAL_PLACES) / xRawValue;
+            idx = (yRawValue << fp.FRACTIONAL_PLACES) / xRawValue;
 #if !NO_NUMBER_SUPPORT_BURST
-            long ret = bHighArea ? number.PiDiv2 - NumberLut.atan2_lut.Data[(int)idx] : NumberLut.atan2_lut.Data[(int)idx];
+            long ret = bHighArea ? fp.PiDiv2 - NumberLut.atan2_lut.Data[(int)idx] : NumberLut.atan2_lut.Data[(int)idx];
 #else
             long ret = bHighArea ? number.PiDiv2 - NumberLut.atan2_lut[idx] : NumberLut.atan2_lut[idx];
 #endif
-            ret = isnegX ? number.Pi - ret : ret;
+            ret = isnegX ? fp.Pi - ret : ret;
             return isnegY ? -ret : ret;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FastAtan2(number y, number x)
+        public static fp FastAtan2(fp y, fp x)
         {
             y.RawValue = Atan2Raw(y.RawValue, x.RawValue);
             return y;
@@ -1344,7 +1344,7 @@ namespace Nt.Deterministics
             //return y.RawValue > 0L ? PIDiv2 : -PIDiv2;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FloatAtan2(number y, number x)
+        public static fp FloatAtan2(fp y, fp x)
         {
             y.RawValue = (long)(ONE * Math.Atan2((double)y.RawValue / ONE, (double)x.RawValue / ONE));
             return y;
@@ -1353,7 +1353,7 @@ namespace Nt.Deterministics
 
         #region Sinh, Cosh, Tanh
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Sinh(number x)
+        public static fp Sinh(fp x)
         {
             long rawValue = PowRaw(EXP.RawValue, -x.RawValue);
             x.RawValue = PowRaw(EXP.RawValue, x.RawValue);
@@ -1361,7 +1361,7 @@ namespace Nt.Deterministics
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Cosh(number x)
+        public static fp Cosh(fp x)
         {
             long rawValue = PowRaw(EXP.RawValue, -x.RawValue);
             x.RawValue = PowRaw(EXP.RawValue, x.RawValue);
@@ -1369,14 +1369,14 @@ namespace Nt.Deterministics
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Tanh(number x)
+        public static fp Tanh(fp x)
         {
             x.RawValue = PowRaw(EXP.RawValue, x.RawValue <<= 1);
             x.RawValue = ((x.RawValue - ONE) << FRACTIONAL_PLACES) / (x.RawValue + ONE);
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FastSinh(number x)
+        public static fp FastSinh(fp x)
         {
             long rawValue = PowRaw(EXP.RawValue, -x.RawValue);
             x.RawValue = PowRaw(EXP.RawValue, x.RawValue);
@@ -1384,7 +1384,7 @@ namespace Nt.Deterministics
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number StrictSinh(number x)
+        public static fp StrictSinh(fp x)
         {
             if (x.RawValue == NaN.RawValue) return NaN;
             x = StrictExp(x) - StrictExp(-x);
@@ -1392,13 +1392,13 @@ namespace Nt.Deterministics
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FloatSinh(number x)
+        public static fp FloatSinh(fp x)
         {
             x.RawValue = (long)(ONE * Math.Sinh((double)x.RawValue / ONE));
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FastCosh(number x)
+        public static fp FastCosh(fp x)
         {
             long rawValue = PowRaw(EXP.RawValue, -x.RawValue);
             x.RawValue = PowRaw(EXP.RawValue, x.RawValue);
@@ -1406,7 +1406,7 @@ namespace Nt.Deterministics
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number StrictCosh(number x)
+        public static fp StrictCosh(fp x)
         {
             if (x.RawValue == NaN.RawValue) return NaN;
             x = StrictExp(x) + StrictExp(-x);
@@ -1414,20 +1414,20 @@ namespace Nt.Deterministics
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FloatCosh(number x)
+        public static fp FloatCosh(fp x)
         {
             x.RawValue = (long)(ONE * Math.Cosh((double)x.RawValue / ONE));
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FastTanh(number x)
+        public static fp FastTanh(fp x)
         {
             x.RawValue = PowRaw(EXP.RawValue, x.RawValue <<= 1);
             x.RawValue = ((x.RawValue - ONE) << FRACTIONAL_PLACES) / (x.RawValue + ONE);
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number StrictTanh(number x)
+        public static fp StrictTanh(fp x)
         {
             if (x.RawValue == NaN.RawValue) return NaN;
             x.RawValue <<= 1;
@@ -1436,7 +1436,7 @@ namespace Nt.Deterministics
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number FloatTanh(number x)
+        public static fp FloatTanh(fp x)
         {
             x.RawValue = (long)(ONE * Math.Tanh((double)x.RawValue / ONE));
             return x;
@@ -1444,32 +1444,32 @@ namespace Nt.Deterministics
         #endregion
 
         #region Min, Max
-        public static number Min(number x, number y) => x.RawValue < y.RawValue ? x : y;
-        public static number Max(number x, number y) => x.RawValue > y.RawValue ? x : y;
+        public static fp Min(fp x, fp y) => x.RawValue < y.RawValue ? x : y;
+        public static fp Max(fp x, fp y) => x.RawValue > y.RawValue ? x : y;
         #endregion
 
         // ------------------- 后面移除掉。
         #region operator &、|、^、~
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator &(number x, number y)
+        public static fp operator &(fp x, fp y)
         {
             x.RawValue &= y.RawValue;
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator |(number x, number y)
+        public static fp operator |(fp x, fp y)
         {
             x.RawValue |= y.RawValue;
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator ^(number x, number y)
+        public static fp operator ^(fp x, fp y)
         {
             x.RawValue ^= y.RawValue;
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator ~(number x)
+        public static fp operator ~(fp x)
         {
             x.RawValue = ~x.RawValue;
             return x;
@@ -1478,32 +1478,32 @@ namespace Nt.Deterministics
 
         #region operator >>、<<
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator >>(number x, int amount)
+        public static fp operator >>(fp x, int amount)
         {
             x.RawValue >>= amount;
             return x;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number operator <<(number x, int amount)
+        public static fp operator <<(fp x, int amount)
         {
             x.RawValue <<= amount;
             return x;
         }
         #endregion
 
-        public static number ConvertFrom(float f)
+        public static fp ConvertFrom(float f)
         {
-            return new number(){RawValue = (long)(f * ONE)};
+            return new fp(){RawValue = (long)(f * ONE)};
         }
 
-         public static number Create(int integerPart, int fractionPart)
+         public static fp Create(int integerPart, int fractionPart)
         {
             if(integerPart != 0 && fractionPart < 0) throw new Exception($"创建错误 {integerPart} {fractionPart}");
 
             return CreateInternal(integerPart, fractionPart, 10000);
         }
 
-        public static number CreateByDivisor(int value, int divisor)
+        public static fp CreateByDivisor(int value, int divisor)
         {
             if(divisor < 0) throw new Exception($"创建错误 除数== 0");
 
@@ -1513,24 +1513,24 @@ namespace Nt.Deterministics
             return CreateInternal(integerPart, fraction, divisor);
         }
 
-        public static number CreateByDivisor(uint value, int divisor)
+        public static fp CreateByDivisor(uint value, int divisor)
         {
             return CreateByDivisor((int)value, divisor);
         }
 
-        static number CreateInternal(int intPart, int fractionPart, int divisor)
+        static fp CreateInternal(int intPart, int fractionPart, int divisor)
         {
             // Assert.IsTrue(fractionPart < divisor);
             var fraction = fractionPart << FRACTIONAL_PLACES / divisor;
             if(intPart >= 0)
             {
                 var v = (intPart << FRACTIONAL_PLACES) + fraction;
-                return new number(){ RawValue = v };    
+                return new fp(){ RawValue = v };    
             }
             else
             {
                 var v = (intPart << FRACTIONAL_PLACES) - fraction;
-                return new number(){ RawValue = v };    
+                return new fp(){ RawValue = v };    
             }
         }
     }

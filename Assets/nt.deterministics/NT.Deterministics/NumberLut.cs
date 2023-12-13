@@ -189,12 +189,12 @@ namespace Nt.Deterministics
         public const long ATAN_DENSITY1_COVER = 6L;
         public const long ATAN_DENSITY2_COVER = 250L;
         public const long ATAN_DENSITY3_COVER = 9994L;
-        public const long ATAN_SIZE_DENSITY1 = ATAN_DENSITY1_COVER * number.ONE;
+        public const long ATAN_SIZE_DENSITY1 = ATAN_DENSITY1_COVER * fp.ONE;
         public const long ATAN_SIZE_DENSITY2 = 3904L;
         public const long ATAN_SIZE_DENSITY3 = 609L;
-        public const long ATAN_DENSITY1_COVER_RAW = ATAN_DENSITY1_COVER * number.ONE;
-        public const long ATAN_DENSITY2_COVER_RAW = ATAN_DENSITY2_COVER * number.ONE;
-        public const long ATAN_DENSITY3_COVER_RAW = ATAN_DENSITY3_COVER * number.ONE;
+        public const long ATAN_DENSITY1_COVER_RAW = ATAN_DENSITY1_COVER * fp.ONE;
+        public const long ATAN_DENSITY2_COVER_RAW = ATAN_DENSITY2_COVER * fp.ONE;
+        public const long ATAN_DENSITY3_COVER_RAW = ATAN_DENSITY3_COVER * fp.ONE;
         public const long ATAN_DENSITY1_INDEX_BEGIN = 0L;
         public const long ATAN_DENSITY2_INDEX_BEGIN = ATAN_SIZE_DENSITY1;
         public const long ATAN_DENSITY3_INDEX_BEGIN = ATAN_SIZE_DENSITY1 + ATAN_SIZE_DENSITY2;
@@ -215,7 +215,7 @@ namespace Nt.Deterministics
                 File.Delete(file);
             using (FileStream fs = File.OpenWrite(file))
             {
-                long ONE = 1L << number.FRACTIONAL_PLACES;
+                long ONE = 1L << fp.FRACTIONAL_PLACES;
                 for (long i = min; i <= max; i += 1L)
                 {
                     long value = (long)Math.Round(op((double)i / ONE) * ONE);
@@ -232,9 +232,9 @@ namespace Nt.Deterministics
                 File.Delete(file);
             using (FileStream fs = File.OpenWrite(file))
             {
-                for (long i = 0L; i <= 3L * number.ONE; i += 3L)
+                for (long i = 0L; i <= 3L * fp.ONE; i += 3L)
                 {
-                    long value = (long)(Math.Sqrt((double)number.FromRaw(number.ONE + i)) * number.ONE);
+                    long value = (long)(Math.Sqrt((double)fp.FromRaw(fp.ONE + i)) * fp.ONE);
                     fs.Write(BitConverter.GetBytes(value), 0, 8);
                 }
                 fs.Flush();
@@ -248,9 +248,9 @@ namespace Nt.Deterministics
                 File.Delete(file);
             using (FileStream fs = File.OpenWrite(file))
             {
-                for (long i = -number.Pi; i <= number.Pi; i += 1L)
+                for (long i = -fp.Pi; i <= fp.Pi; i += 1L)
                 {
-                    long value = (long)(op((double)number.FromRaw(i)) * number.ONE);
+                    long value = (long)(op((double)fp.FromRaw(i)) * fp.ONE);
                     fs.Write(BitConverter.GetBytes(value), 0, 8);
                 }
                 fs.Flush();
@@ -267,24 +267,24 @@ namespace Nt.Deterministics
                 //[0, 6]
                 for (long i = 0L; i <= ATAN_SIZE_DENSITY1; i += 1L)
                 {
-                    long value = (long)Math.Round(Math.Atan((double)i / number.ONE) * number.ONE);
+                    long value = (long)Math.Round(Math.Atan((double)i / fp.ONE) * fp.ONE);
                     fs.Write(BitConverter.GetBytes(value), 0, 8);
                 }
                 //(6, 250], step 0.0625
                 long baseNumber = ATAN_SIZE_DENSITY1;
-                long rawStep = number.ONE / 16L;
+                long rawStep = fp.ONE / 16L;
                 for (long j = 0L; j < ATAN_SIZE_DENSITY2; j += 1L)
                 {
                     baseNumber += rawStep;
-                    long value2 = (long)Math.Round(Math.Atan((double)baseNumber / number.ONE) * number.ONE);
+                    long value2 = (long)Math.Round(Math.Atan((double)baseNumber / fp.ONE) * fp.ONE);
                     fs.Write(BitConverter.GetBytes(value2), 0, 8);
                 }
                 //[250, 9994], step 16
-                long rawStep2 = 16L * number.ONE;
+                long rawStep2 = 16L * fp.ONE;
                 for (long k = 0L; k < ATAN_SIZE_DENSITY3; k += 1L)
                 {
                     baseNumber += rawStep2;
-                    long value3 = (long)Math.Round(Math.Atan((double)baseNumber / number.ONE) * number.ONE);
+                    long value3 = (long)Math.Round(Math.Atan((double)baseNumber / fp.ONE) * fp.ONE);
                     fs.Write(BitConverter.GetBytes(value3), 0, 8);
                 }
                 fs.Flush();
@@ -299,11 +299,11 @@ namespace Nt.Deterministics
             if (File.Exists(fileY)) File.Delete(fileY);
             using (FileStream fsX = File.OpenWrite(fileX), fsY = File.OpenWrite(fileY))
             {
-                for (int k = 0; k <= number.ONE; ++k)
+                for (int k = 0; k <= fp.ONE; ++k)
                 {
-                    double _atan = Math.Atan((double)k / number.ONE);
-                    long valueX = (long)(number.ONE * Math.Cos(_atan));
-                    long valueY = (long)(number.ONE * Math.Sin(_atan));
+                    double _atan = Math.Atan((double)k / fp.ONE);
+                    long valueX = (long)(fp.ONE * Math.Cos(_atan));
+                    long valueY = (long)(fp.ONE * Math.Sin(_atan));
                     fsX.Write(BitConverter.GetBytes(valueX), 0, 8);
                     fsY.Write(BitConverter.GetBytes(valueY), 0, 8);
                 }
@@ -322,9 +322,9 @@ namespace Nt.Deterministics
             if (File.Exists(file)) File.Delete(file);
             using (FileStream fs = File.OpenWrite(file))
             {
-                for (int k = 0; k <= number.ONE; ++k)
+                for (int k = 0; k <= fp.ONE; ++k)
                 {
-                    long _atan = (long)(number.ONE * Math.Atan((double)k / number.ONE));
+                    long _atan = (long)(fp.ONE * Math.Atan((double)k / fp.ONE));
                     fs.Write(BitConverter.GetBytes(_atan), 0, 8);
                 }
                 fs.Flush();
@@ -335,9 +335,9 @@ namespace Nt.Deterministics
         {
             LutGenerator.GenerateForPiOver2Space(new Func<double, double>(Math.Sin), Path.Combine(directoryPath, TABLE_NAME_SIN));
             LutGenerator.GenerateForPiOver2Space(new Func<double, double>(Math.Cos), Path.Combine(directoryPath, TABLE_NAME_COS));
-            LutGenerator.Generate(new Func<double, double>(Math.Tan), Path.Combine(directoryPath, TABLE_NAME_TAN), -number.Pi, number.Pi);
-            LutGenerator.Generate(new Func<double, double>(Math.Asin), Path.Combine(directoryPath, TABLE_NAME_ASIN), -number.ONE, number.ONE);
-            LutGenerator.Generate(new Func<double, double>(Math.Acos), Path.Combine(directoryPath, TABLE_NAME_ACOS), -number.ONE, number.ONE);
+            LutGenerator.Generate(new Func<double, double>(Math.Tan), Path.Combine(directoryPath, TABLE_NAME_TAN), -fp.Pi, fp.Pi);
+            LutGenerator.Generate(new Func<double, double>(Math.Asin), Path.Combine(directoryPath, TABLE_NAME_ASIN), -fp.ONE, fp.ONE);
+            LutGenerator.Generate(new Func<double, double>(Math.Acos), Path.Combine(directoryPath, TABLE_NAME_ACOS), -fp.ONE, fp.ONE);
             LutGenerator.GenerateAtan(Path.Combine(directoryPath, TABLE_NAME_ATAN));
             LutGenerator.GenerateSqrt(Path.Combine(directoryPath, TABLE_NAME_SQRT));
             LutGenerator.GenerateNormalizeNumber2(Path.Combine(directoryPath, TABLE_NAME_NORMALIZE2_X), 

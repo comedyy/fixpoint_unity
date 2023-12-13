@@ -28,7 +28,7 @@ namespace Nt.Deterministics.Editor
     }
     class BaseDrawer
     {
-        private static Type TypeNumber = typeof(number);
+        private static Type TypeNumber = typeof(fp);
         private static Type TypeNumber2 = typeof(float2);
         private static Type TypeNumber3 = typeof(float3);
         private static Type TypeNumber4 = typeof(float4);

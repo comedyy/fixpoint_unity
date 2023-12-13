@@ -26,21 +26,21 @@ public class TestNumberBurst : MonoBehaviour
     public unsafe static void TestBurst()
     {
         if (!NumberLut.IsLoaded) AutoLoadLut.LoadLut();
-        number[] inputs = new number[] { number.zero, number.PIDiv2, number.PI, number.PI3Div2, number.PITimes2 };
+        fp[] inputs = new fp[] { fp.zero, fp.PIDiv2, fp.PI, fp.PI3Div2, fp.PITimes2 };
         foreach(var input in inputs)
         {
-            var sin = number.Sin(input);
-            var cos = number.Cos(input);
-            var tan = number.Tan(input);
+            var sin = fp.Sin(input);
+            var cos = fp.Cos(input);
+            var tan = fp.Tan(input);
             Debug.Log($"input:{input}, sin : {sin}, cos : {cos}, tan : {tan}");
         }
         Debug.Log("==================================================");
         var job = new TestNumberBurstJob()
         {
-            inputs = new NativeArray<number>(inputs, Allocator.TempJob),
-            sinValues = new NativeArray<number>(inputs.Length, Allocator.TempJob),
-            cosValues = new NativeArray<number>(inputs.Length, Allocator.TempJob),
-            tanValues = new NativeArray<number>(inputs.Length, Allocator.TempJob),
+            inputs = new NativeArray<fp>(inputs, Allocator.TempJob),
+            sinValues = new NativeArray<fp>(inputs.Length, Allocator.TempJob),
+            cosValues = new NativeArray<fp>(inputs.Length, Allocator.TempJob),
+            tanValues = new NativeArray<fp>(inputs.Length, Allocator.TempJob),
         };
         var handler = job.Schedule(inputs.Length, 8);
         handler.Complete();
@@ -56,17 +56,17 @@ public class TestNumberBurst : MonoBehaviour
 public struct TestNumberBurstJob : IJobParallelFor
 {
     [Unity.Collections.ReadOnly]
-    public NativeArray<number> inputs;
+    public NativeArray<fp> inputs;
     [WriteOnly]
-    public NativeArray<number> sinValues;
+    public NativeArray<fp> sinValues;
     [WriteOnly]
-    public NativeArray<number> cosValues;
+    public NativeArray<fp> cosValues;
     [WriteOnly]
-    public NativeArray<number> tanValues;
+    public NativeArray<fp> tanValues;
     public void Execute(int index)
     {
-        sinValues[index] = number.Sin(inputs[index]);
-        cosValues[index] = number.Cos(inputs[index]);
-        tanValues[index] = number.Tan(inputs[index]);
+        sinValues[index] = fp.Sin(inputs[index]);
+        cosValues[index] = fp.Cos(inputs[index]);
+        tanValues[index] = fp.Tan(inputs[index]);
     }
 }

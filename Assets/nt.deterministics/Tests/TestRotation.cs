@@ -26,8 +26,8 @@ namespace Tests
             {
                 var f1 = Random.insideUnitSphere.normalized;
                 var f2 = Random.insideUnitSphere.normalized;
-                float3 f11 = new float3(number.ConvertFrom(f1.x), number.ConvertFrom(f1.y), number.ConvertFrom(f1.z));
-                float3 f12 = new float3(number.ConvertFrom(f2.x), number.ConvertFrom(f2.y), number.ConvertFrom(f2.z));
+                float3 f11 = new float3(fp.ConvertFrom(f1.x), fp.ConvertFrom(f1.y), fp.ConvertFrom(f1.z));
+                float3 f12 = new float3(fp.ConvertFrom(f2.x), fp.ConvertFrom(f2.y), fp.ConvertFrom(f2.z));
 
                 var q1 = quaternion.LookRotation(f11, f12);
                 var q2 = Unity.Mathematics.quaternion.LookRotation(f1, f2);
@@ -75,7 +75,7 @@ namespace Tests
             for(int i = 0; i < 10000; i++)
             {
                 var f1 = Random.insideUnitSphere.normalized;
-                float3 f11 = new float3(number.ConvertFrom(f1.x), number.ConvertFrom(f1.y), number.ConvertFrom(f1.z));
+                float3 f11 = new float3(fp.ConvertFrom(f1.x), fp.ConvertFrom(f1.y), fp.ConvertFrom(f1.z));
 
                 var d3 = Random.Range(-720, 720);
 
@@ -94,9 +94,9 @@ namespace Tests
             for(int i = 0; i < 10000; i++)
             {
                 var f1 = Random.insideUnitSphere.normalized;
-                float3 f11 = new float3(number.ConvertFrom(f1.x), number.ConvertFrom(f1.y), number.ConvertFrom(f1.z));
+                float3 f11 = new float3(fp.ConvertFrom(f1.x), fp.ConvertFrom(f1.y), fp.ConvertFrom(f1.z));
                 var f2 = Random.insideUnitSphere.normalized;
-                float3 f12 = new float3(number.ConvertFrom(f2.x), number.ConvertFrom(f2.y), number.ConvertFrom(f2.z));
+                float3 f12 = new float3(fp.ConvertFrom(f2.x), fp.ConvertFrom(f2.y), fp.ConvertFrom(f2.z));
 
                 var d3 = Random.Range(-720, 720);
                 var d4 = Random.Range(-720, 720);
@@ -121,7 +121,7 @@ namespace Tests
             for(int i = 0; i < 10000; i++)
             {
                 var f1 = Random.insideUnitSphere.normalized;
-                float3 f11 = new float3(number.ConvertFrom(f1.x), number.ConvertFrom(f1.y), number.ConvertFrom(f1.z));
+                float3 f11 = new float3(fp.ConvertFrom(f1.x), fp.ConvertFrom(f1.y), fp.ConvertFrom(f1.z));
 
                 var d3 = Random.Range(-720, 720);
                 var d4 = Random.Range(-720, 720);
@@ -145,7 +145,7 @@ namespace Tests
             for(int i = 0; i < 10000; i++)
             {
                 var f1 = Random.insideUnitSphere.normalized;
-                float3 f11 = new float3(number.ConvertFrom(f1.x), number.ConvertFrom(f1.y), number.ConvertFrom(f1.z));
+                float3 f11 = new float3(fp.ConvertFrom(f1.x), fp.ConvertFrom(f1.y), fp.ConvertFrom(f1.z));
 
                 var d3 = Random.Range(-720, 720);
                 var d4 = Random.Range(-720, 720);
@@ -185,7 +185,7 @@ namespace Tests
                 var qqq2 = Unity.Mathematics.math.mul(q12, Unity.Mathematics.math.mul(q1, q11));
 
                 var f1 = Random.insideUnitSphere.normalized;
-                float3 f11 = new float3(number.ConvertFrom(f1.x), number.ConvertFrom(f1.y), number.ConvertFrom(f1.z));
+                float3 f11 = new float3(fp.ConvertFrom(f1.x), fp.ConvertFrom(f1.y), fp.ConvertFrom(f1.z));
                 var qq = math.rotate(qqq1, f11);
                 var qq1 = Unity.Mathematics.math.rotate(qqq2, f1);
 
@@ -210,11 +210,11 @@ namespace Tests
                 var q2 = Unity.Mathematics.quaternion.AxisAngle(f1, d3);
                 var q22 = Unity.Mathematics.quaternion.AxisAngle(f2, d4);
 
-                var q1 = new quaternion(number.ConvertFrom(q2.value.x), number.ConvertFrom(q2.value.y), number.ConvertFrom(q2.value.z), number.ConvertFrom(q2.value.w));
-                var q11 = new quaternion(number.ConvertFrom(q22.value.x), number.ConvertFrom(q22.value.y), number.ConvertFrom(q22.value.z), number.ConvertFrom(q22.value.w));
+                var q1 = new quaternion(fp.ConvertFrom(q2.value.x), fp.ConvertFrom(q2.value.y), fp.ConvertFrom(q2.value.z), fp.ConvertFrom(q2.value.w));
+                var q11 = new quaternion(fp.ConvertFrom(q22.value.x), fp.ConvertFrom(q22.value.y), fp.ConvertFrom(q22.value.z), fp.ConvertFrom(q22.value.w));
 
                 var d5 = Random.Range(0.0f, 1.0f);
-                var q111 = math.slerp(q11, q1, number.ConvertFrom(d5));
+                var q111 = math.slerp(q11, q1, fp.ConvertFrom(d5));
                 var q222 = Unity.Mathematics.math.slerp(q22, q2, d5);
 
                 if(math.Approximately(q111, q222))
@@ -240,7 +240,7 @@ namespace Tests
                 var d3 = Random.Range(-720, 720);
 
                 var q2 = Unity.Mathematics.quaternion.AxisAngle(f1, d3);
-                var q1 = new quaternion(number.ConvertFrom(q2.value.x), number.ConvertFrom(q2.value.y), number.ConvertFrom(q2.value.z), number.ConvertFrom(q2.value.w));
+                var q1 = new quaternion(fp.ConvertFrom(q2.value.x), fp.ConvertFrom(q2.value.y), fp.ConvertFrom(q2.value.z), fp.ConvertFrom(q2.value.w));
 
                 if(_allQuaternion.Contains(q1))
                 {
