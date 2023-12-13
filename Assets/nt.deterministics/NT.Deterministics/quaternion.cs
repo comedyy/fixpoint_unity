@@ -68,7 +68,7 @@ namespace Nt.Deterministics
         /// ctor. from matrix 3x3
         /// </summary>
         /// <param name="m">matrix</param>
-        public quaternion(float3x3 m)
+        public quaternion(fp3x3 m)
         {
             fp3 u = m.c0;
             fp3 v = m.c1;

@@ -36,7 +36,7 @@ namespace Nt.Deterministics.Editor
         private static Type TypeNumber3x2 = typeof(float3x2);
         private static Type TypeNumber4x2 = typeof(float4x2);
         private static Type TypeNumber2x3 = typeof(float2x3);
-        private static Type TypeNumber3x3 = typeof(float3x3);
+        private static Type TypeNumber3x3 = typeof(fp3x3);
         private static Type TypeNumber4x3 = typeof(float4x3);
         private static Type TypeNumber2x4 = typeof(float2x4);
         private static Type TypeNumber3x4 = typeof(float3x4);
@@ -242,7 +242,7 @@ namespace Nt.Deterministics.Editor
     }
 
     [CustomPropertyDrawer(typeof(float2x2)), CustomPropertyDrawer(typeof(float2x3)), CustomPropertyDrawer(typeof(float2x4))]
-    [CustomPropertyDrawer(typeof(float3x2)), CustomPropertyDrawer(typeof(float3x3)), CustomPropertyDrawer(typeof(float3x4))]
+    [CustomPropertyDrawer(typeof(float3x2)), CustomPropertyDrawer(typeof(fp3x3)), CustomPropertyDrawer(typeof(float3x4))]
     [CustomPropertyDrawer(typeof(float4x2)), CustomPropertyDrawer(typeof(float4x3)), CustomPropertyDrawer(typeof(float4x4))]
     class NumberMatrixDrawer : PropertyDrawer
     {
