@@ -327,8 +327,8 @@ namespace Nt.Deterministics
         /// </summary>
         /// <returns>the hash code</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode() => x.RawValue.GetHashCode() ^ width.RawValue.GetHashCode() << 2 ^
-            y.RawValue.GetHashCode() >> 2 ^ height.RawValue.GetHashCode() >> 1;
+        public override int GetHashCode() => ((x.RawValue * 0xE3AD9FE5u) + (width.RawValue * 0xCE1CF8BFu) +
+            (y.RawValue * 0x7BE39F3Bu) + (height.RawValue * 0xFAB9913Fu) + 0xB4501269u).GetHashCode();
 
         /// <summary>
         /// Returns true if the other rectangle overlaps this one. If allowInverse is present

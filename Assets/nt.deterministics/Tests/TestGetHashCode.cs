@@ -124,5 +124,44 @@ namespace Tests
                 Assert.IsTrue(false, $"{totalCollide}");
             }
         }
+
+        [Test]
+        public void TestSinCos5()
+        {
+            TestRotation.InitLookupTable();
+
+            int totalCollide = 0;
+
+            HashSet<fpRect> _allQuaternion = new HashSet<fpRect>();
+            HashSet<int> _hashCodes = new HashSet<int>();
+            for(int i = 0; i < 100000; i++)
+            {
+                (var x, var xx) = TestMath.GetRandom4();
+                var rect = new fpRect(x.x, x.y, x.z, x.w);
+
+                if(_allQuaternion.Contains(rect))
+                {
+                    i--;
+                    continue;
+                }
+
+                var hashCode = x.GetHashCode();
+
+                if(_hashCodes.Contains(hashCode))
+                {
+                    totalCollide ++;
+                }                
+                else
+                {
+                    _hashCodes.Add(hashCode);
+                    _allQuaternion.Add(rect);
+                }
+            }
+
+            if(totalCollide > 100)
+            {
+                Assert.IsTrue(false, $"{totalCollide}");
+            }
+        }
     }
 }

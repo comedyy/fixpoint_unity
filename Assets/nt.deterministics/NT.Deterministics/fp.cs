@@ -976,7 +976,7 @@ namespace Nt.Deterministics
         static fp CreateInternal(int intPart, int fractionPart, int divisor)
         {
             // Assert.IsTrue(fractionPart < divisor);
-            var fraction = fractionPart << FRACTIONAL_PLACES / divisor;
+            var fraction = (fractionPart << FRACTIONAL_PLACES) / divisor;
             if(intPart >= 0)
             {
                 var v = (intPart << FRACTIONAL_PLACES) + fraction;

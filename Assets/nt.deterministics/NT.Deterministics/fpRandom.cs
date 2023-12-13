@@ -1,6 +1,7 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using Nt.Deterministics;
+using static Deterministic.FixedPoint.fpRandom;
 
 namespace Deterministic.FixedPoint {
     [StructLayout(LayoutKind.Explicit, Size = SIZE)]
@@ -70,7 +71,7 @@ namespace Deterministic.FixedPoint {
         /// <summary>Returns value in range [0, 1]</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public fp NextFp() {
-            return new fp(NextInt(0, 65535));
+            return new fp(){RawValue = NextInt(0, 65535)};
         }
         
         /// <summary>Returns vector with all components in range [0, 1]</summary>
