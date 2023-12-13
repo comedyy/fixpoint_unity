@@ -7,13 +7,13 @@ using System.Runtime.CompilerServices;
 namespace Nt.Deterministics
 {
     [System.Serializable]
-    public struct rect : IEquatable<rect>, IFormattable
+    public struct fpRect : IEquatable<fpRect>, IFormattable
     {
         /// <summary>
         /// construct rect from the other rect
         /// </summary>
         /// <param name="source">the other rect</param>
-        public rect(rect source)
+        public fpRect(fpRect source)
         {
             x.RawValue = source.x.RawValue;
             y.RawValue = source.y.RawValue;
@@ -26,7 +26,7 @@ namespace Nt.Deterministics
         /// </summary>
         /// <param name="position">the position</param>
         /// <param name="size">the size</param>
-        public rect(fp2 position, fp2 size)
+        public fpRect(fp2 position, fp2 size)
         {
             x.RawValue = position.x.RawValue;
             y.RawValue = position.y.RawValue;
@@ -41,7 +41,7 @@ namespace Nt.Deterministics
         /// <param name="y">the y value of position</param>
         /// <param name="width">the width of size</param>
         /// <param name="height">the height of size</param>
-        public rect(fp x, fp y, fp width, fp height)
+        public fpRect(fp x, fp y, fp width, fp height)
         {
             this.x.RawValue = x.RawValue;
             this.y.RawValue = y.RawValue;
@@ -52,10 +52,10 @@ namespace Nt.Deterministics
         /// <summary>
         /// the zero rect
         /// </summary>
-        public static rect zero
+        public static fpRect zero
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => new rect(fp.zero, fp.zero, fp.zero, fp.zero);
+            get => new fpRect(fp.zero, fp.zero, fp.zero, fp.zero);
         }
 
         /// <summary>
@@ -228,7 +228,7 @@ namespace Nt.Deterministics
         /// <param name="ymax">the maximum y coordinate.</param>
         /// <returns>A rectangle matching the specified coordinates.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static rect MinMaxRect(fp xmin, fp ymin, fp xmax, fp ymax) => new rect(xmin, ymin, xmax - xmin, ymax - ymin);
+        public static fpRect MinMaxRect(fp xmin, fp ymin, fp xmax, fp ymax) => new fpRect(xmin, ymin, xmax - xmin, ymax - ymin);
 
         /// <summary>
         /// get a point inside a rectangle, given normalized coordinates.
@@ -237,7 +237,7 @@ namespace Nt.Deterministics
         /// <param name="normalizedRectCoordinates">normalized coordinates to get a point for.</param>
         /// <returns>the point</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 NormalizedToPoint(rect rectangle, fp2 normalizedRectCoordinates)
+        public static fp2 NormalizedToPoint(fpRect rectangle, fp2 normalizedRectCoordinates)
         {
             return new fp2(fpmath.lerp(rectangle.x, rectangle.xMax, normalizedRectCoordinates.x), 
                 fpmath.lerp(rectangle.y, rectangle.yMax, normalizedRectCoordinates.y));
@@ -250,7 +250,7 @@ namespace Nt.Deterministics
         /// <param name="point"></param>
         /// <returns>A point inside the rectangle to get normalized coordinates for.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 PointToNormalized(rect rectangle, fp2 point)
+        public static fp2 PointToNormalized(fpRect rectangle, fp2 point)
         {
             var result = new fp2();
             if (rectangle.width.RawValue != 0L)
@@ -311,7 +311,7 @@ namespace Nt.Deterministics
         /// <param name="other">the other object</param>
         /// <returns>true if the other object is rect object and equal to this rect, otherwise false</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object other) => other is rect rOther && this.Equals(rOther);
+        public override bool Equals(object other) => other is fpRect rOther && this.Equals(rOther);
 
         /// <summary>
         /// is this rect equal to the other rect
@@ -319,7 +319,7 @@ namespace Nt.Deterministics
         /// <param name="other">the other rect</param>
         /// <returns>true if this rect is equal to the other rect, otherwise false</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(rect other) => other.x.RawValue == this.x.RawValue && other.y.RawValue == this.y.RawValue
+        public bool Equals(fpRect other) => other.x.RawValue == this.x.RawValue && other.y.RawValue == this.y.RawValue
             && other.width.RawValue == this.width.RawValue && other.height.RawValue == this.height.RawValue;
 
         /// <summary>
@@ -339,12 +339,12 @@ namespace Nt.Deterministics
         /// <param name="allowInverse">Does the test allow the widths and heights of the Rects to be negative?</param>
         /// <returns>true if this rectangle overlaps the other rectangle, otherwise false</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Overlaps(rect other, bool allowInverse)
+        public bool Overlaps(fpRect other, bool allowInverse)
         {
             if (allowInverse)
             {
-                var temp = rect.OrderMinMax(this);
-                other = rect.OrderMinMax(other);
+                var temp = fpRect.OrderMinMax(this);
+                other = fpRect.OrderMinMax(other);
                 return temp.Overlaps(other);
             }
             return this.Overlaps(other);
@@ -358,7 +358,7 @@ namespace Nt.Deterministics
         /// <param name="other">Other rectangle to test overlapping with.</param>
         /// <returns>true if this rectangle overlaps the other rectangle, otherwise false</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Overlaps(rect other) => other.xMax > this.xMin && other.xMin < this.xMax && other.yMax > this.yMin && other.yMin < this.yMax;
+        public bool Overlaps(fpRect other) => other.xMax > this.xMin && other.xMin < this.xMax && other.yMax > this.yMin && other.yMin < this.yMax;
 
         /// <summary>
         /// Set components of an existing Rect.
@@ -418,7 +418,7 @@ namespace Nt.Deterministics
         /// <param name="rhs">the rhs rect</param>
         /// <returns>true if lhs rect is equal to rhs rect, otherwise false</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(rect lhs, rect rhs) => lhs.x == rhs.x && lhs.y == rhs.y && lhs.width == rhs.width && lhs.height == rhs.height;
+        public static bool operator ==(fpRect lhs, fpRect rhs) => lhs.x == rhs.x && lhs.y == rhs.y && lhs.width == rhs.width && lhs.height == rhs.height;
 
         /// <summary>
         /// is the lhs rect not equal to the rhs rect
@@ -427,7 +427,7 @@ namespace Nt.Deterministics
         /// <param name="rhs">the rhs rect</param>
         /// <returns>true if lhs rect is not equal to rhs rect, otherwise false</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(rect lhs, rect rhs) => lhs.x != rhs.x || lhs.y != rhs.y || lhs.width != rhs.width || lhs.height != rhs.height;
+        public static bool operator !=(fpRect lhs, fpRect rhs) => lhs.x != rhs.x || lhs.y != rhs.y || lhs.width != rhs.width || lhs.height != rhs.height;
 
         /// <summary>
         /// 
@@ -435,7 +435,7 @@ namespace Nt.Deterministics
         /// <param name="r"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static rect OrderMinMax(rect r)
+        private static fpRect OrderMinMax(fpRect r)
         {
             if (r.xMin > r.xMax)
             {
