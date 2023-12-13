@@ -16,9 +16,9 @@ using ShuffleComponent = Unity.Mathematics.math.ShuffleComponent;
 namespace Nt.Deterministics
 {
     /// <summary>A 2 component vector of numbers.</summary>
-    [DebuggerTypeProxy(typeof(float2.DebuggerProxy))]
+    [DebuggerTypeProxy(typeof(fp2.DebuggerProxy))]
     [System.Serializable]
-    public partial struct float2 : System.IEquatable<float2>, IFormattable
+    public partial struct fp2 : System.IEquatable<fp2>, IFormattable
     {
         /// <summary>x component of the vector.</summary>
         public fp x;
@@ -26,41 +26,41 @@ namespace Nt.Deterministics
         public fp y;
 
         /// <summary>float2 zero value.</summary>
-        public static readonly float2 zero;
+        public static readonly fp2 zero;
 
         /// <summary>Shorthand for writing float2(1, 0).</summary>
-        public static float2 right
+        public static fp2 right
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => new float2(fp.one, fp.zero);
+            get => new fp2(fp.one, fp.zero);
         }
 
         /// <summary>Shorthand for writing float2(-1, 0).</summary>
-        public static float2 left
+        public static fp2 left
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => new float2(-fp.one, fp.zero);
+            get => new fp2(-fp.one, fp.zero);
         }
 
         /// <summary>Shorthand for writing float2(0, 1).</summary>
-        public static float2 up
+        public static fp2 up
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => new float2(fp.zero, fp.one);
+            get => new fp2(fp.zero, fp.one);
         }
 
         /// <summary>Shorthand for writing float2(0, -1).</summary>
-        public static float2 down
+        public static fp2 down
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => new float2(fp.zero, -fp.one);
+            get => new fp2(fp.zero, -fp.one);
         }
 
         /// <summary>Constructs a float2 vector from two number values.</summary>
         /// <param name="x">The constructed vector's x component will be set to this value.</param>
         /// <param name="y">The constructed vector's y component will be set to this value.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float2(fp x, fp y)
+        public fp2(fp x, fp y)
         {
             this.x = x;
             this.y = y;
@@ -69,7 +69,7 @@ namespace Nt.Deterministics
         /// <summary>Constructs a float2 vector from a float2 vector.</summary>
         /// <param name="xy">The constructed vector's xy components will be set to this value.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float2(float2 xy)
+        public fp2(fp2 xy)
         {
             this.x = xy.x;
             this.y = xy.y;
@@ -78,7 +78,7 @@ namespace Nt.Deterministics
         /// <summary>Constructs a float2 vector from a single number value by assigning it to every component.</summary>
         /// <param name="v">number to convert to float2</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float2(fp v)
+        public fp2(fp v)
         {
             this.x = v;
             this.y = v;
@@ -87,7 +87,7 @@ namespace Nt.Deterministics
         /// <summary>Constructs a float2 vector from a single bool value by converting it to number and assigning it to every component.</summary>
         /// <param name="v">bool to convert to float2</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float2(bool v)
+        public fp2(bool v)
         {
             this.x = v ? (fp)(1) : (fp)(0);
             this.y = v ? (fp)(1) : (fp)(0);
@@ -96,7 +96,7 @@ namespace Nt.Deterministics
         /// <summary>Constructs a float2 vector from a Unity.Mathematics.bool2 vector by componentwise conversion.</summary>
         /// <param name="v">Unity.Mathematics.bool2 to convert to float2</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float2(Unity.Mathematics.bool2 v)
+        public fp2(Unity.Mathematics.bool2 v)
         {
             this.x = v.x ? (fp)(1) : (fp)(0);
             this.y = v.y ? (fp)(1) : (fp)(0);
@@ -105,7 +105,7 @@ namespace Nt.Deterministics
         /// <summary>Constructs a float2 vector from a single int value by converting it to number and assigning it to every component.</summary>
         /// <param name="v">int to convert to float2</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float2(int v)
+        public fp2(int v)
         {
             this.x = (fp)v;
             this.y = (fp)v;
@@ -114,7 +114,7 @@ namespace Nt.Deterministics
         /// <summary>Constructs a float2 vector from a Unity.Mathematics.int2 vector by componentwise conversion.</summary>
         /// <param name="v">Unity.Mathematics.int2 to convert to float2</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float2(Unity.Mathematics.int2 v)
+        public fp2(Unity.Mathematics.int2 v)
         {
             this.x = (fp)v.x;
             this.y = (fp)v.y;
@@ -123,7 +123,7 @@ namespace Nt.Deterministics
         /// <summary>Constructs a float2 vector from a single uint value by converting it to number and assigning it to every component.</summary>
         /// <param name="v">uint to convert to float2</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float2(uint v)
+        public fp2(uint v)
         {
             this.x = (fp)v;
             this.y = (fp)v;
@@ -132,7 +132,7 @@ namespace Nt.Deterministics
         /// <summary>Constructs a float2 vector from a Unity.Mathematics.uint2 vector by componentwise conversion.</summary>
         /// <param name="v">Unity.Mathematics.uint2 to convert to float2</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float2(Unity.Mathematics.uint2 v)
+        public fp2(Unity.Mathematics.uint2 v)
         {
             this.x = (fp)v.x;
             this.y = (fp)v.y;
@@ -142,76 +142,76 @@ namespace Nt.Deterministics
         /// <param name="v">number to convert to float2</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator float2(fp v) { return new float2(v); }
+        public static implicit operator fp2(fp v) { return new fp2(v); }
 
         /// <summary>Explicitly converts a single bool value to a float2 vector by converting it to number and assigning it to every component.</summary>
         /// <param name="v">bool to convert to float2</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator float2(bool v) { return new float2(v); }
+        public static explicit operator fp2(bool v) { return new fp2(v); }
 
         /// <summary>Explicitly converts a Unity.Mathematics.bool2 vector to a float2 vector by componentwise conversion.</summary>
         /// <param name="v">Unity.Mathematics.bool2 to convert to float2</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator float2(Unity.Mathematics.bool2 v) { return new float2(v); }
+        public static explicit operator fp2(Unity.Mathematics.bool2 v) { return new fp2(v); }
 
         /// <summary>Explicitly converts a single int value to a float2 vector by converting it to number and assigning it to every component.</summary>
         /// <param name="v">int to convert to float2</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator float2(int v) { return new float2(v); }
+        public static explicit operator fp2(int v) { return new fp2(v); }
 
         /// <summary>Explicitly converts a Unity.Mathematics.int2 vector to a float2 vector by componentwise conversion.</summary>
         /// <param name="v">Unity.Mathematics.int2 to convert to float2</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator float2(Unity.Mathematics.int2 v) { return new float2(v); }
+        public static explicit operator fp2(Unity.Mathematics.int2 v) { return new fp2(v); }
 
         /// <summary>Explicitly converts a float2 vector to a Unity.Mathematics.int2 vector by componentwise conversion.</summary>
         /// <param name="v">float2 to convert to Unity.Mathematics.int2</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator Unity.Mathematics.int2(float2 v) { return new Unity.Mathematics.int2((int)v.x, (int)v.y); }
+        public static explicit operator Unity.Mathematics.int2(fp2 v) { return new Unity.Mathematics.int2((int)v.x, (int)v.y); }
 
         /// <summary>Explicitly converts a float2 vector to a Unity.Mathematics.int2 vector by componentwise conversion.</summary>
         /// <param name="v">float2 to convert to Unity.Mathematics.int2</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Unity.Mathematics.float2(float2 v) { return new Unity.Mathematics.float2(v.x, v.y); }
+        public static implicit operator Unity.Mathematics.float2(fp2 v) { return new Unity.Mathematics.float2(v.x, v.y); }
 
         /// <summary>Explicitly converts a single uint value to a float2 vector by converting it to number and assigning it to every component.</summary>
         /// <param name="v">uint to convert to float2</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator float2(uint v) { return new float2(v); }
+        public static explicit operator fp2(uint v) { return new fp2(v); }
 
         /// <summary>Explicitly converts a Unity.Mathematics.uint2 vector to a float2 vector by componentwise conversion.</summary>
         /// <param name="v">Unity.Mathematics.uint2 to convert to float2</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator float2(Unity.Mathematics.uint2 v) { return new float2(v); }
+        public static explicit operator fp2(Unity.Mathematics.uint2 v) { return new fp2(v); }
 
         /// <summary>Returns the result of a componentwise multiplication operation on two float2 vectors.</summary>
         /// <param name="lhs">Left hand side float2 to use to compute componentwise multiplication.</param>
         /// <param name="rhs">Right hand side float2 to use to compute componentwise multiplication.</param>
         /// <returns>float2 result of the componentwise multiplication.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 operator * (float2 lhs, float2 rhs) { return new float2 (lhs.x * rhs.x, lhs.y * rhs.y); }
+        public static fp2 operator * (fp2 lhs, fp2 rhs) { return new fp2 (lhs.x * rhs.x, lhs.y * rhs.y); }
 
         /// <summary>Returns the result of a componentwise multiplication operation on a float2 vector and a number value.</summary>
         /// <param name="lhs">Left hand side float2 to use to compute componentwise multiplication.</param>
         /// <param name="rhs">Right hand side number to use to compute componentwise multiplication.</param>
         /// <returns>float2 result of the componentwise multiplication.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 operator * (float2 lhs, fp rhs) { return new float2 (lhs.x * rhs, lhs.y * rhs); }
+        public static fp2 operator * (fp2 lhs, fp rhs) { return new fp2 (lhs.x * rhs, lhs.y * rhs); }
 
         /// <summary>Returns the result of a componentwise multiplication operation on a number value and a float2 vector.</summary>
         /// <param name="lhs">Left hand side number to use to compute componentwise multiplication.</param>
         /// <param name="rhs">Right hand side float2 to use to compute componentwise multiplication.</param>
         /// <returns>float2 result of the componentwise multiplication.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 operator * (fp lhs, float2 rhs) { return new float2 (lhs * rhs.x, lhs * rhs.y); }
+        public static fp2 operator * (fp lhs, fp2 rhs) { return new fp2 (lhs * rhs.x, lhs * rhs.y); }
 
 
         /// <summary>Returns the result of a componentwise addition operation on two float2 vectors.</summary>
@@ -219,21 +219,21 @@ namespace Nt.Deterministics
         /// <param name="rhs">Right hand side float2 to use to compute componentwise addition.</param>
         /// <returns>float2 result of the componentwise addition.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 operator + (float2 lhs, float2 rhs) { return new float2 (lhs.x + rhs.x, lhs.y + rhs.y); }
+        public static fp2 operator + (fp2 lhs, fp2 rhs) { return new fp2 (lhs.x + rhs.x, lhs.y + rhs.y); }
 
         /// <summary>Returns the result of a componentwise addition operation on a float2 vector and a number value.</summary>
         /// <param name="lhs">Left hand side float2 to use to compute componentwise addition.</param>
         /// <param name="rhs">Right hand side number to use to compute componentwise addition.</param>
         /// <returns>float2 result of the componentwise addition.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 operator + (float2 lhs, fp rhs) { return new float2 (lhs.x + rhs, lhs.y + rhs); }
+        public static fp2 operator + (fp2 lhs, fp rhs) { return new fp2 (lhs.x + rhs, lhs.y + rhs); }
 
         /// <summary>Returns the result of a componentwise addition operation on a number value and a float2 vector.</summary>
         /// <param name="lhs">Left hand side number to use to compute componentwise addition.</param>
         /// <param name="rhs">Right hand side float2 to use to compute componentwise addition.</param>
         /// <returns>float2 result of the componentwise addition.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 operator + (fp lhs, float2 rhs) { return new float2 (lhs + rhs.x, lhs + rhs.y); }
+        public static fp2 operator + (fp lhs, fp2 rhs) { return new fp2 (lhs + rhs.x, lhs + rhs.y); }
 
 
         /// <summary>Returns the result of a componentwise subtraction operation on two float2 vectors.</summary>
@@ -241,21 +241,21 @@ namespace Nt.Deterministics
         /// <param name="rhs">Right hand side float2 to use to compute componentwise subtraction.</param>
         /// <returns>float2 result of the componentwise subtraction.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 operator - (float2 lhs, float2 rhs) { return new float2 (lhs.x - rhs.x, lhs.y - rhs.y); }
+        public static fp2 operator - (fp2 lhs, fp2 rhs) { return new fp2 (lhs.x - rhs.x, lhs.y - rhs.y); }
 
         /// <summary>Returns the result of a componentwise subtraction operation on a float2 vector and a number value.</summary>
         /// <param name="lhs">Left hand side float2 to use to compute componentwise subtraction.</param>
         /// <param name="rhs">Right hand side number to use to compute componentwise subtraction.</param>
         /// <returns>float2 result of the componentwise subtraction.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 operator - (float2 lhs, fp rhs) { return new float2 (lhs.x - rhs, lhs.y - rhs); }
+        public static fp2 operator - (fp2 lhs, fp rhs) { return new fp2 (lhs.x - rhs, lhs.y - rhs); }
 
         /// <summary>Returns the result of a componentwise subtraction operation on a number value and a float2 vector.</summary>
         /// <param name="lhs">Left hand side number to use to compute componentwise subtraction.</param>
         /// <param name="rhs">Right hand side float2 to use to compute componentwise subtraction.</param>
         /// <returns>float2 result of the componentwise subtraction.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 operator - (fp lhs, float2 rhs) { return new float2 (lhs - rhs.x, lhs - rhs.y); }
+        public static fp2 operator - (fp lhs, fp2 rhs) { return new fp2 (lhs - rhs.x, lhs - rhs.y); }
 
 
         /// <summary>Returns the result of a componentwise division operation on two float2 vectors.</summary>
@@ -263,21 +263,21 @@ namespace Nt.Deterministics
         /// <param name="rhs">Right hand side float2 to use to compute componentwise division.</param>
         /// <returns>float2 result of the componentwise division.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 operator / (float2 lhs, float2 rhs) { return new float2 (lhs.x / rhs.x, lhs.y / rhs.y); }
+        public static fp2 operator / (fp2 lhs, fp2 rhs) { return new fp2 (lhs.x / rhs.x, lhs.y / rhs.y); }
 
         /// <summary>Returns the result of a componentwise division operation on a float2 vector and a number value.</summary>
         /// <param name="lhs">Left hand side float2 to use to compute componentwise division.</param>
         /// <param name="rhs">Right hand side number to use to compute componentwise division.</param>
         /// <returns>float2 result of the componentwise division.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 operator / (float2 lhs, fp rhs) { return new float2 (lhs.x / rhs, lhs.y / rhs); }
+        public static fp2 operator / (fp2 lhs, fp rhs) { return new fp2 (lhs.x / rhs, lhs.y / rhs); }
 
         /// <summary>Returns the result of a componentwise division operation on a number value and a float2 vector.</summary>
         /// <param name="lhs">Left hand side number to use to compute componentwise division.</param>
         /// <param name="rhs">Right hand side float2 to use to compute componentwise division.</param>
         /// <returns>float2 result of the componentwise division.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 operator / (fp lhs, float2 rhs) { return new float2 (lhs / rhs.x, lhs / rhs.y); }
+        public static fp2 operator / (fp lhs, fp2 rhs) { return new fp2 (lhs / rhs.x, lhs / rhs.y); }
 
 
         /// <summary>Returns the result of a componentwise modulus operation on two float2 vectors.</summary>
@@ -285,35 +285,35 @@ namespace Nt.Deterministics
         /// <param name="rhs">Right hand side float2 to use to compute componentwise modulus.</param>
         /// <returns>float2 result of the componentwise modulus.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 operator % (float2 lhs, float2 rhs) { return new float2 (lhs.x % rhs.x, lhs.y % rhs.y); }
+        public static fp2 operator % (fp2 lhs, fp2 rhs) { return new fp2 (lhs.x % rhs.x, lhs.y % rhs.y); }
 
         /// <summary>Returns the result of a componentwise modulus operation on a float2 vector and a number value.</summary>
         /// <param name="lhs">Left hand side float2 to use to compute componentwise modulus.</param>
         /// <param name="rhs">Right hand side number to use to compute componentwise modulus.</param>
         /// <returns>float2 result of the componentwise modulus.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 operator % (float2 lhs, fp rhs) { return new float2 (lhs.x % rhs, lhs.y % rhs); }
+        public static fp2 operator % (fp2 lhs, fp rhs) { return new fp2 (lhs.x % rhs, lhs.y % rhs); }
 
         /// <summary>Returns the result of a componentwise modulus operation on a number value and a float2 vector.</summary>
         /// <param name="lhs">Left hand side number to use to compute componentwise modulus.</param>
         /// <param name="rhs">Right hand side float2 to use to compute componentwise modulus.</param>
         /// <returns>float2 result of the componentwise modulus.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 operator % (fp lhs, float2 rhs) { return new float2 (lhs % rhs.x, lhs % rhs.y); }
+        public static fp2 operator % (fp lhs, fp2 rhs) { return new fp2 (lhs % rhs.x, lhs % rhs.y); }
 
 
         /// <summary>Returns the result of a componentwise increment operation on a float2 vector.</summary>
         /// <param name="val">Value to use when computing the componentwise increment.</param>
         /// <returns>float2 result of the componentwise increment.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 operator ++ (float2 val) { return new float2 (++val.x, ++val.y); }
+        public static fp2 operator ++ (fp2 val) { return new fp2 (++val.x, ++val.y); }
 
 
         /// <summary>Returns the result of a componentwise decrement operation on a float2 vector.</summary>
         /// <param name="val">Value to use when computing the componentwise decrement.</param>
         /// <returns>float2 result of the componentwise decrement.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 operator -- (float2 val) { return new float2 (--val.x, --val.y); }
+        public static fp2 operator -- (fp2 val) { return new fp2 (--val.x, --val.y); }
 
 
         /// <summary>Returns the result of a componentwise less than operation on two float2 vectors.</summary>
@@ -321,21 +321,21 @@ namespace Nt.Deterministics
         /// <param name="rhs">Right hand side float2 to use to compute componentwise less than.</param>
         /// <returns>Unity.Mathematics.bool2 result of the componentwise less than.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool2 operator < (float2 lhs, float2 rhs) { return new Unity.Mathematics.bool2 (lhs.x < rhs.x, lhs.y < rhs.y); }
+        public static Unity.Mathematics.bool2 operator < (fp2 lhs, fp2 rhs) { return new Unity.Mathematics.bool2 (lhs.x < rhs.x, lhs.y < rhs.y); }
 
         /// <summary>Returns the result of a componentwise less than operation on a float2 vector and a number value.</summary>
         /// <param name="lhs">Left hand side float2 to use to compute componentwise less than.</param>
         /// <param name="rhs">Right hand side number to use to compute componentwise less than.</param>
         /// <returns>Unity.Mathematics.bool2 result of the componentwise less than.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool2 operator < (float2 lhs, fp rhs) { return new Unity.Mathematics.bool2 (lhs.x < rhs, lhs.y < rhs); }
+        public static Unity.Mathematics.bool2 operator < (fp2 lhs, fp rhs) { return new Unity.Mathematics.bool2 (lhs.x < rhs, lhs.y < rhs); }
 
         /// <summary>Returns the result of a componentwise less than operation on a number value and a float2 vector.</summary>
         /// <param name="lhs">Left hand side number to use to compute componentwise less than.</param>
         /// <param name="rhs">Right hand side float2 to use to compute componentwise less than.</param>
         /// <returns>Unity.Mathematics.bool2 result of the componentwise less than.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool2 operator < (fp lhs, float2 rhs) { return new Unity.Mathematics.bool2 (lhs < rhs.x, lhs < rhs.y); }
+        public static Unity.Mathematics.bool2 operator < (fp lhs, fp2 rhs) { return new Unity.Mathematics.bool2 (lhs < rhs.x, lhs < rhs.y); }
 
 
         /// <summary>Returns the result of a componentwise less or equal operation on two float2 vectors.</summary>
@@ -343,21 +343,21 @@ namespace Nt.Deterministics
         /// <param name="rhs">Right hand side float2 to use to compute componentwise less or equal.</param>
         /// <returns>Unity.Mathematics.bool2 result of the componentwise less or equal.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool2 operator <= (float2 lhs, float2 rhs) { return new Unity.Mathematics.bool2 (lhs.x <= rhs.x, lhs.y <= rhs.y); }
+        public static Unity.Mathematics.bool2 operator <= (fp2 lhs, fp2 rhs) { return new Unity.Mathematics.bool2 (lhs.x <= rhs.x, lhs.y <= rhs.y); }
 
         /// <summary>Returns the result of a componentwise less or equal operation on a float2 vector and a number value.</summary>
         /// <param name="lhs">Left hand side float2 to use to compute componentwise less or equal.</param>
         /// <param name="rhs">Right hand side number to use to compute componentwise less or equal.</param>
         /// <returns>Unity.Mathematics.bool2 result of the componentwise less or equal.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool2 operator <= (float2 lhs, fp rhs) { return new Unity.Mathematics.bool2 (lhs.x <= rhs, lhs.y <= rhs); }
+        public static Unity.Mathematics.bool2 operator <= (fp2 lhs, fp rhs) { return new Unity.Mathematics.bool2 (lhs.x <= rhs, lhs.y <= rhs); }
 
         /// <summary>Returns the result of a componentwise less or equal operation on a number value and a float2 vector.</summary>
         /// <param name="lhs">Left hand side number to use to compute componentwise less or equal.</param>
         /// <param name="rhs">Right hand side float2 to use to compute componentwise less or equal.</param>
         /// <returns>Unity.Mathematics.bool2 result of the componentwise less or equal.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool2 operator <= (fp lhs, float2 rhs) { return new Unity.Mathematics.bool2 (lhs <= rhs.x, lhs <= rhs.y); }
+        public static Unity.Mathematics.bool2 operator <= (fp lhs, fp2 rhs) { return new Unity.Mathematics.bool2 (lhs <= rhs.x, lhs <= rhs.y); }
 
 
         /// <summary>Returns the result of a componentwise greater than operation on two float2 vectors.</summary>
@@ -365,21 +365,21 @@ namespace Nt.Deterministics
         /// <param name="rhs">Right hand side float2 to use to compute componentwise greater than.</param>
         /// <returns>Unity.Mathematics.bool2 result of the componentwise greater than.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool2 operator > (float2 lhs, float2 rhs) { return new Unity.Mathematics.bool2 (lhs.x > rhs.x, lhs.y > rhs.y); }
+        public static Unity.Mathematics.bool2 operator > (fp2 lhs, fp2 rhs) { return new Unity.Mathematics.bool2 (lhs.x > rhs.x, lhs.y > rhs.y); }
 
         /// <summary>Returns the result of a componentwise greater than operation on a float2 vector and a number value.</summary>
         /// <param name="lhs">Left hand side float2 to use to compute componentwise greater than.</param>
         /// <param name="rhs">Right hand side number to use to compute componentwise greater than.</param>
         /// <returns>Unity.Mathematics.bool2 result of the componentwise greater than.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool2 operator > (float2 lhs, fp rhs) { return new Unity.Mathematics.bool2 (lhs.x > rhs, lhs.y > rhs); }
+        public static Unity.Mathematics.bool2 operator > (fp2 lhs, fp rhs) { return new Unity.Mathematics.bool2 (lhs.x > rhs, lhs.y > rhs); }
 
         /// <summary>Returns the result of a componentwise greater than operation on a number value and a float2 vector.</summary>
         /// <param name="lhs">Left hand side number to use to compute componentwise greater than.</param>
         /// <param name="rhs">Right hand side float2 to use to compute componentwise greater than.</param>
         /// <returns>Unity.Mathematics.bool2 result of the componentwise greater than.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool2 operator > (fp lhs, float2 rhs) { return new Unity.Mathematics.bool2 (lhs > rhs.x, lhs > rhs.y); }
+        public static Unity.Mathematics.bool2 operator > (fp lhs, fp2 rhs) { return new Unity.Mathematics.bool2 (lhs > rhs.x, lhs > rhs.y); }
 
 
         /// <summary>Returns the result of a componentwise greater or equal operation on two float2 vectors.</summary>
@@ -387,35 +387,35 @@ namespace Nt.Deterministics
         /// <param name="rhs">Right hand side float2 to use to compute componentwise greater or equal.</param>
         /// <returns>Unity.Mathematics.bool2 result of the componentwise greater or equal.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool2 operator >= (float2 lhs, float2 rhs) { return new Unity.Mathematics.bool2 (lhs.x >= rhs.x, lhs.y >= rhs.y); }
+        public static Unity.Mathematics.bool2 operator >= (fp2 lhs, fp2 rhs) { return new Unity.Mathematics.bool2 (lhs.x >= rhs.x, lhs.y >= rhs.y); }
 
         /// <summary>Returns the result of a componentwise greater or equal operation on a float2 vector and a number value.</summary>
         /// <param name="lhs">Left hand side float2 to use to compute componentwise greater or equal.</param>
         /// <param name="rhs">Right hand side number to use to compute componentwise greater or equal.</param>
         /// <returns>Unity.Mathematics.bool2 result of the componentwise greater or equal.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool2 operator >= (float2 lhs, fp rhs) { return new Unity.Mathematics.bool2 (lhs.x >= rhs, lhs.y >= rhs); }
+        public static Unity.Mathematics.bool2 operator >= (fp2 lhs, fp rhs) { return new Unity.Mathematics.bool2 (lhs.x >= rhs, lhs.y >= rhs); }
 
         /// <summary>Returns the result of a componentwise greater or equal operation on a number value and a float2 vector.</summary>
         /// <param name="lhs">Left hand side number to use to compute componentwise greater or equal.</param>
         /// <param name="rhs">Right hand side float2 to use to compute componentwise greater or equal.</param>
         /// <returns>Unity.Mathematics.bool2 result of the componentwise greater or equal.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool2 operator >= (fp lhs, float2 rhs) { return new Unity.Mathematics.bool2 (lhs >= rhs.x, lhs >= rhs.y); }
+        public static Unity.Mathematics.bool2 operator >= (fp lhs, fp2 rhs) { return new Unity.Mathematics.bool2 (lhs >= rhs.x, lhs >= rhs.y); }
 
 
         /// <summary>Returns the result of a componentwise unary minus operation on a float2 vector.</summary>
         /// <param name="val">Value to use when computing the componentwise unary minus.</param>
         /// <returns>float2 result of the componentwise unary minus.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 operator - (float2 val) { return new float2 (-val.x, -val.y); }
+        public static fp2 operator - (fp2 val) { return new fp2 (-val.x, -val.y); }
 
 
         /// <summary>Returns the result of a componentwise unary plus operation on a float2 vector.</summary>
         /// <param name="val">Value to use when computing the componentwise unary plus.</param>
         /// <returns>float2 result of the componentwise unary plus.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 operator + (float2 val) { return new float2 (+val.x, +val.y); }
+        public static fp2 operator + (fp2 val) { return new fp2 (+val.x, +val.y); }
 
 
         /// <summary>Returns the result of a componentwise equality operation on two float2 vectors.</summary>
@@ -423,21 +423,21 @@ namespace Nt.Deterministics
         /// <param name="rhs">Right hand side float2 to use to compute componentwise equality.</param>
         /// <returns>Unity.Mathematics.bool2 result of the componentwise equality.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool2 operator == (float2 lhs, float2 rhs) { return new Unity.Mathematics.bool2 (lhs.x == rhs.x, lhs.y == rhs.y); }
+        public static Unity.Mathematics.bool2 operator == (fp2 lhs, fp2 rhs) { return new Unity.Mathematics.bool2 (lhs.x == rhs.x, lhs.y == rhs.y); }
 
         /// <summary>Returns the result of a componentwise equality operation on a float2 vector and a number value.</summary>
         /// <param name="lhs">Left hand side float2 to use to compute componentwise equality.</param>
         /// <param name="rhs">Right hand side number to use to compute componentwise equality.</param>
         /// <returns>Unity.Mathematics.bool2 result of the componentwise equality.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool2 operator == (float2 lhs, fp rhs) { return new Unity.Mathematics.bool2 (lhs.x == rhs, lhs.y == rhs); }
+        public static Unity.Mathematics.bool2 operator == (fp2 lhs, fp rhs) { return new Unity.Mathematics.bool2 (lhs.x == rhs, lhs.y == rhs); }
 
         /// <summary>Returns the result of a componentwise equality operation on a number value and a float2 vector.</summary>
         /// <param name="lhs">Left hand side number to use to compute componentwise equality.</param>
         /// <param name="rhs">Right hand side float2 to use to compute componentwise equality.</param>
         /// <returns>Unity.Mathematics.bool2 result of the componentwise equality.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool2 operator == (fp lhs, float2 rhs) { return new Unity.Mathematics.bool2 (lhs == rhs.x, lhs == rhs.y); }
+        public static Unity.Mathematics.bool2 operator == (fp lhs, fp2 rhs) { return new Unity.Mathematics.bool2 (lhs == rhs.x, lhs == rhs.y); }
 
 
         /// <summary>Returns the result of a componentwise not equal operation on two float2 vectors.</summary>
@@ -445,21 +445,21 @@ namespace Nt.Deterministics
         /// <param name="rhs">Right hand side float2 to use to compute componentwise not equal.</param>
         /// <returns>Unity.Mathematics.bool2 result of the componentwise not equal.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool2 operator != (float2 lhs, float2 rhs) { return new Unity.Mathematics.bool2 (lhs.x != rhs.x, lhs.y != rhs.y); }
+        public static Unity.Mathematics.bool2 operator != (fp2 lhs, fp2 rhs) { return new Unity.Mathematics.bool2 (lhs.x != rhs.x, lhs.y != rhs.y); }
 
         /// <summary>Returns the result of a componentwise not equal operation on a float2 vector and a number value.</summary>
         /// <param name="lhs">Left hand side float2 to use to compute componentwise not equal.</param>
         /// <param name="rhs">Right hand side number to use to compute componentwise not equal.</param>
         /// <returns>Unity.Mathematics.bool2 result of the componentwise not equal.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool2 operator != (float2 lhs, fp rhs) { return new Unity.Mathematics.bool2 (lhs.x != rhs, lhs.y != rhs); }
+        public static Unity.Mathematics.bool2 operator != (fp2 lhs, fp rhs) { return new Unity.Mathematics.bool2 (lhs.x != rhs, lhs.y != rhs); }
 
         /// <summary>Returns the result of a componentwise not equal operation on a number value and a float2 vector.</summary>
         /// <param name="lhs">Left hand side number to use to compute componentwise not equal.</param>
         /// <param name="rhs">Right hand side float2 to use to compute componentwise not equal.</param>
         /// <returns>Unity.Mathematics.bool2 result of the componentwise not equal.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.bool2 operator != (fp lhs, float2 rhs) { return new Unity.Mathematics.bool2 (lhs != rhs.x, lhs != rhs.y); }
+        public static Unity.Mathematics.bool2 operator != (fp lhs, fp2 rhs) { return new Unity.Mathematics.bool2 (lhs != rhs.x, lhs != rhs.y); }
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
@@ -679,19 +679,19 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float2 xx
+        public fp2 xx
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float2(x, x); }
+            get { return new fp2(x, x); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float2 xy
+        public fp2 xy
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float2(x, y); }
+            get { return new fp2(x, y); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { x = value.x; y = value.y; }
         }
@@ -699,10 +699,10 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float2 yx
+        public fp2 yx
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float2(y, x); }
+            get { return new fp2(y, x); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { y = value.x; x = value.y; }
         }
@@ -710,10 +710,10 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float2 yy
+        public fp2 yy
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float2(y, y); }
+            get { return new fp2(y, y); }
         }
 
 
@@ -727,7 +727,7 @@ namespace Nt.Deterministics
                 if ((uint)index >= 2)
                     throw new System.ArgumentException("index must be between[0...1]");
 #endif
-                fixed (float2* array = &this) { return ((fp*)array)[index]; }
+                fixed (fp2* array = &this) { return ((fp*)array)[index]; }
             }
             set
             {
@@ -743,12 +743,12 @@ namespace Nt.Deterministics
         /// <param name="rhs">Right hand side argument to compare equality with.</param>
         /// <returns>The result of the equality comparison.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(float2 rhs) { return x == rhs.x && y == rhs.y; }
+        public bool Equals(fp2 rhs) { return x == rhs.x && y == rhs.y; }
 
         /// <summary>Returns true if the float2 is equal to a given float2, false otherwise.</summary>
         /// <param name="o">Right hand side argument to compare equality with.</param>
         /// <returns>The result of the equality comparison.</returns>
-        public override bool Equals(object o) { return o is float2 converted && Equals(converted); }
+        public override bool Equals(object o) { return o is fp2 converted && Equals(converted); }
 
 
         /// <summary>Returns a hash code for the float2.</summary>
@@ -779,7 +779,7 @@ namespace Nt.Deterministics
         {
             public fp x;
             public fp y;
-            public DebuggerProxy(float2 v)
+            public DebuggerProxy(fp2 v)
             {
                 x = v.x;
                 y = v.y;
@@ -795,61 +795,61 @@ namespace Nt.Deterministics
         /// <param name="y">The constructed vector's y component will be set to this value.</param>
         /// <returns>float2 constructed from arguments.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 float2(fp x, fp y) { return new float2(x, y); }
+        public static fp2 float2(fp x, fp y) { return new fp2(x, y); }
 
         /// <summary>Returns a float2 vector constructed from a float2 vector.</summary>
         /// <param name="xy">The constructed vector's xy components will be set to this value.</param>
         /// <returns>float2 constructed from arguments.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 float2(float2 xy) { return new float2(xy); }
+        public static fp2 float2(fp2 xy) { return new fp2(xy); }
 
         /// <summary>Returns a float2 vector constructed from a single number value by assigning it to every component.</summary>
         /// <param name="v">number to convert to float2</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 float2(fp v) { return new float2(v); }
+        public static fp2 float2(fp v) { return new fp2(v); }
 
         /// <summary>Returns a float2 vector constructed from a single bool value by converting it to number and assigning it to every component.</summary>
         /// <param name="v">bool to convert to float2</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 float2(bool v) { return new float2(v); }
+        public static fp2 float2(bool v) { return new fp2(v); }
 
         /// <summary>Return a float2 vector constructed from a Unity.Mathematics.bool2 vector by componentwise conversion.</summary>
         /// <param name="v">Unity.Mathematics.bool2 to convert to float2</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 float2(Unity.Mathematics.bool2 v) { return new float2(v); }
+        public static fp2 float2(Unity.Mathematics.bool2 v) { return new fp2(v); }
 
         /// <summary>Returns a float2 vector constructed from a single int value by converting it to number and assigning it to every component.</summary>
         /// <param name="v">int to convert to float2</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 float2(int v) { return new float2(v); }
+        public static fp2 float2(int v) { return new fp2(v); }
 
         /// <summary>Return a float2 vector constructed from a Unity.Mathematics.int2 vector by componentwise conversion.</summary>
         /// <param name="v">Unity.Mathematics.int2 to convert to float2</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 float2(Unity.Mathematics.int2 v) { return new float2(v); }
+        public static fp2 float2(Unity.Mathematics.int2 v) { return new fp2(v); }
 
         /// <summary>Returns a float2 vector constructed from a single uint value by converting it to number and assigning it to every component.</summary>
         /// <param name="v">uint to convert to float2</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 float2(uint v) { return new float2(v); }
+        public static fp2 float2(uint v) { return new fp2(v); }
 
         /// <summary>Return a float2 vector constructed from a Unity.Mathematics.uint2 vector by componentwise conversion.</summary>
         /// <param name="v">Unity.Mathematics.uint2 to convert to float2</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 float2(Unity.Mathematics.uint2 v) { return new float2(v); }
+        public static fp2 float2(Unity.Mathematics.uint2 v) { return new fp2(v); }
 
         /// <summary>Returns a uint hash code of a float2 vector.</summary>
         /// <param name="v">Vector value to hash.</param>
         /// <returns>uint hash of the argument.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static uint hash(float2 v)
+        public static uint hash(fp2 v)
         {
             return Unity.Mathematics.math.csum(asuint(v) * new Unity.Mathematics.uint2(0x7AF32C49u, 0xAE131389u)) + 0x5D1B165Bu;
         }
@@ -862,7 +862,7 @@ namespace Nt.Deterministics
         /// <param name="v">Vector value to hash.</param>
         /// <returns>Unity.Mathematics.uint2 hash of the argument.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.uint2 hashwide(float2 v)
+        public static Unity.Mathematics.uint2 hashwide(fp2 v)
         {
             return (asuint(v) * new Unity.Mathematics.uint2(0x87096CD7u, 0x4C7F6DD1u)) + 0x4822A3E9u;
         }
@@ -873,7 +873,7 @@ namespace Nt.Deterministics
         /// <param name="x">The ShuffleComponent to use when setting the resulting number.</param>
         /// <returns>number result of the shuffle operation.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp shuffle(float2 left, float2 right, ShuffleComponent x)
+        public static fp shuffle(fp2 left, fp2 right, ShuffleComponent x)
         {
             return select_shuffle_component(left, right, x);
         }
@@ -885,7 +885,7 @@ namespace Nt.Deterministics
         /// <param name="y">The ShuffleComponent to use when setting the resulting float2 y component.</param>
         /// <returns>float2 result of the shuffle operation.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 shuffle(float2 left, float2 right, ShuffleComponent x, ShuffleComponent y)
+        public static fp2 shuffle(fp2 left, fp2 right, ShuffleComponent x, ShuffleComponent y)
         {
             return float2(
                 select_shuffle_component(left, right, x),
@@ -900,7 +900,7 @@ namespace Nt.Deterministics
         /// <param name="z">The ShuffleComponent to use when setting the resulting float3 z component.</param>
         /// <returns>float3 result of the shuffle operation.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 shuffle(float2 left, float2 right, ShuffleComponent x, ShuffleComponent y, ShuffleComponent z)
+        public static float3 shuffle(fp2 left, fp2 right, ShuffleComponent x, ShuffleComponent y, ShuffleComponent z)
         {
             return float3(
                 select_shuffle_component(left, right, x),
@@ -917,7 +917,7 @@ namespace Nt.Deterministics
         /// <param name="w">The ShuffleComponent to use when setting the resulting float4 w component.</param>
         /// <returns>float4 result of the shuffle operation.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 shuffle(float2 left, float2 right, ShuffleComponent x, ShuffleComponent y, ShuffleComponent z, ShuffleComponent w)
+        public static float4 shuffle(fp2 left, fp2 right, ShuffleComponent x, ShuffleComponent y, ShuffleComponent z, ShuffleComponent w)
         {
             return float4(
                 select_shuffle_component(left, right, x),
@@ -927,7 +927,7 @@ namespace Nt.Deterministics
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static fp select_shuffle_component(float2 a, float2 b, ShuffleComponent component)
+        internal static fp select_shuffle_component(fp2 a, fp2 b, ShuffleComponent component)
         {
             switch(component)
             {
@@ -945,7 +945,7 @@ namespace Nt.Deterministics
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Approximately(float2 num2, Unity.Mathematics.float2 b)
+        public static bool Approximately(fp2 num2, Unity.Mathematics.float2 b)
         {
             return Approximately(num2.x, b.x) 
             && Approximately(num2.y, b.y);

@@ -26,7 +26,7 @@ namespace Nt.Deterministics
         /// </summary>
         /// <param name="position">the position</param>
         /// <param name="size">the size</param>
-        public rect(float2 position, float2 size)
+        public rect(fp2 position, fp2 size)
         {
             x.RawValue = position.x.RawValue;
             y.RawValue = position.y.RawValue;
@@ -147,10 +147,10 @@ namespace Nt.Deterministics
         /// <summary>
         /// get/set the position of the minimum corner of the rectangle.
         /// </summary>
-        public float2 min
+        public fp2 min
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => new float2(xMin, yMin);
+            get => new fp2(xMin, yMin);
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set
             {
@@ -162,10 +162,10 @@ namespace Nt.Deterministics
         /// <summary>
         /// get/set the position of the maximum corner of the rectangle.
         /// </summary>
-        public float2 max
+        public fp2 max
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => new float2(xMax, yMax);
+            get => new fp2(xMax, yMax);
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set
             {
@@ -177,10 +177,10 @@ namespace Nt.Deterministics
         /// <summary>
         /// get/set the position of the center of the rectangle.
         /// </summary>
-        public float2 center
+        public fp2 center
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => new float2(x + width / 2, y + height / 2);
+            get => new fp2(x + width / 2, y + height / 2);
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set
             {
@@ -192,10 +192,10 @@ namespace Nt.Deterministics
         /// <summary>
         /// get/set the x and y position of the rectangle.
         /// </summary>
-        public float2 position
+        public fp2 position
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => new float2(x, y);
+            get => new fp2(x, y);
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set
             {
@@ -207,10 +207,10 @@ namespace Nt.Deterministics
         /// <summary>
         /// get/set the width and height of the rectangle.
         /// </summary>
-        public float2 size
+        public fp2 size
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => new float2(width, height);
+            get => new fp2(width, height);
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set
             {
@@ -277,9 +277,9 @@ namespace Nt.Deterministics
         /// <param name="normalizedRectCoordinates">normalized coordinates to get a point for.</param>
         /// <returns>the point</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 NormalizedToPoint(rect rectangle, float2 normalizedRectCoordinates)
+        public static fp2 NormalizedToPoint(rect rectangle, fp2 normalizedRectCoordinates)
         {
-            return new float2(math.lerp(rectangle.x, rectangle.xMax, normalizedRectCoordinates.x), 
+            return new fp2(math.lerp(rectangle.x, rectangle.xMax, normalizedRectCoordinates.x), 
                 math.lerp(rectangle.y, rectangle.yMax, normalizedRectCoordinates.y));
         }
 
@@ -290,9 +290,9 @@ namespace Nt.Deterministics
         /// <param name="point"></param>
         /// <returns>A point inside the rectangle to get normalized coordinates for.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 PointToNormalized(rect rectangle, float2 point)
+        public static fp2 PointToNormalized(rect rectangle, fp2 point)
         {
-            var result = new float2();
+            var result = new fp2();
             if (rectangle.width.RawValue != 0L)
                 result.x = math.clamp(math.unlerp(rectangle.x, rectangle.xMax, point.x), fp.zero, fp.one);
             if (rectangle.height.RawValue != 0L)
@@ -343,7 +343,7 @@ namespace Nt.Deterministics
         /// <param name="point">Point to test.</param>
         /// <returns>true if the point lies within the specified rectangle.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Contains(float2 point) => point.x >= this.xMin && point.x < this.xMax && point.y >= this.yMin && point.y < this.yMax;
+        public bool Contains(fp2 point) => point.x >= this.xMin && point.x < this.xMax && point.y >= this.yMin && point.y < this.yMax;
 
         /// <summary>
         /// is this rect equal to the other object.

@@ -264,19 +264,19 @@ namespace Nt.Deterministics
             return minValue + NextNumber(maxValue - minValue);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float2 NextNumber2() => new float2()
+        public fp2 NextNumber2() => new fp2()
         {
             x = NextNumber(),
             y = NextNumber()
         };
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float2 NextNumber2(fp maxValue) => new float2()
+        public fp2 NextNumber2(fp maxValue) => new fp2()
         {
             x = NextNumber(maxValue),
             y = NextNumber(maxValue)
         };
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float2 NextNumber2(fp minValue, fp maxValue) => new float2()
+        public fp2 NextNumber2(fp minValue, fp maxValue) => new fp2()
         {
             x = NextNumber(minValue, maxValue),
             y = NextNumber(minValue, maxValue)

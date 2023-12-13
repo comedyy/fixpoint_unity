@@ -7,7 +7,7 @@ using Nt.Deterministics;
 public class TestNumberOriginalOps : MonoBehaviour, IStatistics
 {
     fp[] _randoms;
-    float2[] _randomVectors;
+    fp2[] _randomVectors;
     int _random_count = 1000;
     int _cur_state = 0;
     int loop_count = 0;//_random_count x _random_count
@@ -214,7 +214,7 @@ public class TestNumberOriginalOps : MonoBehaviour, IStatistics
         loop_count = _random_count * _random_count;
         var tmp_randoms = StatisticsManager.Instance.randoms;
         _randoms = new fp[_random_count];
-        _randomVectors = new float2[_random_count];
+        _randomVectors = new fp2[_random_count];
         long UsableMax = 1L << 31;
         for (int k = 0; k < _random_count; ++k)
         {
@@ -222,7 +222,7 @@ public class TestNumberOriginalOps : MonoBehaviour, IStatistics
         }
         for (int k = 0; k < _random_count; ++k)
         {
-            _randomVectors[k] = new float2(_randoms[(2 * k) % _random_count], _randoms[(2 * k + 1) % _random_count]);
+            _randomVectors[k] = new fp2(_randoms[(2 * k) % _random_count], _randoms[(2 * k + 1) % _random_count]);
         }
     }
 
@@ -832,7 +832,7 @@ public class TestNumberOriginalOps : MonoBehaviour, IStatistics
     //[BurstCompile]
     float testNormalize()
     {
-        float2 tmp;
+        fp2 tmp;
         var time0 = DateTime.Now;
         for (int m = 0; m < _random_count; ++m)
             for (int n = 0; n < _random_count; ++n)

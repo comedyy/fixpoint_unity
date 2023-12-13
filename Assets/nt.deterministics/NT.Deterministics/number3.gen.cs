@@ -88,7 +88,7 @@ namespace Nt.Deterministics
         /// <param name="x">The constructed vector's x component will be set to this value.</param>
         /// <param name="yz">The constructed vector's yz components will be set to this value.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float3(fp x, float2 yz)
+        public float3(fp x, fp2 yz)
         {
             this.x = x;
             this.y = yz.x;
@@ -99,7 +99,7 @@ namespace Nt.Deterministics
         /// <param name="xy">The constructed vector's xy components will be set to this value.</param>
         /// <param name="z">The constructed vector's z component will be set to this value.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float3(float2 xy, fp z)
+        public float3(fp2 xy, fp z)
         {
             this.x = xy.x;
             this.y = xy.y;
@@ -1495,19 +1495,19 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float2 xx
+        public fp2 xx
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float2(x, x); }
+            get { return new fp2(x, x); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float2 xy
+        public fp2 xy
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float2(x, y); }
+            get { return new fp2(x, y); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { x = value.x; y = value.y; }
         }
@@ -1515,10 +1515,10 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float2 xz
+        public fp2 xz
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float2(x, z); }
+            get { return new fp2(x, z); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { x = value.x; z = value.y; }
         }
@@ -1526,10 +1526,10 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float2 yx
+        public fp2 yx
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float2(y, x); }
+            get { return new fp2(y, x); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { y = value.x; x = value.y; }
         }
@@ -1537,19 +1537,19 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float2 yy
+        public fp2 yy
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float2(y, y); }
+            get { return new fp2(y, y); }
         }
 
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float2 yz
+        public fp2 yz
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float2(y, z); }
+            get { return new fp2(y, z); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { y = value.x; z = value.y; }
         }
@@ -1557,10 +1557,10 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float2 zx
+        public fp2 zx
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float2(z, x); }
+            get { return new fp2(z, x); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { z = value.x; x = value.y; }
         }
@@ -1568,10 +1568,10 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float2 zy
+        public fp2 zy
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float2(z, y); }
+            get { return new fp2(z, y); }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set { z = value.x; y = value.y; }
         }
@@ -1579,10 +1579,10 @@ namespace Nt.Deterministics
 
         /// <summary>Swizzles the vector.</summary>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public float2 zz
+        public fp2 zz
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new float2(z, z); }
+            get { return new fp2(z, z); }
         }
 
 
@@ -1674,14 +1674,14 @@ namespace Nt.Deterministics
         /// <param name="yz">The constructed vector's yz components will be set to this value.</param>
         /// <returns>float3 constructed from arguments.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 float3(fp x, float2 yz) { return new float3(x, yz); }
+        public static float3 float3(fp x, fp2 yz) { return new float3(x, yz); }
 
         /// <summary>Returns a float3 vector constructed from a float2 vector and a number value.</summary>
         /// <param name="xy">The constructed vector's xy components will be set to this value.</param>
         /// <param name="z">The constructed vector's z component will be set to this value.</param>
         /// <returns>float3 constructed from arguments.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float3 float3(float2 xy, fp z) { return new float3(xy, z); }
+        public static float3 float3(fp2 xy, fp z) { return new float3(xy, z); }
 
         /// <summary>Returns a float3 vector constructed from a float3 vector.</summary>
         /// <param name="xyz">The constructed vector's xyz components will be set to this value.</param>
@@ -1771,7 +1771,7 @@ namespace Nt.Deterministics
         /// <param name="y">The ShuffleComponent to use when setting the resulting float2 y component.</param>
         /// <returns>float2 result of the shuffle operation.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float2 shuffle(float3 left, float3 right, ShuffleComponent x, ShuffleComponent y)
+        public static fp2 shuffle(float3 left, float3 right, ShuffleComponent x, ShuffleComponent y)
         {
             return float2(
                 select_shuffle_component(left, right, x),

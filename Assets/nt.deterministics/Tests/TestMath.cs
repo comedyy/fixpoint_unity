@@ -19,12 +19,12 @@ namespace Tests
             return (num, r);
         }
 
-        (float2, Unity.Mathematics.float2) GetRandom2(float min = -99.0f, float max = 99.0f)
+        (fp2, Unity.Mathematics.float2) GetRandom2(float min = -99.0f, float max = 99.0f)
         {
             (var n, var f) = GetRandom1(min, max);
             (var n1, var f1) = GetRandom1(min, max);
 
-            return (new float2(n, n1), new Unity.Mathematics.float2(f, f1));
+            return (new fp2(n, n1), new Unity.Mathematics.float2(f, f1));
         }
 
         (float3, Unity.Mathematics.float3) GetRandom3()
