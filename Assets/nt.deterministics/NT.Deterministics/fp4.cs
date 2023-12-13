@@ -3709,12 +3709,9 @@ namespace Nt.Deterministics
         /// <returns>The result of the equality comparison.</returns>
         public override bool Equals(object o) { return o is fp4 converted && Equals(converted); }
 
-
-        /// <summary>Returns a hash code for the float4.</summary>
-        /// <returns>The computed hash code.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode() { return (int)fpMath.hash(this); }
-
+        public override int GetHashCode() => ((x.RawValue * 0xE3AD9FE5u) + (y.RawValue * 0xCE1CF8BFu) +
+            (z.RawValue * 0x7BE39F3Bu) + (w.RawValue * 0xFAB9913Fu) + 0xB4501269u).GetHashCode();
 
         /// <summary>Returns a string representation of the float4.</summary>
         /// <returns>String representation of the value.</returns>
@@ -3927,28 +3924,6 @@ namespace Nt.Deterministics
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp4 float4(Unity.Mathematics.uint4 v) { return new fp4(v); }
-
-        /// <summary>Returns a uint hash code of a float4 vector.</summary>
-        /// <param name="v">Vector value to hash.</param>
-        /// <returns>uint hash of the argument.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static uint hash(fp4 v)
-        {
-            return Unity.Mathematics.math.csum(asuint(v) * new Unity.Mathematics.uint4(0xE3AD9FE5u, 0xCE1CF8BFu, 0x7BE39F3Bu, 0xFAB9913Fu)) + 0xB4501269u;
-        }
-
-        /// <summary>
-        /// Returns a Unity.Mathematics.uint4 vector hash code of a float4 vector.
-        /// When multiple elements are to be hashes together, it can more efficient to calculate and combine wide hash
-        /// that are only reduced to a narrow uint hash at the very end instead of at every step.
-        /// </summary>
-        /// <param name="v">Vector value to hash.</param>
-        /// <returns>Unity.Mathematics.uint4 hash of the argument.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.uint4 hashwide(fp4 v)
-        {
-            return (asuint(v) * new Unity.Mathematics.uint4(0xE04B89FDu, 0xDB3DE101u, 0x7B6D1B4Bu, 0x58399E77u)) + 0x5EAC29C9u;
-        }
 
         /// <summary>Returns the result of specified shuffling of the components from two float4 vectors into a number value.</summary>
         /// <param name="left">float4 to use as the left argument of the shuffle operation.</param>

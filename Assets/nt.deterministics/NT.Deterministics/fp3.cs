@@ -1623,8 +1623,8 @@ namespace Nt.Deterministics
         /// <summary>Returns a hash code for the float3.</summary>
         /// <returns>The computed hash code.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode() { return (int)fpMath.hash(this); }
-
+        public override int GetHashCode() => ((x.RawValue * 0x509B84C9u) + (y.RawValue * 0x91D13847u) +
+            (z.RawValue * 0x52F7230Fu) + 0xCF286E83u).GetHashCode();
 
         /// <summary>Returns a string representation of the float3.</summary>
         /// <returns>String representation of the value.</returns>
@@ -1730,28 +1730,6 @@ namespace Nt.Deterministics
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp3 float3(Unity.Mathematics.uint3 v) { return new fp3(v); }
-
-        /// <summary>Returns a uint hash code of a float3 vector.</summary>
-        /// <param name="v">Vector value to hash.</param>
-        /// <returns>uint hash of the argument.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static uint hash(fp3 v)
-        {
-            return Unity.Mathematics.math.csum(asuint(v) * new Unity.Mathematics.uint3(0x509B84C9u, 0x91D13847u, 0x52F7230Fu)) + 0xCF286E83u;
-        }
-
-        /// <summary>
-        /// Returns a Unity.Mathematics.uint3 vector hash code of a float3 vector.
-        /// When multiple elements are to be hashes together, it can more efficient to calculate and combine wide hash
-        /// that are only reduced to a narrow uint hash at the very end instead of at every step.
-        /// </summary>
-        /// <param name="v">Vector value to hash.</param>
-        /// <returns>Unity.Mathematics.uint3 hash of the argument.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.uint3 hashwide(fp3 v)
-        {
-            return (asuint(v) * new Unity.Mathematics.uint3(0xE121E6ADu, 0xC9CA1249u, 0x69B60C81u)) + 0xE0EB6C25u;
-        }
 
         /// <summary>Returns the result of specified shuffling of the components from two float3 vectors into a number value.</summary>
         /// <param name="left">float3 to use as the left argument of the shuffle operation.</param>
