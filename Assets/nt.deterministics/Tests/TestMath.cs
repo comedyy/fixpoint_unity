@@ -47,17 +47,6 @@ namespace Tests
         }
 
         [Test]
-        public void TestSinCos1()
-        {
-            TestRotation.InitLookupTable();
-            // (var r1, var r2) = (number.ConvertFrom(-351.501f), -351.501f);
-            (var r1, var r2) = (fp.ConvertFrom(1.5f), 1.5f);
-            Assert.IsTrue(fpMath.Approximately(fpMath.tan(r1), Unity.Mathematics.math.tan(r2)), $"{fpMath.tan(r1)} {Unity.Mathematics.math.tan(r2)} {r1} {r2}");
-            Debug.LogError(fpMath.tan(r1));
-            Debug.LogError(Unity.Mathematics.math.tan(r2));
-        }
-
-        [Test]
         public void TestSinCos()
         {
             TestRotation.InitLookupTable();

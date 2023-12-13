@@ -13,61 +13,6 @@ namespace Nt.Deterministics
     {
         public readonly static fp PI = fp.PI;
 
-        /// <summary>Returns the bit pattern of a number as a uint.</summary>
-        /// <param name="x">The number bits to copy.</param>
-        /// <returns>The uint with the same bit pattern as the input.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static uint asuint(fp x) { return (uint)(int)x; }
-
-        /// <summary>Returns the bit pattern of a float2 as a uint2.</summary>
-        /// <param name="x">The float2 bits to copy.</param>
-        /// <returns>The uint2 with the same bit pattern as the input.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static uint2 asuint(fp2 x) { return new uint2(asuint(x.x), asuint(x.y)); }
-
-        /// <summary>Returns the bit pattern of a float3 as a uint3.</summary>
-        /// <param name="x">The float3 bits to copy.</param>
-        /// <returns>The uint3 with the same bit pattern as the input.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static uint3 asuint(fp3 x) { return new uint3(asuint(x.x), asuint(x.y), asuint(x.z)); }
-
-        /// <summary>Returns the bit pattern of a float4 as a uint4.</summary>
-        /// <param name="x">The float4 bits to copy.</param>
-        /// <returns>The uint4 with the same bit pattern as the input.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static uint4 asuint(fp4 x) { return new uint4(asuint(x.x), asuint(x.y), asuint(x.z), asuint(x.w)); }
-
-        /// <summary>Returns the bit pattern of a number as a double.</summary>
-        /// <param name="x">The long bits to copy.</param>
-        /// <returns>The double with the same bit pattern as the input.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double asdouble(fp x)
-        {
-            LongDoubleUnion u;
-            u.doubleValue = 0;
-            u.longValue = x.RawValue;
-            return u.doubleValue;
-        }
-
-        /// <summary>Returns the bit pattern of a float2 as a double2.</summary>
-        /// <param name="x">The long bits to copy.</param>
-        /// <returns>The double with the same bit pattern as the input.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double2 asdouble(fp2 x) { return new double2(asdouble(x.x), asdouble(x.y)); }
-
-        /// <summary>Returns the bit pattern of a float3 as a double3.</summary>
-        /// <param name="x">The long bits to copy.</param>
-        /// <returns>The double with the same bit pattern as the input.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double3 asdouble(fp3 x) { return new double3(asdouble(x.x), asdouble(x.y), asdouble(x.z)); }
-
-        /// <summary>Returns the bit pattern of a float4 as a double4.</summary>
-        /// <param name="x">The long bits to copy.</param>
-        /// <returns>The double with the same bit pattern as the input.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double4 asdouble(fp4 x) { return new double4(asdouble(x.x), asdouble(x.y), asdouble(x.z), asdouble(x.w)); }
-
-
         /// <summary>Returns true if the input number is a finite floating point value, false otherwise.</summary>
         /// <param name="x">The number value to test.</param>
         /// <returns>True if the number is finite, false otherwise.</returns>
@@ -1584,7 +1529,7 @@ namespace Nt.Deterministics
 
 
         /// <summary>
-        /// Returns a componentwise selection between two double4 vectors a and b based on a bool4 selection mask c.
+        /// Returns a componentwise selection between two fp4 vectors a and b based on a bool4 selection mask c.
         /// Per component, the component from b is selected when c is true, otherwise the component from a is selected.
         /// </summary>
         /// <param name="a">Values to use if c is false.</param>
@@ -1595,7 +1540,7 @@ namespace Nt.Deterministics
         public static fp2 select(fp2 a, fp2 b, bool2 c) { return new fp2(c.x ? b.x : a.x, c.y ? b.y : a.y); }
 
         /// <summary>
-        /// Returns a componentwise selection between two double4 vectors a and b based on a bool4 selection mask c.
+        /// Returns a componentwise selection between two fp4 vectors a and b based on a bool4 selection mask c.
         /// Per component, the component from b is selected when c is true, otherwise the component from a is selected.
         /// </summary>
         /// <param name="a">Values to use if c is false.</param>
@@ -1606,7 +1551,7 @@ namespace Nt.Deterministics
         public static fp3 select(fp3 a, fp3 b, bool3 c) { return new fp3(c.x ? b.x : a.x, c.y ? b.y : a.y, c.z ? b.z : a.z); }
 
         /// <summary>
-        /// Returns a componentwise selection between two double4 vectors a and b based on a bool4 selection mask c.
+        /// Returns a componentwise selection between two fp4 vectors a and b based on a bool4 selection mask c.
         /// Per component, the component from b is selected when c is true, otherwise the component from a is selected.
         /// </summary>
         /// <param name="a">Values to use if c is false.</param>
@@ -1906,25 +1851,25 @@ namespace Nt.Deterministics
         public static fp4 radians(fp4 x) { return x * fp.Deg2Rad; }
 
 
-        /// <summary>Returns the result of converting a double value from radians to degrees.</summary>
+        /// <summary>Returns the result of converting a fp value from radians to degrees.</summary>
         /// <param name="x">Angle in radians.</param>
         /// <returns>Angle converted to degrees.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp degrees(fp x) { return x * fp.Rad2Deg; }
 
-        /// <summary>Returns the result of a componentwise conversion of a double2 vector from radians to degrees.</summary>
+        /// <summary>Returns the result of a componentwise conversion of a fp2 vector from radians to degrees.</summary>
         /// <param name="x">Vector containing angles in radians.</param>
         /// <returns>Vector containing angles converted to degrees.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp2 degrees(fp2 x) { return x * fp.Rad2Deg; }
 
-        /// <summary>Returns the result of a componentwise conversion of a double3 vector from radians to degrees.</summary>
+        /// <summary>Returns the result of a componentwise conversion of a fp3 vector from radians to degrees.</summary>
         /// <param name="x">Vector containing angles in radians.</param>
         /// <returns>Vector containing angles converted to degrees.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp3 degrees(fp3 x) { return x * fp.Rad2Deg; }
 
-        /// <summary>Returns the result of a componentwise conversion of a double4 vector from radians to degrees.</summary>
+        /// <summary>Returns the result of a componentwise conversion of a fp4 vector from radians to degrees.</summary>
         /// <param name="x">Vector containing angles in radians.</param>
         /// <returns>Vector containing angles converted to degrees.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2071,15 +2016,6 @@ namespace Nt.Deterministics
         internal static fp4 movehl(fp4 a, fp4 b)
         {
             return shuffle(b, a, ShuffleComponent.LeftZ, ShuffleComponent.LeftW, ShuffleComponent.RightZ, ShuffleComponent.RightW);
-        }
-
-        [StructLayout(LayoutKind.Explicit)]
-        internal struct LongDoubleUnion
-        {
-            [FieldOffset(0)]
-            public long longValue;
-            [FieldOffset(0)]
-            public double doubleValue;
         }
 
         public static bool Approximately(float a, fp num)

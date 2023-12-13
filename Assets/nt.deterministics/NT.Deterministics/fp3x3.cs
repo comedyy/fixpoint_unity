@@ -474,13 +474,6 @@ namespace Nt.Deterministics
         /// <returns>The result of the equality comparison.</returns>
         public override bool Equals(object o) { return o is fp3x3 converted && Equals(converted); }
 
-
-        /// <summary>Returns a hash code for the float3x3.</summary>
-        /// <returns>The computed hash code.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode() { return (int)fpMath.hash(this); }
-
-
         /// <summary>Returns a string representation of the float3x3.</summary>
         /// <returns>String representation of the value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -585,32 +578,5 @@ namespace Nt.Deterministics
                 v.c1.x, v.c1.y, v.c1.z,
                 v.c2.x, v.c2.y, v.c2.z);
         }
-
-        /// <summary>Returns a uint hash code of a float3x3 matrix.</summary>
-        /// <param name="v">Matrix value to hash.</param>
-        /// <returns>uint hash of the argument.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static uint hash(fp3x3 v)
-        {
-            return Unity.Mathematics.math.csum(asuint(v.c0) * new Unity.Mathematics.uint3(0xFD80290Bu, 0x8B65ADB7u, 0xDFF4F563u) +
-                        asuint(v.c1) * new Unity.Mathematics.uint3(0x7069770Du, 0xD1224537u, 0xE99ED6F3u) +
-                        asuint(v.c2) * new Unity.Mathematics.uint3(0x48125549u, 0xEEE2123Bu, 0xE3AD9FE5u)) + 0xCE1CF8BFu;
-        }
-
-        /// <summary>
-        /// Returns a Unity.Mathematics.uint3 vector hash code of a float3x3 matrix.
-        /// When multiple elements are to be hashes together, it can more efficient to calculate and combine wide hash
-        /// that are only reduced to a narrow uint hash at the very end instead of at every step.
-        /// </summary>
-        /// <param name="v">Matrix value to hash.</param>
-        /// <returns>Unity.Mathematics.uint3 hash of the argument.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Unity.Mathematics.uint3 hashwide(fp3x3 v)
-        {
-            return (asuint(v.c0) * new Unity.Mathematics.uint3(0x7BE39F3Bu, 0xFAB9913Fu, 0xB4501269u) +
-                    asuint(v.c1) * new Unity.Mathematics.uint3(0xE04B89FDu, 0xDB3DE101u, 0x7B6D1B4Bu) +
-                    asuint(v.c2) * new Unity.Mathematics.uint3(0x58399E77u, 0x5EAC29C9u, 0xFC6014F9u)) + 0x6BF6693Fu;
-        }
-
     }
 }
