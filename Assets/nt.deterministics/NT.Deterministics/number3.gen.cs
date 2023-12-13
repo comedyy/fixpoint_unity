@@ -1835,7 +1835,7 @@ namespace Nt.Deterministics
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static bool Approximately(float3 num2, Unity.Mathematics.float3 b)
+        public static bool Approximately(float3 num2, Unity.Mathematics.float3 b)
         {
             return Approximately(num2.x, b.x) 
             && Approximately(num2.y, b.y)

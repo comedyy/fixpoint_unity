@@ -27,7 +27,7 @@ namespace Nt.Deterministics
         [FieldOffset(0)]
         public long RawValue;
         #region 静态常量
-        //public static readonly number MinNormal = new number(1L);
+        public static readonly number _0_9995 = Create(0, 9995);
         //public static readonly decimal Precision = (decimal)MinNormal;
         //public static readonly number one = new number(ONE);
         //public static readonly number zero = new number();
@@ -1494,6 +1494,44 @@ namespace Nt.Deterministics
         public static number ConvertFrom(float f)
         {
             return new number(){RawValue = (long)(f * ONE)};
+        }
+
+         public static number Create(int integerPart, int fractionPart)
+        {
+            if(integerPart != 0 && fractionPart < 0) throw new Exception($"创建错误 {integerPart} {fractionPart}");
+
+            return CreateInternal(integerPart, fractionPart, 10000);
+        }
+
+        public static number CreateByDivisor(int value, int divisor)
+        {
+            if(divisor < 0) throw new Exception($"创建错误 除数== 0");
+
+            var integerPart = value / divisor;
+            var fraction = value % divisor;
+
+            return CreateInternal(integerPart, fraction, divisor);
+        }
+
+        public static number CreateByDivisor(uint value, int divisor)
+        {
+            return CreateByDivisor((int)value, divisor);
+        }
+
+        static number CreateInternal(int intPart, int fractionPart, int divisor)
+        {
+            // Assert.IsTrue(fractionPart < divisor);
+            var fraction = fractionPart << FRACTIONAL_PLACES / divisor;
+            if(intPart >= 0)
+            {
+                var v = (intPart << FRACTIONAL_PLACES) + fraction;
+                return new number(){ RawValue = v };    
+            }
+            else
+            {
+                var v = (intPart << FRACTIONAL_PLACES) - fraction;
+                return new number(){ RawValue = v };    
+            }
         }
     }
 }

@@ -100,47 +100,47 @@ namespace Nt.Deterministics
             this.w.RawValue = value.w.RawValue;
         }
 
-        /// <summary>
-        /// get or set value of x/y/z/w by index
-        /// </summary>
-        /// <param name="index">index</param>
-        /// <returns>value of x/y/z/w</returns>
-        public number this[int index]
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get
-            {
-                switch(index)
-                {
-                    case 0: return this.x;
-                    case 1: return this.y;
-                    case 2: return this.z;
-                    case 3: return this.w;
-                    default: throw new IndexOutOfRangeException($"Invalid quaternion index! {index}");
-                }
-            }
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            set
-            {
-                switch (index)
-                {
-                    case 0:
-                        this.x = value;
-                        break;
-                    case 1:
-                        this.y = value;
-                        break;
-                    case 2:
-                        this.z = value;
-                        break;
-                    case 3:
-                        this.w = value;
-                        break;
-                    default:
-                        throw new IndexOutOfRangeException($"Invalid quaternion index! {index}");
-                }
-            }
-        }
+        // /// <summary>
+        // /// get or set value of x/y/z/w by index
+        // /// </summary>
+        // /// <param name="index">index</param>
+        // /// <returns>value of x/y/z/w</returns>
+        // public number this[int index]
+        // {
+        //     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //     get
+        //     {
+        //         switch(index)
+        //         {
+        //             case 0: return this.x;
+        //             case 1: return this.y;
+        //             case 2: return this.z;
+        //             case 3: return this.w;
+        //             default: throw new IndexOutOfRangeException($"Invalid quaternion index! {index}");
+        //         }
+        //     }
+        //     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //     set
+        //     {
+        //         switch (index)
+        //         {
+        //             case 0:
+        //                 this.x = value;
+        //                 break;
+        //             case 1:
+        //                 this.y = value;
+        //                 break;
+        //             case 2:
+        //                 this.z = value;
+        //                 break;
+        //             case 3:
+        //                 this.w = value;
+        //                 break;
+        //             default:
+        //                 throw new IndexOutOfRangeException($"Invalid quaternion index! {index}");
+        //         }
+        //     }
+        // }
 
         /// <summary>
         /// quaternion(0, 0, 0, 1)
@@ -151,47 +151,47 @@ namespace Nt.Deterministics
             get => new quaternion(number.zero, number.zero, number.zero, number.one);
         }
 
-        /// <summary>
-        /// get or set euler angles (ZXY)
-        /// </summary>
-        public float3 eulerAngles
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get
-            {
-                //��ZXY˳�򣬽���ŷ����
-                float3 euler;
-                number t = w * x - y * z;
-                if (number.Abs(t).RawValue > number.half.RawValue - number.SMALL_SQRT) // ������̬,������Ϊ��90��
-                {
-                    bool bSign = (t.RawValue & long.MinValue) == 0L;
-                    euler.x = bSign ? number.PIDiv2 : -number.PIDiv2;//pitch
-                    //�˿̣�w * y + x * z = 0 �� number.half - x * x - y * y = 0�����Բ���ֱ�������·�ʽ����euler.y
-                    //euler.y = number.Atan2(w * y + x * z, number.half - x * x - y * y);//yaw
-                    euler.y = (bSign ? -2 : 2) * number.Atan2(z, w);
-                    euler.z = number.zero;//roll
-                }
-                else
-                {
-                    euler.x = number.Asin(2 * t);
-                    euler.y = number.Atan2(w * y + x * z, number.half - x * x - y * y);
-                    euler.z = number.Atan2(w * z + x * y, number.half - x * x - z * z);
-                }
-                euler *= number.Rad2Deg;
-                return euler;
-            }
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            set
-            {
-                //��ZXY˳�򣬶�ӦUnity.Mathematics.quaternion.EulerZXY
-                float3 rad = number.half * value * number.Deg2Rad;
-                math.sincos(rad, out float3 s, out float3 c);
-                x = s.x * c.y * c.z + c.x * s.y * s.z;
-                y = c.x * s.y * c.z - s.x * c.y * s.z;
-                z = c.x * c.y * s.z - s.x * s.y * c.z;
-                w = c.x * c.y * c.z + s.x * s.y * s.z;
-            }
-        }
+        // /// <summary>
+        // /// get or set euler angles (ZXY)
+        // /// </summary>
+        // public float3 eulerAngles
+        // {
+        //     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //     get
+        //     {
+        //         //��ZXY˳�򣬽���ŷ����
+        //         float3 euler;
+        //         number t = w * x - y * z;
+        //         if (number.Abs(t).RawValue > number.half.RawValue - number.SMALL_SQRT) // ������̬,������Ϊ��90��
+        //         {
+        //             bool bSign = (t.RawValue & long.MinValue) == 0L;
+        //             euler.x = bSign ? number.PIDiv2 : -number.PIDiv2;//pitch
+        //             //�˿̣�w * y + x * z = 0 �� number.half - x * x - y * y = 0�����Բ���ֱ�������·�ʽ����euler.y
+        //             //euler.y = number.Atan2(w * y + x * z, number.half - x * x - y * y);//yaw
+        //             euler.y = (bSign ? -2 : 2) * number.Atan2(z, w);
+        //             euler.z = number.zero;//roll
+        //         }
+        //         else
+        //         {
+        //             euler.x = number.Asin(2 * t);
+        //             euler.y = number.Atan2(w * y + x * z, number.half - x * x - y * y);
+        //             euler.z = number.Atan2(w * z + x * y, number.half - x * x - z * z);
+        //         }
+        //         euler *= number.Rad2Deg;
+        //         return euler;
+        //     }
+        //     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //     set
+        //     {
+        //         //��ZXY˳�򣬶�ӦUnity.Mathematics.quaternion.EulerZXY
+        //         float3 rad = number.half * value * number.Deg2Rad;
+        //         math.sincos(rad, out float3 s, out float3 c);
+        //         x = s.x * c.y * c.z + c.x * s.y * s.z;
+        //         y = c.x * s.y * c.z - s.x * c.y * s.z;
+        //         z = c.x * c.y * s.z - s.x * s.y * c.z;
+        //         w = c.x * c.y * c.z + s.x * s.y * s.z;
+        //     }
+        // }
 
         /// <summary>
         /// get normalized quaternion
@@ -199,22 +199,22 @@ namespace Nt.Deterministics
         public quaternion normalized
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => quaternion.Normalize(this);
+            get => quaternion.normalize(this);
         }
 
-        /// <summary>
-        /// get the angle between two quaternion a and b
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static number Angle(quaternion a, quaternion b)
-        {
-            number dot = quaternion.Dot(a, b);
-            bool isEqual = quaternion.IsEqualUsingDot(dot);
-            return isEqual ? number.zero : (number.Acos(number.Min(number.Abs(dot), number.one)) * 2 * number.Rad2Deg);
-        }
+        // /// <summary>
+        // /// get the angle between two quaternion a and b
+        // /// </summary>
+        // /// <param name="a"></param>
+        // /// <param name="b"></param>
+        // /// <returns></returns>
+        // [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        // public static number Angle(quaternion a, quaternion b)
+        // {
+        //     number dot = quaternion.Dot(a, b);
+        //     bool isEqual = quaternion.IsEqualUsingDot(dot);
+        //     return isEqual ? number.zero : (number.Acos(number.Min(number.Abs(dot), number.one)) * 2 * number.Rad2Deg);
+        // }
 
         /// <summary>
         /// construct quaternion from axis and angle
@@ -222,12 +222,12 @@ namespace Nt.Deterministics
         /// <param name="angle">the degree of angle</param>
         /// <param name="axis">the axis of normalized vector3</param>
         /// <returns>quaternion</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static quaternion AngleAxis(number angle, float3 axis)
-        {
-            math.sincos(number.half * angle * number.Deg2Rad, out number sina, out number cosa);
-            return new quaternion(math.float4(axis * sina, cosa));
-        }
+        // [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        // public static quaternion AngleAxis(number angle, float3 axis)
+        // {
+        //     math.sincos(number.half * angle * number.Deg2Rad, out number sina, out number cosa);
+        //     return new quaternion(math.float4(axis * sina, cosa));
+        // }
 
         /// <summary>
         /// construct quaternion from axis and angle
@@ -252,6 +252,7 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static number Dot(quaternion a, quaternion b) => a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w;
 
+#region  Euler
         /// <summary>
         /// construct quaternion from euler angles.(XYZ)
         /// </summary>
@@ -476,43 +477,23 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static quaternion Euler(number x, number y, number z, RotationOrder order = RotationOrder.ZXY)
         {
-            switch(order)
-            {
-                case RotationOrder.XYZ : return quaternion.EulerXYZ(x, y, z);
-                case RotationOrder.XZY : return quaternion.EulerXZY(x, y, z);
-                case RotationOrder.YXZ : return quaternion.EulerYXZ(x, y, z);
-                case RotationOrder.YZX : return quaternion.EulerYZX(x, y, z);
-                case RotationOrder.ZXY : return quaternion.EulerZXY(x, y, z);
-                case RotationOrder.ZYX : return quaternion.EulerZYX(x, y, z);
-                default : return EulerZXY(x, y, z);
-            }
+            return Euler(new float3(x, y, z), order);
         }
 
-        /// <summary>
-        /// construct quaternion from euler angles.(ZXY)
-        /// </summary>
-        /// <param name="x">degree of pitch</param>
-        /// <param name="y">degree of yaw</param>
-        /// <param name="z">degree of roll</param>
-        /// <returns>quaternion</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static quaternion Euler(number x, number y, number z)
-        {
-            math.sincos(number.half * new float3(x, y, z) * number.Deg2Rad, out float3 s, out float3 c);
-            return new quaternion(
-                s.x * c.y * c.z + c.x * s.y * s.z,
-                c.x * s.y * c.z - s.x * c.y * s.z,
-                c.x * c.y * s.z - s.x * s.y * c.z,
-                c.x * c.y * c.z + s.x * s.y * s.z);
-        }
+#endregion
 
+#region Rotate
         /// <summary>
         /// construct quaternion by rotating special angle in radians around the X Axis
         /// </summary>
         /// <param name="angle">the special angle in radians</param>
         /// <returns>quaternion</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static quaternion RotateX(number angle) => new quaternion(number.Sin(angle), number.zero, number.zero, number.Cos(angle));
+        public static quaternion RotateX(number angle)
+        {
+            math.sincos(number.half * angle, out var sina, out var cosa);
+            return new quaternion(sina, number.zero, number.zero, cosa);
+        }
 
         /// <summary>
         /// construct quaternion by rotating special angle in radians around the Y Axis
@@ -520,7 +501,11 @@ namespace Nt.Deterministics
         /// <param name="angle">the special angle in radians</param>
         /// <returns>quaternion</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static quaternion RotateY(number angle) => new quaternion(number.zero, number.Sin(angle), number.zero, number.Cos(angle));
+        public static quaternion RotateY(number angle)
+        {
+            math.sincos(number.half * angle, out var sina, out var cosa);
+            return new quaternion(number.zero, sina, number.zero, cosa);
+        }
 
         /// <summary>
         /// construct quaternion by rotating special angle in radians around the Z Axis
@@ -528,24 +513,28 @@ namespace Nt.Deterministics
         /// <param name="angle">the special angle in radians</param>
         /// <returns>quaternion</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static quaternion RotateZ(number angle) => new quaternion(number.zero, number.zero, number.Sin(angle), number.Cos(angle));
+        public static quaternion RotateZ(number angle){
+            math.sincos(number.half * angle, out var sina, out var cosa);
+            return new quaternion(number.zero, number.zero, sina, cosa);
+        }
+#endregion
 
         /// <summary>
         /// construct quaternion from euler angles.(ZXY)
         /// </summary>
         /// <param name="euler">radians of euler angles. z as roll, x as pitch, y as yaw</param>
         /// <returns>quaternion</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [Obsolete("Use quaternion.Euler instead. This function was deprecated because it uses radians instead of degrees.")]
-        public static quaternion EulerAngles(float3 euler)
-        {
-            math.sincos(number.half * euler, out float3 s, out float3 c);
-            return new quaternion(
-                s.x * c.y * c.z + c.x * s.y * s.z,
-                c.x * s.y * c.z - s.x * c.y * s.z,
-                c.x * c.y * s.z - s.x * s.y * c.z,
-                c.x * c.y * c.z + s.x * s.y * s.z);
-        }
+        // [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        // [Obsolete("Use quaternion.Euler instead. This function was deprecated because it uses radians instead of degrees.")]
+        // public static quaternion EulerAngles(float3 euler)
+        // {
+        //     math.sincos(number.half * euler, out float3 s, out float3 c);
+        //     return new quaternion(
+        //         s.x * c.y * c.z + c.x * s.y * s.z,
+        //         c.x * s.y * c.z - s.x * c.y * s.z,
+        //         c.x * c.y * s.z - s.x * s.y * c.z,
+        //         c.x * c.y * c.z + s.x * s.y * s.z);
+        // }
 
         /// <summary>
         /// construct quaternion from euler angles.(ZXY)
@@ -554,17 +543,17 @@ namespace Nt.Deterministics
         /// <param name="y">radian of yaw</param>
         /// <param name="z">radian of roll</param>
         /// <returns>quaternion</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [Obsolete("Use quaternion.Euler instead. This function was deprecated because it uses radians instead of degrees.")]
-        public static quaternion EulerAngles(number x, number y, number z)
-        {
-            math.sincos(number.half * new float3(x, y, z), out float3 s, out float3 c);
-            return new quaternion(
-                s.x * c.y * c.z + c.x * s.y * s.z,
-                c.x * s.y * c.z - s.x * c.y * s.z,
-                c.x * c.y * s.z - s.x * s.y * c.z,
-                c.x * c.y * c.z + s.x * s.y * s.z);
-        }
+        // [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        // [Obsolete("Use quaternion.Euler instead. This function was deprecated because it uses radians instead of degrees.")]
+        // public static quaternion EulerAngles(number x, number y, number z)
+        // {
+        //     math.sincos(number.half * new float3(x, y, z), out float3 s, out float3 c);
+        //     return new quaternion(
+        //         s.x * c.y * c.z + c.x * s.y * s.z,
+        //         c.x * s.y * c.z - s.x * c.y * s.z,
+        //         c.x * c.y * s.z - s.x * s.y * c.z,
+        //         c.x * c.y * c.z + s.x * s.y * s.z);
+        // }
 
         /// <summary>
         /// construct quaternion from euler angles, same as EulerAngles.(ZXY)
@@ -573,34 +562,34 @@ namespace Nt.Deterministics
         /// <param name="y">radian of yaw</param>
         /// <param name="z">radian of roll</param>
         /// <returns>quaternion</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [Obsolete("Use quaternion.Euler instead. This function was deprecated because it uses radians instead of degrees.")]
-        public static quaternion EulerRotation(number x, number y, number z)
-        {
-            math.sincos(number.half * new float3(x, y, z), out float3 s, out float3 c);
-            return new quaternion(
-                s.x * c.y * c.z + c.x * s.y * s.z,
-                c.x * s.y * c.z - s.x * c.y * s.z,
-                c.x * c.y * s.z - s.x * s.y * c.z,
-                c.x * c.y * c.z + s.x * s.y * s.z);
-        }
+        // [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        // [Obsolete("Use quaternion.Euler instead. This function was deprecated because it uses radians instead of degrees.")]
+        // public static quaternion EulerRotation(number x, number y, number z)
+        // {
+        //     math.sincos(number.half * new float3(x, y, z), out float3 s, out float3 c);
+        //     return new quaternion(
+        //         s.x * c.y * c.z + c.x * s.y * s.z,
+        //         c.x * s.y * c.z - s.x * c.y * s.z,
+        //         c.x * c.y * s.z - s.x * s.y * c.z,
+        //         c.x * c.y * c.z + s.x * s.y * s.z);
+        // }
 
         /// <summary>
         /// construct quaternion from euler angles, same as EulerAngles.(ZXY)
         /// </summary>
         /// <param name="euler">the radians of euler angles. z as roll, x as pitch, y as yaw</param>
         /// <returns>quaternion</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [Obsolete("Use quaternion.Euler instead. This function was deprecated because it uses radians instead of degrees.")]
-        public static quaternion EulerRotation(float3 euler)
-        {
-            math.sincos(number.half * euler, out float3 s, out float3 c);
-            return new quaternion(
-                s.x * c.y * c.z + c.x * s.y * s.z,
-                c.x * s.y * c.z - s.x * c.y * s.z,
-                c.x * c.y * s.z - s.x * s.y * c.z,
-                c.x * c.y * c.z + s.x * s.y * s.z);
-        }
+        // [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        // [Obsolete("Use quaternion.Euler instead. This function was deprecated because it uses radians instead of degrees.")]
+        // public static quaternion EulerRotation(float3 euler)
+        // {
+        //     math.sincos(number.half * euler, out float3 s, out float3 c);
+        //     return new quaternion(
+        //         s.x * c.y * c.z + c.x * s.y * s.z,
+        //         c.x * s.y * c.z - s.x * c.y * s.z,
+        //         c.x * c.y * s.z - s.x * s.y * c.z,
+        //         c.x * c.y * c.z + s.x * s.y * s.z);
+        // }
 
         /// <summary>
         /// construct quaternion by rotating one vector to another vector 
@@ -608,13 +597,13 @@ namespace Nt.Deterministics
         /// <param name="fromDirection">from vector</param>
         /// <param name="toDirection">to vector</param>
         /// <returns>quaternion</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static quaternion FromToRotation(float3 fromDirection, float3 toDirection)
-        {
-            number angle = math.angle(fromDirection, toDirection);
-            float3 axis = math.normalize(math.cross(fromDirection, toDirection));
-            return AxisAngle(axis, angle);
-        }
+        // [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        // public static quaternion FromToRotation(float3 fromDirection, float3 toDirection)
+        // {
+        //     number angle = math.angle(fromDirection, toDirection);
+        //     float3 axis = math.normalize(math.cross(fromDirection, toDirection));
+        //     return AxisAngle(axis, angle);
+        // }
 
         /// <summary>
         /// get conjugated quaternion
@@ -647,20 +636,25 @@ namespace Nt.Deterministics
         /// <summary>
         /// Linear interpolation of two quaternions
         /// </summary>
-        /// <param name="a">quaternion a</param>
-        /// <param name="b">quaternion b</param>
+        /// <param name="q1">quaternion a</param>
+        /// <param name="q2">quaternion b</param>
         /// <param name="t">coefficient</param>
         /// <returns>quaternion</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static quaternion LerpUnclamped(quaternion a, quaternion b, number t)
+        public static quaternion LerpUnclamped(quaternion q1, quaternion q2, number t)
         {
-            bool opposite = Dot(a, b).RawValue < 0L;
+            bool opposite = Dot(q1, q2).RawValue < 0L;
+            if(opposite)
+            {
+                q2 = new quaternion(-q2.x, -q2.y, -q2.z, -q2.w);
+            }
+
             number inverse = number.one - t;
             return new quaternion(
-                opposite ? (inverse * a.x - t * b.x) : (inverse * a.x + t * b.x),
-                opposite ? (inverse * a.y - t * b.y) : (inverse * a.y + t * b.y),
-                opposite ? (inverse * a.z - t * b.z) : (inverse * a.z + t * b.z),
-                opposite ? (inverse * a.w - t * b.w) : (inverse * a.w + t * b.w)).normalized;
+                inverse * q1.x + t * q2.x,
+                inverse * q1.y + t * q2.y,
+                inverse * q1.z + t * q2.z,
+                inverse * q1.w + t * q2.w).normalized;
         }
 
         /// <summary>
@@ -712,7 +706,7 @@ namespace Nt.Deterministics
         /// <param name="q">original quaternion</param>
         /// <returns>the normalized quaternion</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static quaternion Normalize(quaternion q)
+        public static quaternion normalize(quaternion q)
         {
             number mag = number.Sqrt(quaternion.Dot(q, q));
             if (mag.RawValue == 0L) return quaternion.identity;
@@ -726,13 +720,13 @@ namespace Nt.Deterministics
         /// <param name="to">to quaternion</param>
         /// <param name="maxDegreesDelta">the giving radian of angle between the from quaternion and the interpolation quaternion</param>
         /// <returns>quaternion</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static quaternion RotateTowards(quaternion from, quaternion to, number maxDegreesDelta)
-        {
-            number angle = quaternion.Angle(from, to);
-            if (angle.RawValue == 0L) return to;
-            return quaternion.SlerpUnclamped(from, to, number.Min(number.one, maxDegreesDelta / angle));
-        }
+        // [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        // public static quaternion RotateTowards(quaternion from, quaternion to, number maxDegreesDelta)
+        // {
+        //     number angle = quaternion.Angle(from, to);
+        //     if (angle.RawValue == 0L) return to;
+        //     return quaternion.SlerpUnclamped(from, to, number.Min(number.one, maxDegreesDelta / angle));
+        // }
 
         /// <summary>
         /// spherical interpolation of two quaternions in interval [0, 1]
@@ -762,35 +756,57 @@ namespace Nt.Deterministics
         /// <summary>
         /// spherical interpolation of two quaternions
         /// </summary>
-        /// <param name="a">quaternion a</param>
-        /// <param name="b">quaternion b</param>
+        /// <param name="q1">quaternion a</param>
+        /// <param name="q2">quaternion b</param>
         /// <param name="t">coefficient</param>
         /// <returns>quaternion</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static quaternion SlerpUnclamped(quaternion a, quaternion b, number t)
+        public static quaternion SlerpUnclamped(quaternion q1, quaternion q2, number t)
         {
-            //�˴���Ϊa��b��Ϊ��λ����Ԫ�أ����ټ���a��b�Ƿ�Ϊ��λ����Ԫ�أ��ɵ��������м���
-            number dot = Dot(a, b);
-            if (number.Abs(dot).RawValue > number.ONE - number.SMALL_SQRT) return a;//a��b��Ȼ��෴����ʱ���ز�ֵ
-            number rad = number.Acos(number.Abs(dot));
-            number invSin = number.one / number.Sin(rad);
-            number inverse = number.Sin((number.one - t) * rad) * invSin;
-            number opposite = dot.RawValue < 0L ? -number.Sin(t * rad) * invSin : number.Sin(t * rad) * invSin;
-            return new quaternion(
-                (inverse * a.x) + (opposite * b.x),
-                (inverse * a.y) + (opposite * b.y),
-                (inverse * a.z) + (opposite * b.z),
-                (inverse * a.w) + (opposite * b.w));
+            number dt = Dot(q1, q2);
+            if(dt < 0)
+            {
+                dt = -dt;
+                q2 = new quaternion(-q2.x, -q2.y, -q2.z, -q2.w);
+            }
+
+            if(dt < number._0_9995)
+            {
+                var angle = math.acos(dt);
+                var s = math.rsqrt(number.one - dt * dt);    // 1.0f / sin(angle)
+                var w1 = math.sin(angle * (number.one - t)) * s;
+                var w2 = math.sin(angle * t) * s;
+                return new quaternion(
+                    (w1 * q1.x) + (w2 * q2.x),
+                    (w1 * q1.y) + (w2 * q2.y),
+                    (w1 * q1.z) + (w2 * q2.z),
+                    (w1 * q1.w) + (w2 * q2.w));
+            }
+            else
+            {
+                return LerpUnclamped(q1, q2, t);
+            }
+
+            // if (number.Abs(dt).RawValue > number.ONE - number.SMALL_SQRT) return a;//a��b��Ȼ��෴����ʱ���ز�ֵ
+            // number rad = number.Acos(number.Abs(dt));
+            // number invSin = number.one / number.Sin(rad);
+            // number inverse = number.Sin((number.one - t) * rad) * invSin;
+            // number opposite = dt.RawValue < 0L ? -number.Sin(t * rad) * invSin : number.Sin(t * rad) * invSin;
+            // return new quaternion(
+            //     (inverse * a.x) + (opposite * b.x),
+            //     (inverse * a.y) + (opposite * b.y),
+            //     (inverse * a.z) + (opposite * b.z),
+            //     (inverse * a.w) + (opposite * b.w));
         }
 
-        /// <summary>
-        /// get euler angles in radians of the giving quaternion
-        /// </summary>
-        /// <param name="rotation">the giving quaternion</param>
-        /// <returns>euler angles in radians</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [Obsolete("Use quaternion.eulerAngles instead. This function was deprecated because it uses radians instead of degrees.")]
-        public static float3 ToEulerAngles(quaternion rotation) => rotation.eulerAngles * number.Deg2Rad;
+        // /// <summary>
+        // /// get euler angles in radians of the giving quaternion
+        // /// </summary>
+        // /// <param name="rotation">the giving quaternion</param>
+        // /// <returns>euler angles in radians</returns>
+        // [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        // [Obsolete("Use quaternion.eulerAngles instead. This function was deprecated because it uses radians instead of degrees.")]
+        // public static float3 ToEulerAngles(quaternion rotation) => rotation.eulerAngles * number.Deg2Rad;
 
         /// <summary>
         /// is this quaternion equal to the other one.
@@ -814,47 +830,47 @@ namespace Nt.Deterministics
         /// </summary>
         /// <returns>hash code</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode() => x.RawValue.GetHashCode() ^ y.RawValue.GetHashCode() << 2 ^
-            z.RawValue.GetHashCode() >> 2 ^ w.RawValue.GetHashCode() >> 1;
-
+        public override int GetHashCode() => ((x.RawValue * 0x6E050B01u) + (y.RawValue * 0x750FDBF5u) +
+            (z.RawValue * 0x7F3DD499u) + (w.RawValue * 0x52EAAEBBu)).GetHashCode();
+            
         /// <summary>
         /// get the normalized quaternion of this one
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Normalize() => this = quaternion.Normalize(this);
+        public void Normalize() => this = quaternion.normalize(this);
 
-        /// <summary>
-        /// set x/y/z/w values
-        /// </summary>
-        /// <param name="newX">new value of X</param>
-        /// <param name="newY">new value of Y</param>
-        /// <param name="newZ">new value of Z</param>
-        /// <param name="newW">new value of W</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Set(number newX, number newY, number newZ, number newW)
-        {
-            x.RawValue = newX.RawValue;
-            y.RawValue = newY.RawValue;
-            z.RawValue = newZ.RawValue;
-            w.RawValue = newW.RawValue;
-        }
+        // /// <summary>
+        // /// set x/y/z/w values
+        // /// </summary>
+        // /// <param name="newX">new value of X</param>
+        // /// <param name="newY">new value of Y</param>
+        // /// <param name="newZ">new value of Z</param>
+        // /// <param name="newW">new value of W</param>
+        // [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        // public void Set(number newX, number newY, number newZ, number newW)
+        // {
+        //     x.RawValue = newX.RawValue;
+        //     y.RawValue = newY.RawValue;
+        //     z.RawValue = newZ.RawValue;
+        //     w.RawValue = newW.RawValue;
+        // }
 
-        /// <summary>
-        /// construct quaternion from axis and angle to this
-        /// </summary>
-        /// <param name="axis">the axis</param>
-        /// <param name="angle">the angle in radians</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [Obsolete("Use quaternion.AngleAxis instead. This function was deprecated because it uses radians instead of degrees.")]
-        public void SetAxisAngle(float3 axis, number angle) => this = quaternion.AxisAngle(axis, angle);
+        // /// <summary>
+        // /// construct quaternion from axis and angle to this
+        // /// </summary>
+        // /// <param name="axis">the axis</param>
+        // /// <param name="angle">the angle in radians</param>
+        // [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        // [Obsolete("Use quaternion.AngleAxis instead. This function was deprecated because it uses radians instead of degrees.")]
+        // public void SetAxisAngle(float3 axis, number angle) => this = quaternion.AxisAngle(axis, angle);
 
         /// <summary>
         /// construct quaternion from euler angles to this.(ZXY)
         /// </summary>
         /// <param name="euler">euler angles in radians. z as roll, x as pitch, y as yaw</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [Obsolete("Use quaternion.Euler instead. This function was deprecated because it uses radians instead of degrees.")]
-        public void SetEulerAngles(float3 euler) => this = quaternion.EulerAngles(euler);
+        // [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        // [Obsolete("Use quaternion.Euler instead. This function was deprecated because it uses radians instead of degrees.")]
+        // public void SetEulerAngles(float3 euler) => this = quaternion.EulerAngles(euler);
 
         /// <summary>
         /// construct quaternion from euler angles to this. (ZXY)
@@ -862,35 +878,35 @@ namespace Nt.Deterministics
         /// <param name="x">pitch angle in radians</param>
         /// <param name="y">yaw angle in radians</param>
         /// <param name="z">roll angle in radians</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [Obsolete("Use quaternion.Euler instead. This function was deprecated because it uses radians instead of degrees.")]
-        public void SetEulerAngles(number x, number y, number z) => this = quaternion.EulerAngles(x, y, z);
+        // [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        // [Obsolete("Use quaternion.Euler instead. This function was deprecated because it uses radians instead of degrees.")]
+        // public void SetEulerAngles(number x, number y, number z) => this = quaternion.EulerAngles(x, y, z);
 
-        /// <summary>
-        /// construct quaternion by euler angles to this, same as SetEulerAngles. (ZXY)
-        /// </summary>
-        /// <param name="euler">euler angles in radians. z as roll, x as pitch, y as yaw</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [Obsolete("Use quaternion.Euler instead. This function was deprecated because it uses radians instead of degrees.")]
-        public void SetEulerRotation(float3 euler) => this = quaternion.EulerRotation(euler);
+        // /// <summary>
+        // /// construct quaternion by euler angles to this, same as SetEulerAngles. (ZXY)
+        // /// </summary>
+        // /// <param name="euler">euler angles in radians. z as roll, x as pitch, y as yaw</param>
+        // [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        // [Obsolete("Use quaternion.Euler instead. This function was deprecated because it uses radians instead of degrees.")]
+        // public void SetEulerRotation(float3 euler) => this = quaternion.EulerRotation(euler);
 
-        /// <summary>
-        /// construct quaternion from euler angles to this, same as SetEulerAngles. (ZXY)
-        /// </summary>
-        /// <param name="x">pitch angle in radians</param>
-        /// <param name="y">yaw angle in radians</param>
-        /// <param name="z">roll angle in radians</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [Obsolete("Use quaternion.Euler instead. This function was deprecated because it uses radians instead of degrees.")]
-        public void SetEulerRotation(number x, number y, number z) => this = quaternion.EulerRotation(x, y, z);
+        // /// <summary>
+        // /// construct quaternion from euler angles to this, same as SetEulerAngles. (ZXY)
+        // /// </summary>
+        // /// <param name="x">pitch angle in radians</param>
+        // /// <param name="y">yaw angle in radians</param>
+        // /// <param name="z">roll angle in radians</param>
+        // [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        // [Obsolete("Use quaternion.Euler instead. This function was deprecated because it uses radians instead of degrees.")]
+        // public void SetEulerRotation(number x, number y, number z) => this = quaternion.EulerRotation(x, y, z);
 
         /// <summary>
         /// construct quaternion by rotating one vector to another vector, and set to this.
         /// </summary>
         /// <param name="fromDirection">the from vector</param>
         /// <param name="toDirection">the to vector</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void SetFromToRotation(float3 fromDirection, float3 toDirection) => this = quaternion.FromToRotation(fromDirection, toDirection);
+        // [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        // public void SetFromToRotation(float3 fromDirection, float3 toDirection) => this = quaternion.FromToRotation(fromDirection, toDirection);
 
         /// <summary>
         /// construct quaternion from forward vector and upwards vector, and set to this.  float3.up as default upwards vector.
@@ -1062,5 +1078,66 @@ namespace Nt.Deterministics
                 && Approximately(num2.z, b.value.z)
                 && Approximately(num2.w, b.value.w);
         }
+
+        /// <summary>Returns the inverse of a quaternion value.</summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static quaternion inverse(quaternion q)
+        {
+            return quaternion.Inverse(q);
+        }
+
+        /// <summary>Returns the dot product of two quaternions.</summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static number dot(quaternion a, quaternion b)
+        {
+            return quaternion.Dot(a, b);
+        }
+
+        /// <summary>Returns a normalized version of a quaternion q by scaling it by 1 / length(q).</summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static quaternion normalize(quaternion q)
+        {
+            return quaternion.normalize(q);
+        }
+
+        public static quaternion slerp(quaternion q1, quaternion q2, number t)
+        {
+            return quaternion.SlerpUnclamped(q1, q2, t);
+        }
+
+        /// <summary>Returns the result of a normalized linear interpolation between two quaternions q1 and a2 using an interpolation parameter t.</summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static quaternion nlerp(quaternion q1, quaternion q2, number t)
+        {
+            return quaternion.LerpUnclamped(q1, q2, t);
+        }
+
+        /// <summary>Returns the result of transforming the quaternion b by the quaternion a.</summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static quaternion mul(quaternion a, quaternion b)
+        {
+            return new quaternion(new float4(a.w, a.w, a.w, a.w) * new float4(b.x, b.y, b.z, b.w) 
+                    + ( new float4(a.x, a.y, a.z, a.x) * new float4(b.w, b.w, b.w, b.x) + new float4(a.y, a.z, a.x, a.y) * new float4(b.z, b.x, b.y, b.y)) * float4(1, 1, 1, -1)
+                    - new float4(a.z, a.x, a.y, a.z) * new float4(b.y, b.z, b.x, b.z));
+        }
+
+        /// <summary>Returns the result of transforming a vector by a quaternion.</summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static float3 mul(quaternion q, float3 v)
+        {
+            float3 t = 2 * math.cross(new float3(q.x, q.y, q.z), v);
+            return v + q.w * t + cross(new float3(q.x, q.y, q.z), t);
+        }
+
+        /// <summary>Returns the result of rotating a vector by a unit quaternion.</summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static float3 rotate(quaternion q, float3 v)
+        {
+            float3 t = 2 * cross(new float3(q.x, q.y, q.z), v);
+            return v + q.w * t + cross(new float3(q.x, q.y, q.z), t);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static float3 forward(quaternion q) { return mul(q, float3(0, 0, 1)); }  // for compatibility
     }
 }
