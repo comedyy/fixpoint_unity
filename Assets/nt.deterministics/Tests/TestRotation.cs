@@ -29,7 +29,7 @@ namespace Tests
                 fp3 f11 = new fp3(fp.ConvertFrom(f1.x), fp.ConvertFrom(f1.y), fp.ConvertFrom(f1.z));
                 fp3 f12 = new fp3(fp.ConvertFrom(f2.x), fp.ConvertFrom(f2.y), fp.ConvertFrom(f2.z));
 
-                var q1 = quaternion.LookRotation(f11, f12);
+                var q1 = fpQuaternion.LookRotation(f11, f12);
                 var q2 = Unity.Mathematics.quaternion.LookRotation(f1, f2);
 
                 Assert.IsTrue(math.Approximately(q1, q2), $"{q1} {q2}");
@@ -40,7 +40,7 @@ namespace Tests
         public void TestEuler()
         {
             InitLookupTable();
-            math.Approximately(quaternion.identity, quaternion.identity);
+            math.Approximately(fpQuaternion.identity, fpQuaternion.identity);
 
             for(int i = 0; i < 10000; i++)
             {
@@ -53,14 +53,14 @@ namespace Tests
 
                 for(RotationOrder r = RotationOrder.XYZ; r < RotationOrder.ZYX; r++)
                 {
-                    var q1 = quaternion.Euler(fix3, r);
+                    var q1 = fpQuaternion.Euler(fix3, r);
                     var q2 = Unity.Mathematics.quaternion.Euler(float3, (Unity.Mathematics.math.RotationOrder)r);
                     Assert.IsTrue(math.Approximately(q1, q2), $"{q1} {q2}");
                 }
 
                 for(RotationOrder r = RotationOrder.XYZ; r < RotationOrder.ZYX; r++)
                 {
-                    var q1 = quaternion.Euler(d1, d2, d3, r);
+                    var q1 = fpQuaternion.Euler(d1, d2, d3, r);
                     var q2 = Unity.Mathematics.quaternion.Euler(d1, d2, d3, (Unity.Mathematics.math.RotationOrder)r);
                     Assert.IsTrue(math.Approximately(q1, q2), $"{q1} {q2}");
                 }
@@ -79,7 +79,7 @@ namespace Tests
 
                 var d3 = Random.Range(-720, 720);
 
-                var q1 = quaternion.AxisAngle(f11, d3);
+                var q1 = fpQuaternion.AxisAngle(f11, d3);
                 var q2 = Unity.Mathematics.quaternion.AxisAngle(f1, d3);
 
                 Assert.IsTrue(math.Approximately(q1, q2), $"{q1} {q2}");
@@ -101,8 +101,8 @@ namespace Tests
                 var d3 = Random.Range(-720, 720);
                 var d4 = Random.Range(-720, 720);
 
-                var q1 = quaternion.AxisAngle(f11, d3);
-                var q11 = quaternion.AxisAngle(f12, d4);
+                var q1 = fpQuaternion.AxisAngle(f11, d3);
+                var q11 = fpQuaternion.AxisAngle(f12, d4);
                 var q2 = Unity.Mathematics.quaternion.AxisAngle(f1, d3);
                 var q22 = Unity.Mathematics.quaternion.AxisAngle(f2, d4);
 
@@ -126,7 +126,7 @@ namespace Tests
                 var d3 = Random.Range(-720, 720);
                 var d4 = Random.Range(-720, 720);
 
-                var q1 = quaternion.AxisAngle(f11, d3);
+                var q1 = fpQuaternion.AxisAngle(f11, d3);
                 var q2 = Unity.Mathematics.quaternion.AxisAngle(f1, d3);
 
                 var q111 = math.inverse(q1);
@@ -150,7 +150,7 @@ namespace Tests
                 var d3 = Random.Range(-720, 720);
                 var d4 = Random.Range(-720, 720);
 
-                var q1 = quaternion.AxisAngle(f11, d3);
+                var q1 = fpQuaternion.AxisAngle(f11, d3);
                 var q2 = Unity.Mathematics.quaternion.AxisAngle(f1, d3);
 
                 var q111 = math.normalize(q1);
@@ -169,15 +169,15 @@ namespace Tests
             {
                 var d3 = Random.Range(-720, 720);
 
-                var q1 = quaternion.RotateX(d3);
+                var q1 = fpQuaternion.RotateX(d3);
                 var q2 = Unity.Mathematics.quaternion.RotateX(d3);
                 Assert.IsTrue(math.Approximately(q1, q2), $"{q1} {q2}");
 
-                var q11 = quaternion.RotateY(d3);
+                var q11 = fpQuaternion.RotateY(d3);
                 var q21 = Unity.Mathematics.quaternion.RotateY(d3);
                 Assert.IsTrue(math.Approximately(q11, q21), $"{q11} {q21}");
 
-                var q12 = quaternion.RotateZ(d3);
+                var q12 = fpQuaternion.RotateZ(d3);
                 var q22 = Unity.Mathematics.quaternion.RotateZ(d3);
                 Assert.IsTrue(math.Approximately(q12, q22), $"{q12} {q22}");
 
@@ -210,8 +210,8 @@ namespace Tests
                 var q2 = Unity.Mathematics.quaternion.AxisAngle(f1, d3);
                 var q22 = Unity.Mathematics.quaternion.AxisAngle(f2, d4);
 
-                var q1 = new quaternion(fp.ConvertFrom(q2.value.x), fp.ConvertFrom(q2.value.y), fp.ConvertFrom(q2.value.z), fp.ConvertFrom(q2.value.w));
-                var q11 = new quaternion(fp.ConvertFrom(q22.value.x), fp.ConvertFrom(q22.value.y), fp.ConvertFrom(q22.value.z), fp.ConvertFrom(q22.value.w));
+                var q1 = new fpQuaternion(fp.ConvertFrom(q2.value.x), fp.ConvertFrom(q2.value.y), fp.ConvertFrom(q2.value.z), fp.ConvertFrom(q2.value.w));
+                var q11 = new fpQuaternion(fp.ConvertFrom(q22.value.x), fp.ConvertFrom(q22.value.y), fp.ConvertFrom(q22.value.z), fp.ConvertFrom(q22.value.w));
 
                 var d5 = Random.Range(0.0f, 1.0f);
                 var q111 = math.slerp(q11, q1, fp.ConvertFrom(d5));
@@ -232,7 +232,7 @@ namespace Tests
             InitLookupTable();
             int totalCollide = 0;
 
-            HashSet<quaternion> _allQuaternion = new HashSet<quaternion>();
+            HashSet<fpQuaternion> _allQuaternion = new HashSet<fpQuaternion>();
             HashSet<int> _hashCodes = new HashSet<int>();
             for(int i = 0; i < 100000; i++)
             {
@@ -240,7 +240,7 @@ namespace Tests
                 var d3 = Random.Range(-720, 720);
 
                 var q2 = Unity.Mathematics.quaternion.AxisAngle(f1, d3);
-                var q1 = new quaternion(fp.ConvertFrom(q2.value.x), fp.ConvertFrom(q2.value.y), fp.ConvertFrom(q2.value.z), fp.ConvertFrom(q2.value.w));
+                var q1 = new fpQuaternion(fp.ConvertFrom(q2.value.x), fp.ConvertFrom(q2.value.y), fp.ConvertFrom(q2.value.z), fp.ConvertFrom(q2.value.w));
 
                 if(_allQuaternion.Contains(q1))
                 {

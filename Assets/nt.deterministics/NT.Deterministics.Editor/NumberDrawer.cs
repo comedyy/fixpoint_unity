@@ -153,7 +153,7 @@ namespace Nt.Deterministics.Editor
     //     }
     // }
 
-    [CustomPropertyDrawer(typeof(fp2)), CustomPropertyDrawer(typeof(fp3)), CustomPropertyDrawer(typeof(fp4)), CustomPropertyDrawer(typeof(quaternion))]
+    [CustomPropertyDrawer(typeof(fp2)), CustomPropertyDrawer(typeof(fp3)), CustomPropertyDrawer(typeof(fp4)), CustomPropertyDrawer(typeof(fpQuaternion))]
     [CustomPropertyDrawer(typeof(DoNotNormalizeAttribute))]
     class PrimitiveVectorDrawer : PropertyDrawer
     {
@@ -179,7 +179,7 @@ namespace Nt.Deterministics.Editor
         static class Content
         {
             public static readonly string doNotNormalizeCompatibility = L10n.Tr(
-                $"{typeof(DoNotNormalizeAttribute).Name} only works with {typeof(quaternion)} and primitive vector types."
+                $"{typeof(DoNotNormalizeAttribute).Name} only works with {typeof(fpQuaternion)} and primitive vector types."
             );
             public static readonly string doNotNormalizeTooltip =
                 L10n.Tr("This value is not normalized, which may produce unexpected results.");
@@ -220,7 +220,7 @@ namespace Nt.Deterministics.Editor
                     break;
                 default:
                     {
-                        if (property.type == nameof(quaternion))
+                        if (property.type == nameof(fpQuaternion))
                             startIter = "x";
                         else if (attribute is DoNotNormalizeAttribute)
                         {
