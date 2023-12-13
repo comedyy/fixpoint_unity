@@ -56,7 +56,7 @@ namespace Nt.Deterministics
         /// ctor
         /// </summary>
         /// <param name="value">float4</param>
-        public quaternion(float4 value)
+        public quaternion(fp4 value)
         {
             this.x.RawValue = value.x.RawValue;
             this.y.RawValue = value.y.RawValue;
@@ -76,16 +76,16 @@ namespace Nt.Deterministics
             fp s = new fp(constant.sign64);
             fp u_sign = u.x & s;
             fp t = u_sign.RawValue == 0L ? (v.y + w.z) : (v.y - w.z);
-            float4 u_mask = new float4(u_sign >> 63);
-            float4 t_mask = new float4(t >> 63);
+            fp4 u_mask = new fp4(u_sign >> 63);
+            fp4 t_mask = new fp4(t >> 63);
             fp tr = fp.one + fp.Abs(u.x);
-            float4 sign_flips = new float4(fp.zero, s, s, s) ^ (u_mask & new float4(fp.zero, s, fp.zero, s)) 
-                ^ (t_mask & new float4(s, s, s, fp.zero));
+            fp4 sign_flips = new fp4(fp.zero, s, s, s) ^ (u_mask & new fp4(fp.zero, s, fp.zero, s)) 
+                ^ (t_mask & new fp4(s, s, s, fp.zero));
             bool bSign0 = sign_flips.x.RawValue == 0L;
             bool bSign1 = sign_flips.y.RawValue == 0L;
             bool bSign2 = sign_flips.z.RawValue == 0L;
             bool bSign3 = sign_flips.w.RawValue == 0L;
-            float4 value = new float4(tr, u.y, w.x, v.z) + new float4(
+            fp4 value = new fp4(tr, u.y, w.x, v.z) + new fp4(
                 bSign0 ? t : -t,
                 bSign1 ? v.x : -v.x,
                 bSign2 ? u.z : -u.z,
@@ -1116,9 +1116,9 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static quaternion mul(quaternion a, quaternion b)
         {
-            return new quaternion(new float4(a.w, a.w, a.w, a.w) * new float4(b.x, b.y, b.z, b.w) 
-                    + ( new float4(a.x, a.y, a.z, a.x) * new float4(b.w, b.w, b.w, b.x) + new float4(a.y, a.z, a.x, a.y) * new float4(b.z, b.x, b.y, b.y)) * float4(1, 1, 1, -1)
-                    - new float4(a.z, a.x, a.y, a.z) * new float4(b.y, b.z, b.x, b.z));
+            return new quaternion(new fp4(a.w, a.w, a.w, a.w) * new fp4(b.x, b.y, b.z, b.w) 
+                    + ( new fp4(a.x, a.y, a.z, a.x) * new fp4(b.w, b.w, b.w, b.x) + new fp4(a.y, a.z, a.x, a.y) * new fp4(b.z, b.x, b.y, b.y)) * float4(1, 1, 1, -1)
+                    - new fp4(a.z, a.x, a.y, a.z) * new fp4(b.y, b.z, b.x, b.z));
         }
 
         /// <summary>Returns the result of transforming a vector by a quaternion.</summary>

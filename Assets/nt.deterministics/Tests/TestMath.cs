@@ -36,14 +36,14 @@ namespace Tests
             return (new fp3(n, n1, n2), new Unity.Mathematics.float3(f, f1, f2));
         }
 
-        (float4, Unity.Mathematics.float4) GetRandom4()
+        (fp4, Unity.Mathematics.float4) GetRandom4()
         {
             (var n, var f) = GetRandom1();
             (var n1, var f1) = GetRandom1();
             (var n2, var f2) = GetRandom1();
             (var n3, var f3) = GetRandom1();
 
-            return (new float4(n, n1, n2, n3), new Unity.Mathematics.float4(f, f1, f2, f3));
+            return (new fp4(n, n1, n2, n3), new Unity.Mathematics.float4(f, f1, f2, f3));
         }
 
         [Test]

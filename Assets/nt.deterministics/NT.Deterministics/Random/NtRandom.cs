@@ -303,7 +303,7 @@ namespace Nt.Deterministics
             z = NextNumber(minValue, maxValue)
         };
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float4 NextNumber4() => new float4()
+        public fp4 NextNumber4() => new fp4()
         {
             x = NextNumber(),
             y = NextNumber(),
@@ -311,7 +311,7 @@ namespace Nt.Deterministics
             w = NextNumber()
         };
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float4 NextNumber4(fp maxValue) => new float4()
+        public fp4 NextNumber4(fp maxValue) => new fp4()
         {
             x = NextNumber(maxValue),
             y = NextNumber(maxValue),
@@ -319,7 +319,7 @@ namespace Nt.Deterministics
             w = NextNumber(maxValue)
         };
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float4 NextNumber4(fp minValue, fp maxValue) => new float4()
+        public fp4 NextNumber4(fp minValue, fp maxValue) => new fp4()
         {
             x = NextNumber(minValue, maxValue),
             y = NextNumber(minValue, maxValue),

@@ -33,7 +33,7 @@ namespace Nt.Deterministics
         /// <param name="x">The float4 bits to copy.</param>
         /// <returns>The uint4 with the same bit pattern as the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static uint4 asuint(float4 x) { return new uint4(asuint(x.x), asuint(x.y), asuint(x.z), asuint(x.w)); }
+        public static uint4 asuint(fp4 x) { return new uint4(asuint(x.x), asuint(x.y), asuint(x.z), asuint(x.w)); }
 
         /// <summary>Returns the bit pattern of a number as a double.</summary>
         /// <param name="x">The long bits to copy.</param>
@@ -63,7 +63,7 @@ namespace Nt.Deterministics
         /// <param name="x">The long bits to copy.</param>
         /// <returns>The double with the same bit pattern as the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double4 asdouble(float4 x) { return new double4(asdouble(x.x), asdouble(x.y), asdouble(x.z), asdouble(x.w)); }
+        public static double4 asdouble(fp4 x) { return new double4(asdouble(x.x), asdouble(x.y), asdouble(x.z), asdouble(x.w)); }
 
 
         /// <summary>Returns true if the input number is a finite floating point value, false otherwise.</summary>
@@ -88,7 +88,7 @@ namespace Nt.Deterministics
         /// <param name="x">The float4 value to test.</param>
         /// <returns>A bool4 where it is true in a component if that component is finite, false otherwise.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool4 isfinite(float4 x) { return abs(x) < fp.PositiveInfinity; }
+        public static bool4 isfinite(fp4 x) { return abs(x) < fp.PositiveInfinity; }
 
         /// <summary>Returns the minimum of two number values.</summary>
         /// <param name="x">The first input value.</param>
@@ -116,7 +116,7 @@ namespace Nt.Deterministics
         /// <param name="y">The second input value.</param>
         /// <returns>The componentwise minimum of the two input values.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 min(float4 x, float4 y) { return new float4(min(x.x, y.x), min(x.y, y.y), min(x.z, y.z), min(x.w, y.w)); }
+        public static fp4 min(fp4 x, fp4 y) { return new fp4(min(x.x, y.x), min(x.y, y.y), min(x.z, y.z), min(x.w, y.w)); }
 
         /// <summary>Returns the maximum of two number values.</summary>
         /// <param name="x">The first input value.</param>
@@ -144,7 +144,7 @@ namespace Nt.Deterministics
         /// <param name="y">The second input value.</param>
         /// <returns>The componentwise maximum of the two input values.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 max(float4 x, float4 y) { return new float4(max(x.x, y.x), max(x.y, y.y), max(x.z, y.z), max(x.w, y.w)); }
+        public static fp4 max(fp4 x, fp4 y) { return new fp4(max(x.x, y.x), max(x.y, y.y), max(x.z, y.z), max(x.w, y.w)); }
 
 
         /// <summary>Returns the result of linearly interpolating from x to y using the interpolation parameter s.</summary>
@@ -189,7 +189,7 @@ namespace Nt.Deterministics
         /// <param name="s">The interpolation parameter. May be a value outside the interval [0, 1].</param>
         /// <returns>The componentwise interpolation from x to y.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 lerp(float4 x, float4 y, fp s) { return x + s * (y - x); }
+        public static fp4 lerp(fp4 x, fp4 y, fp s) { return x + s * (y - x); }
 
 
         /// <summary>Returns the result of a componentwise linear interpolating from x to y using the corresponding components of the interpolation parameter s.</summary>
@@ -223,7 +223,7 @@ namespace Nt.Deterministics
         /// <param name="s">The interpolation parameter. May be a value outside the interval [0, 1].</param>
         /// <returns>The componentwise interpolation from x to y.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 lerp(float4 x, float4 y, float4 s) { return x + s * (y - x); }
+        public static fp4 lerp(fp4 x, fp4 y, fp4 s) { return x + s * (y - x); }
 
 
         /// <summary>Returns the result of normalizing a fix point value x to a range [a, b]. The opposite of lerp. Equivalent to (x - a) / (b - a).</summary>
@@ -256,7 +256,7 @@ namespace Nt.Deterministics
         /// <param name="x">The value to normalize to the range.</param>
         /// <returns>The componentwise interpolation parameter of x with respect to the input range [a, b].</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 unlerp(float4 a, float4 b, float4 x) { return (x - a) / (b - a); }
+        public static fp4 unlerp(fp4 a, fp4 b, fp4 x) { return (x - a) / (b - a); }
 
 
         /// <summary>Returns the result of a non-clamping linear remapping of a value x from source range [a, b] to the destination range [c, d].</summary>
@@ -297,7 +297,7 @@ namespace Nt.Deterministics
         /// <param name="x">The value to remap from the source to destination range.</param>
         /// <returns>The componentwise remap of input x from the source range to the destination range.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 remap(float4 a, float4 b, float4 c, float4 d, float4 x) { return lerp(c, d, unlerp(a, b, x)); }
+        public static fp4 remap(fp4 a, fp4 b, fp4 c, fp4 d, fp4 x) { return lerp(c, d, unlerp(a, b, x)); }
 
 
         /// <summary>Returns the result of a multiply-add operation (a * b + c) on 3 number values.</summary>
@@ -350,7 +350,7 @@ namespace Nt.Deterministics
         /// <param name="c">Third value to add to the product of a and b.</param>
         /// <returns>The componentwise multiply-add of the inputs.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 mad(float4 a, float4 b, float4 c) { return a * b + c; }
+        public static fp4 mad(fp4 a, fp4 b, fp4 c) { return a * b + c; }
 
 
         /// <summary>Returns the result of clamping the value x into the interval [a, b], where x, a and b are number values.</summary>
@@ -383,7 +383,7 @@ namespace Nt.Deterministics
         /// <param name="b">Upper bound of the interval.</param>
         /// <returns>The componentwise clamping of the input x into the interval [a, b].</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 clamp(float4 x, float4 a, float4 b) { return max(a, min(b, x)); }
+        public static fp4 clamp(fp4 x, fp4 a, fp4 b) { return max(a, min(b, x)); }
 
 
         /// <summary>Returns the result of clamping the number value x into the interval [0, 1].</summary>
@@ -408,7 +408,7 @@ namespace Nt.Deterministics
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise clamping of the input into the interval [0, 1].</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 saturate(float4 x) { return clamp(x, new float4(0), new float4(1)); }
+        public static fp4 saturate(fp4 x) { return clamp(x, new fp4(0), new fp4(1)); }
 
 
         /// <summary>Returns the absolute value of a number value.</summary>
@@ -433,7 +433,7 @@ namespace Nt.Deterministics
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise absolute value of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 abs(float4 x) { return float4(abs(x.x), abs(x.y), abs(x.z), abs(x.w)); }
+        public static fp4 abs(fp4 x) { return float4(abs(x.x), abs(x.y), abs(x.z), abs(x.w)); }
 
 
         /// <summary>Returns the dot product of two number values. Equivalent to multiplication.</summary>
@@ -462,7 +462,7 @@ namespace Nt.Deterministics
         /// <param name="y">The second vector.</param>
         /// <returns>The dot product of two vectors.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp dot(float4 x, float4 y) { return x.x * y.x + x.y * y.y + x.z * y.z + x.w * y.w; }
+        public static fp dot(fp4 x, fp4 y) { return x.x * y.x + x.y * y.y + x.z * y.z + x.w * y.w; }
 
 
         /// <summary>Returns the tangent of a number value.</summary>
@@ -487,7 +487,7 @@ namespace Nt.Deterministics
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise tangent of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 tan(float4 x) { return float4(tan(x.x), tan(x.y), tan(x.z), tan(x.w)); }
+        public static fp4 tan(fp4 x) { return float4(tan(x.x), tan(x.y), tan(x.z), tan(x.w)); }
 
 
         /// <summary>Returns the hyperbolic tangent of a number value.</summary>
@@ -512,7 +512,7 @@ namespace Nt.Deterministics
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise hyperbolic tangent of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 tanh(float4 x) { return float4(tanh(x.x), tanh(x.y), tanh(x.z), tanh(x.w)); }
+        public static fp4 tanh(fp4 x) { return float4(tanh(x.x), tanh(x.y), tanh(x.z), tanh(x.w)); }
 
 
         /// <summary>Returns the arctangent of a number value.</summary>
@@ -537,7 +537,7 @@ namespace Nt.Deterministics
         /// <param name="x">A tangent value, usually the ratio y/x on the unit circle.</param>
         /// <returns>The componentwise arctangent of the input, in radians.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 atan(float4 x) { return float4(atan(x.x), atan(x.y), atan(x.z), atan(x.w)); }
+        public static fp4 atan(fp4 x) { return float4(atan(x.x), atan(x.y), atan(x.z), atan(x.w)); }
 
 
         /// <summary>Returns the 2-argument arctangent of a pair of number values.</summary>
@@ -566,7 +566,7 @@ namespace Nt.Deterministics
         /// <param name="x">Denominator of the ratio y/x, usually the x component on the unit circle.</param>
         /// <returns>The componentwise arctangent of the ratio y/x, in radians.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 atan2(float4 y, float4 x) { return float4(atan2(y.x, x.x), atan2(y.y, x.y), atan2(y.z, x.z), atan2(y.w, x.w)); }
+        public static fp4 atan2(fp4 y, fp4 x) { return float4(atan2(y.x, x.x), atan2(y.y, x.y), atan2(y.z, x.z), atan2(y.w, x.w)); }
 
 
         /// <summary>Returns the cosine of a number value.</summary>
@@ -591,7 +591,7 @@ namespace Nt.Deterministics
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise cosine cosine of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 cos(float4 x) { return float4(cos(x.x), cos(x.y), cos(x.z), cos(x.w)); }
+        public static fp4 cos(fp4 x) { return float4(cos(x.x), cos(x.y), cos(x.z), cos(x.w)); }
 
 
         /// <summary>Returns the hyperbolic cosine of a number value.</summary>
@@ -616,7 +616,7 @@ namespace Nt.Deterministics
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise hyperbolic cosine of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 cosh(float4 x) { return float4(cosh(x.x), cosh(x.y), cosh(x.z), cosh(x.w)); }
+        public static fp4 cosh(fp4 x) { return float4(cosh(x.x), cosh(x.y), cosh(x.z), cosh(x.w)); }
 
 
         /// <summary>Returns the arccosine of a number value.</summary>
@@ -641,7 +641,7 @@ namespace Nt.Deterministics
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise arccosine of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 acos(float4 x) { return float4(acos(x.x), acos(x.y), acos(x.z), acos(x.w)); }
+        public static fp4 acos(fp4 x) { return float4(acos(x.x), acos(x.y), acos(x.z), acos(x.w)); }
 
 
         /// <summary>Returns the sine of a number value.</summary>
@@ -666,7 +666,7 @@ namespace Nt.Deterministics
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise sine of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 sin(float4 x) { return float4(sin(x.x), sin(x.y), sin(x.z), sin(x.w)); }
+        public static fp4 sin(fp4 x) { return float4(sin(x.x), sin(x.y), sin(x.z), sin(x.w)); }
 
 
         /// <summary>Returns the hyperbolic sine of a number value.</summary>
@@ -691,7 +691,7 @@ namespace Nt.Deterministics
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise hyperbolic sine of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 sinh(float4 x) { return new float4(sinh(x.x), sinh(x.y), sinh(x.z), sinh(x.w)); }
+        public static fp4 sinh(fp4 x) { return new fp4(sinh(x.x), sinh(x.y), sinh(x.z), sinh(x.w)); }
 
 
         /// <summary>Returns the arcsine of a number value.</summary>
@@ -716,7 +716,7 @@ namespace Nt.Deterministics
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise arcsine of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 asin(float4 x) { return float4(asin(x.x), asin(x.y), asin(x.z), asin(x.w)); }
+        public static fp4 asin(fp4 x) { return float4(asin(x.x), asin(x.y), asin(x.z), asin(x.w)); }
 
 
         /// <summary>Returns the result of rounding a number value up to the nearest integral value less or equal to the original value.</summary>
@@ -741,7 +741,7 @@ namespace Nt.Deterministics
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise round down to nearest integral value of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 floor(float4 x) { return float4(floor(x.x), floor(x.y), floor(x.z), floor(x.w)); }
+        public static fp4 floor(fp4 x) { return float4(floor(x.x), floor(x.y), floor(x.z), floor(x.w)); }
 
 
         /// <summary>Returns the result of rounding a number value up to the nearest integral value greater or equal to the original value.</summary>
@@ -766,7 +766,7 @@ namespace Nt.Deterministics
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise round up to nearest integral value of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 ceil(float4 x) { return float4(ceil(x.x), ceil(x.y), ceil(x.z), ceil(x.w)); }
+        public static fp4 ceil(fp4 x) { return float4(ceil(x.x), ceil(x.y), ceil(x.z), ceil(x.w)); }
 
 
         /// <summary>Returns the result of rounding a number value to the nearest integral value.</summary>
@@ -791,7 +791,7 @@ namespace Nt.Deterministics
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise round to nearest integral value of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 round(float4 x) { return float4(round(x.x), round(x.y), round(x.z), round(x.w)); }
+        public static fp4 round(fp4 x) { return float4(round(x.x), round(x.y), round(x.z), round(x.w)); }
 
 
         /// <summary>Returns the result of truncating a number value to an integral number value.</summary>
@@ -816,7 +816,7 @@ namespace Nt.Deterministics
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise truncation of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 trunc(float4 x) { return float4(trunc(x.x), trunc(x.y), trunc(x.z), trunc(x.w)); }
+        public static fp4 trunc(fp4 x) { return float4(trunc(x.x), trunc(x.y), trunc(x.z), trunc(x.w)); }
 
 
         /// <summary>Returns the fractional part of a number value.</summary>
@@ -841,7 +841,7 @@ namespace Nt.Deterministics
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise fractional part of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 frac(float4 x) { return x - floor(x); }
+        public static fp4 frac(fp4 x) { return x - floor(x); }
 
 
         /// <summary>Returns the reciprocal a number value.</summary>
@@ -866,7 +866,7 @@ namespace Nt.Deterministics
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise reciprocal of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 rcp(float4 x) { return fp.one / x; }
+        public static fp4 rcp(fp4 x) { return fp.one / x; }
 
 
         /// <summary>Returns the sign of a number value. -1.0f if it is less than zero, 0.0f if it is zero and 1.0f if it greater than zero.</summary>
@@ -891,7 +891,7 @@ namespace Nt.Deterministics
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise sign of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 sign(float4 x) { return new float4(sign(x.x), sign(x.y), sign(x.z), sign(x.w)); }
+        public static fp4 sign(fp4 x) { return new fp4(sign(x.x), sign(x.y), sign(x.z), sign(x.w)); }
 
 
         /// <summary>Returns x raised to the power y.</summary>
@@ -920,7 +920,7 @@ namespace Nt.Deterministics
         /// <param name="y">The exponent power.</param>
         /// <returns>The componentwise result of raising x to the power y.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 pow(float4 x, float4 y) { return new float4(pow(x.x, y.x), pow(x.y, y.y), pow(x.z, y.z), pow(x.w, y.w)); }
+        public static fp4 pow(fp4 x, fp4 y) { return new fp4(pow(x.x, y.x), pow(x.y, y.y), pow(x.z, y.z), pow(x.w, y.w)); }
 
 
         /// <summary>Returns the base-e exponential of x.</summary>
@@ -945,7 +945,7 @@ namespace Nt.Deterministics
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise base-e exponential of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 exp(float4 x) { return new float4(exp(x.x), exp(x.y), exp(x.z), exp(x.w)); }
+        public static fp4 exp(fp4 x) { return new fp4(exp(x.x), exp(x.y), exp(x.z), exp(x.w)); }
 
 
         /// <summary>Returns the base-2 exponential of x.</summary>
@@ -970,7 +970,7 @@ namespace Nt.Deterministics
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise base-2 exponential of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 exp2(float4 x) { return new float4(exp2(x.x), exp2(x.y), exp2(x.z), exp2(x.w)); }
+        public static fp4 exp2(fp4 x) { return new fp4(exp2(x.x), exp2(x.y), exp2(x.z), exp2(x.w)); }
 
 
         /// <summary>Returns the base-10 exponential of x.</summary>
@@ -995,7 +995,7 @@ namespace Nt.Deterministics
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise base-10 exponential of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 exp10(float4 x) { return new float4(exp10(x.x), exp10(x.y), exp10(x.z), exp10(x.w)); }
+        public static fp4 exp10(fp4 x) { return new fp4(exp10(x.x), exp10(x.y), exp10(x.z), exp10(x.w)); }
 
 
         /// <summary>Returns the natural logarithm of a number value.</summary>
@@ -1020,7 +1020,7 @@ namespace Nt.Deterministics
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise natural logarithm of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 log(float4 x) { return new float4(log(x.x), log(x.y), log(x.z), log(x.w)); }
+        public static fp4 log(fp4 x) { return new fp4(log(x.x), log(x.y), log(x.z), log(x.w)); }
 
 
         /// <summary>Returns the base-2 logarithm of a number value.</summary>
@@ -1045,7 +1045,7 @@ namespace Nt.Deterministics
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise base-2 logarithm of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 log2(float4 x) { return new float4(log2(x.x), log2(x.y), log2(x.z), log2(x.w)); }
+        public static fp4 log2(fp4 x) { return new fp4(log2(x.x), log2(x.y), log2(x.z), log2(x.w)); }
 
         /// <summary>Returns the base-10 logarithm of a number value.</summary>
         /// <param name="x">Input value.</param>
@@ -1069,7 +1069,7 @@ namespace Nt.Deterministics
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise base-10 logarithm of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 log10(float4 x) { return new float4(log10(x.x), log10(x.y), log10(x.z), log10(x.w)); }
+        public static fp4 log10(fp4 x) { return new fp4(log10(x.x), log10(x.y), log10(x.z), log10(x.w)); }
 
 
         /// <summary>Returns the fix point remainder of x/y.</summary>
@@ -1098,7 +1098,7 @@ namespace Nt.Deterministics
         /// <param name="y">The divisor in x/y.</param>
         /// <returns>The componentwise remainder of x/y.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 fmod(float4 x, float4 y) { return new float4(x.x % y.x, x.y % y.y, x.z % y.z, x.w % y.w); }
+        public static fp4 fmod(fp4 x, fp4 y) { return new fp4(x.x % y.x, x.y % y.y, x.z % y.z, x.w % y.w); }
 
 
         /// <summary>Splits a number value into an integral part i and a fractional part that gets returned. Both parts take the sign of the input.</summary>
@@ -1136,7 +1136,7 @@ namespace Nt.Deterministics
         /// <param name="i">Output value containing integral part of x.</param>
         /// <returns>The componentwise fractional part of x.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 modf(float4 x, out float4 i) { i = trunc(x); return x - i; }
+        public static fp4 modf(fp4 x, out fp4 i) { i = trunc(x); return x - i; }
 
 
         /// <summary>Returns the square root of a number value.</summary>
@@ -1161,7 +1161,7 @@ namespace Nt.Deterministics
         /// <param name="x">Value to use when computing square root.</param>
         /// <returns>The componentwise square root.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 sqrt(float4 x) { return new float4(sqrt(x.x), sqrt(x.y), sqrt(x.z), sqrt(x.w)); }
+        public static fp4 sqrt(fp4 x) { return new fp4(sqrt(x.x), sqrt(x.y), sqrt(x.z), sqrt(x.w)); }
 
 
         /// <summary>Returns the reciprocal square root of a number value.</summary>
@@ -1186,7 +1186,7 @@ namespace Nt.Deterministics
         /// <param name="x">Value to use when computing reciprocal square root.</param>
         /// <returns>The componentwise reciprocal square root.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 rsqrt(float4 x) { return fp.one / sqrt(x); }
+        public static fp4 rsqrt(fp4 x) { return fp.one / sqrt(x); }
 
 
         /// <summary>Returns a normalized version of the float2 vector x by scaling it by 1 / length(x).</summary>
@@ -1242,7 +1242,7 @@ namespace Nt.Deterministics
         /// <param name="x">Vector to normalize.</param>
         /// <returns>The normalized vector.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 normalize(float4 x) { return x.Equals(Nt.Deterministics.float4.zero) ? x : rsqrt(dot(x, x)) * x; }
+        public static fp4 normalize(fp4 x) { return x.Equals(Nt.Deterministics.fp4.zero) ? x : rsqrt(dot(x, x)) * x; }
 
 
         /// <summary>
@@ -1300,7 +1300,7 @@ namespace Nt.Deterministics
         /// <param name="defaultvalue">Vector to return if normalized vector is not finite.</param>
         /// <returns>The normalized vector or the default value if the normalized vector is not finite.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static public float4 normalizesafe(float4 x, float4 defaultvalue = new float4())
+        static public fp4 normalizesafe(fp4 x, fp4 defaultvalue = new fp4())
         {
             fp len = math.dot(x, x);
             return len > fp.MinNormal ? x * math.rsqrt(len) : defaultvalue;
@@ -1348,7 +1348,7 @@ namespace Nt.Deterministics
         /// <param name="x">Vector to use when computing length.</param>
         /// <returns>Length of vector x.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp length(float4 x) { return sqrt(dot(x, x)); }
+        public static fp length(fp4 x) { return sqrt(dot(x, x)); }
 
 
         /// <summary>Returns the squared length of a number value. Equivalent to squaring the value.</summary>
@@ -1373,7 +1373,7 @@ namespace Nt.Deterministics
         /// <param name="x">Vector to use when computing squared length.</param>
         /// <returns>Squared length of vector x.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp lengthsq(float4 x) { return dot(x, x); }
+        public static fp lengthsq(fp4 x) { return dot(x, x); }
 
 
         /// <summary>Returns the distance between two number values.</summary>
@@ -1402,7 +1402,7 @@ namespace Nt.Deterministics
         /// <param name="y">Second vector to use in distance computation.</param>
         /// <returns>The distance between x and y.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp distance(float4 x, float4 y) { return length(y - x); }
+        public static fp distance(fp4 x, fp4 y) { return length(y - x); }
 
 
         /// <summary>Returns the squared distance between two number values.</summary>
@@ -1431,7 +1431,7 @@ namespace Nt.Deterministics
         /// <param name="y">Second vector to use in distance computation.</param>
         /// <returns>The squared distance between x and y.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp distancesq(float4 x, float4 y) { return lengthsq(y - x); }
+        public static fp distancesq(fp4 x, fp4 y) { return lengthsq(y - x); }
 
 
         /// <summary>Returns the cross product of two float3 vectors.</summary>
@@ -1484,7 +1484,7 @@ namespace Nt.Deterministics
         /// <param name="x">The value to be interpolated.</param>
         /// <returns>Returns component values camped to the range [0, 1].</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 smoothstep(float4 a, float4 b, float4 x)
+        public static fp4 smoothstep(fp4 a, fp4 b, fp4 x)
         {
             var t = saturate((x - a) / (b - a));
             return t * t * (fp.three - (fp.two * t));
@@ -1507,7 +1507,7 @@ namespace Nt.Deterministics
         /// <param name="x">Vector of values to compare.</param>
         /// <returns>True if any the components of x are non-zero, false otherwise.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool any(float4 x) { return x.x != 0 || x.y != 0 || x.z != 0 || x.w != 0; }
+        public static bool any(fp4 x) { return x.x != 0 || x.y != 0 || x.z != 0 || x.w != 0; }
 
 
         /// <summary>Returns true if any component of the input float2 vector is NaN, false otherwise.</summary>
@@ -1526,7 +1526,7 @@ namespace Nt.Deterministics
         /// <param name="x">Vector of values to compare.</param>
         /// <returns>True if any the components of x are NaN, false otherwise.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool anyNaN(float4 x) { return fp.IsNaN(x.x) || fp.IsNaN(x.y) || fp.IsNaN(x.z) || fp.IsNaN(x.w); }
+        public static bool anyNaN(fp4 x) { return fp.IsNaN(x.x) || fp.IsNaN(x.y) || fp.IsNaN(x.z) || fp.IsNaN(x.w); }
 
 
         /// <summary>Returns true if all components of the input float2 vector are non-zero, false otherwise.</summary>
@@ -1545,7 +1545,7 @@ namespace Nt.Deterministics
         /// <param name="x">Vector of values to compare.</param>
         /// <returns>True if all the components of x are non-zero, false otherwise.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool all(float4 x) { return x.x != 0 && x.y != 0 && x.z != 0 && x.w != 0; }
+        public static bool all(fp4 x) { return x.x != 0 && x.y != 0 && x.z != 0 && x.w != 0; }
 
 
         /// <summary>Returns b if c is true, a otherwise.</summary>
@@ -1578,7 +1578,7 @@ namespace Nt.Deterministics
         /// <param name="c">Bool value to choose between a and b.</param>
         /// <returns>The selection between a and b according to bool c.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 select(float4 a, float4 b, bool c) { return c ? b : a; }
+        public static fp4 select(fp4 a, fp4 b, bool c) { return c ? b : a; }
 
 
         /// <summary>
@@ -1612,7 +1612,7 @@ namespace Nt.Deterministics
         /// <param name="c">Selection mask to choose between a and b.</param>
         /// <returns>The componentwise selection between a and b according to selection mask c.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 select(float4 a, float4 b, bool4 c) { return new float4(c.x ? b.x : a.x, c.y ? b.y : a.y, c.z ? b.z : a.z, c.w ? b.w : a.w); }
+        public static fp4 select(fp4 a, fp4 b, bool4 c) { return new fp4(c.x ? b.x : a.x, c.y ? b.y : a.y, c.z ? b.z : a.z, c.w ? b.w : a.w); }
 
 
         /// <summary>Returns the result of a step function where the result is 1.0f when x &gt;= y and 0.0f otherwise.</summary>
@@ -1641,7 +1641,7 @@ namespace Nt.Deterministics
         /// <param name="x">Vector of values to compare against threshold y.</param>
         /// <returns>1 if the componentwise comparison x &gt;= y is true, otherwise 0.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 step(float4 y, float4 x) { return select(float4(0), float4(1), x >= y); }
+        public static fp4 step(fp4 y, fp4 x) { return select(float4(0), float4(1), x >= y); }
 
 
         /// <summary>Given an incident vector i and a normal vector n, returns the reflection vector r = i - 2.0f * dot(i, n) * n.</summary>
@@ -1663,7 +1663,7 @@ namespace Nt.Deterministics
         /// <param name="n">Normal vector.</param>
         /// <returns>Reflection vector.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 reflect(float4 i, float4 n) { return i - fp.two * n * dot(i, n); }
+        public static fp4 reflect(fp4 i, fp4 n) { return i - fp.two * n * dot(i, n); }
 
 
         /// <summary>Returns the refraction vector given the incident vector i, the normal vector n and the refraction index eta.</summary>
@@ -1698,7 +1698,7 @@ namespace Nt.Deterministics
         /// <param name="eta">Index of refraction.</param>
         /// <returns>Refraction vector.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 refract(float4 i, float4 n, fp eta)
+        public static fp4 refract(fp4 i, fp4 n, fp eta)
         {
             fp ni = dot(n, i);
             fp k = fp.one - eta * eta * (fp.one - ni * ni);
@@ -1747,14 +1747,14 @@ namespace Nt.Deterministics
         /// <remarks>
         /// Some finite vectors a and b could generate a non-finite result. This is most likely when a's components
         /// are very large (close to Single.MaxValue) or when b's components are very small (close to number.MinNormal).
-        /// In these cases, you can call <see cref="projectsafe(Nt.Deterministics.float4,Nt.Deterministics.float4,Nt.Deterministics.float4)"/>
+        /// In these cases, you can call <see cref="projectsafe(Nt.Deterministics.fp4,Nt.Deterministics.fp4,Nt.Deterministics.fp4)"/>
         /// which will use a given default value if the result is not finite.
         /// </remarks>
         /// <param name="a">Vector to project.</param>
         /// <param name="b">Non-zero vector to project onto.</param>
         /// <returns>Vector projection of a onto b.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 project(float4 a, float4 b)
+        public static fp4 project(fp4 a, fp4 b)
         {
             return (dot(a, b) / dot(b, b)) * b;
         }
@@ -1807,7 +1807,7 @@ namespace Nt.Deterministics
         /// <remarks>
         /// This function performs extra checks to see if the result of projecting a onto b is finite. If you know that
         /// your inputs will generate a finite result or you don't care if the result is finite, then you can call
-        /// <see cref="project(Nt.Deterministics.float4,Nt.Deterministics.float4)"/> instead which is faster than this
+        /// <see cref="project(Nt.Deterministics.fp4,Nt.Deterministics.fp4)"/> instead which is faster than this
         /// function.
         /// </remarks>
         /// <param name="a">Vector to project.</param>
@@ -1815,7 +1815,7 @@ namespace Nt.Deterministics
         /// <param name="defaultValue">Default value to return if projection is not finite.</param>
         /// <returns>Vector projection of a onto b or the default value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 projectsafe(float4 a, float4 b, float4 defaultValue = new float4())
+        public static fp4 projectsafe(fp4 a, fp4 b, fp4 defaultValue = new fp4())
         {
             var proj = project(a, b);
 
@@ -1844,7 +1844,7 @@ namespace Nt.Deterministics
         /// <param name="ng">Second vector in direction comparison.</param>
         /// <returns>-n if i and ng point in the same direction; otherwise return n unchanged.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 faceforward(float4 n, float4 i, float4 ng) { return select(n, -n, dot(ng, i) >= 0); }
+        public static fp4 faceforward(fp4 n, fp4 i, fp4 ng) { return select(n, -n, dot(ng, i) >= 0); }
 
 
         /// <summary>Returns the sine and cosine of the input number value x through the out parameters s and c.</summary>
@@ -1877,7 +1877,7 @@ namespace Nt.Deterministics
         /// <param name="s">Output vector containing the componentwise sine of the input.</param>
         /// <param name="c">Output vector containing the componentwise cosine of the input.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void sincos(float4 x, out float4 s, out float4 c) { s = sin(x); c = cos(x); }
+        public static void sincos(fp4 x, out fp4 s, out fp4 c) { s = sin(x); c = cos(x); }
 
         /// <summary>Returns the result of converting a number value from degrees to radians.</summary>
         /// <param name="x">Angle in degrees.</param>
@@ -1901,7 +1901,7 @@ namespace Nt.Deterministics
         /// <param name="x">Vector containing angles in degrees.</param>
         /// <returns>Vector containing angles converted to radians.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 radians(float4 x) { return x * fp.Deg2Rad; }
+        public static fp4 radians(fp4 x) { return x * fp.Deg2Rad; }
 
 
         /// <summary>Returns the result of converting a double value from radians to degrees.</summary>
@@ -1926,7 +1926,7 @@ namespace Nt.Deterministics
         /// <param name="x">Vector containing angles in radians.</param>
         /// <returns>Vector containing angles converted to degrees.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float4 degrees(float4 x) { return x * fp.Rad2Deg; }
+        public static fp4 degrees(fp4 x) { return x * fp.Rad2Deg; }
 
 
         /// <summary>Returns the minimum component of a float2 vector.</summary>
@@ -1945,7 +1945,7 @@ namespace Nt.Deterministics
         /// <param name="x">The vector to use when computing the minimum component.</param>
         /// <returns>The value of the minimum component of the vector.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp cmin(float4 x) { return min(min(x.x, x.y), min(x.z, x.w)); }
+        public static fp cmin(fp4 x) { return min(min(x.x, x.y), min(x.z, x.w)); }
 
 
         /// <summary>Returns the maximum component of a float2 vector.</summary>
@@ -1964,7 +1964,7 @@ namespace Nt.Deterministics
         /// <param name="x">The vector to use when computing the maximum component.</param>
         /// <returns>The value of the maximum component of the vector.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp cmax(float4 x) { return max(max(x.x, x.y), max(x.z, x.w)); }
+        public static fp cmax(fp4 x) { return max(max(x.x, x.y), max(x.z, x.w)); }
 
 
         /// <summary>Returns the horizontal sum of components of a float2 vector.</summary>
@@ -1983,7 +1983,7 @@ namespace Nt.Deterministics
         /// <param name="x">The vector to use when computing the horizontal sum.</param>
         /// <returns>The horizontal sum of of components of the vector.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp csum(float4 x) { return (x.x + x.y) + (x.z + x.w); }
+        public static fp csum(fp4 x) { return (x.x + x.y) + (x.z + x.w); }
 
         // /// <summary>
         // /// Generate an orthonormal basis given a single unit length normal vector.
@@ -2048,25 +2048,25 @@ namespace Nt.Deterministics
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static float4 unpacklo(float4 a, float4 b)
+        internal static fp4 unpacklo(fp4 a, fp4 b)
         {
             return shuffle(a, b, ShuffleComponent.LeftX, ShuffleComponent.RightX, ShuffleComponent.LeftY, ShuffleComponent.RightY);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static float4 unpackhi(float4 a, float4 b)
+        internal static fp4 unpackhi(fp4 a, fp4 b)
         {
             return shuffle(a, b, ShuffleComponent.LeftZ, ShuffleComponent.RightZ, ShuffleComponent.LeftW, ShuffleComponent.RightW);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static float4 movelh(float4 a, float4 b)
+        internal static fp4 movelh(fp4 a, fp4 b)
         {
             return shuffle(a, b, ShuffleComponent.LeftX, ShuffleComponent.LeftY, ShuffleComponent.RightX, ShuffleComponent.RightY);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static float4 movehl(float4 a, float4 b)
+        internal static fp4 movehl(fp4 a, fp4 b)
         {
             return shuffle(b, a, ShuffleComponent.LeftZ, ShuffleComponent.LeftW, ShuffleComponent.RightZ, ShuffleComponent.RightW);
         }
