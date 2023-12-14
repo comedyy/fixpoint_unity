@@ -3923,5 +3923,17 @@ namespace Mathematics.FixedPoint
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp4 fp4(Unity.Mathematics.uint4 v) { return new fp4(v); }
+
+        
+        /// <summary>
+        /// Computes the component-wise square (x * x) of the input argument x.
+        /// </summary>
+        /// <param name="x">Value to square.</param>
+        /// <returns>Returns the square of the input.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static fp4 square(fp4 x)
+        {
+            return x * x;
+        }
     }
 }

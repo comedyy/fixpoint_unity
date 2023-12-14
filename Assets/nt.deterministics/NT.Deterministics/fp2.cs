@@ -842,6 +842,17 @@ namespace Mathematics.FixedPoint
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp2 fp2(Unity.Mathematics.uint2 v) { return new fp2(v); }
 
+         /// <summary>
+        /// Computes the component-wise square (x * x) of the input argument x.
+        /// </summary>
+        /// <param name="x">Value to square.</param>
+        /// <returns>Returns the square of the input.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static fp2 square(fp2 x)
+        {
+            return x * x;
+        }
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Approximately(fp2 num2, Unity.Mathematics.float2 b)
         {

@@ -1931,6 +1931,18 @@ namespace Mathematics.FixedPoint
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp csum(fp4 x) { return (x.x + x.y) + (x.z + x.w); }
 
+        /// <summary>
+        /// Computes the square (x * x) of the input argument x.
+        /// </summary>
+        /// <param name="x">Value to square.</param>
+        /// <returns>Returns the square of the input.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static fp square(fp x)
+        {
+            return x * x;
+        }
+
+
         // /// <summary>
         // /// Generate an orthonormal basis given a single unit length normal vector.
         // /// </summary>

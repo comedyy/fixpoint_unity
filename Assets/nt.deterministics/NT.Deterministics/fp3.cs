@@ -1729,6 +1729,18 @@ namespace Mathematics.FixedPoint
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp3 fp3(Unity.Mathematics.uint3 v) { return new fp3(v); }
+        
+        /// <summary>
+        /// Computes the component-wise square (x * x) of the input argument x.
+        /// </summary>
+        /// <param name="x">Value to square.</param>
+        /// <returns>Returns the square of the input.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static fp3 square(fp3 x)
+        {
+            return x * x;
+        }
+
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Approximately(fp3 num2, Unity.Mathematics.float3 b)
