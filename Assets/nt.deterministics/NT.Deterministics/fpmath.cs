@@ -1994,30 +1994,6 @@ namespace Nt.Deterministics
             return dot(axis0, axis) >= fp.zero ? ang : fp.PITimes2 - ang;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static fp4 unpacklo(fp4 a, fp4 b)
-        {
-            return shuffle(a, b, ShuffleComponent.LeftX, ShuffleComponent.RightX, ShuffleComponent.LeftY, ShuffleComponent.RightY);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static fp4 unpackhi(fp4 a, fp4 b)
-        {
-            return shuffle(a, b, ShuffleComponent.LeftZ, ShuffleComponent.RightZ, ShuffleComponent.LeftW, ShuffleComponent.RightW);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static fp4 movelh(fp4 a, fp4 b)
-        {
-            return shuffle(a, b, ShuffleComponent.LeftX, ShuffleComponent.LeftY, ShuffleComponent.RightX, ShuffleComponent.RightY);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static fp4 movehl(fp4 a, fp4 b)
-        {
-            return shuffle(b, a, ShuffleComponent.LeftZ, ShuffleComponent.LeftW, ShuffleComponent.RightZ, ShuffleComponent.RightW);
-        }
-
         public static bool Approximately(float a, fp num)
         {
             float b = num;

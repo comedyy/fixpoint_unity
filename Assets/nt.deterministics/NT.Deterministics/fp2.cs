@@ -9,7 +9,6 @@
 using System;
 using System.Runtime.CompilerServices;
 using System.Diagnostics;
-using ShuffleComponent = Unity.Mathematics.math.ShuffleComponent;
 
 #pragma warning disable 0660, 0661
 
@@ -842,83 +841,6 @@ namespace Nt.Deterministics
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp2 float2(Unity.Mathematics.uint2 v) { return new fp2(v); }
-
-        /// <summary>Returns the result of specified shuffling of the components from two float2 vectors into a number value.</summary>
-        /// <param name="left">float2 to use as the left argument of the shuffle operation.</param>
-        /// <param name="right">float2 to use as the right argument of the shuffle operation.</param>
-        /// <param name="x">The ShuffleComponent to use when setting the resulting number.</param>
-        /// <returns>number result of the shuffle operation.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp shuffle(fp2 left, fp2 right, ShuffleComponent x)
-        {
-            return select_shuffle_component(left, right, x);
-        }
-
-        /// <summary>Returns the result of specified shuffling of the components from two float2 vectors into a float2 vector.</summary>
-        /// <param name="left">float2 to use as the left argument of the shuffle operation.</param>
-        /// <param name="right">float2 to use as the right argument of the shuffle operation.</param>
-        /// <param name="x">The ShuffleComponent to use when setting the resulting float2 x component.</param>
-        /// <param name="y">The ShuffleComponent to use when setting the resulting float2 y component.</param>
-        /// <returns>float2 result of the shuffle operation.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 shuffle(fp2 left, fp2 right, ShuffleComponent x, ShuffleComponent y)
-        {
-            return float2(
-                select_shuffle_component(left, right, x),
-                select_shuffle_component(left, right, y));
-        }
-
-        /// <summary>Returns the result of specified shuffling of the components from two float2 vectors into a float3 vector.</summary>
-        /// <param name="left">float2 to use as the left argument of the shuffle operation.</param>
-        /// <param name="right">float2 to use as the right argument of the shuffle operation.</param>
-        /// <param name="x">The ShuffleComponent to use when setting the resulting float3 x component.</param>
-        /// <param name="y">The ShuffleComponent to use when setting the resulting float3 y component.</param>
-        /// <param name="z">The ShuffleComponent to use when setting the resulting float3 z component.</param>
-        /// <returns>float3 result of the shuffle operation.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp3 shuffle(fp2 left, fp2 right, ShuffleComponent x, ShuffleComponent y, ShuffleComponent z)
-        {
-            return float3(
-                select_shuffle_component(left, right, x),
-                select_shuffle_component(left, right, y),
-                select_shuffle_component(left, right, z));
-        }
-
-        /// <summary>Returns the result of specified shuffling of the components from two float2 vectors into a float4 vector.</summary>
-        /// <param name="left">float2 to use as the left argument of the shuffle operation.</param>
-        /// <param name="right">float2 to use as the right argument of the shuffle operation.</param>
-        /// <param name="x">The ShuffleComponent to use when setting the resulting float4 x component.</param>
-        /// <param name="y">The ShuffleComponent to use when setting the resulting float4 y component.</param>
-        /// <param name="z">The ShuffleComponent to use when setting the resulting float4 z component.</param>
-        /// <param name="w">The ShuffleComponent to use when setting the resulting float4 w component.</param>
-        /// <returns>float4 result of the shuffle operation.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp4 shuffle(fp2 left, fp2 right, ShuffleComponent x, ShuffleComponent y, ShuffleComponent z, ShuffleComponent w)
-        {
-            return float4(
-                select_shuffle_component(left, right, x),
-                select_shuffle_component(left, right, y),
-                select_shuffle_component(left, right, z),
-                select_shuffle_component(left, right, w));
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static fp select_shuffle_component(fp2 a, fp2 b, ShuffleComponent component)
-        {
-            switch(component)
-            {
-                case ShuffleComponent.LeftX:
-                    return a.x;
-                case ShuffleComponent.LeftY:
-                    return a.y;
-                case ShuffleComponent.RightX:
-                    return b.x;
-                case ShuffleComponent.RightY:
-                    return b.y;
-                default:
-                    throw new System.ArgumentException("Invalid shuffle component: " + component);
-            }
-        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Approximately(fp2 num2, Unity.Mathematics.float2 b)
