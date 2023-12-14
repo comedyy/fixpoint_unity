@@ -260,7 +260,7 @@ namespace Mathematics.FixedPoint
         /// <param name="v">float4 to convert to Unity.Mathematics.float4</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator Unity.Mathematics.float4(fp4 v) { return new Unity.Mathematics.float4((float)v.x, (float)v.y, (float)v.z, (float)v.w); }
+        public static implicit operator Unity.Mathematics.float4(fp4 v) { return new Unity.Mathematics.float4((float)v.x, (float)v.y, (float)v.z, (float)v.w); }
 
         /// <summary>Returns the result of a componentwise multiplication operation on two float4 vectors.</summary>
         /// <param name="lhs">Left hand side float4 to use to compute componentwise multiplication.</param>
@@ -3934,6 +3934,15 @@ namespace Mathematics.FixedPoint
         public static fp4 square(fp4 x)
         {
             return x * x;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Approximately(fp4 num2, Unity.Mathematics.float4 b)
+        {
+            return Approximately(num2.x, b.x) 
+                && Approximately(num2.y, b.y)
+                && Approximately(num2.z, b.z)
+                && Approximately(num2.w, b.w);
         }
     }
 }

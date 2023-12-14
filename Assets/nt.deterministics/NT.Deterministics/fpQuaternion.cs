@@ -18,25 +18,7 @@ namespace Mathematics.FixedPoint
     [System.Serializable]
     public struct fpQuaternion : IEquatable<fpQuaternion>, IFormattable
     {
-        /// <summary>
-        /// x
-        /// </summary>
-        public fp x;
-
-        /// <summary>
-        /// y
-        /// </summary>
-        public fp y;
-
-        /// <summary>
-        /// z
-        /// </summary>
-        public fp z;
-
-        /// <summary>
-        /// w
-        /// </summary>
-        public fp w;
+        public fp4 value;
 
         /// <summary>
         /// ctor
@@ -47,10 +29,7 @@ namespace Mathematics.FixedPoint
         /// <param name="w">w</param>
         public fpQuaternion(fp x, fp y, fp z, fp w)
         {
-            this.x.RawValue = x.RawValue;
-            this.y.RawValue = y.RawValue;
-            this.z.RawValue = z.RawValue;
-            this.w.RawValue = w.RawValue;
+            this.value = new fp4(x, y, z, w);
         }
 
         /// <summary>
@@ -59,10 +38,7 @@ namespace Mathematics.FixedPoint
         /// <param name="value">float4</param>
         public fpQuaternion(fp4 value)
         {
-            this.x.RawValue = value.x.RawValue;
-            this.y.RawValue = value.y.RawValue;
-            this.z.RawValue = value.z.RawValue;
-            this.w.RawValue = value.w.RawValue;
+            this.value = value;
         }
 
         /// <summary>
@@ -86,7 +62,7 @@ namespace Mathematics.FixedPoint
             bool bSign1 = sign_flips.y.RawValue == 0L;
             bool bSign2 = sign_flips.z.RawValue == 0L;
             bool bSign3 = sign_flips.w.RawValue == 0L;
-            fp4 value = new fp4(tr, u.y, w.x, v.z) + new fp4(
+            value = new fp4(tr, u.y, w.x, v.z) + new fp4(
                 bSign0 ? t : -t,
                 bSign1 ? v.x : -v.x,
                 bSign2 ? u.z : -u.z,
@@ -95,10 +71,6 @@ namespace Mathematics.FixedPoint
             value = (value & ~u_mask) | (value.zwxy & u_mask);
             value = (value.wzyx & ~t_mask) | (value & t_mask);
             value = normalize(value);
-            this.x.RawValue = value.x.RawValue;
-            this.y.RawValue = value.y.RawValue;
-            this.z.RawValue = value.z.RawValue;
-            this.w.RawValue = value.w.RawValue;
         }
 
         // /// <summary>
@@ -251,7 +223,7 @@ namespace Mathematics.FixedPoint
         /// <param name="b">quaternion b</param>
         /// <returns>dot value</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp Dot(fpQuaternion a, fpQuaternion b) => a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w;
+        public static fp Dot(fpQuaternion a, fpQuaternion b) => dot(a.value, b.value);
 
 #region  Euler
         /// <summary>
@@ -263,10 +235,13 @@ namespace Mathematics.FixedPoint
         public static fpQuaternion EulerXYZ(fp3 xyz)
         {
             sincos(fp.half * xyz, out fp3 s, out fp3 c);
-            return new fpQuaternion(s.x * c.y * c.z - c.x * s.y * s.z,
-                c.x * s.y * c.z + s.x * c.y * s.z,
-                c.x * c.y * s.z - s.x * s.y * c.z,
-                c.x * c.y * c.z + s.x * s.y * s.z);
+            return fpQuaternion(
+                // s.x * c.y * c.z - s.y * s.z * c.x,
+                // s.y * c.x * c.z + s.x * s.z * c.y,
+                // s.z * c.x * c.y - s.x * s.y * c.z,
+                // c.x * c.y * c.z + s.y * s.z * s.x
+                fp4(s.xyz, c.x) * c.yxxy * c.zzyz + s.yxxy * s.zzyz * fp4(c.xyz, s.x) * fp4(-1, 1, -1, 1)
+                );
         }
 
         /// <summary>
@@ -606,34 +581,15 @@ namespace Mathematics.FixedPoint
         //     return AxisAngle(axis, angle);
         // }
 
-        /// <summary>
-        /// get conjugated quaternion
-        /// </summary>
-        /// <param name="rotation">the original quaternion</param>
-        /// <returns>quaternion</returns>
+        /// <summary>Returns the inverse of a quaternion value.</summary>
+        /// <param name="q">The quaternion to invert.</param>
+        /// <returns>The quaternion inverse of the input quaternion.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fpQuaternion Inverse(fpQuaternion rotation) => new fpQuaternion(-rotation.x, -rotation.y, -rotation.z, rotation.w);
-
-        /// <summary>
-        /// Linear interpolation of two quaternions in interval [0, 1]
-        /// </summary>
-        /// <param name="a">quaternion a</param>
-        /// <param name="b">quaternion b</param>
-        /// <param name="t">coefficient. 0 if t < 0, 1 if t > 1</param>
-        /// <returns>quaternion</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fpQuaternion Lerp(fpQuaternion a, fpQuaternion b, fp t)
+        public static fpQuaternion inverse(fpQuaternion q)
         {
-            t = clamp(t, fp.zero, fp.one);
-            bool opposite = Dot(a, b).RawValue < 0L;
-            fp inverse = fp.one - t;
-            return new fpQuaternion(
-                opposite ? (inverse * a.x - t * b.x) : (inverse * a.x + t * b.x),
-                opposite ? (inverse * a.y - t * b.y) : (inverse * a.y + t * b.y),
-                opposite ? (inverse * a.z - t * b.z) : (inverse * a.z + t * b.z),
-                opposite ? (inverse * a.w - t * b.w) : (inverse * a.w + t * b.w)).normalized;
+            var x = q.value;
+            return fpQuaternion(rcp(dot(x, x)) * x * fp4(-1, -1, -1, 1));
         }
-
         /// <summary>
         /// Linear interpolation of two quaternions
         /// </summary>
@@ -647,15 +603,10 @@ namespace Mathematics.FixedPoint
             bool opposite = Dot(q1, q2).RawValue < 0L;
             if(opposite)
             {
-                q2 = new fpQuaternion(-q2.x, -q2.y, -q2.z, -q2.w);
+                q2.value = -q2.value;
             }
 
-            fp inverse = fp.one - t;
-            return new fpQuaternion(
-                inverse * q1.x + t * q2.x,
-                inverse * q1.y + t * q2.y,
-                inverse * q1.z + t * q2.z,
-                inverse * q1.w + t * q2.w).normalized;
+            return new fpQuaternion(lerp(q1.value, q2.value, t));
         }
 
         /// <summary>
@@ -711,7 +662,7 @@ namespace Mathematics.FixedPoint
         {
             fp mag = fp.Sqrt(fpQuaternion.Dot(q, q));
             if (mag.RawValue == 0L) return fpQuaternion.identity;
-            return new fpQuaternion(q.x / mag, q.y / mag, q.z / mag, q.w / mag);
+            return new fpQuaternion(q.value / mag);
         }
 
         /// <summary>
@@ -730,31 +681,6 @@ namespace Mathematics.FixedPoint
         // }
 
         /// <summary>
-        /// spherical interpolation of two quaternions in interval [0, 1]
-        /// </summary>
-        /// <param name="a">quaternion a</param>
-        /// <param name="b">quaternion b</param>
-        /// <param name="t">coefficient. 0 if t < 0, 1 if t > 0</param>
-        /// <returns>quaternion</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fpQuaternion Slerp(fpQuaternion a, fpQuaternion b, fp t)
-        {
-            //�˴���Ϊa��b��Ϊ��λ����Ԫ�أ����ټ���a��b�Ƿ�Ϊ��λ����Ԫ�أ��ɵ��������м���
-            t = clamp(t, fp.zero, fp.one);
-            fp dot = Dot(a, b);
-            if (fp.Abs(dot).RawValue > fp.ONE - fp.SMALL_SQRT) return a;//a��b��Ȼ��෴����ʱ���ز�ֵ
-            fp rad = fp.Acos(fp.Abs(dot));
-            fp invSin = fp.one / fp.Sin(rad);
-            fp inverse = fp.Sin((fp.one - t) * rad) * invSin;
-            fp opposite = dot.RawValue < 0L ? -fp.Sin(t * rad) * invSin : fp.Sin(t * rad) * invSin;
-            return new fpQuaternion(
-                (inverse * a.x) + (opposite * b.x),
-                (inverse * a.y) + (opposite * b.y),
-                (inverse * a.z) + (opposite * b.z),
-                (inverse * a.w) + (opposite * b.w));
-        }
-
-        /// <summary>
         /// spherical interpolation of two quaternions
         /// </summary>
         /// <param name="q1">quaternion a</param>
@@ -768,7 +694,7 @@ namespace Mathematics.FixedPoint
             if(dt < 0)
             {
                 dt = -dt;
-                q2 = new fpQuaternion(-q2.x, -q2.y, -q2.z, -q2.w);
+                q2.value = -q2.value;
             }
 
             if(dt < fp._0_9995)
@@ -777,11 +703,7 @@ namespace Mathematics.FixedPoint
                 var s = rsqrt(fp.one - dt * dt);    // 1.0f / sin(angle)
                 var w1 = sin(angle * (fp.one - t)) * s;
                 var w2 = sin(angle * t) * s;
-                return new fpQuaternion(
-                    (w1 * q1.x) + (w2 * q2.x),
-                    (w1 * q1.y) + (w2 * q2.y),
-                    (w1 * q1.z) + (w2 * q2.z),
-                    (w1 * q1.w) + (w2 * q2.w));
+                return fpQuaternion(q1.value * w1 + q2.value * w2);
             }
             else
             {
@@ -809,14 +731,7 @@ namespace Mathematics.FixedPoint
         // [Obsolete("Use quaternion.eulerAngles instead. This function was deprecated because it uses radians instead of degrees.")]
         // public static float3 ToEulerAngles(quaternion rotation) => rotation.eulerAngles * number.Deg2Rad;
 
-        /// <summary>
-        /// is this quaternion equal to the other one.
-        /// </summary>
-        /// <param name="other">the other quaternion</param>
-        /// <returns>true if equals, otherwise false</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(fpQuaternion other) => x.RawValue == other.x.RawValue && y.RawValue == other.y.RawValue &&
-            z.RawValue == other.z.RawValue && w.RawValue == other.w.RawValue;
+        public bool Equals(fpQuaternion x) { return value.x == x.value.x && value.y == x.value.y && value.z == x.value.z && value.w == x.value.w; }
 
         /// <summary>
         /// is this quaternion equal to the other object. 
@@ -831,8 +746,8 @@ namespace Mathematics.FixedPoint
         /// </summary>
         /// <returns>hash code</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode() => ((x.RawValue * 0x6E050B01u) + (y.RawValue * 0x750FDBF5u) +
-            (z.RawValue * 0x7F3DD499u) + (w.RawValue * 0x52EAAEBBu)).GetHashCode();
+        public override int GetHashCode() => ((value.x.RawValue * 0x6E050B01u) + (value.y.RawValue * 0x750FDBF5u) +
+            (value.z.RawValue * 0x7F3DD499u) + (value.w.RawValue * 0x52EAAEBBu)).GetHashCode();
             
         /// <summary>
         /// get the normalized quaternion of this one
@@ -909,59 +824,20 @@ namespace Mathematics.FixedPoint
         // [MethodImpl(MethodImplOptions.AggressiveInlining)]
         // public void SetFromToRotation(float3 fromDirection, float3 toDirection) => this = quaternion.FromToRotation(fromDirection, toDirection);
 
-        /// <summary>
-        /// construct quaternion from forward vector and upwards vector, and set to this.  float3.up as default upwards vector.
-        /// </summary>
-        /// <param name="view">forward vector</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void SetLookRotation(fp3 view) => this = fpQuaternion.LookRotation(view);
+        // /// <summary>
+        // /// construct quaternion from forward vector and upwards vector, and set to this.  float3.up as default upwards vector.
+        // /// </summary>
+        // /// <param name="view">forward vector</param>
+        // [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        // public void SetLookRotation(fp3 view) => this = fpQuaternion.LookRotation(view);
 
-        /// <summary>
-        /// construct quaternion from forward vector and upwards vector, and set to this
-        /// </summary>
-        /// <param name="view">forward vector</param>
-        /// <param name="up">upwards vector</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void SetLookRotation(fp3 view, fp3 up) => this = fpQuaternion.LookRotation(view, up);
-
-        /// <summary>
-        /// get the axis and angle of this quaternion
-        /// </summary>
-        /// <param name="angle">the angle in degrees</param>
-        /// <param name="axis">the axis</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void ToAngleAxis(out fp angle, out fp3 axis)
-        {
-            axis = fp3.right;
-            angle = fp.zero;
-            fp dot = x * x + y * y + z * z;
-            if (fp.Abs(dot).RawValue > fp.SMALL_SQRT)
-            {
-                angle = fp.Acos(clamp(w, -fp.one, fp.one));
-                axis = new fp3(x, y, z) / fp.Sin(angle);
-                angle *= (fp.Rad2Deg * 2);//�Ƕ�
-            }
-        }
-
-        /// <summary>
-        /// get the axis and angle of this quaternion
-        /// </summary>
-        /// <param name="axis">the axis</param>
-        /// <param name="angle">the angle in radians</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [Obsolete("Use quaternion.ToAngleAxis instead. This function was deprecated because it uses radians instead of degrees.")]
-        public void ToAxisAngle(out fp3 axis, out fp angle)
-        {
-            axis = fp3.right;
-            angle = fp.zero;
-            fp dot = x * x + y * y + z * z;
-            if (fp.Abs(dot).RawValue > fp.SMALL_SQRT)
-            {
-                angle = fp.Acos(clamp(w, -fp.one, fp.one));
-                axis = new fp3(x, y, z) / fp.Sin(angle);
-                angle *= 2;//����
-            }
-        }
+        // /// <summary>
+        // /// construct quaternion from forward vector and upwards vector, and set to this
+        // /// </summary>
+        // /// <param name="view">forward vector</param>
+        // /// <param name="up">upwards vector</param>
+        // [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        // public void SetLookRotation(fp3 view, fp3 up) => this = fpQuaternion.LookRotation(view, up);
 
         /// <summary>
         /// get a formatted string of the quaternion.
@@ -976,10 +852,10 @@ namespace Mathematics.FixedPoint
             if (flag) format = "F2";
             return string.Format(formatProvider, "({0}, {1}, {2}, {3})", new object[]
             {
-                this.x.ToString(format, formatProvider),
-                this.y.ToString(format, formatProvider),
-                this.z.ToString(format, formatProvider),
-                this.w.ToString(format, formatProvider)
+                value.x.ToString(format, formatProvider),
+                value.y.ToString(format, formatProvider),
+                value.z.ToString(format, formatProvider),
+                value.w.ToString(format, formatProvider)
             });
         }
 
@@ -997,47 +873,6 @@ namespace Mathematics.FixedPoint
         /// <returns>the formatted string</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString() => this.ToString(null, CultureInfo.InvariantCulture.NumberFormat);
-
-        /// <summary>
-        /// operator * of rotating one point by the giving quaternion
-        /// </summary>
-        /// <param name="rotation">the giving quaternion</param>
-        /// <param name="point">the original point</param>
-        /// <returns>the point rotated</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp3 operator *(fpQuaternion rotation, fp3 point)
-        {
-            fp x = rotation.x * 2;
-            fp y = rotation.y * 2;
-            fp z = rotation.z * 2;
-            fp xx = rotation.x * x;
-            fp yy = rotation.y * y;
-            fp zz = rotation.z * z;
-            fp xy = rotation.x * y;
-            fp xz = rotation.x * z;
-            fp yz = rotation.y * z;
-            fp wx = rotation.w * x;
-            fp wy = rotation.w * y;
-            fp wz = rotation.w * z;
-            fp3 res;
-            res.x = (fp.one - (yy + zz)) * point.x + (xy - wz) * point.y + (xz + wy) * point.z;
-            res.y = (xy + wz) * point.x + (fp.one - (xx + zz)) * point.y + (yz - wx) * point.z;
-            res.z = (xz - wy) * point.x + (yz + wx) * point.y + (fp.one - (xx + yy)) * point.z;
-            return res;
-        }
-
-        /// <summary>
-        /// opterator * of two quaternions
-        /// </summary>
-        /// <param name="lhs">left quaternion</param>
-        /// <param name="rhs">right quaternion</param>
-        /// <returns>the result quaternion</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fpQuaternion operator *(fpQuaternion lhs, fpQuaternion rhs)
-            => new fpQuaternion(lhs.w * rhs.x + lhs.x * rhs.w + lhs.y * rhs.z - lhs.z * rhs.y,
-                lhs.w * rhs.y + lhs.y * rhs.w + lhs.z * rhs.x - lhs.x * rhs.z,
-                lhs.w * rhs.z + lhs.z * rhs.w + lhs.x * rhs.y - lhs.y * rhs.x,
-                lhs.w * rhs.w - lhs.x * rhs.x - lhs.y * rhs.y - lhs.z * rhs.z);
 
         /// <summary>
         /// is lhs quaternion equal to rhs quaternion. 
@@ -1066,79 +901,95 @@ namespace Mathematics.FixedPoint
         private static bool IsEqualUsingDot(fp dot) => dot.RawValue >= fp.ONE - fp.SMALL_SQRT;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Unity.Mathematics.quaternion(fpQuaternion v) { return new Unity.Mathematics.quaternion(v.x, v.y, v.z, v.w); }
+        public static implicit operator Unity.Mathematics.quaternion(fpQuaternion v) { return new Unity.Mathematics.quaternion(v.value); }
     }
 
     public static partial class fpMath
     {
+          /// <summary>Returns a quaternion constructed from four float values.</summary>
+        /// <param name="x">The x component of the quaternion.</param>
+        /// <param name="y">The y component of the quaternion.</param>
+        /// <param name="z">The z component of the quaternion.</param>
+        /// <param name="w">The w component of the quaternion.</param>
+        /// <returns>The quaternion constructed from individual components.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Approximately(fpQuaternion num2, Unity.Mathematics.quaternion b)
-        {
-            return Approximately(num2.x, b.value.x) 
-                && Approximately(num2.y, b.value.y)
-                && Approximately(num2.z, b.value.z)
-                && Approximately(num2.w, b.value.w);
-        }
+        public static fpQuaternion fpQuaternion(fp x, fp y, fp z, fp w) { return new fpQuaternion(x, y, z, w); }
 
-        /// <summary>Returns the inverse of a quaternion value.</summary>
+        /// <summary>Returns a fpQuaternion constructed from a float4 vector.</summary>
+        /// <param name="value">The float4 containing the components of the fpQuaternion.</param>
+        /// <returns>The fpQuaternion constructed from a float4.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fpQuaternion inverse(fpQuaternion q)
-        {
-            return fpQuaternion.Inverse(q);
-        }
+        public static fpQuaternion fpQuaternion(fp4 value) { return new fpQuaternion(value); }
+
+        /// <summary>Returns a unit fpQuaternion constructed from a float3x3 rotation matrix. The matrix must be orthonormal.</summary>
+        /// <param name="m">The float3x3 rotation matrix.</param>
+        /// <returns>The fpQuaternion constructed from a float3x3 matrix.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static fpQuaternion fpQuaternion(fp3x3 m) { return new fpQuaternion(m); }
+
 
         /// <summary>Returns the dot product of two quaternions.</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp dot(fpQuaternion a, fpQuaternion b)
         {
-            return fpQuaternion.Dot(a, b);
+            return Mathematics.FixedPoint.fpQuaternion.Dot(a, b);
         }
 
         /// <summary>Returns a normalized version of a quaternion q by scaling it by 1 / length(q).</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fpQuaternion normalize(fpQuaternion q)
         {
-            return fpQuaternion.Normalize(q);
+            return Mathematics.FixedPoint.fpQuaternion.Normalize(q);
         }
 
         public static fpQuaternion slerp(fpQuaternion q1, fpQuaternion q2, fp t)
         {
-            return fpQuaternion.SlerpUnclamped(q1, q2, t);
+            return Mathematics.FixedPoint.fpQuaternion.SlerpUnclamped(q1, q2, t);
         }
 
         /// <summary>Returns the result of a normalized linear interpolation between two quaternions q1 and a2 using an interpolation parameter t.</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fpQuaternion nlerp(fpQuaternion q1, fpQuaternion q2, fp t)
         {
-            return fpQuaternion.LerpUnclamped(q1, q2, t);
+            return Mathematics.FixedPoint.fpQuaternion.LerpUnclamped(q1, q2, t);
         }
 
         /// <summary>Returns the result of transforming the quaternion b by the quaternion a.</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fpQuaternion mul(fpQuaternion a, fpQuaternion b)
         {
-            return new fpQuaternion(new fp4(a.w, a.w, a.w, a.w) * new fp4(b.x, b.y, b.z, b.w) 
-                    + ( new fp4(a.x, a.y, a.z, a.x) * new fp4(b.w, b.w, b.w, b.x) + new fp4(a.y, a.z, a.x, a.y) * new fp4(b.z, b.x, b.y, b.y)) * fp4(1, 1, 1, -1)
-                    - new fp4(a.z, a.x, a.y, a.z) * new fp4(b.y, b.z, b.x, b.z));
+            return fpQuaternion(a.value.wwww * b.value + (a.value.xyzx * b.value.wwwx + a.value.yzxy * b.value.zxyy) * fp4(1, 1, 1, -1) - a.value.zxyz * b.value.yzxz);
         }
 
         /// <summary>Returns the result of transforming a vector by a quaternion.</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp3 mul(fpQuaternion q, fp3 v)
         {
-            fp3 t = 2 * cross(new fp3(q.x, q.y, q.z), v);
-            return v + q.w * t + cross(new fp3(q.x, q.y, q.z), t);
+            var t = 2 * cross(q.value.xyz, v);
+            return v + q.value.w * t + cross(q.value.xyz, t);
         }
 
         /// <summary>Returns the result of rotating a vector by a unit quaternion.</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp3 rotate(fpQuaternion q, fp3 v)
         {
-            fp3 t = 2 * cross(new fp3(q.x, q.y, q.z), v);
-            return v + q.w * t + cross(new fp3(q.x, q.y, q.z), t);
+            var t = 2 * cross(q.value.xyz, v);
+            return v + q.value.w * t + cross(q.value.xyz, t);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static fpQuaternion inverse(fpQuaternion q)
+        {
+            return FixedPoint.fpQuaternion.inverse(q);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp3 forward(fpQuaternion q) { return mul(q, fp3(0, 0, 1)); }  // for compatibility
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Approximately(fpQuaternion num2, Unity.Mathematics.quaternion b)
+        {
+            return Approximately(num2.value, b.value) ;
+        }
     }
 }
