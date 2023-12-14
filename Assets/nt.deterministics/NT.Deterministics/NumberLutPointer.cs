@@ -8,7 +8,7 @@ using Unity.Collections.LowLevel.Unsafe;
 using System.Diagnostics;
 #endif
 
-namespace Nt.Deterministics
+namespace Mathematics.FixedPoint
 {
 #if Debug || DEBUG
     [DebuggerDisplay("Length = {m_Length}")]

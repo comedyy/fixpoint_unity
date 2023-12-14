@@ -1,5 +1,5 @@
 {
-    "name": "Nt.Deterministics",
+    "name": "Mathematics.FixedPoint",
     "rootNamespace": "",
     "references": [
         "Unity.Mathematics",

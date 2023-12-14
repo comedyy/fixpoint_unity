@@ -1,9 +1,9 @@
 using System;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using static Nt.Deterministics.fpMath;
+using static Mathematics.FixedPoint.fpMath;
 
-namespace Nt.Deterministics
+namespace Mathematics.FixedPoint
 {
     public enum RotationOrder : byte
     {

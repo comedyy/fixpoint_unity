@@ -6,7 +6,7 @@ using Unity.Burst;
 using UnityEngine;
 #endif
 
-namespace Nt.Deterministics
+namespace Mathematics.FixedPoint
 {
     public delegate byte[] LutProvider(string path);
     public class NumberLut

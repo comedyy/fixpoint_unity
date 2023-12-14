@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-namespace Nt.Deterministics
+namespace Mathematics.FixedPoint
 {
     public static class AutoLoadLut
     {
@@ -21,7 +21,7 @@ namespace Nt.Deterministics
         {
             if (!NumberLut.IsLoaded)
             {
-                Debug.Log("Nt.Deterministics.AutoLoadLut::LoadLut - load lut");
+                Debug.Log("Mathematics.FixedPoint.AutoLoadLut::LoadLut - load lut");
                 NumberLut.Init(file => UnityEngine.Resources.Load<TextAsset>("NTLut/" + file).bytes);
             }
         }
@@ -30,7 +30,7 @@ namespace Nt.Deterministics
         {
             if (NumberLut.IsLoaded)
             {
-                Debug.Log("Nt.Deterministics.AutoLoadLut::UnloadLut - unload lut");
+                Debug.Log("Mathematics.FixedPoint.AutoLoadLut::UnloadLut - unload lut");
                 NumberLut.Dispose();
             }
         }

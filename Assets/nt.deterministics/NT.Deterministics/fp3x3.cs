@@ -12,7 +12,7 @@ using ShuffleComponent = Unity.Mathematics.math.ShuffleComponent;
 
 #pragma warning disable 0660, 0661
 
-namespace Nt.Deterministics
+namespace Mathematics.FixedPoint
 {
     /// <summary>A 3x3 matrix of numbers.</summary>
     [System.Serializable]

@@ -1,11 +1,11 @@
 using System;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using static Nt.Deterministics.fpMath;
+using static Mathematics.FixedPoint.fpMath;
 
 #pragma warning disable 0660, 0661
 
-namespace Nt.Deterministics
+namespace Mathematics.FixedPoint
 {
     [System.Serializable]
     public struct fpRect : IEquatable<fpRect>, IFormattable

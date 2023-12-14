@@ -13,7 +13,7 @@ using System.Runtime.InteropServices;
 using System.Diagnostics;
 #endif
 
-namespace Nt.Deterministics
+namespace Mathematics.FixedPoint
 {
 
 #if Debug || DEBUG

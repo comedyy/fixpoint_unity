@@ -14,10 +14,10 @@ using System.Collections.ObjectModel;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
-using Nt.Deterministics;
+using Mathematics.FixedPoint;
 using Unity.Mathematics;
 
-namespace Nt.Deterministics.Editor
+namespace Mathematics.FixedPoint.Editor
 {
     struct fieldData
     {

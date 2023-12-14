@@ -12,7 +12,7 @@ using System.Diagnostics;
 
 #pragma warning disable 0660, 0661
 
-namespace Nt.Deterministics
+namespace Mathematics.FixedPoint
 {
     /// <summary>A 2 component vector of numbers.</summary>
     [DebuggerTypeProxy(typeof(fp2.DebuggerProxy))]

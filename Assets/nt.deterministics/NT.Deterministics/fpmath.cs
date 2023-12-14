@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 using Unity.Mathematics;
 
-namespace Nt.Deterministics
+namespace Mathematics.FixedPoint
 {
     /// <summary>
     /// A static class to contain various math functions and constants.
@@ -1141,7 +1141,7 @@ namespace Nt.Deterministics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp2 normalize(fp2 x)// { return rsqrt(dot(x, x)) * x; }
         {
-            if (x.Equals(Nt.Deterministics.fp2.zero)) return x;
+            if (x.Equals(Mathematics.FixedPoint.fp2.zero)) return x;
             bool isnegX = x.x.RawValue < 0L, isnegY = x.y.RawValue < 0L;
             long xRawValue = isnegX ? -x.x.RawValue : x.x.RawValue;
             long yRawValue = isnegY ? -x.y.RawValue : x.y.RawValue;
@@ -1182,13 +1182,13 @@ namespace Nt.Deterministics
         /// <param name="x">Vector to normalize.</param>
         /// <returns>The normalized vector.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp3 normalize(fp3 x) { return x.Equals(Nt.Deterministics.fp3.zero) ? x : rsqrt(dot(x, x)) * x; }
+        public static fp3 normalize(fp3 x) { return x.Equals(Mathematics.FixedPoint.fp3.zero) ? x : rsqrt(dot(x, x)) * x; }
 
         /// <summary>Returns a normalized version of the float4 vector x by scaling it by 1 / length(x).</summary>
         /// <param name="x">Vector to normalize.</param>
         /// <returns>The normalized vector.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp4 normalize(fp4 x) { return x.Equals(Nt.Deterministics.fp4.zero) ? x : rsqrt(dot(x, x)) * x; }
+        public static fp4 normalize(fp4 x) { return x.Equals(Mathematics.FixedPoint.fp4.zero) ? x : rsqrt(dot(x, x)) * x; }
 
 
         /// <summary>
@@ -1203,7 +1203,7 @@ namespace Nt.Deterministics
         {
             //number len = math.dot(x, x);
             //return math.select(defaultvalue, x * math.rsqrt(len), len > number.MinNormal);
-            if (x.Equals(Nt.Deterministics.fp2.zero)) return x;
+            if (x.Equals(Mathematics.FixedPoint.fp2.zero)) return x;
             bool isnegX = x.x.RawValue < 0L, isnegY = x.y.RawValue < 0L;
             long xRawValue = isnegX ? -x.x.RawValue : x.x.RawValue;
             long yRawValue = isnegY ? -x.y.RawValue : x.y.RawValue;
@@ -1657,7 +1657,7 @@ namespace Nt.Deterministics
         /// <remarks>
         /// Some finite vectors a and b could generate a non-finite result. This is most likely when a's components
         /// are very large (close to Single.MaxValue) or when b's components are very small (close to number.MinNormal).
-        /// In these cases, you can call <see cref="projectsafe(Nt.Deterministics.fp2,Nt.Deterministics.fp2,Nt.Deterministics.fp2)"/>
+        /// In these cases, you can call <see cref="projectsafe(Mathematics.FixedPoint.fp2,Mathematics.FixedPoint.fp2,Mathematics.FixedPoint.fp2)"/>
         /// which will use a given default value if the result is not finite.
         /// </remarks>
         /// <param name="a">Vector to project.</param>
@@ -1675,7 +1675,7 @@ namespace Nt.Deterministics
         /// <remarks>
         /// Some finite vectors a and b could generate a non-finite result. This is most likely when a's components
         /// are very large (close to Single.MaxValue) or when b's components are very small (close to number.MinNormal).
-        /// In these cases, you can call <see cref="projectsafe(Nt.Deterministics.fp3,Nt.Deterministics.fp3,Nt.Deterministics.fp3)"/>
+        /// In these cases, you can call <see cref="projectsafe(Mathematics.FixedPoint.fp3,Mathematics.FixedPoint.fp3,Mathematics.FixedPoint.fp3)"/>
         /// which will use a given default value if the result is not finite.
         /// </remarks>
         /// <param name="a">Vector to project.</param>
@@ -1693,7 +1693,7 @@ namespace Nt.Deterministics
         /// <remarks>
         /// Some finite vectors a and b could generate a non-finite result. This is most likely when a's components
         /// are very large (close to Single.MaxValue) or when b's components are very small (close to number.MinNormal).
-        /// In these cases, you can call <see cref="projectsafe(Nt.Deterministics.fp4,Nt.Deterministics.fp4,Nt.Deterministics.fp4)"/>
+        /// In these cases, you can call <see cref="projectsafe(Mathematics.FixedPoint.fp4,Mathematics.FixedPoint.fp4,Mathematics.FixedPoint.fp4)"/>
         /// which will use a given default value if the result is not finite.
         /// </remarks>
         /// <param name="a">Vector to project.</param>
@@ -1711,7 +1711,7 @@ namespace Nt.Deterministics
         /// <remarks>
         /// This function performs extra checks to see if the result of projecting a onto b is finite. If you know that
         /// your inputs will generate a finite result or you don't care if the result is finite, then you can call
-        /// <see cref="project(Nt.Deterministics.fp2,Nt.Deterministics.fp2)"/> instead which is faster than this
+        /// <see cref="project(Mathematics.FixedPoint.fp2,Mathematics.FixedPoint.fp2)"/> instead which is faster than this
         /// function.
         /// </remarks>
         /// <param name="a">Vector to project.</param>
@@ -1732,7 +1732,7 @@ namespace Nt.Deterministics
         /// <remarks>
         /// This function performs extra checks to see if the result of projecting a onto b is finite. If you know that
         /// your inputs will generate a finite result or you don't care if the result is finite, then you can call
-        /// <see cref="project(Nt.Deterministics.fp3,Nt.Deterministics.fp3)"/> instead which is faster than this
+        /// <see cref="project(Mathematics.FixedPoint.fp3,Mathematics.FixedPoint.fp3)"/> instead which is faster than this
         /// function.
         /// </remarks>
         /// <param name="a">Vector to project.</param>
@@ -1753,7 +1753,7 @@ namespace Nt.Deterministics
         /// <remarks>
         /// This function performs extra checks to see if the result of projecting a onto b is finite. If you know that
         /// your inputs will generate a finite result or you don't care if the result is finite, then you can call
-        /// <see cref="project(Nt.Deterministics.fp4,Nt.Deterministics.fp4)"/> instead which is faster than this
+        /// <see cref="project(Mathematics.FixedPoint.fp4,Mathematics.FixedPoint.fp4)"/> instead which is faster than this
         /// function.
         /// </remarks>
         /// <param name="a">Vector to project.</param>
@@ -1986,7 +1986,7 @@ namespace Nt.Deterministics
             if (anyNaN(x) || anyNaN(y) || anyNaN(axis)) return fp.NaN;
             var axis0 = cross(x, y);
             var dotValue = dot(x, y);
-            if (axis0.Equals(Deterministics.fp3.zero)) return dotValue > 0 ? fp.zero : fp.PI;
+            if (axis0.Equals(Mathematics.FixedPoint.fp3.zero)) return dotValue > 0 ? fp.zero : fp.PI;
             var num = length(x) * length(y);
             if (num <= fp.MinNormal) return fp.zero;
             var ang = fp.Acos(dotValue / num);

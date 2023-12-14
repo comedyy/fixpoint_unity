@@ -1,8 +1,8 @@
 {
-    "name": "Nt.Deterministics.Editor",
+    "name": "Mathematics.FixedPoint.Editor",
     "rootNamespace": "",
     "references": [
-        "Nt.Deterministics",
+        "Mathematics.FixedPoint",
         "Unity.Mathematics"
     ],
     "includePlatforms": [

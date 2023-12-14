@@ -4,7 +4,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 using System.IO;
-using Nt.Deterministics;
+using Mathematics.FixedPoint;
 using Random = UnityEngine.Random;
 
 namespace Tests

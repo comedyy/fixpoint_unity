@@ -1,4 +1,4 @@
-﻿namespace Nt.Deterministics
+﻿namespace Mathematics.FixedPoint
 {
     /// <summary>
     /// Used by property drawers when vectors should be post normalized.

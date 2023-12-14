@@ -1,8 +1,8 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using static Nt.Deterministics.fpMath;
+using static Mathematics.FixedPoint.fpMath;
 
-namespace Nt.Deterministics {
+namespace Mathematics.FixedPoint {
     [StructLayout(LayoutKind.Explicit, Size = SIZE)]
     public struct fpRandom {
         public const int SIZE = 4;
