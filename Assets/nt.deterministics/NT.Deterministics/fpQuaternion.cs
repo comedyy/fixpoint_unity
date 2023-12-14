@@ -240,7 +240,7 @@ namespace Nt.Deterministics
         public static fpQuaternion AxisAngle(fp3 axis, fp angle)
         {
             fpMath.sincos(fp.half * angle, out fp sina, out fp cosa);
-            return new fpQuaternion(fpMath.float4(axis * sina, cosa));
+            return new fpQuaternion(fpMath.fp4(axis * sina, cosa));
         }
 
         /// <summary>
@@ -1117,7 +1117,7 @@ namespace Nt.Deterministics
         public static fpQuaternion mul(fpQuaternion a, fpQuaternion b)
         {
             return new fpQuaternion(new fp4(a.w, a.w, a.w, a.w) * new fp4(b.x, b.y, b.z, b.w) 
-                    + ( new fp4(a.x, a.y, a.z, a.x) * new fp4(b.w, b.w, b.w, b.x) + new fp4(a.y, a.z, a.x, a.y) * new fp4(b.z, b.x, b.y, b.y)) * float4(1, 1, 1, -1)
+                    + ( new fp4(a.x, a.y, a.z, a.x) * new fp4(b.w, b.w, b.w, b.x) + new fp4(a.y, a.z, a.x, a.y) * new fp4(b.z, b.x, b.y, b.y)) * fp4(1, 1, 1, -1)
                     - new fp4(a.z, a.x, a.y, a.z) * new fp4(b.y, b.z, b.x, b.z));
         }
 
@@ -1138,6 +1138,6 @@ namespace Nt.Deterministics
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp3 forward(fpQuaternion q) { return mul(q, float3(0, 0, 1)); }  // for compatibility
+        public static fp3 forward(fpQuaternion q) { return mul(q, fp3(0, 0, 1)); }  // for compatibility
     }
 }

@@ -159,13 +159,13 @@ namespace Nt.Deterministics
         /// <param name="v">int to convert to float2</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator fp2(int v) { return new fp2(v); }
+        public static implicit operator fp2(int v) { return new fp2(v); }
 
         /// <summary>Explicitly converts a Unity.Mathematics.int2 vector to a float2 vector by componentwise conversion.</summary>
         /// <param name="v">Unity.Mathematics.int2 to convert to float2</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator fp2(Unity.Mathematics.int2 v) { return new fp2(v); }
+        public static implicit operator fp2(Unity.Mathematics.int2 v) { return new fp2(v); }
 
         /// <summary>Explicitly converts a float2 vector to a Unity.Mathematics.int2 vector by componentwise conversion.</summary>
         /// <param name="v">float2 to convert to Unity.Mathematics.int2</param>
@@ -183,13 +183,13 @@ namespace Nt.Deterministics
         /// <param name="v">uint to convert to float2</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator fp2(uint v) { return new fp2(v); }
+        public static implicit operator fp2(uint v) { return new fp2(v); }
 
         /// <summary>Explicitly converts a Unity.Mathematics.uint2 vector to a float2 vector by componentwise conversion.</summary>
         /// <param name="v">Unity.Mathematics.uint2 to convert to float2</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator fp2(Unity.Mathematics.uint2 v) { return new fp2(v); }
+        public static implicit operator fp2(Unity.Mathematics.uint2 v) { return new fp2(v); }
 
         /// <summary>Returns the result of a componentwise multiplication operation on two float2 vectors.</summary>
         /// <param name="lhs">Left hand side float2 to use to compute componentwise multiplication.</param>
@@ -792,55 +792,55 @@ namespace Nt.Deterministics
         /// <param name="y">The constructed vector's y component will be set to this value.</param>
         /// <returns>float2 constructed from arguments.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 float2(fp x, fp y) { return new fp2(x, y); }
+        public static fp2 fp2(fp x, fp y) { return new fp2(x, y); }
 
         /// <summary>Returns a float2 vector constructed from a float2 vector.</summary>
         /// <param name="xy">The constructed vector's xy components will be set to this value.</param>
         /// <returns>float2 constructed from arguments.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 float2(fp2 xy) { return new fp2(xy); }
+        public static fp2 fp2(fp2 xy) { return new fp2(xy); }
 
         /// <summary>Returns a float2 vector constructed from a single number value by assigning it to every component.</summary>
         /// <param name="v">number to convert to float2</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 float2(fp v) { return new fp2(v); }
+        public static fp2 fp2(fp v) { return new fp2(v); }
 
         /// <summary>Returns a float2 vector constructed from a single bool value by converting it to number and assigning it to every component.</summary>
         /// <param name="v">bool to convert to float2</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 float2(bool v) { return new fp2(v); }
+        public static fp2 fp2(bool v) { return new fp2(v); }
 
         /// <summary>Return a float2 vector constructed from a Unity.Mathematics.bool2 vector by componentwise conversion.</summary>
         /// <param name="v">Unity.Mathematics.bool2 to convert to float2</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 float2(Unity.Mathematics.bool2 v) { return new fp2(v); }
+        public static fp2 fp2(Unity.Mathematics.bool2 v) { return new fp2(v); }
 
         /// <summary>Returns a float2 vector constructed from a single int value by converting it to number and assigning it to every component.</summary>
         /// <param name="v">int to convert to float2</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 float2(int v) { return new fp2(v); }
+        public static fp2 fp2(int v) { return new fp2(v); }
 
         /// <summary>Return a float2 vector constructed from a Unity.Mathematics.int2 vector by componentwise conversion.</summary>
         /// <param name="v">Unity.Mathematics.int2 to convert to float2</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 float2(Unity.Mathematics.int2 v) { return new fp2(v); }
+        public static fp2 fp2(Unity.Mathematics.int2 v) { return new fp2(v); }
 
         /// <summary>Returns a float2 vector constructed from a single uint value by converting it to number and assigning it to every component.</summary>
         /// <param name="v">uint to convert to float2</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 float2(uint v) { return new fp2(v); }
+        public static fp2 fp2(uint v) { return new fp2(v); }
 
         /// <summary>Return a float2 vector constructed from a Unity.Mathematics.uint2 vector by componentwise conversion.</summary>
         /// <param name="v">Unity.Mathematics.uint2 to convert to float2</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 float2(Unity.Mathematics.uint2 v) { return new fp2(v); }
+        public static fp2 fp2(Unity.Mathematics.uint2 v) { return new fp2(v); }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Approximately(fp2 num2, Unity.Mathematics.float2 b)

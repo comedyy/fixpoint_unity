@@ -3829,7 +3829,7 @@ namespace Nt.Deterministics
         /// <param name="w">The constructed vector's w component will be set to this value.</param>
         /// <returns>float4 constructed from arguments.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp4 float4(fp x, fp y, fp z, fp w) { return new fp4(x, y, z, w); }
+        public static fp4 fp4(fp x, fp y, fp z, fp w) { return new fp4(x, y, z, w); }
 
         /// <summary>Returns a float4 vector constructed from two number values and a float2 vector.</summary>
         /// <param name="x">The constructed vector's x component will be set to this value.</param>
@@ -3837,7 +3837,7 @@ namespace Nt.Deterministics
         /// <param name="zw">The constructed vector's zw components will be set to this value.</param>
         /// <returns>float4 constructed from arguments.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp4 float4(fp x, fp y, fp2 zw) { return new fp4(x, y, zw); }
+        public static fp4 fp4(fp x, fp y, fp2 zw) { return new fp4(x, y, zw); }
 
         /// <summary>Returns a float4 vector constructed from a number value, a float2 vector and a number value.</summary>
         /// <param name="x">The constructed vector's x component will be set to this value.</param>
@@ -3845,14 +3845,14 @@ namespace Nt.Deterministics
         /// <param name="w">The constructed vector's w component will be set to this value.</param>
         /// <returns>float4 constructed from arguments.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp4 float4(fp x, fp2 yz, fp w) { return new fp4(x, yz, w); }
+        public static fp4 fp4(fp x, fp2 yz, fp w) { return new fp4(x, yz, w); }
 
         /// <summary>Returns a float4 vector constructed from a number value and a float3 vector.</summary>
         /// <param name="x">The constructed vector's x component will be set to this value.</param>
         /// <param name="yzw">The constructed vector's yzw components will be set to this value.</param>
         /// <returns>float4 constructed from arguments.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp4 float4(fp x, fp3 yzw) { return new fp4(x, yzw); }
+        public static fp4 fp4(fp x, fp3 yzw) { return new fp4(x, yzw); }
 
         /// <summary>Returns a float4 vector constructed from a float2 vector and two number values.</summary>
         /// <param name="xy">The constructed vector's xy components will be set to this value.</param>
@@ -3860,68 +3860,68 @@ namespace Nt.Deterministics
         /// <param name="w">The constructed vector's w component will be set to this value.</param>
         /// <returns>float4 constructed from arguments.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp4 float4(fp2 xy, fp z, fp w) { return new fp4(xy, z, w); }
+        public static fp4 fp4(fp2 xy, fp z, fp w) { return new fp4(xy, z, w); }
 
         /// <summary>Returns a float4 vector constructed from two float2 vectors.</summary>
         /// <param name="xy">The constructed vector's xy components will be set to this value.</param>
         /// <param name="zw">The constructed vector's zw components will be set to this value.</param>
         /// <returns>float4 constructed from arguments.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp4 float4(fp2 xy, fp2 zw) { return new fp4(xy, zw); }
+        public static fp4 fp4(fp2 xy, fp2 zw) { return new fp4(xy, zw); }
 
         /// <summary>Returns a float4 vector constructed from a float3 vector and a number value.</summary>
         /// <param name="xyz">The constructed vector's xyz components will be set to this value.</param>
         /// <param name="w">The constructed vector's w component will be set to this value.</param>
         /// <returns>float4 constructed from arguments.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp4 float4(fp3 xyz, fp w) { return new fp4(xyz, w); }
+        public static fp4 fp4(fp3 xyz, fp w) { return new fp4(xyz, w); }
 
         /// <summary>Returns a float4 vector constructed from a float4 vector.</summary>
         /// <param name="xyzw">The constructed vector's xyzw components will be set to this value.</param>
         /// <returns>float4 constructed from arguments.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp4 float4(fp4 xyzw) { return new fp4(xyzw); }
+        public static fp4 fp4(fp4 xyzw) { return new fp4(xyzw); }
 
         /// <summary>Returns a float4 vector constructed from a single number value by assigning it to every component.</summary>
         /// <param name="v">number to convert to float4</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp4 float4(fp v) { return new fp4(v); }
+        public static fp4 fp4(fp v) { return new fp4(v); }
 
         /// <summary>Returns a float4 vector constructed from a single bool value by converting it to number and assigning it to every component.</summary>
         /// <param name="v">bool to convert to float4</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp4 float4(bool v) { return new fp4(v); }
+        public static fp4 fp4(bool v) { return new fp4(v); }
 
         /// <summary>Return a float4 vector constructed from a Unity.Mathematics.bool4 vector by componentwise conversion.</summary>
         /// <param name="v">Unity.Mathematics.bool4 to convert to float4</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp4 float4(Unity.Mathematics.bool4 v) { return new fp4(v); }
+        public static fp4 fp4(Unity.Mathematics.bool4 v) { return new fp4(v); }
 
         /// <summary>Returns a float4 vector constructed from a single int value by converting it to number and assigning it to every component.</summary>
         /// <param name="v">int to convert to float4</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp4 float4(int v) { return new fp4(v); }
+        public static fp4 fp4(int v) { return new fp4(v); }
 
         /// <summary>Return a float4 vector constructed from a Unity.Mathematics.int4 vector by componentwise conversion.</summary>
         /// <param name="v">Unity.Mathematics.int4 to convert to float4</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp4 float4(Unity.Mathematics.int4 v) { return new fp4(v); }
+        public static fp4 fp4(Unity.Mathematics.int4 v) { return new fp4(v); }
 
         /// <summary>Returns a float4 vector constructed from a single uint value by converting it to number and assigning it to every component.</summary>
         /// <param name="v">uint to convert to float4</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp4 float4(uint v) { return new fp4(v); }
+        public static fp4 fp4(uint v) { return new fp4(v); }
 
         /// <summary>Return a float4 vector constructed from a Unity.Mathematics.uint4 vector by componentwise conversion.</summary>
         /// <param name="v">Unity.Mathematics.uint4 to convert to float4</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp4 float4(Unity.Mathematics.uint4 v) { return new fp4(v); }
+        public static fp4 fp4(Unity.Mathematics.uint4 v) { return new fp4(v); }
     }
 }

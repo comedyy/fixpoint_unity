@@ -1666,69 +1666,69 @@ namespace Nt.Deterministics
         /// <param name="z">The constructed vector's z component will be set to this value.</param>
         /// <returns>float3 constructed from arguments.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp3 float3(fp x, fp y, fp z) { return new fp3(x, y, z); }
+        public static fp3 fp3(fp x, fp y, fp z) { return new fp3(x, y, z); }
 
         /// <summary>Returns a float3 vector constructed from a number value and a float2 vector.</summary>
         /// <param name="x">The constructed vector's x component will be set to this value.</param>
         /// <param name="yz">The constructed vector's yz components will be set to this value.</param>
         /// <returns>float3 constructed from arguments.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp3 float3(fp x, fp2 yz) { return new fp3(x, yz); }
+        public static fp3 fp3(fp x, fp2 yz) { return new fp3(x, yz); }
 
         /// <summary>Returns a float3 vector constructed from a float2 vector and a number value.</summary>
         /// <param name="xy">The constructed vector's xy components will be set to this value.</param>
         /// <param name="z">The constructed vector's z component will be set to this value.</param>
         /// <returns>float3 constructed from arguments.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp3 float3(fp2 xy, fp z) { return new fp3(xy, z); }
+        public static fp3 fp3(fp2 xy, fp z) { return new fp3(xy, z); }
 
         /// <summary>Returns a float3 vector constructed from a float3 vector.</summary>
         /// <param name="xyz">The constructed vector's xyz components will be set to this value.</param>
         /// <returns>float3 constructed from arguments.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp3 float3(fp3 xyz) { return new fp3(xyz); }
+        public static fp3 fp3(fp3 xyz) { return new fp3(xyz); }
 
         /// <summary>Returns a float3 vector constructed from a single number value by assigning it to every component.</summary>
         /// <param name="v">number to convert to float3</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp3 float3(fp v) { return new fp3(v); }
+        public static fp3 fp3(fp v) { return new fp3(v); }
 
         /// <summary>Returns a float3 vector constructed from a single bool value by converting it to number and assigning it to every component.</summary>
         /// <param name="v">bool to convert to float3</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp3 float3(bool v) { return new fp3(v); }
+        public static fp3 fp3(bool v) { return new fp3(v); }
 
         /// <summary>Return a float3 vector constructed from a Unity.Mathematics.bool3 vector by componentwise conversion.</summary>
         /// <param name="v">Unity.Mathematics.bool3 to convert to float3</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp3 float3(Unity.Mathematics.bool3 v) { return new fp3(v); }
+        public static fp3 fp3(Unity.Mathematics.bool3 v) { return new fp3(v); }
 
         /// <summary>Returns a float3 vector constructed from a single int value by converting it to number and assigning it to every component.</summary>
         /// <param name="v">int to convert to float3</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp3 float3(int v) { return new fp3(v); }
+        public static fp3 fp3(int v) { return new fp3(v); }
 
         /// <summary>Return a float3 vector constructed from a Unity.Mathematics.int3 vector by componentwise conversion.</summary>
         /// <param name="v">Unity.Mathematics.int3 to convert to float3</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp3 float3(Unity.Mathematics.int3 v) { return new fp3(v); }
+        public static fp3 fp3(Unity.Mathematics.int3 v) { return new fp3(v); }
 
         /// <summary>Returns a float3 vector constructed from a single uint value by converting it to number and assigning it to every component.</summary>
         /// <param name="v">uint to convert to float3</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp3 float3(uint v) { return new fp3(v); }
+        public static fp3 fp3(uint v) { return new fp3(v); }
 
         /// <summary>Return a float3 vector constructed from a Unity.Mathematics.uint3 vector by componentwise conversion.</summary>
         /// <param name="v">Unity.Mathematics.uint3 to convert to float3</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp3 float3(Unity.Mathematics.uint3 v) { return new fp3(v); }
+        public static fp3 fp3(Unity.Mathematics.uint3 v) { return new fp3(v); }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Approximately(fp3 num2, Unity.Mathematics.float3 b)

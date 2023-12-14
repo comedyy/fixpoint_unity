@@ -2,7 +2,6 @@ using System;
 using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 using Unity.Mathematics;
-using ShuffleComponent = Unity.Mathematics.math.ShuffleComponent;
 
 namespace Nt.Deterministics
 {
@@ -368,19 +367,19 @@ namespace Nt.Deterministics
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise absolute value of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 abs(fp2 x) { return float2(abs(x.x), abs(x.y)); }
+        public static fp2 abs(fp2 x) { return fp2(abs(x.x), abs(x.y)); }
 
         /// <summary>Returns the componentwise absolute value of a float3 vector.</summary>
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise absolute value of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp3 abs(fp3 x) { return float3(abs(x.x), abs(x.y), abs(x.z)); }
+        public static fp3 abs(fp3 x) { return fp3(abs(x.x), abs(x.y), abs(x.z)); }
 
         /// <summary>Returns the componentwise absolute value of a float4 vector.</summary>
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise absolute value of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp4 abs(fp4 x) { return float4(abs(x.x), abs(x.y), abs(x.z), abs(x.w)); }
+        public static fp4 abs(fp4 x) { return fp4(abs(x.x), abs(x.y), abs(x.z), abs(x.w)); }
 
 
         /// <summary>Returns the dot product of two number values. Equivalent to multiplication.</summary>
@@ -422,19 +421,19 @@ namespace Nt.Deterministics
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise tangent of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 tan(fp2 x) { return float2(tan(x.x), tan(x.y)); }
+        public static fp2 tan(fp2 x) { return fp2(tan(x.x), tan(x.y)); }
 
         /// <summary>Returns the componentwise tangent of a float3 vector.</summary>
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise tangent of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp3 tan(fp3 x) { return float3(tan(x.x), tan(x.y), tan(x.z)); }
+        public static fp3 tan(fp3 x) { return fp3(tan(x.x), tan(x.y), tan(x.z)); }
 
         /// <summary>Returns the componentwise tangent of a float4 vector.</summary>
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise tangent of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp4 tan(fp4 x) { return float4(tan(x.x), tan(x.y), tan(x.z), tan(x.w)); }
+        public static fp4 tan(fp4 x) { return fp4(tan(x.x), tan(x.y), tan(x.z), tan(x.w)); }
 
 
         /// <summary>Returns the hyperbolic tangent of a number value.</summary>
@@ -447,19 +446,19 @@ namespace Nt.Deterministics
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise hyperbolic tangent of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 tanh(fp2 x) { return float2(tanh(x.x), tanh(x.y)); }
+        public static fp2 tanh(fp2 x) { return fp2(tanh(x.x), tanh(x.y)); }
 
         /// <summary>Returns the componentwise hyperbolic tangent of a float3 vector.</summary>
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise hyperbolic tangent of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp3 tanh(fp3 x) { return float3(tanh(x.x), tanh(x.y), tanh(x.z)); }
+        public static fp3 tanh(fp3 x) { return fp3(tanh(x.x), tanh(x.y), tanh(x.z)); }
 
         /// <summary>Returns the componentwise hyperbolic tangent of a float4 vector.</summary>
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise hyperbolic tangent of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp4 tanh(fp4 x) { return float4(tanh(x.x), tanh(x.y), tanh(x.z), tanh(x.w)); }
+        public static fp4 tanh(fp4 x) { return fp4(tanh(x.x), tanh(x.y), tanh(x.z), tanh(x.w)); }
 
 
         /// <summary>Returns the arctangent of a number value.</summary>
@@ -472,19 +471,19 @@ namespace Nt.Deterministics
         /// <param name="x">A tangent value, usually the ratio y/x on the unit circle.</param>
         /// <returns>The componentwise arctangent of the input, in radians.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 atan(fp2 x) { return float2(atan(x.x), atan(x.y)); }
+        public static fp2 atan(fp2 x) { return fp2(atan(x.x), atan(x.y)); }
 
         /// <summary>Returns the componentwise arctangent of a float3 vector.</summary>
         /// <param name="x">A tangent value, usually the ratio y/x on the unit circle.</param>
         /// <returns>The componentwise arctangent of the input, in radians.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp3 atan(fp3 x) { return float3(atan(x.x), atan(x.y), atan(x.z)); }
+        public static fp3 atan(fp3 x) { return fp3(atan(x.x), atan(x.y), atan(x.z)); }
 
         /// <summary>Returns the componentwise arctangent of a float4 vector.</summary>
         /// <param name="x">A tangent value, usually the ratio y/x on the unit circle.</param>
         /// <returns>The componentwise arctangent of the input, in radians.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp4 atan(fp4 x) { return float4(atan(x.x), atan(x.y), atan(x.z), atan(x.w)); }
+        public static fp4 atan(fp4 x) { return fp4(atan(x.x), atan(x.y), atan(x.z), atan(x.w)); }
 
 
         /// <summary>Returns the 2-argument arctangent of a pair of number values.</summary>
@@ -499,21 +498,21 @@ namespace Nt.Deterministics
         /// <param name="x">Denominator of the ratio y/x, usually the x component on the unit circle.</param>
         /// <returns>The componentwise arctangent of the ratio y/x, in radians.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 atan2(fp2 y, fp2 x) { return float2(atan2(y.x, x.x), atan2(y.y, x.y)); }
+        public static fp2 atan2(fp2 y, fp2 x) { return fp2(atan2(y.x, x.x), atan2(y.y, x.y)); }
 
         /// <summary>Returns the componentwise 2-argument arctangent of a pair of float3 vectors.</summary>
         /// <param name="y">Numerator of the ratio y/x, usually the y component on the unit circle.</param>
         /// <param name="x">Denominator of the ratio y/x, usually the x component on the unit circle.</param>
         /// <returns>The componentwise arctangent of the ratio y/x, in radians.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp3 atan2(fp3 y, fp3 x) { return float3(atan2(y.x, x.x), atan2(y.y, x.y), atan2(y.z, x.z)); }
+        public static fp3 atan2(fp3 y, fp3 x) { return fp3(atan2(y.x, x.x), atan2(y.y, x.y), atan2(y.z, x.z)); }
 
         /// <summary>Returns the componentwise 2-argument arctangent of a pair of float4 vectors.</summary>
         /// <param name="y">Numerator of the ratio y/x, usually the y component on the unit circle.</param>
         /// <param name="x">Denominator of the ratio y/x, usually the x component on the unit circle.</param>
         /// <returns>The componentwise arctangent of the ratio y/x, in radians.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp4 atan2(fp4 y, fp4 x) { return float4(atan2(y.x, x.x), atan2(y.y, x.y), atan2(y.z, x.z), atan2(y.w, x.w)); }
+        public static fp4 atan2(fp4 y, fp4 x) { return fp4(atan2(y.x, x.x), atan2(y.y, x.y), atan2(y.z, x.z), atan2(y.w, x.w)); }
 
 
         /// <summary>Returns the cosine of a number value.</summary>
@@ -526,19 +525,19 @@ namespace Nt.Deterministics
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise cosine cosine of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 cos(fp2 x) { return float2(cos(x.x), cos(x.y)); }
+        public static fp2 cos(fp2 x) { return fp2(cos(x.x), cos(x.y)); }
 
         /// <summary>Returns the componentwise cosine of a float3 vector.</summary>
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise cosine cosine of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp3 cos(fp3 x) { return float3(cos(x.x), cos(x.y), cos(x.z)); }
+        public static fp3 cos(fp3 x) { return fp3(cos(x.x), cos(x.y), cos(x.z)); }
 
         /// <summary>Returns the componentwise cosine of a float4 vector.</summary>
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise cosine cosine of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp4 cos(fp4 x) { return float4(cos(x.x), cos(x.y), cos(x.z), cos(x.w)); }
+        public static fp4 cos(fp4 x) { return fp4(cos(x.x), cos(x.y), cos(x.z), cos(x.w)); }
 
 
         /// <summary>Returns the hyperbolic cosine of a number value.</summary>
@@ -551,19 +550,19 @@ namespace Nt.Deterministics
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise hyperbolic cosine of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 cosh(fp2 x) { return float2(cosh(x.x), cosh(x.y)); }
+        public static fp2 cosh(fp2 x) { return fp2(cosh(x.x), cosh(x.y)); }
 
         /// <summary>Returns the componentwise hyperbolic cosine of a float3 vector.</summary>
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise hyperbolic cosine of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp3 cosh(fp3 x) { return float3(cosh(x.x), cosh(x.y), cosh(x.z)); }
+        public static fp3 cosh(fp3 x) { return fp3(cosh(x.x), cosh(x.y), cosh(x.z)); }
 
         /// <summary>Returns the componentwise hyperbolic cosine of a float4 vector.</summary>
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise hyperbolic cosine of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp4 cosh(fp4 x) { return float4(cosh(x.x), cosh(x.y), cosh(x.z), cosh(x.w)); }
+        public static fp4 cosh(fp4 x) { return fp4(cosh(x.x), cosh(x.y), cosh(x.z), cosh(x.w)); }
 
 
         /// <summary>Returns the arccosine of a number value.</summary>
@@ -576,19 +575,19 @@ namespace Nt.Deterministics
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise arccosine of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 acos(fp2 x) { return float2(acos(x.x), acos(x.y)); }
+        public static fp2 acos(fp2 x) { return fp2(acos(x.x), acos(x.y)); }
 
         /// <summary>Returns the componentwise arccosine of a float3 vector.</summary>
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise arccosine of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp3 acos(fp3 x) { return float3(acos(x.x), acos(x.y), acos(x.z)); }
+        public static fp3 acos(fp3 x) { return fp3(acos(x.x), acos(x.y), acos(x.z)); }
 
         /// <summary>Returns the componentwise arccosine of a float4 vector.</summary>
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise arccosine of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp4 acos(fp4 x) { return float4(acos(x.x), acos(x.y), acos(x.z), acos(x.w)); }
+        public static fp4 acos(fp4 x) { return fp4(acos(x.x), acos(x.y), acos(x.z), acos(x.w)); }
 
 
         /// <summary>Returns the sine of a number value.</summary>
@@ -601,19 +600,19 @@ namespace Nt.Deterministics
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise sine of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 sin(fp2 x) { return float2(sin(x.x), sin(x.y)); }
+        public static fp2 sin(fp2 x) { return fp2(sin(x.x), sin(x.y)); }
 
         /// <summary>Returns the componentwise sine of a float3 vector.</summary>
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise sine of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp3 sin(fp3 x) { return float3(sin(x.x), sin(x.y), sin(x.z)); }
+        public static fp3 sin(fp3 x) { return fp3(sin(x.x), sin(x.y), sin(x.z)); }
 
         /// <summary>Returns the componentwise sine of a float4 vector.</summary>
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise sine of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp4 sin(fp4 x) { return float4(sin(x.x), sin(x.y), sin(x.z), sin(x.w)); }
+        public static fp4 sin(fp4 x) { return fp4(sin(x.x), sin(x.y), sin(x.z), sin(x.w)); }
 
 
         /// <summary>Returns the hyperbolic sine of a number value.</summary>
@@ -651,19 +650,19 @@ namespace Nt.Deterministics
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise arcsine of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 asin(fp2 x) { return float2(asin(x.x), asin(x.y)); }
+        public static fp2 asin(fp2 x) { return fp2(asin(x.x), asin(x.y)); }
 
         /// <summary>Returns the componentwise arcsine of a float3 vector.</summary>
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise arcsine of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp3 asin(fp3 x) { return float3(asin(x.x), asin(x.y), asin(x.z)); }
+        public static fp3 asin(fp3 x) { return fp3(asin(x.x), asin(x.y), asin(x.z)); }
 
         /// <summary>Returns the componentwise arcsine of a float4 vector.</summary>
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise arcsine of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp4 asin(fp4 x) { return float4(asin(x.x), asin(x.y), asin(x.z), asin(x.w)); }
+        public static fp4 asin(fp4 x) { return fp4(asin(x.x), asin(x.y), asin(x.z), asin(x.w)); }
 
 
         /// <summary>Returns the result of rounding a number value up to the nearest integral value less or equal to the original value.</summary>
@@ -676,19 +675,19 @@ namespace Nt.Deterministics
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise round down to nearest integral value of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 floor(fp2 x) { return float2(floor(x.x), floor(x.y)); }
+        public static fp2 floor(fp2 x) { return fp2(floor(x.x), floor(x.y)); }
 
         /// <summary>Returns the result of rounding each component of a float3 vector value down to the nearest value less or equal to the original value.</summary>
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise round down to nearest integral value of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp3 floor(fp3 x) { return float3(floor(x.x), floor(x.y), floor(x.z)); }
+        public static fp3 floor(fp3 x) { return fp3(floor(x.x), floor(x.y), floor(x.z)); }
 
         /// <summary>Returns the result of rounding each component of a float4 vector value down to the nearest value less or equal to the original value.</summary>
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise round down to nearest integral value of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp4 floor(fp4 x) { return float4(floor(x.x), floor(x.y), floor(x.z), floor(x.w)); }
+        public static fp4 floor(fp4 x) { return fp4(floor(x.x), floor(x.y), floor(x.z), floor(x.w)); }
 
 
         /// <summary>Returns the result of rounding a number value up to the nearest integral value greater or equal to the original value.</summary>
@@ -701,19 +700,19 @@ namespace Nt.Deterministics
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise round up to nearest integral value of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 ceil(fp2 x) { return float2(ceil(x.x), ceil(x.y)); }
+        public static fp2 ceil(fp2 x) { return fp2(ceil(x.x), ceil(x.y)); }
 
         /// <summary>Returns the result of rounding each component of a float3 vector value up to the nearest value greater or equal to the original value.</summary>
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise round up to nearest integral value of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp3 ceil(fp3 x) { return float3(ceil(x.x), ceil(x.y), ceil(x.z)); }
+        public static fp3 ceil(fp3 x) { return fp3(ceil(x.x), ceil(x.y), ceil(x.z)); }
 
         /// <summary>Returns the result of rounding each component of a float4 vector value up to the nearest value greater or equal to the original value.</summary>
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise round up to nearest integral value of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp4 ceil(fp4 x) { return float4(ceil(x.x), ceil(x.y), ceil(x.z), ceil(x.w)); }
+        public static fp4 ceil(fp4 x) { return fp4(ceil(x.x), ceil(x.y), ceil(x.z), ceil(x.w)); }
 
 
         /// <summary>Returns the result of rounding a number value to the nearest integral value.</summary>
@@ -726,19 +725,19 @@ namespace Nt.Deterministics
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise round to nearest integral value of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 round(fp2 x) { return float2(round(x.x), round(x.y)); }
+        public static fp2 round(fp2 x) { return fp2(round(x.x), round(x.y)); }
 
         /// <summary>Returns the result of rounding each component of a float3 vector value to the nearest integral value.</summary>
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise round to nearest integral value of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp3 round(fp3 x) { return float3(round(x.x), round(x.y), round(x.z)); }
+        public static fp3 round(fp3 x) { return fp3(round(x.x), round(x.y), round(x.z)); }
 
         /// <summary>Returns the result of rounding each component of a float4 vector value to the nearest integral value.</summary>
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise round to nearest integral value of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp4 round(fp4 x) { return float4(round(x.x), round(x.y), round(x.z), round(x.w)); }
+        public static fp4 round(fp4 x) { return fp4(round(x.x), round(x.y), round(x.z), round(x.w)); }
 
 
         /// <summary>Returns the result of truncating a number value to an integral number value.</summary>
@@ -751,19 +750,19 @@ namespace Nt.Deterministics
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise truncation of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 trunc(fp2 x) { return float2(trunc(x.x), trunc(x.y)); }
+        public static fp2 trunc(fp2 x) { return fp2(trunc(x.x), trunc(x.y)); }
 
         /// <summary>Returns the result of a componentwise truncation of a float3 value to an integral float3 value.</summary>
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise truncation of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp3 trunc(fp3 x) { return float3(trunc(x.x), trunc(x.y), trunc(x.z)); }
+        public static fp3 trunc(fp3 x) { return fp3(trunc(x.x), trunc(x.y), trunc(x.z)); }
 
         /// <summary>Returns the result of a componentwise truncation of a float4 value to an integral float4 value.</summary>
         /// <param name="x">Input value.</param>
         /// <returns>The componentwise truncation of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp4 trunc(fp4 x) { return float4(trunc(x.x), trunc(x.y), trunc(x.z), trunc(x.w)); }
+        public static fp4 trunc(fp4 x) { return fp4(trunc(x.x), trunc(x.y), trunc(x.z), trunc(x.w)); }
 
 
         /// <summary>Returns the fractional part of a number value.</summary>
@@ -1574,21 +1573,21 @@ namespace Nt.Deterministics
         /// <param name="x">Vector of values to compare against threshold y.</param>
         /// <returns>1 if the componentwise comparison x &gt;= y is true, otherwise 0.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 step(fp2 y, fp2 x) { return select(float2(0), float2(1), x >= y); }
+        public static fp2 step(fp2 y, fp2 x) { return select(fp2(0), fp2(1), x >= y); }
 
         /// <summary>Returns the result of a componentwise step function where each component is 1.0f when x &gt;= y and 0.0f otherwise.</summary>
         /// <param name="y">Vector of values to be used as a threshold for returning 1.</param>
         /// <param name="x">Vector of values to compare against threshold y.</param>
         /// <returns>1 if the componentwise comparison x &gt;= y is true, otherwise 0.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp3 step(fp3 y, fp3 x) { return select(float3(0), float3(1), x >= y); }
+        public static fp3 step(fp3 y, fp3 x) { return select(fp3(0), fp3(1), x >= y); }
 
         /// <summary>Returns the result of a componentwise step function where each component is 1 when x &gt;= y and 0 otherwise.</summary>
         /// <param name="y">Vector of values to be used as a threshold for returning 1.</param>
         /// <param name="x">Vector of values to compare against threshold y.</param>
         /// <returns>1 if the componentwise comparison x &gt;= y is true, otherwise 0.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp4 step(fp4 y, fp4 x) { return select(float4(0), float4(1), x >= y); }
+        public static fp4 step(fp4 y, fp4 x) { return select(fp4(0), fp4(1), x >= y); }
 
 
         /// <summary>Given an incident vector i and a normal vector n, returns the reflection vector r = i - 2.0f * dot(i, n) * n.</summary>
