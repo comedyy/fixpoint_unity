@@ -6,7 +6,6 @@ using UnityEngine.TestTools;
 using System.IO;
 using Nt.Deterministics;
 using Random = UnityEngine.Random;
-using Deterministic.FixedPoint;
 
 namespace Tests
 {
