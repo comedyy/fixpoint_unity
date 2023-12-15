@@ -618,7 +618,11 @@ namespace Mathematics.FixedPoint
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static long SqrtRaw(long x)
         {
-            if (x < 0L) throw new ArgumentOutOfRangeException("The number x has to be positive");
+            if (x < 0L) 
+            {
+                UnityEngine.Debug.LogError($"input < 0 x:${x}");
+                return 0L;
+            }
             if (x == 0L) return 0L;
             bool lessThanOne = x < ONE;
             long sValue = x;
@@ -642,7 +646,7 @@ namespace Mathematics.FixedPoint
         private static long PowRaw(long nbase, int x)
         {
             if (x == 1) return nbase;
-            if (x == 0) return 1L;
+            if (x == 0) return ONE;
             long tmp = PowRaw(nbase, x / 2);
             tmp = (tmp * tmp) >> FRACTIONAL_PLACES;
             return (x & 1) == 0/*偶数*/ ? tmp : ((nbase * tmp) >> FRACTIONAL_PLACES);

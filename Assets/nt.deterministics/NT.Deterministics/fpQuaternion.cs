@@ -253,10 +253,13 @@ namespace Mathematics.FixedPoint
         public static fpQuaternion EulerXZY(fp3 xyz)
         {
             sincos(fp.half * xyz, out fp3 s, out fp3 c);
-            return new fpQuaternion(s.x * c.y * c.z + c.x * s.y * s.z,
-                c.x * s.y * c.z + s.x * c.y * s.z,
-                c.x * c.y * s.z - s.x * s.y * c.z,
-                c.x * c.y * c.z - s.x * s.y * s.z);
+            return fpQuaternion(
+                // s.x * c.y * c.z + s.y * s.z * c.x,
+                // s.y * c.x * c.z + s.x * s.z * c.y,
+                // s.z * c.x * c.y - s.x * s.y * c.z,
+                // c.x * c.y * c.z - s.y * s.z * s.x
+                fp4(s.xyz, c.x) * c.yxxy * c.zzyz + s.yxxy * s.zzyz * fp4(c.xyz, s.x) * fp4(1, 1, -1, -1)
+                );
         }
 
         /// <summary>
@@ -268,10 +271,13 @@ namespace Mathematics.FixedPoint
         public static fpQuaternion EulerYXZ(fp3 xyz)
         {
             sincos(fp.half * xyz, out fp3 s, out fp3 c);
-            return new fpQuaternion(s.x * c.y * c.z - c.x * s.y * s.z,
-                c.x * s.y * c.z + s.x * c.y * s.z,
-                c.x * c.y * s.z + s.x * s.y * c.z,
-                c.x * c.y * c.z - s.x * s.y * s.z);
+            return fpQuaternion(
+                // s.x * c.y * c.z - s.y * s.z * c.x,
+                // s.y * c.x * c.z + s.x * s.z * c.y,
+                // s.z * c.x * c.y + s.x * s.y * c.z,
+                // c.x * c.y * c.z - s.y * s.z * s.x
+                fp4(s.xyz, c.x) * c.yxxy * c.zzyz + s.yxxy * s.zzyz * fp4(c.xyz, s.x) * fp4(-1, 1, 1, -1)
+                );
         }
 
         /// <summary>
@@ -283,10 +289,13 @@ namespace Mathematics.FixedPoint
         public static fpQuaternion EulerYZX(fp3 xyz)
         {
             sincos(fp.half * xyz, out fp3 s, out fp3 c);
-            return new fpQuaternion(s.x * c.y * c.z - c.x * s.y * s.z,
-                c.x * s.y * c.z - s.x * c.y * s.z,
-                c.x * c.y * s.z + s.x * s.y * c.z,
-                c.x * c.y * c.z + s.x * s.y * s.z);
+            return fpQuaternion(
+                // s.x * c.y * c.z - s.y * s.z * c.x,
+                // s.y * c.x * c.z - s.x * s.z * c.y,
+                // s.z * c.x * c.y + s.x * s.y * c.z,
+                // c.x * c.y * c.z + s.y * s.z * s.x
+                fp4(s.xyz, c.x) * c.yxxy * c.zzyz + s.yxxy * s.zzyz * fp4(c.xyz, s.x) * fp4(-1, -1, 1, 1)
+                );
         }
 
         /// <summary>
@@ -298,10 +307,13 @@ namespace Mathematics.FixedPoint
         public static fpQuaternion EulerZXY(fp3 xyz)
         {
             sincos(fp.half * xyz, out fp3 s, out fp3 c);
-            return new fpQuaternion(s.x * c.y * c.z + c.x * s.y * s.z,
-                c.x * s.y * c.z - s.x * c.y * s.z,
-                c.x * c.y * s.z - s.x * s.y * c.z,
-                c.x * c.y * c.z + s.x * s.y * s.z);
+            return fpQuaternion(
+                // s.x * c.y * c.z + s.y * s.z * c.x,
+                // s.y * c.x * c.z - s.x * s.z * c.y,
+                // s.z * c.x * c.y - s.x * s.y * c.z,
+                // c.x * c.y * c.z + s.y * s.z * s.x
+                fp4(s.xyz, c.x) * c.yxxy * c.zzyz + s.yxxy * s.zzyz * fp4(c.xyz, s.x) * fp4(1, -1, -1, 1)
+                );
         }
 
         /// <summary>
@@ -313,10 +325,13 @@ namespace Mathematics.FixedPoint
         public static fpQuaternion EulerZYX(fp3 xyz)
         {
             sincos(fp.half * xyz, out fp3 s, out fp3 c);
-            return new fpQuaternion(s.x * c.y * c.z + c.x * s.y * s.z,
-                c.x * s.y * c.z - s.x * c.y * s.z,
-                c.x * c.y * s.z + s.x * s.y * c.z,
-                c.x * c.y * c.z - s.x * s.y * s.z);
+           return fpQuaternion(
+                // s.x * c.y * c.z + s.y * s.z * c.x,
+                // s.y * c.x * c.z - s.x * s.z * c.y,
+                // s.z * c.x * c.y + s.x * s.y * c.z,
+                // c.x * c.y * c.z - s.y * s.x * s.z
+                fp4(s.xyz, c.x) * c.yxxy * c.zzyz + s.yxxy * s.zzyz * fp4(c.xyz, s.x) * fp4(1, -1, 1, -1)
+                );
         }
 
         /// <summary>
@@ -330,10 +345,13 @@ namespace Mathematics.FixedPoint
         public static fpQuaternion EulerXYZ(fp x, fp y, fp z)
         {
             sincos(fp.half * new fp3(x, y, z), out fp3 s, out fp3 c);
-            return new fpQuaternion(s.x * c.y * c.z - c.x * s.y * s.z,
-                c.x * s.y * c.z + s.x * c.y * s.z,
-                c.x * c.y * s.z - s.x * s.y * c.z,
-                c.x * c.y * c.z + s.x * s.y * s.z);
+            return fpQuaternion(
+                // s.x * c.y * c.z - s.y * s.z * c.x,
+                // s.y * c.x * c.z + s.x * s.z * c.y,
+                // s.z * c.x * c.y - s.x * s.y * c.z,
+                // c.x * c.y * c.z + s.y * s.z * s.x
+                fp4(s.xyz, c.x) * c.yxxy * c.zzyz + s.yxxy * s.zzyz * fp4(c.xyz, s.x) * fp4(-1, 1, -1, 1)
+                );
         }
 
         /// <summary>
@@ -347,10 +365,13 @@ namespace Mathematics.FixedPoint
         public static fpQuaternion EulerXZY(fp x, fp y, fp z)
         {
             sincos(fp.half * new fp3(x, y, z), out fp3 s, out fp3 c);
-            return new fpQuaternion(s.x * c.y * c.z + c.x * s.y * s.z,
-                c.x * s.y * c.z + s.x * c.y * s.z,
-                c.x * c.y * s.z - s.x * s.y * c.z,
-                c.x * c.y * c.z - s.x * s.y * s.z);
+            return fpQuaternion(
+                // s.x * c.y * c.z + s.y * s.z * c.x,
+                // s.y * c.x * c.z + s.x * s.z * c.y,
+                // s.z * c.x * c.y - s.x * s.y * c.z,
+                // c.x * c.y * c.z - s.y * s.z * s.x
+                fp4(s.xyz, c.x) * c.yxxy * c.zzyz + s.yxxy * s.zzyz * fp4(c.xyz, s.x) * fp4(1, 1, -1, -1)
+                );
         }
 
         /// <summary>
@@ -364,10 +385,13 @@ namespace Mathematics.FixedPoint
         public static fpQuaternion EulerYXZ(fp x, fp y, fp z)
         {
             sincos(fp.half * new fp3(x, y, z), out fp3 s, out fp3 c);
-            return new fpQuaternion(s.x * c.y * c.z - c.x * s.y * s.z,
-                c.x * s.y * c.z + s.x * c.y * s.z,
-                c.x * c.y * s.z + s.x * s.y * c.z,
-                c.x * c.y * c.z - s.x * s.y * s.z);
+            return fpQuaternion(
+                // s.x * c.y * c.z - s.y * s.z * c.x,
+                // s.y * c.x * c.z + s.x * s.z * c.y,
+                // s.z * c.x * c.y + s.x * s.y * c.z,
+                // c.x * c.y * c.z - s.y * s.z * s.x
+                fp4(s.xyz, c.x) * c.yxxy * c.zzyz + s.yxxy * s.zzyz * fp4(c.xyz, s.x) * fp4(-1, 1, 1, -1)
+                );
         }
 
         /// <summary>
@@ -381,10 +405,13 @@ namespace Mathematics.FixedPoint
         public static fpQuaternion EulerYZX(fp x, fp y, fp z)
         {
             sincos(fp.half * new fp3(x, y, z), out fp3 s, out fp3 c);
-            return new fpQuaternion(s.x * c.y * c.z - c.x * s.y * s.z,
-                c.x * s.y * c.z - s.x * c.y * s.z,
-                c.x * c.y * s.z + s.x * s.y * c.z,
-                c.x * c.y * c.z + s.x * s.y * s.z);
+            return fpQuaternion(
+                // s.x * c.y * c.z - s.y * s.z * c.x,
+                // s.y * c.x * c.z - s.x * s.z * c.y,
+                // s.z * c.x * c.y + s.x * s.y * c.z,
+                // c.x * c.y * c.z + s.y * s.z * s.x
+                fp4(s.xyz, c.x) * c.yxxy * c.zzyz + s.yxxy * s.zzyz * fp4(c.xyz, s.x) * fp4(-1, -1, 1, 1)
+                );
         }
 
         /// <summary>
@@ -398,10 +425,13 @@ namespace Mathematics.FixedPoint
         public static fpQuaternion EulerZXY(fp x, fp y, fp z)
         {
             sincos(fp.half * new fp3(x, y, z), out fp3 s, out fp3 c);
-            return new fpQuaternion(s.x * c.y * c.z + c.x * s.y * s.z,
-                c.x * s.y * c.z - s.x * c.y * s.z,
-                c.x * c.y * s.z - s.x * s.y * c.z,
-                c.x * c.y * c.z + s.x * s.y * s.z);
+            return fpQuaternion(
+                // s.x * c.y * c.z + s.y * s.z * c.x,
+                // s.y * c.x * c.z - s.x * s.z * c.y,
+                // s.z * c.x * c.y - s.x * s.y * c.z,
+                // c.x * c.y * c.z + s.y * s.z * s.x
+                fp4(s.xyz, c.x) * c.yxxy * c.zzyz + s.yxxy * s.zzyz * fp4(c.xyz, s.x) * fp4(1, -1, -1, 1)
+                );
         }
 
         /// <summary>
@@ -415,10 +445,13 @@ namespace Mathematics.FixedPoint
         public static fpQuaternion EulerZYX(fp x, fp y, fp z)
         {
             sincos(fp.half * new fp3(x, y, z), out fp3 s, out fp3 c);
-            return new fpQuaternion(s.x * c.y * c.z + c.x * s.y * s.z,
-                c.x * s.y * c.z - s.x * c.y * s.z,
-                c.x * c.y * s.z + s.x * s.y * c.z,
-                c.x * c.y * c.z - s.x * s.y * s.z);
+            return fpQuaternion(
+                // s.x * c.y * c.z + s.y * s.z * c.x,
+                // s.y * c.x * c.z - s.x * s.z * c.y,
+                // s.z * c.x * c.y + s.x * s.y * c.z,
+                // c.x * c.y * c.z - s.y * s.x * s.z
+                fp4(s.xyz, c.x) * c.yxxy * c.zzyz + s.yxxy * s.zzyz * fp4(c.xyz, s.x) * fp4(1, -1, 1, -1)
+                );
         }
 
         /// <summary>
@@ -700,7 +733,7 @@ namespace Mathematics.FixedPoint
             if(dt < fp._0_9995)
             {
                 var angle = acos(dt);
-                var s = rsqrt(fp.one - dt * dt);    // 1.0f / sin(angle)
+                var s = rsqrt(fp.one - dt * dt);    // 1 / sin(angle)
                 var w1 = sin(angle * (fp.one - t)) * s;
                 var w2 = sin(angle * t) * s;
                 return fpQuaternion(q1.value * w1 + q2.value * w2);

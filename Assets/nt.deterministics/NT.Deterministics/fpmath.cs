@@ -2005,19 +2005,19 @@ namespace Mathematics.FixedPoint
             return dot(axis0, axis) >= fp.zero ? ang : fp.PITimes2 - ang;
         }
 
-        public static bool Approximately(float a, fp num)
+        public static bool Approximately(float a, fp num, float toleranceRate = 0.001f)
         {
             float b = num;
             var x = 0.01f;
-            var max = Unity.Mathematics.math.max(Unity.Mathematics.math.abs(a), Unity.Mathematics.math.abs(b)) / 1000f;
+            var max = Unity.Mathematics.math.max(Unity.Mathematics.math.abs(a), Unity.Mathematics.math.abs(b)) * toleranceRate;
             x = Unity.Mathematics.math.max(max, x);
 
             return Unity.Mathematics.math.abs(a - b) < x;
         }
 
-        public static bool Approximately(fp a, float b)
+        public static bool Approximately(fp a, float b, float toleranceRate = 0.001f)
         {
-            return Approximately(b, a);
+            return Approximately(b, a, toleranceRate);
         }
     }
 }
