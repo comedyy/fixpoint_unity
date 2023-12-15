@@ -495,22 +495,6 @@ namespace Mathematics.FixedPoint
             if (RawValue == NegativeInfinity.RawValue) return "-Infinity";
             return ((float)this).ToString(format, formatProvider);
         }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format)
-        {
-            if (RawValue == NaN.RawValue) return "NaN";
-            if (RawValue == PositiveInfinity.RawValue) return "Infinity";
-            if (RawValue == NegativeInfinity.RawValue) return "-Infinity";
-            return ((float)this).ToString(format);
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(IFormatProvider provider)
-        {
-            if (RawValue == NaN.RawValue) return "NaN";
-            if (RawValue == PositiveInfinity.RawValue) return "Infinity";
-            if (RawValue == NegativeInfinity.RawValue) return "-Infinity";
-            return ((float)this).ToString(provider);
-        }
 #if Debug || DEBUG
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToStringInv()

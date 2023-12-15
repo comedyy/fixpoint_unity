@@ -882,7 +882,7 @@ namespace Mathematics.FixedPoint
         public string ToString(string format, IFormatProvider formatProvider)
         {
             bool flag = string.IsNullOrEmpty(format);
-            if (flag) format = "F2";
+            if (flag) format = "F5";
             return string.Format(formatProvider, "({0}, {1}, {2}, {3})", new object[]
             {
                 value.x.ToString(format, formatProvider),
@@ -892,14 +892,7 @@ namespace Mathematics.FixedPoint
             });
         }
 
-        /// <summary>
-        /// get a formatted string of the quaternion.
-        /// </summary>
-        /// <param name="format">A numeric format string.</param>
-        /// <returns>the formatted string</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format) => this.ToString(format, CultureInfo.InvariantCulture.NumberFormat);
-
+ 
         /// <summary>
         /// get a formatted string of the quaternion.
         /// </summary>
@@ -960,6 +953,14 @@ namespace Mathematics.FixedPoint
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fpQuaternion fpQuaternion(fp3x3 m) { return new fpQuaternion(m); }
 
+        /// <summary>Returns the conjugate of a quaternion value.</summary>
+       /// <param name="q">The quaternion to conjugate.</param>
+       /// <returns>The conjugate of the input quaternion.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static fpQuaternion conjugate(fpQuaternion q)
+        {
+            return fpQuaternion(q.value * fp4(-1, -1, -1, 1));
+        }
 
         /// <summary>Returns the dot product of two quaternions.</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1000,6 +1001,17 @@ namespace Mathematics.FixedPoint
         {
             var t = 2 * cross(q.value.xyz, v);
             return v + q.value.w * t + cross(q.value.xyz, t);
+        }
+
+        /// <summary>Returns the angle in radians between two unit quaternions.</summary>
+        /// <param name="q1">The first quaternion.</param>
+        /// <param name="q2">The second quaternion.</param>
+        /// <returns>The angle between two unit quaternions.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static fp angle(fpQuaternion q1, fpQuaternion q2)
+        {
+            var diff = asin(length(normalize(mul(conjugate(q1), q2)).value.xyz));
+            return diff + diff;
         }
 
         /// <summary>Returns the result of rotating a vector by a unit quaternion.</summary>

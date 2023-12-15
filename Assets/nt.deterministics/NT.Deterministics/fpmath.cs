@@ -1114,7 +1114,7 @@ namespace Mathematics.FixedPoint
         /// <param name="x">Value to use when computing reciprocal square root.</param>
         /// <returns>The reciprocal square root.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp rsqrt(fp x) { return fp.one / sqrt(x); }
+        public static fp rsqrt(fp x) { var y = sqrt(x); return y.RawValue == 0 ? 0 : fp.one / y; }
 
         /// <summary>Returns the componentwise reciprocal square root of a float2 vector.</summary>
         /// <param name="x">Value to use when computing reciprocal square root.</param>
@@ -1182,13 +1182,13 @@ namespace Mathematics.FixedPoint
         /// <param name="x">Vector to normalize.</param>
         /// <returns>The normalized vector.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp3 normalize(fp3 x) { return x.Equals(Mathematics.FixedPoint.fp3.zero) ? x : rsqrt(dot(x, x)) * x; }
+        public static fp3 normalize(fp3 x) { return rsqrt(dot(x, x)) * x; }
 
         /// <summary>Returns a normalized version of the float4 vector x by scaling it by 1 / length(x).</summary>
         /// <param name="x">Vector to normalize.</param>
         /// <returns>The normalized vector.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp4 normalize(fp4 x) { return x.Equals(Mathematics.FixedPoint.fp4.zero) ? x : rsqrt(dot(x, x)) * x; }
+        public static fp4 normalize(fp4 x) { return rsqrt(dot(x, x)) * x; }
 
 
         /// <summary>

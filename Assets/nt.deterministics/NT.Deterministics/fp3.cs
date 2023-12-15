@@ -9,6 +9,7 @@
 using System;
 using System.Runtime.CompilerServices;
 using System.Diagnostics;
+using System.Globalization;
 
 #pragma warning disable 0660, 0661
 
@@ -1630,7 +1631,14 @@ namespace Mathematics.FixedPoint
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString()
         {
-            return string.Format("float3({0}, {1}, {2})", x, y, z);
+            var format = "F5";
+            var formatProvider = CultureInfo.InvariantCulture.NumberFormat;
+            return string.Format(formatProvider, "f3({0}, {1}, {2})", new object[]
+            {
+                x.ToString(format, formatProvider),
+                y.ToString(format, formatProvider),
+                z.ToString(format, formatProvider),
+            });
         }
 
         /// <summary>Returns a string representation of the float3 using a specified format and culture-specific format information.</summary>

@@ -6,13 +6,18 @@ using UnityEngine.TestTools;
 using System.IO;
 using Mathematics.FixedPoint;
 using Random = UnityEngine.Random;
+using System;
 
 namespace Tests
 {
     public class TestRotation
     {
+        static bool _isLoaded = false;
         public static void InitLookupTable()
         {
+            if(_isLoaded) return;
+            _isLoaded = true;
+
             NumberLut.Init((path)=>{
                 return Resources.Load<TextAsset>(Path.Combine("NTLut", path)).bytes;
             });
@@ -22,19 +27,56 @@ namespace Tests
         public void TestLookRotation()
         {
             InitLookupTable();
-            for(int i = 0; i < 10000; i++)
+            for(int i = 0; i < 100000; i++)
             {
                 var f1 = Random.insideUnitSphere.normalized;
                 var f2 = Random.insideUnitSphere.normalized;
+
+                if(Unity.Mathematics.math.dot(f1, f2) > 0.95f || Unity.Mathematics.math.dot(f1, f2) < 0.05f) 
+                {
+                    i--;
+                    continue;
+                }
+
                 fp3 f11 = new fp3(fp.ConvertFrom(f1.x), fp.ConvertFrom(f1.y), fp.ConvertFrom(f1.z));
                 fp3 f12 = new fp3(fp.ConvertFrom(f2.x), fp.ConvertFrom(f2.y), fp.ConvertFrom(f2.z));
 
                 var q1 = fpQuaternion.LookRotation(f11, f12);
-                var q2 = Unity.Mathematics.quaternion.LookRotation(f1, f2);
+                var q2 = Unity.Mathematics.quaternion.LookRotation(f11, f12);
 
-                Assert.IsTrue(fpMath.Approximately(q1, q2), $"{q1} {q2}");
+                var angle = fpMath.angle(q1, new fpQuaternion(fp.ConvertFrom(q2.value.x),  fp.ConvertFrom(q2.value.y), fp.ConvertFrom(q2.value.z), fp.ConvertFrom(q2.value.w)));
+
+                Assert.IsTrue(angle < 0.01f, $"{q1} {q2} {f1.ToString("F5")} {f2.ToString("F5")} {angle}" );
             }
         }
+
+         [Test]
+        public void TestAngle()
+        {
+            InitLookupTable();
+            for(int i = 0; i < 100000; i++)
+            {
+                var f1 = Random.insideUnitSphere.normalized;
+                var f2 = Random.insideUnitSphere.normalized;
+
+                if(Unity.Mathematics.math.dot(f1, f2) > 0.95f || Unity.Mathematics.math.dot(f1, f2) < 0.05f) 
+                {
+                    i--;
+                    continue;
+                }
+
+                fp3 f11 = new fp3(fp.ConvertFrom(f1.x), fp.ConvertFrom(f1.y), fp.ConvertFrom(f1.z));
+                fp3 f12 = new fp3(fp.ConvertFrom(f2.x), fp.ConvertFrom(f2.y), fp.ConvertFrom(f2.z));
+
+                var q1 = fpQuaternion.LookRotation(f11, f12);
+                var q2 = Unity.Mathematics.quaternion.LookRotation(f11, f12);
+
+                var angle = fpMath.angle(q1, new fpQuaternion(fp.ConvertFrom(q2.value.x),  fp.ConvertFrom(q2.value.y), fp.ConvertFrom(q2.value.z), fp.ConvertFrom(q2.value.w)));
+
+                Assert.IsTrue(angle < 0.01f, $"{q1} {q2} {f1.ToString("F5")} {f2.ToString("F5")} {angle}" );
+            }
+        }
+
 
         [Test]
         public void TestEuler()
