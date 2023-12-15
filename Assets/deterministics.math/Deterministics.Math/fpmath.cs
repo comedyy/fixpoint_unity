@@ -1911,21 +1911,21 @@ namespace Mathematics.FixedPoint
         //     basis2.z = -normal.y;
         // }
 
-        /// <summary>
-        /// angle(Radian, not degree) between x and y
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp angle(fp2 x, fp2 y)
-        {
-            long angle1 = fp.Atan2Raw(x.y.RawValue, x.x.RawValue);
-            long angle2 = fp.Atan2Raw(y.y.RawValue, y.x.RawValue);
-            x.x.RawValue = angle1 > angle2 ? angle1 - angle2 : angle2 - angle1;
-            x.y.RawValue = x.x.RawValue > fp.RawPiLong ? fp.RawPiTimes2Long - x.x.RawValue : x.x.RawValue;
-            return x.y;
-        }
+        // /// <summary>
+        // /// angle(Radian, not degree) between x and y
+        // /// </summary>
+        // /// <param name="x"></param>
+        // /// <param name="y"></param>
+        // /// <returns></returns>
+        // [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        // public static fp angle(fp2 x, fp2 y)
+        // {
+        //     long angle1 = fp.Atan2Raw(x.y.RawValue, x.x.RawValue);
+        //     long angle2 = fp.Atan2Raw(y.y.RawValue, y.x.RawValue);
+        //     x.x.RawValue = angle1 > angle2 ? angle1 - angle2 : angle2 - angle1;
+        //     x.y.RawValue = x.x.RawValue > fp.RawPiLong ? fp.RawPiTimes2Long - x.x.RawValue : x.x.RawValue;
+        //     return x.y;
+        // }
 
         // [MethodImpl(MethodImplOptions.AggressiveInlining)]
         // public static number angle(float3 x, float3 y)

@@ -20,10 +20,10 @@ namespace Tests
 
             Assert.AreEqual(rect.min, new fp2(1, 2));
             Assert.AreEqual(rect.max, new fp2(4, 6));
-            Assert.AreEqual(rect.xMin, new fp(1));
-            Assert.AreEqual(rect.yMin, new fp(2));
-            Assert.AreEqual(rect.xMax, new fp(4));
-            Assert.AreEqual(rect.yMax, new fp(6));
+            Assert.AreEqual(rect.xMin, (fp)1);
+            Assert.AreEqual(rect.yMin, (fp)2);
+            Assert.AreEqual(rect.xMax, (fp)4);
+            Assert.AreEqual(rect.yMax, (fp)6);
             Assert.IsTrue(fpMath.Approximately(rect.center, new fp2(fp.ConvertFrom(2.5f), 4)));
             Assert.AreEqual(rect.position, rect.min);
             Assert.AreEqual(rect.size, new fp2(3, 4));

@@ -24,6 +24,17 @@ namespace Mathematics.FixedPoint
     [StructLayout(LayoutKind.Explicit)]
     public struct fp : IEquatable<fp>, IComparable<fp>
     {
+            private static readonly fp _atan2Number1 = new fp(-883);
+        private static readonly fp _atan2Number2 = new fp(3767);
+        private static readonly fp _atan2Number3 = new fp(7945);
+        private static readonly fp _atan2Number4 = new fp(12821);
+        private static readonly fp _atan2Number5 = new fp(21822);
+        private static readonly fp _atan2Number6 = new fp(65536);
+        private static readonly fp _atan2Number7 = new fp(102943);
+        private static readonly fp _atan2Number8 = new fp(205887);
+        private static readonly fp _atanApproximatedNumber1 = new fp(16036);
+        private static readonly fp _atanApproximatedNumber2 = new fp(4345);
+
         [FieldOffset(0)]
         public long RawValue;
         #region 静态常量
@@ -45,6 +56,8 @@ namespace Mathematics.FixedPoint
         //public static readonly number NegativeInfinity = new number(long.MinValue + 1L);
         //public static readonly number MinValue = new number(long.MinValue + 2L);
         //public static readonly number MaxInteger = new number(MaxValue.RawValue & IntegerMask);
+
+        static fp one_div_pi2 = FromRaw(OneDivPi2);
 
         //以上写法在导出IL2CPP代码时会导出IL2CPP_RUNTIME_CLASS_INIT运行时代理，导致性能下降；因而改用以下写法
         public unsafe static fp MinNormal
@@ -214,6 +227,7 @@ namespace Mathematics.FixedPoint
         public const long PiDiv2Long = (long)(Math.PI * ONE / 2 + 0.5);
         public const long RawPiLong = (long)(Math.PI * ONE + 0.5);
         public const long RawPiTimes2Long = (long)(2 * Math.PI * ONE + 0.5);
+        public const long OneDivPi2 = (long)(ONE / Math.PI / 2f + 0.5);
         const long nRad2Deg = (long)(ONE * 180.0 / Math.PI + 0.5);
         const long nDeg2Rad = (long)(ONE * Math.PI / 180.0 + 0.5);
         const long lExp = (long)(Math.E * ONE + 0.5);
@@ -232,10 +246,7 @@ namespace Mathematics.FixedPoint
         {
             RawValue = rawValue;
         }
-        public fp(int value)
-        {
-            RawValue = (long)value << FRACTIONAL_PLACES;
-        }
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp FromRaw(long rawValue) => new fp(rawValue);
 
@@ -573,6 +584,7 @@ namespace Mathematics.FixedPoint
             x.RawValue = SqrtRaw(x.RawValue);
             return x;
         }
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp Pow(fp nbase, fp x)
         {
@@ -612,29 +624,7 @@ namespace Mathematics.FixedPoint
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static long SqrtRaw(long x)
         {
-            if (x < 0L) 
-            {
-                UnityEngine.Debug.LogError($"input < 0 x:${x}");
-                return 0L;
-            }
-            if (x == 0L) return 0L;
-            bool lessThanOne = x < ONE;
-            long sValue = x;
-            int count = 0;
-            if (lessThanOne) sValue <<= FRACTIONAL_PLACES;
-            while (sValue > WaterShedSqrt)
-            {
-                count++;
-                sValue >>= 2;
-            }
-            long index = (sValue - ONE) / 3L;
-#if !NO_NUMBER_SUPPORT_BURST
-            sValue = NumberLut.sqrt_aprox_lut.Data[(int)index] << count;
-#else
-            sValue = NumberLut.sqrt_aprox_lut[index] << count;
-#endif
-            if (lessThanOne) sValue >>= FRACTIONAL_PLACES_SQRT;
-            return sValue;
+            return fixlut.sqrt(x);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static long PowRaw(long nbase, int x)
@@ -727,146 +717,70 @@ namespace Mathematics.FixedPoint
 
         #region Sin, Cos, Tan, Asin, Acos, Atan, Atan2
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp Sin(fp rad)
+        public static fp Sin(fp num)
         {
-            rad.RawValue %= RawPiTimes2Long;
-            if (rad.RawValue < -RawPiLong)
-                rad.RawValue = -RawPiLong - rad.RawValue;
-            else if (rad.RawValue > RawPiLong)
-                rad.RawValue = RawPiLong - rad.RawValue;
-#if !NO_NUMBER_SUPPORT_BURST
-            rad.RawValue = NumberLut.sin_lut.Data[(int)(rad.RawValue + RawPiLong)];
-#else
-            rad.RawValue = NumberLut.sin_lut[rad.RawValue + Pi];
-#endif
-            return rad;
+            num.RawValue %= RawPiTimes2Long;
+            num       *= one_div_pi2;
+            var raw = fixlut.sin(num.RawValue);
+            fp result;
+            result.RawValue = raw;
+            return result;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static fp Cos(fp num)
+        {
+            num.RawValue %= RawPiTimes2Long;
+            num       *= fp.one_div_pi2;
+            return new fp(fixlut.cos(num.RawValue));
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp Cos(fp rad)
+        public static fp Tan(fp num)
         {
-            rad.RawValue %= RawPiTimes2Long;
-            if (rad.RawValue < -RawPiLong)
-                rad.RawValue = RawPiTimes2Long + rad.RawValue;
-            else if (rad.RawValue > RawPiLong)
-                rad.RawValue = RawPiTimes2Long - rad.RawValue;
-#if !NO_NUMBER_SUPPORT_BURST
-            rad.RawValue = NumberLut.cos_lut.Data[(int)(rad.RawValue + RawPiLong)];
-#else
-            rad.RawValue = NumberLut.cos_lut[rad.RawValue + Pi];
-#endif
-            return rad;
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp Tan(fp rad)
-        {
-            if (rad.RawValue < -RawPiLong)
-                rad.RawValue %= -RawPiLong;
-            if (rad.RawValue > RawPiLong)
-                rad.RawValue %= RawPiLong;
-#if !NO_NUMBER_SUPPORT_BURST
-            rad.RawValue = NumberLut.tan_lut.Data[(int)(rad.RawValue + RawPiLong)];
-#else
-            rad.RawValue = NumberLut.tan_lut[rad.RawValue + Pi];
-#endif
-            return rad;
+            num.RawValue %= RawPiTimes2Long;
+            num       *= one_div_pi2;
+            return new fp(fixlut.tan(num.RawValue));
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp Asin(fp value)
         {
-            if (value.RawValue < -ONE || value.RawValue > ONE) return NaN;
-#if !NO_NUMBER_SUPPORT_BURST
-            value.RawValue = NumberLut.asin_lut.Data[(int)(value.RawValue + ONE)];
-#else
-            value.RawValue = NumberLut.asin_lut[value.RawValue + ONE];
-#endif
-            return value;
+            return new fp(fixlut.asin(value.RawValue));
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp Acos(fp value)
         {
-            if (value.RawValue < -ONE || value.RawValue > ONE) return NaN;
-#if !NO_NUMBER_SUPPORT_BURST
-            value.RawValue = NumberLut.acos_lut.Data[(int)(value.RawValue + ONE)];
-#else
-            value.RawValue = NumberLut.acos_lut[value.RawValue + ONE];
-#endif
-            return value;
+            return new fp(fixlut.acos(value.RawValue));
         }
+
+        /// <param name="num">Tan</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp Atan(fp value)
-        {
-            value.RawValue = AtanRaw(value.RawValue);
-            return value;
+        public static fp Atan(fp num) {
+            return Atan2(num, fp.one);
         }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp Atan2(fp y, fp x)
-        {
-            y.RawValue = Atan2Raw(y.RawValue, x.RawValue);
-            return y;
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static long AtanRaw(long value)
-        {
-            bool isneg = value < 0;
-            if (isneg) value = -value;
-            if (value <= LutGenerator.ATAN_DENSITY1_COVER_RAW)
-            {
-#if !NO_NUMBER_SUPPORT_BURST
-                value = NumberLut.atan_lut.Data[(int)value];
-#else
-                value = NumberLut.atan_lut[value];
-#endif
-                if (isneg) value = -value;
-                return value;
-            }
-            if (value <= LutGenerator.ATAN_DENSITY2_COVER_RAW)
-            {
-                value = (value - LutGenerator.ATAN_DENSITY1_COVER_RAW) >> 12;
-#if !NO_NUMBER_SUPPORT_BURST
-                value = NumberLut.atan_lut.Data[(int)(LutGenerator.ATAN_DENSITY2_INDEX_BEGIN + value)];
-#else
-                value = NumberLut.atan_lut[LutGenerator.ATAN_DENSITY2_INDEX_BEGIN + value];
-#endif
-                if (isneg) value = -value;
-                return value;
-            }
-            if (value <= LutGenerator.ATAN_DENSITY3_COVER_RAW)
-            {
-                value = (value - LutGenerator.ATAN_DENSITY2_COVER_RAW) >> 20;
-#if !NO_NUMBER_SUPPORT_BURST
-                value = NumberLut.atan_lut.Data[(int)(LutGenerator.ATAN_DENSITY3_INDEX_BEGIN + value)];
-#else
-                value = NumberLut.atan_lut[LutGenerator.ATAN_DENSITY3_INDEX_BEGIN + value];
-#endif
-                if (isneg) value = -value;
-                return value;
-            }
-#if !NO_NUMBER_SUPPORT_BURST
-            value = NumberLut.atan_lut.Data[NumberLut.atan_lut.Data.length - 1];
-#else
-            value = NumberLut.atan_lut[NumberLut.atan_lut.Length - 1];
-#endif
-            if (isneg) value = -value;
-            return value;
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static long Atan2Raw(long y, long x)
-        {
-            bool isnegX = x < 0L, isnegY = y < 0L;
-            long xRawValue = isnegX ? -x : x;
-            long yRawValue = isnegY ? -y : y;
-            bool bHighArea = xRawValue < yRawValue;//true:(Pi/4, Pi/2] or false:[0, Pi/4]
-            long idx = bHighArea ? xRawValue : yRawValue;
-            xRawValue = bHighArea ? yRawValue : xRawValue;
-            yRawValue = idx;
-            idx = (yRawValue << fp.FRACTIONAL_PLACES) / xRawValue;
-#if !NO_NUMBER_SUPPORT_BURST
-            long ret = bHighArea ? fp.PiDiv2Long - NumberLut.atan2_lut.Data[(int)idx] : NumberLut.atan2_lut.Data[(int)idx];
-#else
-            long ret = bHighArea ? number.PiDiv2 - NumberLut.atan2_lut[idx] : NumberLut.atan2_lut[idx];
-#endif
-            ret = isnegX ? fp.RawPiLong - ret : ret;
-            return isnegY ? -ret : ret;
+
+        /// <param name="x">Denominator</param>
+        /// <param name="y">Numerator</param>
+        public static fp Atan2(fp y, fp x) {
+            var absX = Abs(x);
+            var absY = Abs(y);
+            var t3   = absX;
+            var t1   = absY;
+            var t0   = Max(t3, t1);
+            t1 = Min(t3, t1);
+            t3 = fp.one / t0;
+            t3 = t1 * t3;
+            var t4 = t3 * t3;
+            t0 = _atan2Number1;
+            t0 = t0 * t4 + _atan2Number2;
+            t0 = t0 * t4 - _atan2Number3;
+            t0 = t0 * t4 + _atan2Number4;
+            t0 = t0 * t4 - _atan2Number5;
+            t0 = t0 * t4 + _atan2Number6;
+            t3 = t0 * t3;
+            t3 = absY > absX ? _atan2Number7 - t3 : t3;
+            t3 = x < fp.zero ? _atan2Number8 - t3 : t3;
+            t3 = y < fp.zero ? -t3 : t3;
+            return t3;
         }
         #endregion
 
