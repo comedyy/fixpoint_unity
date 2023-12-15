@@ -1139,44 +1139,7 @@ namespace Mathematics.FixedPoint
         /// <param name="x">Vector to normalize.</param>
         /// <returns>The normalized vector.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static fp2 normalize(fp2 x)// { return rsqrt(dot(x, x)) * x; }
-        {
-            if (x.Equals(Mathematics.FixedPoint.fp2.zero)) return x;
-            bool isnegX = x.x.RawValue < 0L, isnegY = x.y.RawValue < 0L;
-            long xRawValue = isnegX ? -x.x.RawValue : x.x.RawValue;
-            long yRawValue = isnegY ? -x.y.RawValue : x.y.RawValue;
-            bool bHighArea = xRawValue < yRawValue;//true:(Pi/4, Pi/2] or false:[0, Pi/4]
-            long idx = bHighArea ? xRawValue : yRawValue;
-            xRawValue = bHighArea ? yRawValue : xRawValue;
-            yRawValue = idx;
-            idx = (yRawValue << fp.FRACTIONAL_PLACES) / xRawValue;
-#if !NO_NUMBER_SUPPORT_BURST
-            xRawValue = bHighArea ? NumberLut.normalize2_y_lut.Data[(int)idx] : NumberLut.normalize2_x_lut.Data[(int)idx];
-            yRawValue = bHighArea ? NumberLut.normalize2_x_lut.Data[(int)idx] : NumberLut.normalize2_y_lut.Data[(int)idx];
-#else
-            xRawValue = bHighArea ? NumberLut.normalize2_y_lut[idx] : NumberLut.normalize2_x_lut[idx];
-            yRawValue = bHighArea ? NumberLut.normalize2_x_lut[idx] : NumberLut.normalize2_y_lut[idx];
-#endif
-            x.x.RawValue = isnegX ? -xRawValue : xRawValue;
-            x.y.RawValue = isnegY ? -yRawValue : yRawValue;
-            //bool isnegX = false, isnegY = false;
-            //if (x.x.RawValue < 0L) { isnegX = true; x.x.RawValue = -x.x.RawValue; }
-            //if (x.y.RawValue < 0L) { isnegY = true; x.y.RawValue = -x.y.RawValue; }
-            //long idx;
-            //if (x.y.RawValue > x.x.RawValue)//(Pi/4, Pi/2]
-            //{
-            //    idx = (x.x.RawValue << number.FRACTIONAL_PLACES) / x.y.RawValue;
-            //    x.x.RawValue = isnegX ? -NumberLut.normalize2_y_lut[idx] : NumberLut.normalize2_y_lut[idx];
-            //    x.y.RawValue = isnegY ? -NumberLut.normalize2_x_lut[idx] : NumberLut.normalize2_x_lut[idx];
-            //}
-            //else//[0, Pi/4]
-            //{
-            //    idx = (x.y.RawValue << number.FRACTIONAL_PLACES) / x.x.RawValue;
-            //    x.x.RawValue = isnegX ? -NumberLut.normalize2_x_lut[idx] : NumberLut.normalize2_x_lut[idx];
-            //    x.y.RawValue = isnegY ? -NumberLut.normalize2_y_lut[idx] : NumberLut.normalize2_y_lut[idx];
-            //}
-            return x;
-        }
+        public static fp2 normalize(fp2 x) { return rsqrt(dot(x, x)) * x; }
 
         /// <summary>Returns a normalized version of the float3 vector x by scaling it by 1 / length(x).</summary>
         /// <param name="x">Vector to normalize.</param>
@@ -1190,7 +1153,6 @@ namespace Mathematics.FixedPoint
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp4 normalize(fp4 x) { return rsqrt(dot(x, x)) * x; }
 
-
         /// <summary>
         /// Returns a safe normalized version of the float2 vector x by scaling it by 1 / length(x).
         /// Returns the given default value when 1 / length(x) does not produce a finite number.
@@ -1199,30 +1161,12 @@ namespace Mathematics.FixedPoint
         /// <param name="defaultvalue">Vector to return if normalized vector is not finite.</param>
         /// <returns>The normalized vector or the default value if the normalized vector is not finite.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static public fp2 normalizesafe(fp2 x, fp2 defaultvalue = new fp2())
+        static public fp normalizesafe(fp x, fp defaultvalue = new fp())
         {
-            //number len = math.dot(x, x);
-            //return math.select(defaultvalue, x * math.rsqrt(len), len > number.MinNormal);
-            if (x.Equals(Mathematics.FixedPoint.fp2.zero)) return x;
-            bool isnegX = x.x.RawValue < 0L, isnegY = x.y.RawValue < 0L;
-            long xRawValue = isnegX ? -x.x.RawValue : x.x.RawValue;
-            long yRawValue = isnegY ? -x.y.RawValue : x.y.RawValue;
-            bool bHighArea = xRawValue < yRawValue;//true:(Pi/4, Pi/2] or false:[0, Pi/4]
-            long idx = bHighArea ? xRawValue : yRawValue;
-            xRawValue = bHighArea ? yRawValue : xRawValue;
-            yRawValue = idx;
-            idx = (yRawValue << fp.FRACTIONAL_PLACES) / xRawValue;
-#if !NO_NUMBER_SUPPORT_BURST
-            xRawValue = bHighArea ? NumberLut.normalize2_y_lut.Data[(int)idx] : NumberLut.normalize2_x_lut.Data[(int)idx];
-            yRawValue = bHighArea ? NumberLut.normalize2_x_lut.Data[(int)idx] : NumberLut.normalize2_y_lut.Data[(int)idx];
-#else
-            xRawValue = bHighArea ? NumberLut.normalize2_y_lut[idx] : NumberLut.normalize2_x_lut[idx];
-            yRawValue = bHighArea ? NumberLut.normalize2_x_lut[idx] : NumberLut.normalize2_y_lut[idx];
-#endif
-            x.x.RawValue = isnegX ? -xRawValue : xRawValue;
-            x.y.RawValue = isnegY ? -yRawValue : yRawValue;
-            return x;
+            var len = dot(x, x);
+            return len > fp.MinNormal ? x * rsqrt(len) : defaultvalue;
         }
+
 
         /// <summary>
         /// Returns a safe normalized version of the float3 vector x by scaling it by 1 / length(x).
@@ -1234,8 +1178,8 @@ namespace Mathematics.FixedPoint
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         static public fp3 normalizesafe(fp3 x, fp3 defaultvalue = new fp3())
         {
-            fp len = fpMath.dot(x, x);
-            return len > fp.MinNormal ? x * fpMath.rsqrt(len) : defaultvalue;
+            fp len = dot(x, x);
+            return len > fp.MinNormal ? x * rsqrt(len) : defaultvalue;
         }
 
         /// <summary>
@@ -1248,8 +1192,8 @@ namespace Mathematics.FixedPoint
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         static public fp4 normalizesafe(fp4 x, fp4 defaultvalue = new fp4())
         {
-            fp len = fpMath.dot(x, x);
-            return len > fp.MinNormal ? x * fpMath.rsqrt(len) : defaultvalue;
+            fp len = dot(x, x);
+            return len > fp.MinNormal ? x * rsqrt(len) : defaultvalue;
         }
 
 
@@ -1723,7 +1667,7 @@ namespace Mathematics.FixedPoint
         {
             var proj = project(a, b);
 
-            return select(defaultValue, proj, Unity.Mathematics.math.all(isfinite(proj)));
+            return select(defaultValue, proj, math.all(isfinite(proj)));
         }
 
         /// <summary>
@@ -1744,7 +1688,7 @@ namespace Mathematics.FixedPoint
         {
             var proj = project(a, b);
 
-            return select(defaultValue, proj, Unity.Mathematics.math.all(isfinite(proj)));
+            return select(defaultValue, proj, math.all(isfinite(proj)));
         }
 
         /// <summary>
@@ -1765,7 +1709,7 @@ namespace Mathematics.FixedPoint
         {
             var proj = project(a, b);
 
-            return select(defaultValue, proj, Unity.Mathematics.math.all(isfinite(proj)));
+            return select(defaultValue, proj, math.all(isfinite(proj)));
         }
 
         /// <summary>Conditionally flips a vector n if two vectors i and ng are pointing in the same direction. Returns n if dot(i, ng) &lt; 0, -n otherwise.</summary>
@@ -2009,10 +1953,10 @@ namespace Mathematics.FixedPoint
         {
             float b = num;
             var x = 0.01f;
-            var max = Unity.Mathematics.math.max(Unity.Mathematics.math.abs(a), Unity.Mathematics.math.abs(b)) * toleranceRate;
-            x = Unity.Mathematics.math.max(max, x);
+            var max = math.max(math.abs(a), math.abs(b)) * toleranceRate;
+            x = math.max(max, x);
 
-            return Unity.Mathematics.math.abs(a - b) < x;
+            return math.abs(a - b) < x;
         }
 
         public static bool Approximately(fp a, float b, float toleranceRate = 0.001f)

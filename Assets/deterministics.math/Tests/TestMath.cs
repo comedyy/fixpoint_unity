@@ -56,6 +56,12 @@ namespace Tests
         }
 
         [Test]
+        public void TestNormalized()
+        {
+            TestRotation.InitLookupTable();
+        }
+
+        [Test]
         public void TestSinCos()
         {
             TestRotation.InitLookupTable();

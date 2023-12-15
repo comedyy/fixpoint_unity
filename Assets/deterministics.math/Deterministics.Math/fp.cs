@@ -92,6 +92,15 @@ namespace Mathematics.FixedPoint
                 return *(fp*)(&raw);
             }
         }
+        public unsafe static fp _0_25
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get
+            {
+                long raw = _0_25Const;
+                return *(fp*)(&raw);
+            }
+        }
         public unsafe static fp zero
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -202,7 +211,7 @@ namespace Mathematics.FixedPoint
             }
         }
         #endregion
-        const long PiDiv2 = (long)(Math.PI * ONE / 2 + 0.5);
+        public const long PiDiv2Long = (long)(Math.PI * ONE / 2 + 0.5);
         public const long RawPiLong = (long)(Math.PI * ONE + 0.5);
         public const long RawPiTimes2Long = (long)(2 * Math.PI * ONE + 0.5);
         const long nRad2Deg = (long)(ONE * 180.0 / Math.PI + 0.5);
@@ -215,6 +224,7 @@ namespace Mathematics.FixedPoint
         public const long nMaxInteger = (long.MaxValue - 1L) & IntegerMask;
         public const long SMALL_SQRT = ONE >> 12;
         const long HALF = ONE >> 1;
+        const long _0_25Const = ONE >> 2;
         const long FracMask = ONE - 1L;//小数部分
         const long IntegerMask = ~FracMask;//整数部分
 
@@ -851,7 +861,7 @@ namespace Mathematics.FixedPoint
             yRawValue = idx;
             idx = (yRawValue << fp.FRACTIONAL_PLACES) / xRawValue;
 #if !NO_NUMBER_SUPPORT_BURST
-            long ret = bHighArea ? fp.PiDiv2 - NumberLut.atan2_lut.Data[(int)idx] : NumberLut.atan2_lut.Data[(int)idx];
+            long ret = bHighArea ? fp.PiDiv2Long - NumberLut.atan2_lut.Data[(int)idx] : NumberLut.atan2_lut.Data[(int)idx];
 #else
             long ret = bHighArea ? number.PiDiv2 - NumberLut.atan2_lut[idx] : NumberLut.atan2_lut[idx];
 #endif

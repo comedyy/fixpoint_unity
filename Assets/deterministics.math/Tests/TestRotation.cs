@@ -15,7 +15,6 @@ namespace Tests
         static bool _isLoaded = false;
         public static void InitLookupTable()
         {
-            AutoLoadLut.LoadLut();
         }
         // A Test behaves as an ordinary method
         [Test]
