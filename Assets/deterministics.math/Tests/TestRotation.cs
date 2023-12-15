@@ -15,12 +15,7 @@ namespace Tests
         static bool _isLoaded = false;
         public static void InitLookupTable()
         {
-            if(_isLoaded) return;
-            _isLoaded = true;
-
-            NumberLut.Init((path)=>{
-                return Resources.Load<TextAsset>(Path.Combine("NTLut", path)).bytes;
-            });
+            AutoLoadLut.LoadLut();
         }
         // A Test behaves as an ordinary method
         [Test]

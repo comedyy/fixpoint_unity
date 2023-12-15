@@ -12,7 +12,7 @@ namespace Mathematics.FixedPoint
 #endif
         public static void AutoLoad()
         {
-#if NT_NUMBER_AUTOLOAD_LUT
+#if true || NT_NUMBER_AUTOLOAD_LUT
             LoadLut();
 #endif
         }
