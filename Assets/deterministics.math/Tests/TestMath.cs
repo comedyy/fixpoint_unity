@@ -264,6 +264,9 @@ namespace Tests
                 Assert.IsTrue(fpMath.Approximately(fpMath.cmin(r1), Unity.Mathematics.math.cmin(r2)));
                 Assert.IsTrue(fpMath.Approximately(fpMath.cmax(r1), Unity.Mathematics.math.cmax(r2)));
                 Assert.IsTrue(fpMath.Approximately(fpMath.csum(r1), Unity.Mathematics.math.csum(r2)));
+
+                Vector3 x = new fp3(1, 1, 1);
+                Quaternion q = new fpQuaternion(0, 0, 0, 1);
                 // cross
 
                 // any

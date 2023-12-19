@@ -17,7 +17,7 @@ namespace Deterministics.Math
     }
     [System.Serializable]
     [Unity.IL2CPP.CompilerServices.Il2CppEagerStaticClassConstruction]
-    public struct fpQuaternion : IEquatable<fpQuaternion>, IFormattable
+    public partial struct fpQuaternion : IEquatable<fpQuaternion>, IFormattable
     {
         public fp4 value;
 
