@@ -57,7 +57,7 @@ public struct fp : IEquatable<fp>, IComparable<fp>
     //public static readonly number MinValue = new number(long.MinValue + 2L);
     //public static readonly number MaxInteger = new number(MaxValue.RawValue & IntegerMask);
 
-    static fp one_div_pi2 = FromRaw(OneDivPi2Long);
+    readonly static fp one_div_pi2 = FromRaw(OneDivPi2Long);
 
     //以上写法在导出IL2CPP代码时会导出IL2CPP_RUNTIME_CLASS_INIT运行时代理，导致性能下降；因而改用以下写法
     public unsafe static fp MinNormal

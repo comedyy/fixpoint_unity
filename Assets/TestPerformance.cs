@@ -2,6 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using Mathematics.FixedPoint;
+using Unity.Burst;
+using Unity.Collections;
+using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -94,6 +97,63 @@ public class TestPerformance : MonoBehaviour
 
     private void CheckBurstOpt()
     {
+        System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
+        watch.Restart();
+        JobFloat3 t = new JobFloat3(){
+            result = new NativeArray<float3>(1, Allocator.TempJob)
+        };
+        t.Run();
+        t.result.Dispose();
+        var xxx = watch.ElapsedMilliseconds;
+        watch.Restart();
+        JobFloat3 x = new JobFloat3(){
+            result = new NativeArray<float3>(1, Allocator.TempJob)
+        };
+        x.Run();
+        xxx = watch.ElapsedMilliseconds;
+        watch.Restart();
+        JobFp3 x1 = new JobFp3(){
+            result = new NativeArray<fp3>(1, Allocator.TempJob)
+        };
+        x1.Run();
+        var y = watch.ElapsedMilliseconds;
+        Debug.LogError($"{xxx} {y} ; {x.result[0]} {x1.result[0]}");
+        x.result.Dispose();
+        x1.result.Dispose();
+    }
+
+    [BurstCompile]
+    struct JobFloat3 : IJob
+    {
+        public NativeArray<float3> result;
+        public void Execute()
+        {
+            quaternion q = quaternion.AxisAngle(new float3(1, 0, 0), 30);
+            float3 targetDir = new float3(1, 1, 1);
+            for(int i = 0; i < 100000000; i++)
+            {
+                targetDir = math.mul(q, targetDir);
+            }
+
+            result[0] = targetDir;
+        }
+    }
+
+    [BurstCompile]
+    struct JobFp3 : IJob
+    {
+        public NativeArray<fp3> result;
+        public void Execute()
+        {
+            fpQuaternion q = fpQuaternion.AxisAngle(new fp3(1, 0, 0), 30);
+            fp3 targetDir = new fp3(1, 1, 1);
+            for(int i = 0; i < 100000000; i++)
+            {
+                targetDir = fpMath.mul(q, targetDir);
+            }
+
+            result[0] = targetDir;
+        }
     }
 
     private void CheckRotationOpt(System.Diagnostics.Stopwatch watch)
@@ -142,16 +202,6 @@ public class TestPerformance : MonoBehaviour
         Debug.LogError($"opt :float3.cross time:{y} {x}, ret {targetDir111} {targetDir222}");
 
          watch.Restart();
-        fp3Opt tDir11OPt = new fp3Opt(1, 2, 3);
-        fp3Opt targetDir11OPt = new fp3Opt(1, 2, 3);
-        for(int i = 1; i < count; i++)
-        {
-            targetDir11OPt = tDir11OPt * targetDir11OPt;
-        }
-
-        var w = watch.ElapsedMilliseconds;
-
-        watch.Restart();
         fp3 tDir22 = new fp3(1, 2, 3);
         fp3 targetDir22 = new fp3(1, 2, 3);
         for(int i = 1; i < count; i++)
@@ -170,7 +220,7 @@ public class TestPerformance : MonoBehaviour
 
         x = watch.ElapsedMilliseconds;
 
-        Debug.LogError($"opt :float3 mul time:{y} {x} {w}, ret {targetDir11} {targetDir22} {targetDir11OPt}");
+        Debug.LogError($"opt :float3 mul time:{y} {x}, ret {targetDir11} {targetDir22}");
 
         watch.Restart();
         fp3 targetDir2 = new fp3(1, 2, 3);
