@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Mathematics.FixedPoint;
+using FixedPoint;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;

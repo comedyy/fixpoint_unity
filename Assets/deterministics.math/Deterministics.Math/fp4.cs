@@ -12,7 +12,7 @@ using System.Diagnostics;
 
 #pragma warning disable 0660, 0661
 
-namespace Mathematics.FixedPoint
+namespace FixedPoint
 {
     /// <summary>A 4 component vector of numbers.</summary>
     [DebuggerTypeProxy(typeof(fp4.DebuggerProxy))]
