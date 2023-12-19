@@ -1743,7 +1743,7 @@ namespace Mathematics.FixedPoint
         /// <param name="s">Output sine of the input.</param>
         /// <param name="c">Output cosine of the input.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void sincos(fp x, out fp s, out fp c) { s = sin(x); c = cos(x); }
+        public static void sincos(fp x, out fp s, out fp c) { fp.SinCos(x, out s, out c); }
 
         /// <summary>Returns the componentwise sine and cosine of the input float2 vector x through the out parameters s and c.</summary>
         /// <remarks>When Burst compiled, his method is faster than calling sin() and cos() separately.</remarks>
@@ -1759,7 +1759,13 @@ namespace Mathematics.FixedPoint
         /// <param name="s">Output vector containing the componentwise sine of the input.</param>
         /// <param name="c">Output vector containing the componentwise cosine of the input.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void sincos(fp3 x, out fp3 s, out fp3 c) { s = sin(x); c = cos(x); }
+        public static void sincos(fp3 x, out fp3 s, out fp3 c) { 
+            fp.SinCos(x.x.RawValue, out var sx, out var cx);
+            fp.SinCos(x.y.RawValue, out var sy, out var cy);
+            fp.SinCos(x.z.RawValue, out var sz, out var cz);
+            s = new fp3(sx, sy, sz);
+            c = new fp3(cx, cy, cz);
+        }
 
         /// <summary>Returns the componentwise sine and cosine of the input float4 vector x through the out parameters s and c.</summary>
         /// <remarks>When Burst compiled, his method is faster than calling sin() and cos() separately.</remarks>

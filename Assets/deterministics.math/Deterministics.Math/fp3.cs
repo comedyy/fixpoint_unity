@@ -85,6 +85,14 @@ namespace Mathematics.FixedPoint
             this.z = z;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal fp3(long x, long y, long z)
+        {
+            this.x.RawValue = x;
+            this.y.RawValue = y;
+            this.z.RawValue = z;
+        }
+
         /// <summary>Constructs a float3 vector from a number value and a float2 vector.</summary>
         /// <param name="x">The constructed vector's x component will be set to this value.</param>
         /// <param name="yz">The constructed vector's yz components will be set to this value.</param>

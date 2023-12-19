@@ -57,7 +57,7 @@ public struct fp : IEquatable<fp>, IComparable<fp>
     //public static readonly number MinValue = new number(long.MinValue + 2L);
     //public static readonly number MaxInteger = new number(MaxValue.RawValue & IntegerMask);
 
-    static fp one_div_pi2 = FromRaw(OneDivPi2);
+    static fp one_div_pi2 = FromRaw(OneDivPi2Long);
 
     //以上写法在导出IL2CPP代码时会导出IL2CPP_RUNTIME_CLASS_INIT运行时代理，导致性能下降；因而改用以下写法
     public unsafe static fp MinNormal
@@ -227,7 +227,7 @@ public struct fp : IEquatable<fp>, IComparable<fp>
     public const long PiDiv2Long = (long)(Math.PI * ONE / 2 + 0.5);
     public const long RawPiLong = (long)(Math.PI * ONE + 0.5);
     public const long RawPiTimes2Long = (long)(2 * Math.PI * ONE + 0.5);
-    public const long OneDivPi2 = (long)(ONE / Math.PI / 2f + 0.5);
+    public const long OneDivPi2Long = (long)(ONE / Math.PI / 2f + 0.5);
     const long nRad2Deg = (long)(ONE * 180.0 / Math.PI + 0.5);
     const long nDeg2Rad = (long)(ONE * Math.PI / 180.0 + 0.5);
     const long lExp = (long)(Math.E * ONE + 0.5);
@@ -734,6 +734,23 @@ public struct fp : IEquatable<fp>, IComparable<fp>
         num       *= fp.one_div_pi2;
         return new fp(fixlut.cos(num.RawValue));
     }
+
+    public static void SinCos(fp num, out fp sin, out fp cos)
+    {
+        num.RawValue %= RawPiTimes2Long;
+        num       *= one_div_pi2;
+        fixlut.sin_cos(num.RawValue, out var sinVal, out var cosVal);
+        sin.RawValue = sinVal;
+        cos.RawValue = cosVal;
+    }
+
+    public static void SinCos(long num, out long sin, out long cos)
+    {
+        num %= RawPiTimes2Long;
+        num = (num * OneDivPi2Long) >> FRACTIONAL_PLACES;
+        fixlut.sin_cos(num, out sin, out cos);
+    }
+
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static fp Tan(fp num)
     {
