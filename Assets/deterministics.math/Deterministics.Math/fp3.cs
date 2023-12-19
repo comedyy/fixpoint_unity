@@ -18,6 +18,7 @@ namespace Mathematics.FixedPoint
     /// <summary>A 3 component vector of numbers.</summary>
     [DebuggerTypeProxy(typeof(fp3.DebuggerProxy))]
     [System.Serializable]
+    [Unity.IL2CPP.CompilerServices.Il2CppEagerStaticClassConstruction]
     public partial struct fp3 : System.IEquatable<fp3>, IFormattable
     {
         /// <summary>x component of the vector.</summary>
@@ -261,6 +262,12 @@ namespace Mathematics.FixedPoint
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp3 operator * (fp lhs, fp3 rhs) { return new fp3 (lhs * rhs.x, lhs * rhs.y, lhs * rhs.z); }
 
+        /// <summary>Returns the result of a componentwise multiplication operation on a number value and a float3 vector.</summary>
+        /// <param name="lhs">Left hand side number to use to compute componentwise multiplication.</param>
+        /// <param name="rhs">Right hand side float3 to use to compute componentwise multiplication.</param>
+        /// <returns>float3 result of the componentwise multiplication.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static fp3 operator * (int lhs, fp3 rhs) { return new fp3 (lhs * rhs.x, lhs * rhs.y, lhs * rhs.z); }
 
         /// <summary>Returns the result of a componentwise addition operation on two float3 vectors.</summary>
         /// <param name="lhs">Left hand side float3 to use to compute componentwise addition.</param>

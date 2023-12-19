@@ -17,6 +17,7 @@ namespace Mathematics.FixedPoint
     /// <summary>A 2 component vector of numbers.</summary>
     [DebuggerTypeProxy(typeof(fp2.DebuggerProxy))]
     [System.Serializable]
+    [Unity.IL2CPP.CompilerServices.Il2CppEagerStaticClassConstruction]
     public partial struct fp2 : System.IEquatable<fp2>, IFormattable
     {
         /// <summary>x component of the vector.</summary>

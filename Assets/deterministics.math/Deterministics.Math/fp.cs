@@ -21,6 +21,7 @@ using System.Diagnostics;
 #endif
 [System.Serializable]
 [StructLayout(LayoutKind.Explicit)]
+[Unity.IL2CPP.CompilerServices.Il2CppEagerStaticClassConstruction]
 public struct fp : IEquatable<fp>, IComparable<fp>
 {
         private static readonly fp _atan2Number1 = new fp(-883);

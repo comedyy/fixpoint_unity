@@ -8,6 +8,7 @@ using static Mathematics.FixedPoint.fpMath;
 namespace Mathematics.FixedPoint
 {
     [System.Serializable]
+    [Unity.IL2CPP.CompilerServices.Il2CppEagerStaticClassConstruction]
     public struct fpRect : IEquatable<fpRect>, IFormattable
     {
         /// <summary>

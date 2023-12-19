@@ -16,6 +16,7 @@ namespace Mathematics.FixedPoint
         Default = ZXY
     }
     [System.Serializable]
+    [Unity.IL2CPP.CompilerServices.Il2CppEagerStaticClassConstruction]
     public struct fpQuaternion : IEquatable<fpQuaternion>, IFormattable
     {
         public fp4 value;
@@ -209,7 +210,6 @@ namespace Mathematics.FixedPoint
         /// <param name="angle">the radian of angle</param>
         /// <returns>quaternion</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [Obsolete("Use quaternion.AngleAxis instead. This function was deprecated because it uses radians instead of degrees")]
         public static fpQuaternion AxisAngle(fp3 axis, fp angle)
         {
             sincos(fp.half * angle, out fp sina, out fp cosa);

@@ -191,6 +191,8 @@ namespace Tests
                 Assert.IsTrue(fpMath.Approximately( fpMath.atan(i), Unity.Mathematics.math.atan(i)), $"{i} {fpMath.atan(i)} {Unity.Mathematics.math.atan(i)}");
             }
 
+            
+            
         //     watch.Restart();
         //     for(int i = 0; i < 1000000; i++)
         //     {
@@ -271,18 +273,17 @@ namespace Tests
             
         //     var y4 = watch.ElapsedMilliseconds;
 
-            var watch = new System.Diagnostics.Stopwatch();
-            watch.Restart();
-            for(int i = 1; i < 1000; i++)
-            {
-                for(int j = 0; j < 1000; j++)
-                {
-                    fp.Sqrt(i);
-                }
-            }
+            // watch.Restart();
+            // for(int i = 1; i < 1000; i++)
+            // {
+            //     for(int j = 0; j < 1000; j++)
+            //     {
+            //         fp.Sqrt(i);
+            //     }
+            // }
 
-            var x5 = watch.ElapsedMilliseconds;
-            watch.Restart();
+            // var x5 = watch.ElapsedMilliseconds;
+            // watch.Restart();
 
         //    for(int i = 1; i < 1000; i++)
         //     {
@@ -295,7 +296,7 @@ namespace Tests
         //     var y5 = watch.ElapsedMilliseconds;
 
 
-            Debug.LogError($"{x5}");
+            // Debug.LogError($"{x5}");
         }
 
         [Test]

@@ -16,6 +16,7 @@ namespace Mathematics.FixedPoint
 {
     /// <summary>A 3x3 matrix of numbers.</summary>
     [System.Serializable]
+    [Unity.IL2CPP.CompilerServices.Il2CppEagerStaticClassConstruction]
     public partial struct fp3x3 : System.IEquatable<fp3x3>, IFormattable
     {
         /// <summary>Column 0 of the matrix.</summary>
