@@ -1,4 +1,4 @@
-namespace Mathematics.FixedPoint {
+namespace Deterministics.Math {
     public static partial class fixlut {
         public static readonly ushort[] SqrtLut = {
             0,2,4,6,8,10,12,14,16,18,

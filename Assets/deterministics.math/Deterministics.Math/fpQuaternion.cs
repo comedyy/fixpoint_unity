@@ -1,9 +1,9 @@
 using System;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using static Mathematics.FixedPoint.fpMath;
+using static Deterministics.Math.fpMath;
 
-namespace Mathematics.FixedPoint
+namespace Deterministics.Math
 {
     public enum RotationOrder : byte
     {
@@ -966,26 +966,26 @@ namespace Mathematics.FixedPoint
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp dot(fpQuaternion a, fpQuaternion b)
         {
-            return Mathematics.FixedPoint.fpQuaternion.Dot(a, b);
+            return Deterministics.Math.fpQuaternion.Dot(a, b);
         }
 
         /// <summary>Returns a normalized version of a quaternion q by scaling it by 1 / length(q).</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fpQuaternion normalize(fpQuaternion q)
         {
-            return Mathematics.FixedPoint.fpQuaternion.Normalize(q);
+            return Deterministics.Math.fpQuaternion.Normalize(q);
         }
 
         public static fpQuaternion slerp(fpQuaternion q1, fpQuaternion q2, fp t)
         {
-            return Mathematics.FixedPoint.fpQuaternion.SlerpUnclamped(q1, q2, t);
+            return Deterministics.Math.fpQuaternion.SlerpUnclamped(q1, q2, t);
         }
 
         /// <summary>Returns the result of a normalized linear interpolation between two quaternions q1 and a2 using an interpolation parameter t.</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fpQuaternion nlerp(fpQuaternion q1, fpQuaternion q2, fp t)
         {
-            return Mathematics.FixedPoint.fpQuaternion.LerpUnclamped(q1, q2, t);
+            return Deterministics.Math.fpQuaternion.LerpUnclamped(q1, q2, t);
         }
 
         /// <summary>Returns the result of transforming the quaternion b by the quaternion a.</summary>
@@ -1025,7 +1025,7 @@ namespace Mathematics.FixedPoint
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fpQuaternion inverse(fpQuaternion q)
         {
-            return FixedPoint.fpQuaternion.inverse(q);
+            return Deterministics.Math.fpQuaternion.inverse(q);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
