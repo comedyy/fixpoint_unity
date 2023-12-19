@@ -9,7 +9,7 @@ namespace Deterministics.Math
 {
     [System.Serializable]
     [Unity.IL2CPP.CompilerServices.Il2CppEagerStaticClassConstruction]
-    public struct fpRect : IEquatable<fpRect>, IFormattable
+    public partial struct fpRect : IEquatable<fpRect>, IFormattable
     {
         /// <summary>
         /// construct rect from the other rect

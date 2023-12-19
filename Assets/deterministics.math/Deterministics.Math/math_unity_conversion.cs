@@ -55,5 +55,22 @@ namespace Deterministics.Math
         // /// <returns>The converted quaternion.</returns>
         // public static implicit operator quaternion(Quaternion q)  { return new quaternion(q.x, q.y, q.z, q.w); }
     }
+
+    public partial struct fpRect
+    {
+        /// <summary>
+        /// Converts a quaternion to Quaternion.
+        /// </summary>
+        /// <param name="q">quaternion to convert.</param>
+        /// <returns>The converted Quaternion.</returns>
+        public static implicit operator Rect(fpRect rect)  { return new Rect(rect.x, rect.y, rect.width, rect.height); }
+
+        // /// <summary>
+        // /// Converts a Quaternion to quaternion.
+        // /// </summary>
+        // /// <param name="q">Quaternion to convert.</param>
+        // /// <returns>The converted quaternion.</returns>
+        // public static implicit operator quaternion(Quaternion q)  { return new quaternion(q.x, q.y, q.z, q.w); }
+    }
 }
 #endif
