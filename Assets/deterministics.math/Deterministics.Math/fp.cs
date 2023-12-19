@@ -1,11 +1,3 @@
-//
-// @brief: 定点数
-// @version: 1.0.0
-// @author nt
-// @date: 2021.06.11
-// 
-// 
-//
 using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -24,7 +16,7 @@ using System.Diagnostics;
 [Unity.IL2CPP.CompilerServices.Il2CppEagerStaticClassConstruction]
 public struct fp : IEquatable<fp>, IComparable<fp>
 {
-        private static readonly fp _atan2Number1 = new fp(-883);
+    private static readonly fp _atan2Number1 = new fp(-883);
     private static readonly fp _atan2Number2 = new fp(3767);
     private static readonly fp _atan2Number3 = new fp(7945);
     private static readonly fp _atan2Number4 = new fp(12821);

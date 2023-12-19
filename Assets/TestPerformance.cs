@@ -120,6 +120,24 @@ public class TestPerformance : MonoBehaviour
         Debug.LogError($"{xxx} {y} ; {x.result[0]} {x1.result[0]}");
         x.result.Dispose();
         x1.result.Dispose();
+
+
+        watch.Restart();
+        var x11 = new JobFloat3Cross(){
+            result = new NativeArray<float3>(1, Allocator.TempJob)
+        };
+        x11.Run();
+        xxx = watch.ElapsedMilliseconds;
+        watch.Restart();
+        var x12 = new JobFp3Cross(){
+            result = new NativeArray<fp3>(1, Allocator.TempJob)
+        };
+        x12.Run();
+        y = watch.ElapsedMilliseconds;
+        
+        Debug.LogError($"{xxx} {y} ; {x11.result[0]} {x12.result[0]}");
+        x11.result.Dispose();
+        x12.result.Dispose();
     }
 
     [BurstCompile]
@@ -136,6 +154,40 @@ public class TestPerformance : MonoBehaviour
             }
 
             result[0] = targetDir;
+        }
+    }
+
+    [BurstCompile]
+    struct JobFp3Cross : IJob
+    {
+        public NativeArray<fp3> result;
+        public void Execute()
+        {
+            fp3 tDir222 = new fp3(1, 2, 3);
+            fp3 targetDir222 = new fp3(1, 1, 1);
+            for(int i = 0; i < 100000000; i++)
+            {
+                targetDir222 = fpMath.cross(tDir222, targetDir222);
+            }
+
+            result[0] = targetDir222;
+        }
+    }
+
+    [BurstCompile]
+    struct JobFloat3Cross : IJob
+    {
+        public NativeArray<float3> result;
+        public void Execute()
+        {
+            float3 tDir111 = new float3(1, 2, 3);
+            float3 targetDir111 = new float3(1, 1, 1);
+            for(int i = 0; i < 100000000; i++)
+            {
+                targetDir111 = math.cross(tDir111 , targetDir111);
+            }
+
+            result[0] = targetDir111;
         }
     }
 
