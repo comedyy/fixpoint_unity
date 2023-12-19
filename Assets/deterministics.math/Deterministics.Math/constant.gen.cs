@@ -1,6 +1,6 @@
 using System;
 
-namespace FixedPoint
+namespace Mathematics.FixedPoint
 {
     public static class constant
     {

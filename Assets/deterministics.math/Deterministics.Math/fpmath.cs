@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 using Unity.Mathematics;
 
-namespace FixedPoint
+namespace Mathematics.FixedPoint
 {
     /// <summary>
     /// A static class to contain various math functions and constants.
@@ -1601,7 +1601,7 @@ namespace FixedPoint
         /// <remarks>
         /// Some finite vectors a and b could generate a non-finite result. This is most likely when a's components
         /// are very large (close to Single.MaxValue) or when b's components are very small (close to number.MinNormal).
-        /// In these cases, you can call <see cref="projectsafe(FixedPoint.fp2,FixedPoint.fp2,FixedPoint.fp2)"/>
+        /// In these cases, you can call <see cref="projectsafe(Mathematics.FixedPoint.fp2,Mathematics.FixedPoint.fp2,Mathematics.FixedPoint.fp2)"/>
         /// which will use a given default value if the result is not finite.
         /// </remarks>
         /// <param name="a">Vector to project.</param>
@@ -1619,7 +1619,7 @@ namespace FixedPoint
         /// <remarks>
         /// Some finite vectors a and b could generate a non-finite result. This is most likely when a's components
         /// are very large (close to Single.MaxValue) or when b's components are very small (close to number.MinNormal).
-        /// In these cases, you can call <see cref="projectsafe(FixedPoint.fp3,FixedPoint.fp3,FixedPoint.fp3)"/>
+        /// In these cases, you can call <see cref="projectsafe(Mathematics.FixedPoint.fp3,Mathematics.FixedPoint.fp3,Mathematics.FixedPoint.fp3)"/>
         /// which will use a given default value if the result is not finite.
         /// </remarks>
         /// <param name="a">Vector to project.</param>
@@ -1637,7 +1637,7 @@ namespace FixedPoint
         /// <remarks>
         /// Some finite vectors a and b could generate a non-finite result. This is most likely when a's components
         /// are very large (close to Single.MaxValue) or when b's components are very small (close to number.MinNormal).
-        /// In these cases, you can call <see cref="projectsafe(FixedPoint.fp4,FixedPoint.fp4,FixedPoint.fp4)"/>
+        /// In these cases, you can call <see cref="projectsafe(Mathematics.FixedPoint.fp4,Mathematics.FixedPoint.fp4,Mathematics.FixedPoint.fp4)"/>
         /// which will use a given default value if the result is not finite.
         /// </remarks>
         /// <param name="a">Vector to project.</param>
@@ -1655,7 +1655,7 @@ namespace FixedPoint
         /// <remarks>
         /// This function performs extra checks to see if the result of projecting a onto b is finite. If you know that
         /// your inputs will generate a finite result or you don't care if the result is finite, then you can call
-        /// <see cref="project(FixedPoint.fp2,FixedPoint.fp2)"/> instead which is faster than this
+        /// <see cref="project(Mathematics.FixedPoint.fp2,Mathematics.FixedPoint.fp2)"/> instead which is faster than this
         /// function.
         /// </remarks>
         /// <param name="a">Vector to project.</param>
@@ -1676,7 +1676,7 @@ namespace FixedPoint
         /// <remarks>
         /// This function performs extra checks to see if the result of projecting a onto b is finite. If you know that
         /// your inputs will generate a finite result or you don't care if the result is finite, then you can call
-        /// <see cref="project(FixedPoint.fp3,FixedPoint.fp3)"/> instead which is faster than this
+        /// <see cref="project(Mathematics.FixedPoint.fp3,Mathematics.FixedPoint.fp3)"/> instead which is faster than this
         /// function.
         /// </remarks>
         /// <param name="a">Vector to project.</param>
@@ -1697,7 +1697,7 @@ namespace FixedPoint
         /// <remarks>
         /// This function performs extra checks to see if the result of projecting a onto b is finite. If you know that
         /// your inputs will generate a finite result or you don't care if the result is finite, then you can call
-        /// <see cref="project(FixedPoint.fp4,FixedPoint.fp4)"/> instead which is faster than this
+        /// <see cref="project(Mathematics.FixedPoint.fp4,Mathematics.FixedPoint.fp4)"/> instead which is faster than this
         /// function.
         /// </remarks>
         /// <param name="a">Vector to project.</param>
@@ -1948,7 +1948,7 @@ namespace FixedPoint
             if (anyNaN(x) || anyNaN(y) || anyNaN(axis)) return fp.NaN;
             var axis0 = cross(x, y);
             var dotValue = dot(x, y);
-            if (axis0.Equals(FixedPoint.fp3.zero)) return dotValue > 0 ? fp.zero : fp.PI;
+            if (axis0.Equals(Mathematics.FixedPoint.fp3.zero)) return dotValue > 0 ? fp.zero : fp.PI;
             var num = length(x) * length(y);
             if (num <= fp.MinNormal) return fp.zero;
             var ang = fp.Acos(dotValue / num);

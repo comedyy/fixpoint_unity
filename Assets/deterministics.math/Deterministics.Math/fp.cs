@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using FixedPoint;
+using Mathematics.FixedPoint;
 
 #if Debug || DEBUG
 using System.Diagnostics;

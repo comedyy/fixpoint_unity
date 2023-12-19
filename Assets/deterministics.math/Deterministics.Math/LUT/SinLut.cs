@@ -1,4 +1,4 @@
-namespace FixedPoint {
+namespace Mathematics.FixedPoint {
     public static partial class fixlut {
         public static readonly int[] SinLut = {
             0, 804, 1608, 2412, 3216, 4019, 4821, 5623, 6424, 7224,

@@ -1,4 +1,4 @@
-﻿namespace FixedPoint {
+﻿namespace Mathematics.FixedPoint {
     public static partial class fixlut {
         public const int  FRACTIONS_COUNT = 5;
         public const int  PRECISION       = 16;

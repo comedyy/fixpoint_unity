@@ -1,9 +1,9 @@
 using System;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using static FixedPoint.fpMath;
+using static Mathematics.FixedPoint.fpMath;
 
-namespace FixedPoint
+namespace Mathematics.FixedPoint
 {
     public enum RotationOrder : byte
     {
@@ -966,26 +966,26 @@ namespace FixedPoint
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp dot(fpQuaternion a, fpQuaternion b)
         {
-            return FixedPoint.fpQuaternion.Dot(a, b);
+            return Mathematics.FixedPoint.fpQuaternion.Dot(a, b);
         }
 
         /// <summary>Returns a normalized version of a quaternion q by scaling it by 1 / length(q).</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fpQuaternion normalize(fpQuaternion q)
         {
-            return FixedPoint.fpQuaternion.Normalize(q);
+            return Mathematics.FixedPoint.fpQuaternion.Normalize(q);
         }
 
         public static fpQuaternion slerp(fpQuaternion q1, fpQuaternion q2, fp t)
         {
-            return FixedPoint.fpQuaternion.SlerpUnclamped(q1, q2, t);
+            return Mathematics.FixedPoint.fpQuaternion.SlerpUnclamped(q1, q2, t);
         }
 
         /// <summary>Returns the result of a normalized linear interpolation between two quaternions q1 and a2 using an interpolation parameter t.</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fpQuaternion nlerp(fpQuaternion q1, fpQuaternion q2, fp t)
         {
-            return FixedPoint.fpQuaternion.LerpUnclamped(q1, q2, t);
+            return Mathematics.FixedPoint.fpQuaternion.LerpUnclamped(q1, q2, t);
         }
 
         /// <summary>Returns the result of transforming the quaternion b by the quaternion a.</summary>

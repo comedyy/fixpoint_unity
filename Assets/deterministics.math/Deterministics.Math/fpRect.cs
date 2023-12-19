@@ -1,11 +1,11 @@
 using System;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using static FixedPoint.fpMath;
+using static Mathematics.FixedPoint.fpMath;
 
 #pragma warning disable 0660, 0661
 
-namespace FixedPoint
+namespace Mathematics.FixedPoint
 {
     [System.Serializable]
     [Unity.IL2CPP.CompilerServices.Il2CppEagerStaticClassConstruction]

@@ -13,7 +13,7 @@ using System.Globalization;
 
 #pragma warning disable 0660, 0661
 
-namespace FixedPoint
+namespace Mathematics.FixedPoint
 {
     /// <summary>A 3 component vector of numbers.</summary>
     [DebuggerTypeProxy(typeof(fp3.DebuggerProxy))]
