@@ -894,7 +894,7 @@ public struct fp : IEquatable<fp>, IComparable<fp>
         return CreateByDivisor((int)value, divisor);
     }
 
-    static fp CreateInternal(int intPart, int fractionPart, int divisor)
+    static fp CreateInternal(long intPart, int fractionPart, int divisor)
     {
         // Assert.IsTrue(fractionPart < divisor);
         var fraction = (fractionPart << FRACTIONAL_PLACES) / divisor;
