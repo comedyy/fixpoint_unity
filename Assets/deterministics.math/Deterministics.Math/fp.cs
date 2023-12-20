@@ -872,7 +872,7 @@ public struct fp : IEquatable<fp>, IComparable<fp>
         return new fp(){RawValue = (long)(f * ONE)};
     }
 
-        public static fp Create(int integerPart, int fractionPart)
+    public static fp Create(int integerPart, int fractionPart)
     {
         if(integerPart != 0 && fractionPart < 0) throw new Exception($"创建错误 {integerPart} {fractionPart}");
 
@@ -908,5 +908,47 @@ public struct fp : IEquatable<fp>, IComparable<fp>
             var v = (intPart << FRACTIONAL_PLACES) - fraction;
             return new fp(){ RawValue = v };    
         }
+    }
+
+    public static fp Parse(string value)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            return zero;
+        }
+
+        bool negative;
+
+        var startIndex = 0;
+        if (negative = (value[0] == '-')) {
+            startIndex = 1;
+        }
+
+        var pointIndex = value.IndexOf('.');
+        if (pointIndex < startIndex) {
+            var v = int.Parse(value);
+            return Create(v, 0);
+        }
+
+        var result = new fp();
+        
+        if (pointIndex > startIndex) {
+            var integerString = value.Substring(startIndex, pointIndex - startIndex);
+            result += Create(int.Parse(integerString), 0);
+        }
+
+        if (pointIndex == value.Length - 1) {
+            return negative ? -result : result;
+        }
+
+        var fractionString = value.Substring(pointIndex + 1, value.Length - pointIndex - 1);
+
+        var divisor = 1;
+        for(int i = 0; i < fractionString.Length; i++) divisor *= 10;
+
+        var fractionValue = int.Parse(fractionString);
+        result += CreateByDivisor(fractionValue, divisor);
+
+        return negative ? -result : result;
     }
 }
