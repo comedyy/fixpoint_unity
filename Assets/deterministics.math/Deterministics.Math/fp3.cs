@@ -30,6 +30,8 @@ namespace Deterministics.Math
 
         /// <summary>float3 zero value.</summary>
         public static readonly fp3 zero;
+        public static readonly fp3 one = new fp3(fp.one, fp.one, fp.one);
+        
 
         /// <summary>Shorthand for writing float3(1, 0, 0).</summary>
         public static fp3 right
