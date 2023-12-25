@@ -148,7 +148,7 @@ public class TestPerformance : MonoBehaviour
         {
             quaternion q = quaternion.AxisAngle(new float3(1, 0, 0), 30);
             float3 targetDir = new float3(1, 1, 1);
-            for(int i = 0; i < 100000000; i++)
+            for(int i = 0; i < CAlCOunt; i++)
             {
                 targetDir = math.mul(q, targetDir);
             }
@@ -165,7 +165,7 @@ public class TestPerformance : MonoBehaviour
         {
             fp3 tDir222 = new fp3(1, 2, 3);
             fp3 targetDir222 = new fp3(1, 1, 1);
-            for(int i = 0; i < 100000000; i++)
+            for(int i = 0; i < CAlCOunt; i++)
             {
                 targetDir222 = fpMath.cross(tDir222, targetDir222);
             }

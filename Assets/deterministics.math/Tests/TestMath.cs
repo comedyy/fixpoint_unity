@@ -178,9 +178,23 @@ namespace Tests
         }
 
         [Test]
-        public void TestAngle()
+        public void TestMisc()
         {
-            // Assert.IsTrue(fpMath.Approximately(fpMath.angle(new fp2(1, 0), new fp2(0, 1)), (float)(fpMath.PI / 2)));
+            var f1 = fp.CreateByDivisor(-11, 10);
+            Assert.IsTrue(fpMath.Approximately(f1, -1.1f), $"{f1}");
+            Assert.IsTrue(fpMath.Approximately(fp.CreateByDivisor(-1232131312312123, 10000), -1232131312312123 / 10000f));
+
+
+
+            Assert.IsTrue(fpMath.Approximately(fp.Parse("-0.111"), -0.111f));
+            Assert.IsTrue(fpMath.Approximately(fp.Parse("0.111"), 0.111f));
+
+            Assert.IsTrue(fpMath.Approximately(fp.Parse("-1.111"), -1.111f));
+            Assert.IsTrue(fpMath.Approximately(fp.Parse("1.111"), 1.111f));
+
+
+            Assert.IsTrue(fpMath.Approximately(fp.Parse("-1111111111.1223"), -1111111111.1223f), $"{fp.Parse("-1111111111.1223")}");
+            Assert.IsTrue(fpMath.Approximately(fp.Parse("1111111111.1223"), 1111111111.1223f));
         }
 
         [Test]

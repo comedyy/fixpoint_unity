@@ -869,22 +869,22 @@ public struct fp : IEquatable<fp>, IComparable<fp>
 
     public static fp ConvertFrom(float f)
     {
-        return new fp(){RawValue = (long)(f * ONE)};
+        return new fp(){RawValue = (long)(Math.Round(f * ONE))};
     }
 
-    public static fp Create(int integerPart, int fractionPart)
+    public static fp Create(long integerPart, int fractionPart)
     {
         if(integerPart != 0 && fractionPart < 0) throw new Exception($"创建错误 {integerPart} {fractionPart}");
 
         return CreateInternal(integerPart, fractionPart, 10000);
     }
 
-    public static fp CreateByDivisor(int value, int divisor)
+    public static fp CreateByDivisor(long value, int divisor)
     {
         if(divisor < 0) throw new Exception($"创建错误 除数== 0");
 
         var integerPart = value / divisor;
-        var fraction = value % divisor;
+        var fraction = (int)value % divisor;
 
         return CreateInternal(integerPart, fraction, divisor);
     }
@@ -898,57 +898,15 @@ public struct fp : IEquatable<fp>, IComparable<fp>
     {
         // Assert.IsTrue(fractionPart < divisor);
         var fraction = (fractionPart << FRACTIONAL_PLACES) / divisor;
-        if(intPart >= 0)
-        {
-            var v = (intPart << FRACTIONAL_PLACES) + fraction;
-            return new fp(){ RawValue = v };    
-        }
-        else
-        {
-            var v = (intPart << FRACTIONAL_PLACES) - fraction;
-            return new fp(){ RawValue = v };    
-        }
+        var v = (intPart << FRACTIONAL_PLACES) + fraction;
+        return new fp(){ RawValue = v };    
     }
 
     public static fp Parse(string value)
     {
-        if (string.IsNullOrEmpty(value))
-        {
-            return zero;
-        }
+        float x = float.Parse(value);
 
-        bool negative;
-
-        var startIndex = 0;
-        if (negative = (value[0] == '-')) {
-            startIndex = 1;
-        }
-
-        var pointIndex = value.IndexOf('.');
-        if (pointIndex < startIndex) {
-            var v = int.Parse(value);
-            return Create(v, 0);
-        }
-
-        var result = new fp();
-        
-        if (pointIndex > startIndex) {
-            var integerString = value.Substring(startIndex, pointIndex - startIndex);
-            result += Create(int.Parse(integerString), 0);
-        }
-
-        if (pointIndex == value.Length - 1) {
-            return negative ? -result : result;
-        }
-
-        var fractionString = value.Substring(pointIndex + 1, value.Length - pointIndex - 1);
-
-        var divisor = 1;
-        for(int i = 0; i < fractionString.Length; i++) divisor *= 10;
-
-        var fractionValue = int.Parse(fractionString);
-        result += CreateByDivisor(fractionValue, divisor);
-
-        return negative ? -result : result;
+        var intValue = (long)Math.Round(x * 10000);
+        return CreateByDivisor(intValue, 10000);
     }
 }
