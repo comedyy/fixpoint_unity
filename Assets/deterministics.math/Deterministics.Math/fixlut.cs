@@ -88,7 +88,9 @@
                 value = -value;
             }
 
-            var result = AsinLut[value];
+            var index = (int)System.Math.Min(value, AsinLut.Length - 1);
+
+            var result = AsinLut[index];
             if (flag)
                 result = -result;
             return result;
@@ -101,7 +103,9 @@
                 value = -value;
             }
 
-            long result = -AsinLut[value];
+            var index = (int)System.Math.Min(value, AsinLut.Length - 1);
+
+            long result = -AsinLut[index];
             if (flag)
                 result = -result;
 
@@ -129,7 +133,7 @@
                 sValue >>= 2;
             }
 
-            long index = (sValue - ONE) >> 2;
+            int index = (int)(sValue - ONE) >> 2;
             sValue = (SqrtLut[index] + ONE) << count;
             if (lessThanOne) sValue >>= FRACTIONAL_PLACES_SQRT;
             return sValue;

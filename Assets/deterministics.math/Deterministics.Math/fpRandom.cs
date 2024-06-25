@@ -17,6 +17,11 @@ namespace Deterministics.Math {
         public fpRandom(uint seed)
         {
             state = seed;
+            if (state == 0)
+            {
+                throw new System.ArgumentException("Seed must be non-zero");
+            }
+
             NextState();
         }
 
@@ -24,7 +29,7 @@ namespace Deterministics.Math {
         /// Seed must be non-zero
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void SetState(uint seed)
+        public void InitState(uint seed = 1851936439u)
         {
             state = seed;
             NextState();

@@ -14,7 +14,7 @@ using System.Diagnostics;
 [System.Serializable]
 [StructLayout(LayoutKind.Explicit)]
 [Unity.IL2CPP.CompilerServices.Il2CppEagerStaticClassConstruction]
-public struct fp : IEquatable<fp>, IComparable<fp>
+public partial struct fp : IEquatable<fp>, IComparable<fp>
 {
     private static readonly fp _atan2Number1 = new fp(-883);
     private static readonly fp _atan2Number2 = new fp(3767);
@@ -30,7 +30,23 @@ public struct fp : IEquatable<fp>, IComparable<fp>
     [FieldOffset(0)]
     public long RawValue;
     #region 静态常量
+    public static readonly fp _1000 = 1000;
+    public static readonly fp _100 = 100;
+    public static readonly fp _10000 = 10000;
     public static readonly fp _0_9995 = Create(0, 9995);
+    public static readonly fp _1_50 = Create(1, 5000);
+    public static readonly fp _2_50 = Create(2, 5000);
+    public static readonly fp _0_50 = Create(0, 5000);
+    public static readonly fp _0_05 = Create(0, 500);
+    public static readonly fp _0_001 = Create(0, 10);
+    public static readonly fp _0_01 = Create(0, 100);
+    public static readonly fp _0_1 = Create(0, 1000);
+    public static readonly fp _0_2 = Create(0, 2000);
+    public static readonly fp PI2 = new fp(RawPiTimes2Long);
+    public static readonly fp _1_414 = Create(1, 4140);
+    public static readonly fp _5_00 = Create(5, 0);
+    public static readonly fp _0_60 = Create(0, 6000);
+
     //public static readonly decimal Precision = (decimal)MinNormal;
     //public static readonly number one = new number(ONE);
     //public static readonly number zero = new number();
@@ -50,6 +66,7 @@ public struct fp : IEquatable<fp>, IComparable<fp>
     //public static readonly number MaxInteger = new number(MaxValue.RawValue & IntegerMask);
 
     readonly static fp one_div_pi2 = FromRaw(OneDivPi2Long);
+    public static readonly fp Epsilon = FromRaw(1);
 
     //以上写法在导出IL2CPP代码时会导出IL2CPP_RUNTIME_CLASS_INIT运行时代理，导致性能下降；因而改用以下写法
     public unsafe static fp MinNormal
@@ -233,10 +250,17 @@ public struct fp : IEquatable<fp>, IComparable<fp>
     const long _0_25Const = ONE >> 2;
     const long FracMask = ONE - 1L;//小数部分
     const long IntegerMask = ~FracMask;//整数部分
+    const long MAX_OPT_NUM = (long)1 << 46;  // 一共63位
+    const long MIN_OPT_NUM = -((long)1 << 46);
 
     internal fp(long rawValue)
     {
         RawValue = rawValue;
+    }
+
+    public fp(int invalue, int fraction)
+    {
+        RawValue = Create(invalue, fraction).RawValue;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -258,15 +282,106 @@ public struct fp : IEquatable<fp>, IComparable<fp>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static fp operator *(fp x, fp y)
     {
-        x.RawValue = (x.RawValue * y.RawValue) >> FRACTIONAL_PLACES;
+        #if UNITY_EDITOR
+        checked
+        {
+            // try{
+        #endif
+
+            x.RawValue = (x.RawValue * y.RawValue) >> FRACTIONAL_PLACES;
+
+        #if UNITY_EDITOR
+            // }
+            // catch(Exception e)
+            // {
+            //     throw new Exception($"乘法溢出{x} {y}");
+            // }
+        }
+        #endif
         return x;
     }
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static fp MulStrict(fp xFp, fp yFp)
+    {
+        #if UNITY_EDITOR
+        checked
+        {
+            //try{
+        #endif
+
+        var x = xFp.RawValue;
+        var y = yFp.RawValue;
+
+        var lx = x >> FRACTIONAL_PLACES;
+        var fx = x & FracMask;
+        var ly = y >> FRACTIONAL_PLACES;
+        var fy = y & FracMask;
+        long v1 = (lx * ly) << FRACTIONAL_PLACES;
+        long v2 = lx * fy;
+        long v3 = fx * ly;
+        long v4 = (fx * fy) >> FRACTIONAL_PLACES;
+        xFp.RawValue = v1 + v2 + v3 + v4;
+
+        #if UNITY_EDITOR
+            // }
+            // catch(Exception e)
+            // {
+            //     throw new Exception($"严谨乘法溢出{xFp} {yFp}");
+            // }
+        }
+        #endif
+
+        return xFp;
+    }
+
+    public static fp MulStrict(fp xFp, fp yFp, fp zFp)
+    {
+        var middleValue = MulStrict(xFp, yFp);
+        return MulStrict(middleValue, zFp);
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static fp operator /(fp x, fp y)
     {
+        #if UNITY_EDITOR
+        if(x.RawValue <= MIN_OPT_NUM || x.RawValue >= MAX_OPT_NUM)
+        {
+            throw new Exception($"除法的范围出错 {x} {y}");
+        }
+        #endif
+
         x.RawValue = (x.RawValue << FRACTIONAL_PLACES) / y.RawValue;
         return x;
     }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static fp SafeDivide(fp x, fp y) // 不存在溢出
+    {
+        if(Math.Abs(x.RawValue) >= MAX_OPT_NUM)
+        {
+            if(Math.Abs(y.RawValue) >= ONE)
+            {
+                x = x >> FRACTIONAL_PLACES;
+                y = y >> FRACTIONAL_PLACES;
+            }
+            else
+            {
+                x.RawValue = x.RawValue / y.RawValue;
+                y.RawValue = 1;
+
+                #if UNITY_EDITOR
+                if(Math.Abs(x.RawValue) >= MAX_OPT_NUM)
+                {
+                    throw new Exception($"SafeDivide的范围溢出 {x} {y}");
+                }
+                #endif
+            }
+        }
+
+        x.RawValue = (x.RawValue << FRACTIONAL_PLACES) / y.RawValue;
+        return x;
+    }
+
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static fp operator +(fp x, int y)
     {
@@ -295,13 +410,45 @@ public struct fp : IEquatable<fp>, IComparable<fp>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static fp operator *(fp x, int y)
     {
+        #if UNITY_EDITOR
+        checked
+        {
+            // try{
+        #endif
+
         x.RawValue *= y;
+
+        #if UNITY_EDITOR
+            // }
+            // catch(Exception e)
+            // {
+            //     throw new Exception($"乘法溢出{x} {y}");
+            // }
+        }
+        #endif
+
         return x;
     }
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static fp operator *(int x, fp y)
     {
-        y.RawValue *= x;
+        #if UNITY_EDITOR
+        checked
+        {
+            // try{
+        #endif
+
+            y.RawValue *= x;
+
+        #if UNITY_EDITOR
+            // }
+            // catch(Exception e)
+            // {
+            //     throw new Exception($"乘法溢出{x} {y}");
+            // }
+        }
+        #endif
+
         return y;
     }
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -480,8 +627,6 @@ public struct fp : IEquatable<fp>, IComparable<fp>
 
     #region Equals、CompareTo、GetHashCode
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public override bool Equals(object obj) => obj is fp && RawValue == ((fp)obj).RawValue;
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public bool Equals(fp other) => RawValue == other.RawValue;
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public int CompareTo(fp other) => RawValue.CompareTo(other.RawValue);
@@ -507,6 +652,14 @@ public struct fp : IEquatable<fp>, IComparable<fp>
         if (RawValue == PositiveInfinity.RawValue) return "Infinity";
         if (RawValue == NegativeInfinity.RawValue) return "-Infinity";
         return ((float)this).ToString(format, formatProvider);
+    }
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public string ToString(string format)
+    {
+        if (RawValue == NaN.RawValue) return "NaN";
+        if (RawValue == PositiveInfinity.RawValue) return "Infinity";
+        if (RawValue == NegativeInfinity.RawValue) return "-Infinity";
+        return ((float)this).ToString(format);
     }
 #if Debug || DEBUG
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -551,6 +704,23 @@ public struct fp : IEquatable<fp>, IComparable<fp>
         x.RawValue = sign * ((x.RawValue + HALF) & IntegerMask);
         return x;
     }
+
+    public static int RoundToInt(fp x)
+    {
+        var floorValue = Floor(x);
+        var ceilValue = Ceiling(x);
+
+        var nearFloor = x - floorValue < ceilValue - x;
+        if(nearFloor)
+        {
+            return (int)floorValue;
+        }
+        else
+        {
+            return (int)ceilValue;
+        }
+    }
+
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static fp Truncate(fp x)
     {
@@ -902,11 +1072,25 @@ public struct fp : IEquatable<fp>, IComparable<fp>
         return new fp(){ RawValue = v };    
     }
 
+    [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+    public static explicit operator fp(float v) { return fp.ConvertFrom(v); }
+    [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+    public static explicit operator int(fp v) { return (int)(v.RawValue / ONE); }
+
+    [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+    public static implicit operator Unity.Mathematics.float3(fp v)     { return new Unity.Mathematics.float3(v, v, v); }
+
     public static fp Parse(string value)
     {
         float x = float.Parse(value);
 
         var intValue = (long)Math.Round(x * 10000);
         return CreateByDivisor(intValue, 10000);
+    }
+
+    public static fp Parse(string value, int digit)
+    {
+        var x = int.Parse(value);
+        return fp.CreateByDivisor(x, digit);
     }
 }

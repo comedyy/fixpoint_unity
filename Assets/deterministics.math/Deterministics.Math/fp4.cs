@@ -3818,7 +3818,6 @@ namespace Deterministics.Math
         /// <returns>float4 result of the componentwise bitwise negation.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp4 operator ~ (fp4 value) { return new fp4 (~value.x, ~value.y, ~value.z, ~value.w); }
-
     }
 
     public static partial class fpMath

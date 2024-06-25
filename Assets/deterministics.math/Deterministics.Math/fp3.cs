@@ -31,7 +31,6 @@ namespace Deterministics.Math
         /// <summary>float3 zero value.</summary>
         public static readonly fp3 zero;
         public static readonly fp3 one = new fp3(fp.one, fp.one, fp.one);
-        
 
         /// <summary>Shorthand for writing float3(1, 0, 0).</summary>
         public static fp3 right
@@ -219,7 +218,7 @@ namespace Deterministics.Math
         /// <param name="v">int to convert to float3</param>
         /// <returns>Converted value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator fp3(int v) { return new fp3(v); }
+        public static implicit operator fp3(int v) { return new fp3(v); }
 
         /// <summary>Explicitly converts a Unity.Mathematics.int3 vector to a float3 vector by componentwise conversion.</summary>
         /// <param name="v">Unity.Mathematics.int3 to convert to float3</param>
@@ -1680,7 +1679,6 @@ namespace Deterministics.Math
                 z = v.z;
             }
         }
-
     }
 
     public static partial class fpMath

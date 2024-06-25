@@ -43,6 +43,15 @@ namespace Deterministics.Math
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp min(fp x, fp y) { return x <= y ? x : y; }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int min(int x, int y) { return x <= y ? x : y; }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static long min(long x, long y) { return x <= y ? x : y; }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static uint min(uint x, uint y) { return x <= y ? x : y; }
+
         /// <summary>Returns the componentwise minimum of two float2 vectors.</summary>
         /// <param name="x">The first input value.</param>
         /// <param name="y">The second input value.</param>
@@ -70,6 +79,9 @@ namespace Deterministics.Math
         /// <returns>The maximum of the two input values.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp max(fp x, fp y) { return x >= y ? x : y; }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int max(int x, int y) { return x >= y ? x : y; }
 
         /// <summary>Returns the componentwise maximum of two float2 vectors.</summary>
         /// <param name="x">The first input value.</param>
@@ -720,6 +732,13 @@ namespace Deterministics.Math
         /// <returns>The round to nearest integral value of the input.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fp round(fp x) { return fp.Round(x); }
+
+        /// <summary>Returns the result of rounding a number value to the nearest integral value.</summary>
+        /// <param name="x">Input value.</param>
+        /// <returns>The round to nearest integral value of the input.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int roundToInt(fp x) { return fp.RoundToInt(x); }
+
 
         /// <summary>Returns the result of rounding each component of a float2 vector value to the nearest integral value.</summary>
         /// <param name="x">Input value.</param>
@@ -1968,6 +1987,11 @@ namespace Deterministics.Math
         public static bool Approximately(fp a, float b, float toleranceRate = 0.001f)
         {
             return Approximately(b, a, toleranceRate);
+        }
+
+        public static int asint(fp a)
+        {
+            return a.GetHashCode();
         }
     }
 }

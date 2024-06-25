@@ -460,7 +460,6 @@ namespace Deterministics.Math
         /// <param name="xyz">euler angles in radians</param>
         /// <param name="order">rotate order</param>
         /// <returns>quaternion</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fpQuaternion Euler(fp3 xyz, RotationOrder order = RotationOrder.ZXY)
         {
             switch(order)
@@ -656,7 +655,6 @@ namespace Deterministics.Math
         /// <param name="forward">forward vector</param>
         /// <param name="upwards">upwards vector</param>
         /// <returns>quaternion</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fpQuaternion LookRotation(fp3 forward, fp3 upwards)
         {
             fp3 t = normalize(cross(upwards, forward));
@@ -669,7 +667,6 @@ namespace Deterministics.Math
         /// <param name="forward">forward vector</param>
         /// <param name="upwards">upwards vector</param>
         /// <returns>quaternion</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fpQuaternion LookRotationSafe(fp3 forward, fp3 upwards)
         {
             fp forwardLengthSq = dot(forward, forward);
@@ -720,7 +717,6 @@ namespace Deterministics.Math
         /// <param name="q2">quaternion b</param>
         /// <param name="t">coefficient</param>
         /// <returns>quaternion</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static fpQuaternion SlerpUnclamped(fpQuaternion q1, fpQuaternion q2, fp t)
         {
             fp dt = Dot(q1, q2);
@@ -878,7 +874,6 @@ namespace Deterministics.Math
         /// <param name="format">A numeric format string.</param>
         /// <param name="formatProvider">An object that specifies culture-specific formatting.</param>
         /// <returns>the formatted string</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string format, IFormatProvider formatProvider)
         {
             bool flag = string.IsNullOrEmpty(format);
@@ -897,7 +892,6 @@ namespace Deterministics.Math
         /// get a formatted string of the quaternion.
         /// </summary>
         /// <returns>the formatted string</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString() => this.ToString(null, CultureInfo.InvariantCulture.NumberFormat);
 
         /// <summary>

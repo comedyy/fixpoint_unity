@@ -1,5 +1,11 @@
 namespace Deterministics.Math {
     public static partial class fixlut {
+ #if USE_BURST
+        class SinCosPointerType{}
+        public unsafe static readonly Unity.Burst.SharedStatic<LutAutoLoad.LutPointer<int>> sinCosLut 
+            = Unity.Burst.SharedStatic<LutAutoLoad.LutPointer<int>>.GetOrCreate<LutAutoLoad.LutPointer<int>, SinCosPointerType>();
+        public static LutAutoLoad.LutPointer<int> SinCosLut => sinCosLut.Data;
+#else
         public static readonly int[] SinCosLut = {
             0, 65536, 804, 65531, 1608, 65516, 2412, 65492, 3216, 65457,
             4019, 65413, 4821, 65358, 5623, 65294, 6424, 65220, 7224, 65137,
@@ -105,5 +111,6 @@ namespace Deterministics.Math {
             -5623, 65294, -4821, 65358, -4019, 65413, -3216, 65457, -2412, 65492,
             -1608, 65516, -804, 65531, 0, 65536
         };
+#endif
     }
 }

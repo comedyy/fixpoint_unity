@@ -1,5 +1,11 @@
 namespace Deterministics.Math {
     public static partial class fixlut {
+ #if USE_BURST
+        class TanPointerType{}
+        public unsafe static readonly Unity.Burst.SharedStatic<LutAutoLoad.LutPointer<int>> tanLut 
+            = Unity.Burst.SharedStatic<LutAutoLoad.LutPointer<int>>.GetOrCreate<LutAutoLoad.LutPointer<int>, TanPointerType>();
+        public static LutAutoLoad.LutPointer<int> TanLut => tanLut.Data;
+#else
         public static readonly int[] TanLut = {
             0, 804, 1609, 2414, 3220, 4026, 4834, 5644, 6455, 7268,
             8083, 8901, 9721, 10545, 11372, 12202, 13036, 13874, 14717, 15564,
@@ -54,5 +60,6 @@ namespace Deterministics.Math {
             -9721, -8901, -8083, -7268, -6455, -5644, -4834, -4026, -3220, -2414,
             -1609, -804, 0
         };
+#endif
     }
 }

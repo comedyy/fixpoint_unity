@@ -2,6 +2,12 @@ using System;
 
 namespace Deterministics.Math {
     public static partial class fixlut {
+#if USE_BURST
+        class AsinPointerType{}
+        public unsafe static readonly Unity.Burst.SharedStatic<LutAutoLoad.LutPointer<int>> asinLut 
+            = Unity.Burst.SharedStatic<LutAutoLoad.LutPointer<int>>.GetOrCreate<LutAutoLoad.LutPointer<int>, AsinPointerType>();
+        public static LutAutoLoad.LutPointer<int> AsinLut => asinLut.Data;
+#else
         public static readonly int[] AsinLut = {
             0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
             10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
@@ -6558,5 +6564,7 @@ namespace Deterministics.Math {
             101496, 101542, 101589, 101638, 101690, 101743, 101799, 101858, 101920, 101986,
             102057, 102134, 102220, 102317, 102432, 102582, 102944
         };
+#endif
+
     }
 }

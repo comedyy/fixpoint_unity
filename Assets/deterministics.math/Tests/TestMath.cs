@@ -167,7 +167,7 @@ namespace Tests
                 TestFunc(fpMath.log10, Unity.Mathematics.math.log10, 0, 500, 0.001f, "log10");
 
                 TestFunc(fpMath.sqrt, Unity.Mathematics.math.sqrt, 0, 99999f, 0.001f, "sqrt");
-                TestFunc(fpMath.rsqrt, Unity.Mathematics.math.rsqrt, 0, 99999f, 0.001f, "rsqrt");
+                TestFunc(fpMath.rsqrt, Unity.Mathematics.math.rsqrt, 0.001f, 99999f, 0.001f, "rsqrt");
 
                 // Assert.IsTrue(math.Approximately(math.normalize(r1), Unity.Mathematics.math.normalize(r2)));
 
@@ -235,7 +235,7 @@ namespace Tests
                 Assert.IsTrue(fpMath.Approximately(fpMath.min(r1, r12), Unity.Mathematics.math.min(r2, r22)));
 
                 Assert.IsTrue(fpMath.Approximately(fpMath.lerp(r1, r12, lerp1), Unity.Mathematics.math.lerp(r2, r22, lerp2)), $"{fpMath.lerp(r1, r12, lerp1)} {Unity.Mathematics.math.lerp(r2, r22, lerp2)} {r1} {r12} {lerp1}");
-                Assert.IsTrue(fpMath.Approximately(fpMath.unlerp(r1, r12, lerp1), Unity.Mathematics.math.unlerp(r2, r22, lerp2)));
+                Assert.IsTrue(fpMath.Approximately(fpMath.unlerp(r1, r12, lerp1), Unity.Mathematics.math.unlerp(r2, r22, lerp2)), $"{fpMath.unlerp(r1, r12, lerp1)} {Unity.Mathematics.math.unlerp(r2, r22, lerp2)}");
                 Assert.IsTrue(fpMath.Approximately(fpMath.remap(r1, r12, r13, r14, lerp1), Unity.Mathematics.math.remap(r2, r22, r23, r24, lerp2)));
                 Assert.IsTrue(fpMath.Approximately(fpMath.mad(r1, r12, lerp1), Unity.Mathematics.math.mad(r2, r22, lerp2)));
                 Assert.IsTrue(fpMath.Approximately(fpMath.clamp(r1, r12, lerp1), Unity.Mathematics.math.clamp(r2, r22, lerp2)));

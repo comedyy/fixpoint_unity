@@ -1,5 +1,14 @@
+using System.Runtime.CompilerServices;
+
 namespace Deterministics.Math {
     public static partial class fixlut {
+ #if USE_BURST
+        class SqrtPointerType{}
+        public unsafe static readonly Unity.Burst.SharedStatic<LutAutoLoad.LutPointer<ushort>> sqrtLut 
+            = Unity.Burst.SharedStatic<LutAutoLoad.LutPointer<ushort>>.GetOrCreate<LutAutoLoad.LutPointer<ushort>, SqrtPointerType>();
+
+        public static LutAutoLoad.LutPointer<ushort> SqrtLut => sqrtLut.Data;
+#else
         public static readonly ushort[] SqrtLut = {
             0,2,4,6,8,10,12,14,16,18,
             20,22,23,25,27,29,31,33,35,37,
@@ -4918,5 +4927,6 @@ namespace Deterministics.Math {
             65524,65525,65526,65527,65528,65529,65530,65531,65532,65533,
             65534,65535
         };
+#endif
     }
 }
