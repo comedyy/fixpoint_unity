@@ -1037,7 +1037,7 @@ public partial struct fp : IEquatable<fp>, IComparable<fp>
     }
     #endregion
 
-    public static fp ConvertFrom(float f)
+    static fp ConvertFrom(float f)
     {
         return new fp(){RawValue = (long)(Math.Round(f * ONE))};
     }

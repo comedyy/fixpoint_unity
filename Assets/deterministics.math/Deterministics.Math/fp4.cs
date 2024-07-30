@@ -3718,7 +3718,7 @@ namespace Deterministics.Math
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString()
         {
-            return string.Format("float4({0}, {1}, {2}, {3})", x, y, z, w);
+            return string.Format("fp4({0}, {1}, {2}, {3})", x, y, z, w);
         }
 
         /// <summary>Returns a string representation of the float4 using a specified format and culture-specific format information.</summary>

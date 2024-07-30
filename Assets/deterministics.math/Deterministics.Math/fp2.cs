@@ -760,7 +760,7 @@ namespace Deterministics.Math
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString()
         {
-            return string.Format("float2({0}, {1})", x, y);
+            return string.Format("fp2({0}, {1})", x, y);
         }
 
         /// <summary>Returns a string representation of the float2 using a specified format and culture-specific format information.</summary>
